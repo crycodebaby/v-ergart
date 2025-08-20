@@ -42,7 +42,7 @@ const services: { title: string; description: string; icon: LucideIcon }[] = [
   {
     title: "Türen- und Fensterbauer",
     description:
-      "Hochwertige Bauelemente der Firma Höning aus Deutscher Wertarbeit - Für jeden Wunsch nach Sicherheit.",
+      "Hochwertige Bauelemente der Firma Höning aus Deutscher Wertarbeit - Für jeden Wunsch nach Sicherheit und Design.",
     icon: Construction,
   },
   {
