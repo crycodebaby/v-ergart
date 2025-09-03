@@ -2,11 +2,14 @@
 import {
   FeatureGallery,
   FeatureGalleryProps,
-} from "@/components/FeatureGallery"; // <-- Prop-Typ importieren
+} from "@/components/FeatureGallery";
 import ReferenzenHero from "@/components/ReferenzenHero";
 import CTA from "@/components/CTA";
+import { ProcessStepper } from "@/components/ProcessStepper";
+import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
+import PartnerSection from "@/components/PartnerSection";
 
-// KORREKTUR: Wir sagen TypeScript, dass dieses Array dem Bauplan entspricht
+// Daten für die Feature-Galerien
 const fensterFeatures: FeatureGalleryProps[] = [
   {
     galleryImages: [
@@ -117,6 +120,9 @@ export default function FensterPage() {
       {fensterFeatures.map((feature) => (
         <FeatureGallery key={feature.title} {...feature} />
       ))}
+      <ProcessStepper />
+      <BeforeAfterSlider />
+      <PartnerSection />
       <CTA />
     </>
   );

@@ -1,20 +1,23 @@
 // src/app/leistungen/page.tsx
-import LeistungenHero from "@/components/LeistungenHero";
-import PartnerSection from "@/components/PartnerSection";
-import ProductShowcase from "@/components/ProductShowcase";
-import DoorCarousel from "@/components/DoorCarousel"; // <-- IMPORT
-import ClassicServices from "@/components/ClassicServices";
+import ReferenzenHero from "@/components/ReferenzenHero";
+import { TerrassenFensterSlider } from "@/components/TerrassenFensterSlider";
+import { HoeningShowroom } from "@/components/HoeningShowroom";
 import CTA from "@/components/CTA";
+import { LeistungenContent } from "@/components/LeistungenContent"; // Importiere die neue Client-Komponente
 
 export default function LeistungenPage() {
-    return (
-        <>
-            <LeistungenHero />
-            <PartnerSection />
-            <ProductShowcase />
-            <DoorCarousel /> {/* <-- ADDED HERE */}
-            <ClassicServices />
-            <CTA />
-        </>
-    );
+  return (
+    <>
+      <ReferenzenHero
+        title="Ihre Projekte, unsere Expertise"
+        description="Entdecken Sie die Vielfalt unserer Leistungen, maßgeschneidert für Ihre Anforderungen – von der Beratung bis zur perfekten Umsetzung."
+        imageSrc="/bilder_ordner/referenzen/titelbild.webp"
+        heightClass="h-[70vh]"
+      />
+      <LeistungenContent /> {/* Hier binden wir die interaktiven Inhalte ein */}
+      <TerrassenFensterSlider />
+      <HoeningShowroom />
+      <CTA />
+    </>
+  );
 }
