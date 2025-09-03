@@ -14,7 +14,7 @@ export default function LeistungenPage() {
         imageSrc="/bilder_ordner/referenzen/titelbild.webp"
         heightClass="h-[70vh]"
       />
-      <LeistungenContent /> {/* Hier binden wir die interaktiven Inhalte ein */}
+      <LeistungenContent />
       <TerrassenFensterSlider />
       <HoeningShowroom />
       <CTA />
