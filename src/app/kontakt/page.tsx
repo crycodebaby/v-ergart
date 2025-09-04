@@ -1,87 +1,134 @@
 // src/app/kontakt/page.tsx
-import Image from "next/image";
-import { Mail, Phone, MapPin } from "lucide-react";
-import { ContactForm } from "@/components/ContactForm";
+import KontaktHero from "@/components/KontaktHero";
+import ContactForm from "@/components/ContactForm";
+import CalendlyButton from "@/components/CalendlyButton";
+import { ShieldCheck, Clock, MapPin, Phone, Mail, Star } from "lucide-react";
+import CTA from "@/components/CTA";
+import MapSection from "@/components/MapSection"; // falls vorhanden, sonst entfernen
 
 export default function KontaktPage() {
   return (
     <>
-      {/* Stufe 1: Der visuelle Einstieg */}
-      <section className="relative h-[40vh] flex items-center justify-center">
-        <Image
-          src="/bilder_ordner/office-ergart.webp"
-          alt="Büro und Zentrale von Alexander Ergart"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 text-center text-white px-4">
-          <h1 className="text-4xl md:text-6xl font-bold">
-            Nehmen Sie Kontakt auf
-          </h1>
-          <p className="mt-4 text-lg md:text-xl max-w-2xl mx-auto text-slate-200">
-            Wir sind bereit für Ihr Anliegen.
-          </p>
-        </div>
-      </section>
+      <KontaktHero />
 
-      {/* Stufe 2: Der Dialog-Bereich */}
-      <div className="bg-slate-50 dark:bg-zinc-900">
-        <div className="container mx-auto max-w-7xl px-4 py-16 lg:py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* Linke Spalte: Formular */}
-            <div>
+      <section className="bg-background">
+        <div className="container mx-auto px-4 py-12 lg:py-16 grid lg:grid-cols-3 gap-10">
+          {/* Formular */}
+          <div className="lg:col-span-2">
+            <div className="rounded-2xl border border-border p-6 md:p-8 bg-card shadow-sm">
+              <h2 className="text-2xl font-bold mb-2 text-foreground">
+                Schnellanfrage
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                Kurz beschreiben, worum es geht – wir melden uns
+                schnellstmöglich zurück.
+              </p>
               <ContactForm />
-            </div>
-
-            {/* Rechte Spalte: Persönliche Visitenkarte */}
-            <div className="space-y-8 lg:sticky lg:top-32">
-              <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg">
-                <Image
-                  src="/bilder_ordner/kontakt/team_ergart.webp"
-                  alt="Das Team von Alexander Ergart"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-foreground">
-                  Ihr direktes Team
-                </h2>
-                <p className="mt-2 text-muted-foreground">
-                  Für persönliche Anliegen oder eine schnelle Auskunft erreichen
-                  Sie uns auch direkt. Wir freuen uns auf Sie.
-                </p>
-              </div>
-              <div className="space-y-4 text-foreground">
+              <div className="mt-6 flex flex-wrap gap-3">
+                <CalendlyButton variant="outline" />
                 <a
                   href="tel:+4917666825889"
-                  className="flex items-center gap-4 group"
+                  className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent"
                 >
-                  <Phone className="text-brand-blue" size={20} />
-                  <span className="group-hover:text-brand-blue transition-colors">
-                    +49 176 668 25 889
-                  </span>
+                  <Phone size={18} /> Anrufen
                 </a>
                 <a
                   href="mailto:aergart@gmail.com"
-                  className="flex items-center gap-4 group"
+                  className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent"
                 >
-                  <Mail className="text-brand-blue" size={20} />
-                  <span className="group-hover:text-brand-blue transition-colors">
-                    aergart@gmail.com
-                  </span>
+                  <Mail size={18} /> E-Mail
                 </a>
-                <div className="flex items-center gap-4">
-                  <MapPin className="text-brand-blue" size={20} />
-                  <span>Further Straße 89B, 41462 Neuss</span>
-                </div>
               </div>
             </div>
           </div>
+
+          {/* Sidebar: Trust & Soforthilfe */}
+          <aside className="space-y-6 h-fit">
+            <div className="rounded-2xl border border-border p-6 bg-card shadow-sm">
+              <h3 className="text-lg font-bold mb-4">Darum Ergart</h3>
+              <ul className="space-y-3 text-sm text-muted-foreground">
+                <li className="flex items-start gap-3">
+                  <ShieldCheck className="text-brand-blue mt-0.5" size={18} />
+                  <span>
+                    <strong>Verbindlich & ehrlich:</strong> Feste Zusagen, klare
+                    Angebote.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Clock className="text-brand-blue mt-0.5" size={18} />
+                  <span>
+                    <strong>Schnelle Hilfe:</strong> Reaktionszeit i. d. R. &lt;
+                    24h.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <MapPin className="text-brand-blue mt-0.5" size={18} />
+                  <span>
+                    <strong>Neuss & Umgebung:</strong> regional & zuverlässig.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Star className="text-brand-blue mt-0.5" size={18} />
+                  <span>
+                    <strong>Saubere Arbeit:</strong> Wertarbeit, auf die man
+                    stolz sein kann.
+                  </span>
+                </li>
+              </ul>
+
+              <div className="mt-6">
+                <CalendlyButton
+                  label="Termin sofort wählen"
+                  className="w-full"
+                />
+                <p className="text-xs text-muted-foreground mt-2">
+                  Alternativ:{" "}
+                  <a href="tel:+4917666825889" className="underline">
+                    anrufen
+                  </a>{" "}
+                  oder{" "}
+                  <a href="mailto:aergart@gmail.com" className="underline">
+                    E-Mail
+                  </a>
+                  .
+                </p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-border p-6 bg-card shadow-sm">
+              <h3 className="text-lg font-bold mb-3">Öffnungszeiten</h3>
+              <ul className="text-sm text-muted-foreground space-y-1.5">
+                <li>Mo–Fr: 08:00 – 18:00 Uhr</li>
+                <li>Sa: nach Vereinbarung</li>
+              </ul>
+            </div>
+
+            <div className="rounded-2xl border border-border p-6 bg-card shadow-sm">
+              <h3 className="text-lg font-bold mb-3">Direktkontakt</h3>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <a
+                  href="tel:+4917666825889"
+                  className="flex items-center gap-2 hover:text-foreground"
+                >
+                  <Phone size={16} /> +49 176 668 25 889
+                </a>
+                <a
+                  href="mailto:aergart@gmail.com"
+                  className="flex items-center gap-2 hover:text-foreground"
+                >
+                  <Mail size={16} /> aergart@gmail.com
+                </a>
+              </div>
+            </div>
+          </aside>
         </div>
-      </div>
+      </section>
+
+      {/* Karte / Servicegebiet – falls du das Modul nutzt */}
+      <MapSection />
+
+      {/* Finaler Catch-All-CTA */}
+      <CTA />
     </>
   );
 }

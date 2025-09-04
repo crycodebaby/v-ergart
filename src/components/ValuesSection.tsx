@@ -2,91 +2,87 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ShieldCheck, Recycle, Scale } from "lucide-react"; // KORREKTUR: 'Scaling' zu 'Scale'
+import { ShieldCheck, Recycle, Scale } from "lucide-react";
 import React, { useRef } from "react";
+import { ueberUnsValues } from "@/lib/ueber-uns-data";
 
-const values = [
-    { icon: ShieldCheck, title: "Zuverlässigkeit", text: "Termine, die wir einhalten. Ergebnisse, die überzeugen." },
-    { icon: Recycle, title: "Nachhaltigkeit", text: "Ressourcenschonend arbeiten, für Sie und für die Umwelt." },
-    { icon: Scale, title: "Individuelle Lösungen", text: "Kein Projekt ist wie das andere. Wir hören zu und setzen Ihre Wünsche um." }
-];
+const iconMap = { ShieldCheck, Recycle, Scale } as const;
 
-// EINE NEUE, WIEDERVERWENDBARE TILT-CARD KOMPONENTE
 const TiltCard = ({ children }: { children: React.ReactNode }) => {
-    const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 280, damping: 22, mass: 0.5 });
+  const sy = useSpring(my, { stiffness: 280, damping: 22, mass: 0.5 });
+  const rotateX = useTransform(sy, [-0.5, 0.5], ["-10deg", "10deg"]);
+  const rotateY = useTransform(sx, [-0.5, 0.5], ["10deg", "-10deg"]);
 
-    // Hooks, um die Mausposition zu verfolgen
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
+  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    const r = ref.current.getBoundingClientRect();
+    mx.set((e.clientX - r.left - r.width / 2) / (r.width / 2));
+    my.set((e.clientY - r.top - r.height / 2) / (r.height / 2));
+  };
 
-    // Hooks, um die Bewegung "weicher" zu machen
-    const smoothMouseX = useSpring(mouseX, { stiffness: 300, damping: 20, mass: 0.5 });
-    const smoothMouseY = useSpring(mouseY, { stiffness: 300, damping: 20, mass: 0.5 });
+  const reset = () => {
+    mx.set(0);
+    my.set(0);
+  };
 
-    // Transformation der Mausposition in Rotationswerte
-    const rotateX = useTransform(smoothMouseY, [-0.5, 0.5], ["-10deg", "10deg"]);
-    const rotateY = useTransform(smoothMouseX, [-0.5, 0.5], ["10deg", "-10deg"]);
-    
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!ref.current) return;
-        const { left, top, width, height } = ref.current.getBoundingClientRect();
-        // Berechnet die Mausposition relativ zur Mitte der Karte (-0.5 bis 0.5)
-        mouseX.set((e.clientX - left - width / 2) / (width / 2));
-        mouseY.set((e.clientY - top - height / 2) / (height / 2));
-    };
-
-    const handleMouseLeave = () => {
-        mouseX.set(0);
-        mouseY.set(0);
-    };
-
-    return (
-        <motion.div
-            ref={ref}
-            style={{
-                transformStyle: "preserve-3d",
-                rotateX,
-                rotateY,
-            }}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            className="p-8 rounded-2xl bg-white/50 dark:bg-black/20 backdrop-blur-lg border border-white/20 dark:border-white/10 shadow-lg h-full"
-        >
-            <div style={{ transform: "translateZ(50px)" }}> {/* Dieser Div hebt den Inhalt leicht an für mehr 3D-Tiefe */}
-                {children}
-            </div>
-        </motion.div>
-    );
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={reset}
+      style={{ transformStyle: "preserve-3d", rotateX, rotateY }}
+      className="p-8 rounded-2xl bg-white/60 dark:bg-white/[0.06] backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-lg h-full"
+    >
+      <div style={{ transform: "translateZ(50px)" }}>{children}</div>
+    </motion.div>
+  );
 };
 
-// DIE HAUPTKOMPONENTE, JETZT VIEL SAUBERER
 const ValuesSection = () => {
-    return (
-        <section className="py-24 bg-slate-50 dark:bg-zinc-900 [perspective:800px]">
-            <div className="container mx-auto px-4 text-center">
-                <h2 className="text-3xl md:text-4xl font-bold mb-16 text-foreground">Worauf Sie sich verlassen können</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {values.map((value, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.5 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                        >
-                            <TiltCard>
-                                <div className="inline-flex items-center justify-center h-16 w-16 bg-brand-blue/10 rounded-full mb-6">
-                                    <value.icon className="text-brand-blue" size={32} />
-                                </div>
-                                <h3 className="text-xl font-bold mb-3 text-foreground">{value.title}</h3>
-                                <p className="text-muted-foreground">{value.text}</p>
-                            </TiltCard>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+  return (
+    <section className="py-24 relative [perspective:800px]">
+      {/* edles Background-Pattern */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 to-white dark:from-zinc-900/60 dark:to-background" />
+        <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(ellipse_at_top,theme(colors.brand-blue/50)_0%,transparent_50%)]" />
+      </div>
+
+      <div className="container mx-auto px-4 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-16 text-foreground">
+          Worauf Sie sich verlassen können
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {ueberUnsValues.map((v, idx) => {
+            const Icon = iconMap[v.icon];
+            return (
+              <motion.div
+                key={v.title}
+                initial={{ opacity: 0, y: 36 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+              >
+                <TiltCard>
+                  <div className="inline-flex items-center justify-center h-16 w-16 bg-brand-blue/10 rounded-full mb-6">
+                    <Icon className="text-brand-blue" size={32} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-foreground">
+                    {v.title}
+                  </h3>
+                  <p className="text-muted-foreground">{v.text}</p>
+                </TiltCard>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default ValuesSection;

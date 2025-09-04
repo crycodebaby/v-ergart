@@ -1,255 +1,157 @@
-// src/components/ContactForm.tsx
 "use client";
 
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { Send, AlertTriangle, Loader2 } from "lucide-react";
-import { Button } from "./ui/button";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 
-type FormInputs = {
+type FormValues = {
   name: string;
   email: string;
+  phone?: string;
+  subject?: string;
   message: string;
-  // Honeypot (sollte leer bleiben)
-  hp?: string;
+  website?: string; // Honeypot (hidden)
 };
 
-export const ContactForm = () => {
-  const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const errorRegionRef = useRef<HTMLDivElement | null>(null);
+export default function ContactForm() {
+  const { register, handleSubmit, reset, formState } = useForm<FormValues>();
+  const { errors } = formState;
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitSuccessful },
-    setFocus,
-  } = useForm<FormInputs>({
-    mode: "onSubmit",
-    reValidateMode: "onChange",
-  });
-
-  // Nach Submit-Fehler: Fokus ins Fehler-Region setzen
-  useEffect(() => {
-    if (submitError && errorRegionRef.current) {
-      errorRegionRef.current.focus();
-    }
-  }, [submitError]);
-
-  // Beim ersten Validierungsfehler automatisch zum Feld springen
-  const onError = () => {
-    const firstErrorName = (Object.keys(errors)[0] ?? "") as keyof FormInputs;
-    if (firstErrorName) setFocus(firstErrorName);
-  };
-
-  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    setIsSubmitting(true);
-    setSubmitError(null);
-
-    // Honeypot abfangen (Bots füllen das Feld)
-    if (data.hp && data.hp.trim().length > 0) {
-      setIsSubmitting(false);
-      return;
-    }
+  const onSubmit = async (values: FormValues) => {
+    setStatus("loading");
+    setErrorMsg("");
 
     try {
-      const response = await fetch("https://formspree.io/f/mvgqjwkw", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          message: data.message,
-          _subject: "Neue Nachricht über das Kontaktformular",
-          _source: "website-contact-form",
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
       });
 
-      if (response.ok) {
-        // Erfolgreich -> Danke-Seite
-        router.push("/danke");
-      } else {
-        // Versuche Formspree-Fehler auszulesen (falls vorhanden)
-        let errText = "Fehler beim Senden der Nachricht.";
-        try {
-          const json = await response.json();
-          if (json?.errors?.[0]?.message) errText = json.errors[0].message;
-        } catch {
-          /* ignore JSON parse errors */
-        }
-        throw new Error(errText);
+      const json = await res.json();
+
+      if (!res.ok || !json.ok) {
+        setStatus("error");
+        setErrorMsg(
+          json?.error || "Senden fehlgeschlagen. Bitte später erneut versuchen."
+        );
+        return;
       }
-    } catch (err: unknown) {
-      setSubmitError(
-        "Entschuldigung, es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
-      );
-    } finally {
-      setIsSubmitting(false);
+
+      setStatus("success");
+      reset();
+    } catch (e) {
+      setStatus("error");
+      setErrorMsg("Netzwerkfehler. Bitte später erneut versuchen.");
     }
   };
 
   return (
-    <div className="bg-background p-8 rounded-2xl shadow-lg border border-border/20">
-      <h2 className="text-2xl font-bold mb-6 text-foreground">
-        Schreiben Sie uns eine Nachricht
-      </h2>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      {/* Honeypot */}
+      <input
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        {...register("website")}
+        className="hidden"
+      />
 
-      <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
-        {/* Honeypot (für Bots sichtbar, für Nutzer unsichtbar) */}
-        <div className="absolute left-[-9999px] top-auto w-px h-px overflow-hidden">
-          <label htmlFor="company">Firma</label>
+      <div className="grid md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium mb-1">Name *</label>
           <input
-            id="company"
-            type="text"
-            tabIndex={-1}
-            autoComplete="off"
-            aria-hidden="true"
-            {...register("hp")}
+            {...register("name", { required: "Bitte Namen angeben." })}
+            className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-brand-blue"
+            placeholder="Max Mustermann"
+          />
+          {errors.name && (
+            <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">E-Mail *</label>
+          <input
+            type="email"
+            {...register("email", {
+              required: "Bitte E-Mail angeben.",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Ungültige E-Mail.",
+              },
+            })}
+            className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-brand-blue"
+            placeholder="beispiel@mail.de"
+          />
+          {errors.email && (
+            <p className="text-sm text-red-600 mt-1">{errors.email.message}</p>
+          )}
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium mb-1">Telefon</label>
+          <input
+            type="tel"
+            {...register("phone")}
+            className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-brand-blue"
+            placeholder="+49 …"
           />
         </div>
 
-        <div className="space-y-6">
-          {/* Name */}
-          <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-muted-foreground mb-1"
-            >
-              Name
-            </label>
-            <input
-              id="name"
-              type="text"
-              autoComplete="name"
-              aria-invalid={!!errors.name || undefined}
-              aria-describedby={errors.name ? "name-error" : undefined}
-              {...register("name", {
-                required: "Bitte geben Sie Ihren Namen an.",
-                minLength: {
-                  value: 2,
-                  message: "Der Name sollte mindestens 2 Zeichen lang sein.",
-                },
-              })}
-              className="w-full bg-secondary rounded-md border border-border/50 p-3 focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              required
-            />
-            {errors.name && (
-              <p id="name-error" className="text-red-500 text-sm mt-1">
-                {errors.name.message}
-              </p>
-            )}
-          </div>
-
-          {/* E-Mail */}
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-muted-foreground mb-1"
-            >
-              E-Mail
-            </label>
-            <input
-              id="email"
-              type="email"
-              autoComplete="email"
-              inputMode="email"
-              aria-invalid={!!errors.email || undefined}
-              aria-describedby={errors.email ? "email-error" : undefined}
-              {...register("email", {
-                required: "Bitte geben Sie Ihre E-Mail an.",
-                pattern: {
-                  value: /^\S+@\S+$/i,
-                  message: "Bitte geben Sie eine gültige E-Mail-Adresse an.",
-                },
-              })}
-              className="w-full bg-secondary rounded-md border border-border/50 p-3 focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              required
-            />
-            {errors.email && (
-              <p id="email-error" className="text-red-500 text-sm mt-1">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-
-          {/* Nachricht */}
-          <div>
-            <label
-              htmlFor="message"
-              className="block text-sm font-medium text-muted-foreground mb-1"
-            >
-              Ihre Nachricht
-            </label>
-            <textarea
-              id="message"
-              rows={5}
-              aria-invalid={!!errors.message || undefined}
-              aria-describedby={errors.message ? "message-error" : undefined}
-              {...register("message", {
-                required: "Bitte geben Sie eine Nachricht ein.",
-                minLength: {
-                  value: 10,
-                  message:
-                    "Die Nachricht sollte mindestens 10 Zeichen enthalten.",
-                },
-                maxLength: {
-                  value: 5000,
-                  message: "Die Nachricht ist zu lang.",
-                },
-              })}
-              className="w-full bg-secondary rounded-md border border-border/50 p-3 focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              required
-            />
-            {errors.message && (
-              <p id="message-error" className="text-red-500 text-sm mt-1">
-                {errors.message.message}
-              </p>
-            )}
-          </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Betreff</label>
+          <input
+            {...register("subject")}
+            className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-brand-blue"
+            placeholder="Worum geht es?"
+          />
         </div>
+      </div>
 
-        <Button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full mt-8 py-6 text-lg"
-        >
-          {isSubmitting ? (
-            <span className="inline-flex items-center">
-              <Loader2 className="mr-2 animate-spin" size={18} />
-              Wird gesendet...
-            </span>
-          ) : (
-            <>
-              Nachricht senden <Send className="ml-2" size={18} />
-            </>
-          )}
-        </Button>
-      </form>
-
-      {/* Fehlerbereich (nur bei Fehlversuch) */}
-      <AnimatePresence>
-        {submitError && (
-          <motion.div
-            role="alert"
-            tabIndex={-1}
-            ref={errorRegionRef}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="mt-4 flex items-center gap-2 p-3 rounded-md bg-red-500/10 text-red-700 dark:text-red-400 focus:outline-none"
-            aria-live="polite"
-          >
-            <AlertTriangle size={20} />
-            {submitError}
-          </motion.div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Nachricht *</label>
+        <textarea
+          rows={6}
+          {...register("message", {
+            required: "Bitte eine Nachricht schreiben.",
+          })}
+          className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-brand-blue"
+          placeholder="Beschreibe kurz dein Anliegen …"
+        />
+        {errors.message && (
+          <p className="text-sm text-red-600 mt-1">{errors.message.message}</p>
         )}
-      </AnimatePresence>
-    </div>
+      </div>
+
+      <div className="text-xs text-muted-foreground">
+        Mit dem Absenden akzeptieren Sie die Verarbeitung Ihrer Angaben zur
+        Beantwortung Ihrer Anfrage. Weitere Infos in der{" "}
+        <a href="/datenschutz" className="underline">
+          Datenschutzerklärung
+        </a>
+        .
+      </div>
+
+      <div className="flex items-center gap-3 pt-2">
+        <Button type="submit" disabled={status === "loading"}>
+          {status === "loading" ? "Wird gesendet…" : "Nachricht senden"}
+        </Button>
+        {status === "success" && (
+          <span className="text-sm text-emerald-600">
+            Vielen Dank! Wir melden uns zeitnah.
+          </span>
+        )}
+        {status === "error" && (
+          <span className="text-sm text-red-600">{errorMsg}</span>
+        )}
+      </div>
+    </form>
   );
-};
+}
