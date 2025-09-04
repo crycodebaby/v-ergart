@@ -4,7 +4,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Lightbulb, Gem, Verified } from "lucide-react";
-import { ProjectCarousel } from "./ProjectCarousel"; // Wir verwenden die Carousel wieder!
+import { ProjectCarousel } from "./ProjectCarousel";
 
 const showroomImages = [
   "/bilder_ordner/hoening/fenster/hoening-zentrale-besuch/fenster-ausstellung1.webp",

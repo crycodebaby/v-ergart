@@ -24,6 +24,7 @@ const navLinks = [
   { href: "/leistungen", label: "Leistungen" },
   { href: "/referenzen", label: "Referenzen" },
   { href: "/ueber-uns", label: "Über Uns" },
+  { href: "/karriere", label: "Karriere" },
   { href: "/kontakt", label: "Kontakt" },
 ];
 
