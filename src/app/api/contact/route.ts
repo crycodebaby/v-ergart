@@ -108,9 +108,9 @@ export async function POST(req: Request) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: FROM, // Tipp: eigene Domain in Resend verifizieren und z.B. kontakt@deine-domain.de nutzen
+      from: FROM,
       to: [TO],
-      reply_to: email, // damit du direkt auf den Absender antworten kannst
+      reply_to: email,
       subject,
       text: plain,
       html,
@@ -118,29 +118,31 @@ export async function POST(req: Request) {
   });
 
   if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
+    let detail: any = null;
+    try {
+      detail = await res.json();
+    } catch {}
+    // TEMP: gib den echten Fehler zurück (danach wieder entfernen!)
     return NextResponse.json(
-      { ok: false, error: "E-Mail-Versand fehlgeschlagen.", detail: err },
+      { ok: false, error: "Resend error", status: res.status, detail },
       { status: 500 }
     );
   }
 
-  return NextResponse.json({ ok: true });
-}
-
-// rudimentärer Escape
-function escapeHtml(str: string) {
-  return str.replace(
-    /[&<>"']/g,
-    (m) =>
-      ((
-        {
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#039;",
-        } as any
-      )[m])
-  );
+  // rudimentärer Escape
+  function escapeHtml(str: string) {
+    return str.replace(
+      /[&<>"']/g,
+      (m) =>
+        ((
+          {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;",
+          } as any
+        )[m])
+    );
+  }
 }
