@@ -1,128 +1,55 @@
 // src/app/fenster/page.tsx
-import {
-  FeatureGallery,
-  FeatureGalleryProps,
-} from "@/components/FeatureGallery";
+import { FeatureGallery } from "@/components/FeatureGallery";
 import FensterHero from "@/components/FensterHero";
 import CTA from "@/components/CTA";
 import { ProcessStepper } from "@/components/ProcessStepper";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
-import PartnerSection from "@/components/PartnerSection";
-
-// Daten für die Feature-Galerien
-const fensterFeatures: FeatureGalleryProps[] = [
-  {
-    galleryImages: [
-      {
-        src: "/bilder_ordner/hoening/fenster/fenster1.webp",
-        alt: "Modernes Haus mit großen Fensterfronten",
-      },
-      {
-        src: "/bilder_ordner/hoening/fenster/fenster4.webp",
-        alt: "Detailansicht eines eleganten, schwarzen Fensterrahmens",
-      },
-      {
-        src: "/bilder_ordner/hoening/fenster/kuechenfenster.webp",
-        alt: "Helle Küche mit großem Fenster",
-      },
-    ],
-    title: "Design & Licht: Fenster als Stilelement",
-    description:
-      "Moderne Fenster sind mehr als nur Glas – sie sind entscheidende Architekturelemente. Unsere Systeme mit schmalen Rahmen maximieren die Glasfläche, fluten Ihre Räume mit Tageslicht und verleihen Ihrer Fassade eine zeitlose Eleganz.",
-    features: [
-      {
-        icon: "Lightbulb",
-        text: "Klare Formsprache für eine geradlinige, moderne Architektur.",
-      },
-      {
-        icon: "Lightbulb",
-        text: "Bis zu 25 % mehr Tageslichteinfall durch schlanke Profile.",
-      },
-      {
-        icon: "Lightbulb",
-        text: "Auf Wunsch komplett verdeckt liegende Beschläge für eine makellose Ästhetik.",
-      },
-    ],
-  },
-  {
-    galleryImages: [
-      {
-        src: "/bilder_ordner/hoening/fenster/fenster2.webp",
-        alt: "Energieeffizientes Fenster in einem Wohnzimmer",
-      },
-      {
-        src: "/bilder_ordner/referenzen/gebaeudereinigung-privathaushalt-neuss-fenster.webp",
-        alt: "Professionelle Montage eines Fensterrahmens",
-      },
-      {
-        src: "/bilder_ordner/referenzen/reinigungsservice-neuss-fensterbau.webp",
-        alt: "Präzise Justierung eines Fensters",
-      },
-    ],
-    title: "Wärme & Energie: Spürbar Kosten senken",
-    description:
-      "In Zeiten steigender Energiepreise ist eine hervorragende Wärmedämmung wichtiger denn je. Unsere Fenster sind bereits im Standard passivhaustauglich und senken Ihre Heizkostenrechnung spürbar und nachhaltig.",
-    features: [
-      {
-        icon: "ThermometerSun",
-        text: "Exzellente U-Werte, die den Energieverbrauch erheblich reduzieren.",
-      },
-      {
-        icon: "ThermometerSun",
-        text: "Schützen Sie die Umwelt und sparen Sie pro Jahr bis zu 1.286 kg CO2 ein.",
-      },
-      {
-        icon: "ThermometerSun",
-        text: "Keine Chance für Kondenswasser und Schimmelbildung dank thermisch verbessertem Randverbund.",
-      },
-    ],
-    reverse: true,
-  },
-  {
-    galleryImages: [
-      {
-        src: "/bilder_ordner/hoening/fenster/fenster3.webp",
-        alt: "Detailaufnahme eines sicheren Fensterbeschlags",
-      },
-      {
-        src: "/bilder_ordner/referenzen/mehrere-fensterelemente-auf-anhaenger-festgeschnallt-sicherer-transport.webp",
-        alt: "Sauber montiertes Fenster in einem Privathaushalt",
-      },
-      {
-        src: "/bilder_ordner/hoening/fenster/reinigungsdienst-neuss-fensteranlagen.webp",
-        alt: "Große Fensteranlage in einem modernen Gebäude",
-      },
-    ],
-    title: "Sicherheit & Komfort: Sorgenfrei leben",
-    description:
-      "Fühlen Sie sich rundum sicher und geborgen. Unsere Fenster werden mit hochwertigen Sicherheitsbauteilen ausgestattet, die einen optimalen Widerstand gegen Einbruchsversuche bieten und gleichzeitig für himmlische Ruhe sorgen.",
-    features: [
-      {
-        icon: "ShieldCheck",
-        text: "Geprüfter Einbruchschutz bis zur hohen Widerstandsklasse RC2 nach DIN EN 1627.",
-      },
-      {
-        icon: "ShieldCheck",
-        text: "Robuste Schließbleche aus massivem Stahl für extreme Widerstandsfähigkeit.",
-      },
-      {
-        icon: "ShieldCheck",
-        text: "Effektiver Schallschutz für mehr Lebensqualität dank spezieller Schallschutzgläser.",
-      },
-    ],
-  },
-];
+import PartnerBrandSpotlight from "@/components/PartnerBrandSpotlight"; // NEUER IMPORT
+import PartnerBenefitsSplit from "@/components/PartnerBenefitsSplit"; // NEUER IMPORT
+import { fensterFeatures } from "@/lib/fenster-data"; // NEUER IMPORT-PFAD
 
 export default function FensterPage() {
   return (
     <>
       <FensterHero />
+
+      {/* Die 3 Feature-Galerien bleiben erhalten, sie liefern wertvolle Details. */}
       {fensterFeatures.map((feature) => (
         <FeatureGallery key={feature.title} {...feature} />
       ))}
+
+      {/* Der Spotlight stellt die Partnerschaft als zentrales Qualitätsmerkmal vor. */}
+      <PartnerBrandSpotlight
+        className="py-12 md:py-24"
+        title="Qualität bis ins Detail: Unsere Partnerschaft mit HÖNING"
+        subtitle="Deutsche Ingenieurskunst für Ihr Zuhause"
+        description="Wir überlassen nichts dem Zufall. Deshalb setzen wir bei Fenstern auf die kompromisslose Qualität von HÖNING. Jedes Element wird nach höchsten Standards gefertigt und von uns meisterhaft montiert."
+        ctaText="Beratungstermin vereinbaren"
+        ctaHref="/kontakt"
+        imageSrc="/bilder_ordner/hoening/fenster/hoening-zentrale-besuch/fenster-ausstellung7.webp"
+      />
+
       <ProcessStepper />
+
       <BeforeAfterSlider />
-      <PartnerSection />
+
+      {/* Der Benefits-Split liefert die konkreten Argumente, warum HÖNING die richtige Wahl ist. */}
+      <PartnerBenefitsSplit
+        className="py-12 md:py-24"
+        title="Ihre Vorteile auf einen Blick"
+        subtitle="Warum sich die Investition in HÖNING Fenster lohnt"
+        features={[
+          "Maximale Energieeffizienz senkt Ihre Heizkosten nachhaltig.",
+          "Zertifizierter Einbruchschutz für ein sicheres Gefühl.",
+          "Überlegener Schallschutz für mehr Ruhe und Entspannung.",
+          "Langlebige Materialien und präzise Verarbeitung für jahrzehntelange Freude.",
+          "Enorme Designvielfalt, die perfekt zu Ihrer Architektur passt.",
+        ]}
+        ctaText="Mehr technische Details"
+        ctaHref="https://www.hoening.de/produkte/kunststofffenster/systemuebersicht-pvc-fenster/"
+        imageSrc="/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterelement-kran.webp"
+      />
+
       <CTA />
     </>
   );

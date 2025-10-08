@@ -1,9 +1,7 @@
 // src/lib/ueber-uns-data.ts
-// 1) Hero-Bild: hier tauschen = überall aktualisiert
 export const ueberUnsHeroImage =
   "/bilder_ordner/ueberuns/firmenzentrale-weitaufnahme.webp";
 
-// 2) Timeline-Milestones – reihenfolge, texts & bilder zentral
 export const ueberUnsMilestones = [
   {
     year: "2018",
@@ -16,15 +14,26 @@ export const ueberUnsMilestones = [
     year: "2021",
     title: "Wachstum und Vertrauen in der Region",
     text: "Dank unzähliger erfolgreicher Projekte und dem wachsenden Vertrauen der Gemeinschaft konnte das Team erweitert werden. Wir wurden zu einer festen Größe für private und gewerbliche Kunden in der Region.",
-    image: "/bilder_ordner/ueberuns/teamfoto-vor-hauptzentrale-ergart.webp",
+    image: "/bilder_ordner/referenzen/der-hausmeister-profi-bauarbeiten.webp", // Ein besseres Bild für Wachstum
     align: "right" as const,
   },
   {
-    year: "Heute",
-    title: "Spezialisierung & Premium-Partnerschaft",
-    text: "Wir haben unsere Expertise vertieft und uns auf hochwertige Fenster- und Türenlösungen spezialisiert. Die Partnerschaft mit der Manufaktur Höning steht für unser Versprechen: Deutsche Wertarbeit und modernste Technik.",
+    year: "2023", // Konkretes Jahr statt "Heute"
+    title: "Vertiefung der Expertise",
+    text: "Wir haben unser Know-how gezielt ausgebaut und uns auf komplexe Sanierungen sowie hochwertige Fenster- und Türenlösungen spezialisiert, um den steigenden Ansprüchen an Energieeffizienz und Design gerecht zu werden.",
     image: "/bilder_ordner/ueberuns/fensterbau-werkstatt.webp",
     align: "left" as const,
+  },
+  // ==================================================================
+  // NEUER MEILENSTEIN: Die Höning-Partnerschaft
+  // ==================================================================
+  {
+    year: "2025",
+    title: "Partnerschaft für die Zukunft: Offizieller HÖNING Partnerbetrieb",
+    text: "Ein entscheidender Schritt nach vorn: Als zertifizierter Partner der Premium-Manufaktur HÖNING können wir unseren Kunden nun Fenster- und Türenlösungen auf höchstem Niveau anbieten. Ein Gewinn für uns und vor allem für die Wohnqualität der Menschen in Neuss.",
+    image:
+      "/bilder_ordner/hoening/fenster/hoening-zentrale-besuch/fenster-ausstellung2.webp", // Ein Bild aus der Ausstellung
+    align: "right" as const,
   },
 ] as const;
 

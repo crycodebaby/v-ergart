@@ -94,12 +94,32 @@ export default function KontaktPage() {
                 </p>
               </div>
             </div>
-
             <div className="rounded-2xl border border-border p-6 bg-card shadow-sm">
-              <h3 className="text-lg font-bold mb-3">Öffnungszeiten</h3>
-              <ul className="text-sm text-muted-foreground space-y-1.5">
-                <li>Mo–Fr: 07:00 – 17:00 Uhr</li>
-                <li>Sa: nach Vereinbarung</li>
+              <h3 className="text-lg font-bold mb-4">Öffnungszeiten</h3>
+              <ul className="text-sm text-muted-foreground space-y-2">
+                {/* Wochentage mit Flexbox für saubere Ausrichtung */}
+                <li className="flex justify-between items-baseline">
+                  <span>Mo – Fr</span>
+                  <div className="text-right font-medium text-foreground">
+                    <p>08:00 – 12:00 Uhr</p>
+                    <p>13:00 – 16:00 Uhr</p>
+                  </div>
+                </li>
+                {/* Trennlinie für visuelle Klarheit */}
+                <li className="border-b border-border/50 !my-3"></li>
+                {/* Wochenende */}
+                <li className="flex justify-between items-center">
+                  <span>Samstag</span>
+                  <span className="font-medium text-foreground">
+                    Geschlossen
+                  </span>
+                </li>
+                <li className="flex justify-between items-center">
+                  <span>Sonntag</span>
+                  <span className="font-medium text-foreground">
+                    Geschlossen
+                  </span>
+                </li>
               </ul>
             </div>
 

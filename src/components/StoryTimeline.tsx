@@ -8,8 +8,10 @@ import {
   useTransform,
 } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useRef } from "react";
 import { ueberUnsMilestones } from "@/lib/ueber-uns-data";
+import { Button } from "@/components/ui/button";
 
 /**
  * Struktur in ueberUnsMilestones:
@@ -184,23 +186,30 @@ export function StoryTimeline() {
           </div>
         </div>
 
-        {/* Abschluss / kleine CTA */}
+        {/* ================================================================== */}
+        {/* NEU: „Zukunftsausblick“ – starker, thematischer Abschluss */}
+        {/* ================================================================== */}
         <motion.div
-          className="mx-auto mt-16 flex max-w-3xl flex-col items-center justify-center gap-3 sm:mt-20"
+          className="mx-auto mt-20 max-w-3xl text-center lg:mt-28"
           variants={fadeUpVariants}
           initial={prefersReducedMotion ? undefined : "hidden"}
-          animate={prefersReducedMotion ? undefined : "show"}
-          transition={prefersReducedMotion ? undefined : { delay: 0.05 }}
+          whileInView={prefersReducedMotion ? undefined : "show"}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={prefersReducedMotion ? undefined : { duration: 0.8 }}
         >
-          <p className="text-center text-base text-muted-foreground">
-            Lust auf mehr Einblicke?
+          <h3 className="text-2xl font-bold text-foreground sm:text-3xl">
+            Die Zukunft im Blick – für Neuss und die Region
+          </h3>
+          <p className="mx-auto mt-4 max-w-2xl text-balance text-base leading-relaxed text-muted-foreground sm:text-lg">
+            Unsere Geschichte ist ein Fundament, auf dem wir weiter bauen. Mit
+            starken Partnern wie HÖNING an unserer Seite schaffen wir künftig
+            noch mehr nachhaltige und wertige Lösungen für Ihr Zuhause.
           </p>
-          <a
-            href="/referenzen"
-            className="inline-flex items-center justify-center rounded-md border border-transparent bg-brand-blue px-4 py-2 text-sm font-semibold text-white shadow hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2"
-          >
-            Mehr über uns
-          </a>
+          <Button asChild className="mt-8">
+            <Link href="/kontakt">
+              Lassen Sie uns über Ihr Projekt sprechen
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>

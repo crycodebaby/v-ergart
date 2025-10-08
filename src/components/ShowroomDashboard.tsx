@@ -6,7 +6,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-const ShowroomCard = ({
+// NEUE Sub-Komponente für die Split-Screen-Panels
+const ShowroomPanel = ({
   href,
   image,
   title,
@@ -19,73 +20,64 @@ const ShowroomCard = ({
 }) => (
   <Link
     href={href}
-    className="group relative block w-full h-96 rounded-2xl overflow-hidden shadow-2xl"
+    className="group relative block w-full h-full overflow-hidden"
   >
     <Image
       src={image}
       alt={title}
       fill
+      priority // Wichtig für schnelle Ladezeit der Hauptbilder
       className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
     />
-    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+    {/* Overlay für Kontrast */}
+    <div className="absolute inset-0 bg-black/60 transition-colors duration-500 group-hover:bg-black/40" />
+
     <div className="absolute bottom-0 left-0 p-8 text-white">
-      <motion.h2
-        initial={{ y: 20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="text-3xl font-bold"
-      >
-        {title}
-      </motion.h2>
-      <motion.p
-        initial={{ y: 20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="mt-2 text-slate-200"
-      >
-        {subtitle}
-      </motion.p>
-      <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="mt-4 flex items-center gap-2 text-brand-blue font-semibold transition-transform duration-300 group-hover:translate-x-1"
-      >
+      <h2 className="text-3xl md:text-4xl font-bold">{title}</h2>
+      <p className="mt-2 text-slate-200">{subtitle}</p>
+      <div className="mt-4 flex items-center gap-2 text-brand-blue font-semibold transition-transform duration-300 group-hover:translate-x-1">
         Details entdecken <ArrowRight size={20} />
-      </motion.div>
+      </div>
     </div>
   </Link>
 );
 
+// Die NEUE ShowroomDashboard-Komponente
 export const ShowroomDashboard = () => {
   return (
-    <section className="py-24 bg-background">
-      <div className="container mx-auto px-4 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
-          Der Showroom für Ihr Zuhause
-        </h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-16">
-          Entdecken Sie unsere Premium-Lösungen für Fenster und Türen. Jedes
-          Produkt ist ein Versprechen für Qualität, Sicherheit und Ästhetik –
-          fachgerecht montiert von Ihrem Partner in Neuss.
-        </p>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <ShowroomCard
-            href="/fenster"
-            image="/bilder_ordner/hoening/fenster/fenster1.webp"
-            title="Fenster"
-            subtitle="Mehr Licht, Wärme und Sicherheit."
-          />
-          <ShowroomCard
-            href="/tueren"
-            image="/bilder_ordner/hoening/tueren/aluminium-tuer1.webp"
-            title="Türen"
-            subtitle="Der perfekte Eingang für Ihr Zuhause."
-          />
-        </div>
+    <section className="relative w-full h-[calc(100vh-144px)] min-h-[700px]">
+      {/* Zentraler Text-Hub */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+          className="w-full max-w-2xl text-center bg-background/80 dark:bg-zinc-900/80 backdrop-blur-md p-8 rounded-2xl border border-border/60 shadow-2xl"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground">
+            Der Showroom für Ihr Zuhause
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground mt-4">
+            Entdecken Sie unsere Premium-Lösungen. Jedes Produkt ist ein
+            Versprechen für Qualität, Sicherheit und Ästhetik.
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Die beiden Split-Screen-Panels */}
+      <div className="absolute inset-0 grid grid-cols-1 lg:grid-cols-2">
+        <ShowroomPanel
+          href="/fenster"
+          image="/bilder_ordner/hoening/fenster/fenster1.webp"
+          title="Fenster"
+          subtitle="Mehr Licht, Wärme und Sicherheit."
+        />
+        <ShowroomPanel
+          href="/tueren"
+          image="/bilder_ord-ner/hoening/tueren/aluminium-tuer1.webp"
+          title="Türen"
+          subtitle="Der perfekte Eingang für Ihr Zuhause."
+        />
       </div>
     </section>
   );
