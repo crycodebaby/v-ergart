@@ -98,7 +98,7 @@ export default function KontaktPage() {
             <div className="rounded-2xl border border-border p-6 bg-card shadow-sm">
               <h3 className="text-lg font-bold mb-3">Öffnungszeiten</h3>
               <ul className="text-sm text-muted-foreground space-y-1.5">
-                <li>Mo–Fr: 08:00 – 18:00 Uhr</li>
+                <li>Mo–Fr: 07:00 – 17:00 Uhr</li>
                 <li>Sa: nach Vereinbarung</li>
               </ul>
             </div>
