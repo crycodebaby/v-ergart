@@ -25,7 +25,7 @@ export default function TuerenPage() {
         ]}
         ctaText="Unverbindlich anfragen"
         ctaHref="/kontakt"
-        imageSrc="/bilder_ordner/hoening/tueren/tueren-detail2.png"
+        imageSrc="/bilder_ordner/hoening/tueren/tueren-detail.webp"
       />
 
       {/* Die Feature-Galerien zeigen die Produktvielfalt und -details */}

@@ -165,10 +165,10 @@ const Footer = () => {
           </div>
           <div className="mt-4 sm:mt-0">
             <Link
-              href="/impressum"
+              href="https://www.smairys-netz-manufaktur.de/"
               className="hover:text-foreground transition-colors"
             >
-              Impressum
+              Web-Design & Entwicklung Erster Klasse: Smairys
             </Link>
           </div>
         </div>

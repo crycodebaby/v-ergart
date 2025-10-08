@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+// src/app/layout.tsx
+import type { Metadata, Viewport } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -20,28 +21,57 @@ const robotoMono = Roboto_Mono({
   display: "swap",
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Hausmeister Neuss - Alexander Ergart",
   description:
     "Hausmeisterservice in Neuss: Reinigung, Reparaturen & Winterdienst.",
 };
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { color: "#ffffff" },
+  ],
+};
+
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="de" suppressHydrationWarning>
+      {/* Sticky-Footer-Setup: body als Flex-Spalte, volle Viewport-Höhe */}
       <body
-        className={`${roboto.variable} ${robotoMono.variable} font-sans bg-background text-foreground relative`}
+        className={[
+          roboto.variable,
+          robotoMono.variable,
+          "font-sans",
+          "antialiased",
+          "bg-background text-foreground",
+          "min-h-screen min-h-dvh",
+          "flex flex-col",
+          "relative",
+        ].join(" ")}
       >
+        {/* Skip-Link für A11y */}
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] rounded bg-brand-blue px-3 py-2 text-white"
+        >
+          Zum Inhalt springen
+        </a>
+
         <Providers>
           <Header />
-          <main className="flex-grow">{children}</main>
+
+          {/* WICHTIG: flex-1 damit der Content die Lücke füllt -> Footer bleibt unten */}
+          <main id="main" role="main" className="flex-1">
+            {children}
+          </main>
+
           <Footer />
         </Providers>
 
+        {/* UI-Utility kann außerhalb von main bleiben */}
         <ScrollToTopButton />
       </body>
     </html>
