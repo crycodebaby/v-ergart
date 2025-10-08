@@ -1,91 +1,210 @@
 // src/components/StoryTimeline.tsx
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import Image from "next/image";
+import { useMemo, useRef } from "react";
 import { ueberUnsMilestones } from "@/lib/ueber-uns-data";
 
-const MilestoneCard = ({
+/**
+ * Struktur in ueberUnsMilestones:
+ * {
+ *   year: string | number;
+ *   title: string;
+ *   text: string;
+ *   image: string;
+ *   align?: "left" | "right";
+ * }
+ */
+type Milestone = (typeof ueberUnsMilestones)[number];
+
+// --- Typ-sichere Easing-Definition (Cubic Bezier) ---
+type Bezier = [number, number, number, number];
+const EASE_OUT: Bezier = [0.16, 1, 0.3, 1];
+
+// --- Variants für Fade-Up ---
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 16 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: EASE_OUT },
+  },
+};
+
+function MilestoneCard({
   milestone,
+  index,
 }: {
-  milestone: (typeof ueberUnsMilestones)[number];
-}) => {
+  milestone: Milestone;
+  index: number;
+}) {
+  const prefersReducedMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
+
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 85%", "end 40%"],
+    offset: ["start 80%", "end 45%"],
   });
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [16, 0]);
+
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [18, 0]);
+
+  const isLeft =
+    (milestone.align ?? (index % 2 === 0 ? "left" : "right")) === "left";
 
   return (
-    <motion.div
+    <motion.article
       ref={ref}
-      style={{ opacity, y }}
-      className={`grid items-center gap-8 lg:gap-12 ${
-        milestone.align === "left"
+      style={prefersReducedMotion ? undefined : { opacity, y }}
+      className={`grid items-center gap-6 sm:gap-8 lg:gap-12 ${
+        isLeft
           ? "lg:grid-cols-[1fr_1fr]"
           : "lg:grid-cols-[1fr_1fr] lg:[&>*:first-child]:order-2"
       }`}
+      aria-label={`Meilenstein ${milestone.year}: ${milestone.title}`}
     >
+      {/* Textblock */}
       <div>
-        <h3 className="font-bold text-2xl text-foreground mb-2">
+        <span className="inline-flex items-center rounded-full border border-border/60 bg-card px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm">
+          {milestone.year}
+        </span>
+        <h3 className="mt-3 text-2xl font-bold leading-snug text-foreground sm:text-[1.65rem]">
           {milestone.title}
         </h3>
-        <p className="text-muted-foreground leading-relaxed">
+        <p className="mt-3 text-base leading-relaxed text-muted-foreground">
           {milestone.text}
         </p>
       </div>
-      <div className="relative w-full overflow-hidden rounded-xl border border-border/60 shadow-lg">
-        <div className="aspect-[4/3] relative">
+
+      {/* Bildblock */}
+      <div className="relative w-full overflow-hidden rounded-xl border border-border/60 bg-card shadow-md">
+        <div className="relative aspect-[16/10] sm:aspect-[4/3]">
           <Image
             src={milestone.image}
             alt={milestone.title}
             fill
             className="object-cover"
-            sizes="(max-width:1024px) 100vw, 600px"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 640px"
+            priority={index < 2}
           />
         </div>
       </div>
-    </motion.div>
+    </motion.article>
   );
-};
+}
 
-export const StoryTimeline = () => {
+export function StoryTimeline() {
+  const prefersReducedMotion = useReducedMotion();
   const trackRef = useRef<HTMLDivElement>(null);
+
+  // Fortschrittslinie in der Mitte füllt sich beim Scrollen
   const { scrollYProgress } = useScroll({
     target: trackRef,
-    offset: ["start 60%", "end 20%"],
+    offset: ["start 65%", "end 25%"],
   });
-  const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  const pathScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  const milestones = useMemo(() => ueberUnsMilestones, []);
 
   return (
-    <section ref={trackRef} className="py-24 relative">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-slate-50 to-background dark:from-zinc-900/60 dark:to-background" />
-      <div className="container max-w-5xl mx-auto px-4">
-        {/* Zentrale Linie */}
-        <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-border" />
-        <motion.div
-          className="hidden lg:block absolute left-1/2 top-24 bottom-24 w-px"
-          style={{
-            background: "linear-gradient(var(--brand-blue), transparent)",
-            scaleY: pathLength,
-            transformOrigin: "top",
-          }}
-        />
-        {/* Items */}
-        <div className="space-y-20">
-          {ueberUnsMilestones.map((m) => (
-            <div key={m.year} className="relative">
-              <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 -translate-y-7 bg-brand-blue text-white rounded-full h-12 w-12 items-center justify-center font-bold shadow-md">
-                {m.year}
+    <section
+      ref={trackRef}
+      className="relative py-20 sm:py-24 lg:py-28"
+      aria-labelledby="timeline-heading"
+    >
+      {/* Solider Hintergrund (kein Durchscheinen) */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[hsl(var(--background))] via-[hsl(var(--background))] to-[hsl(var(--background))] dark:from-zinc-900/90 dark:via-zinc-900/90 dark:to-[hsl(var(--background))]" />
+
+      <div className="container mx-auto max-w-6xl px-4 xl:max-w-7xl">
+        {/* Intro */}
+        <motion.header
+          className="mx-auto mb-14 max-w-3xl text-center sm:mb-16 lg:mb-20"
+          variants={fadeUpVariants}
+          initial={prefersReducedMotion ? undefined : "hidden"}
+          animate={prefersReducedMotion ? undefined : "show"}
+          transition={prefersReducedMotion ? undefined : { delay: 0 }}
+        >
+          <h2
+            id="timeline-heading"
+            className="text-pretty text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
+          >
+            Unsere Geschichte in Etappen
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-balance text-base leading-relaxed text-muted-foreground sm:text-lg">
+            Wer wir sind, was uns antreibt und welche Schritte uns hierher
+            geführt haben – kompakt und klar, vom Start bis heute.
+          </p>
+        </motion.header>
+
+        {/* Zentraler Track */}
+        <div className="relative">
+          {/* Desktop: Linie */}
+          <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-border lg:block" />
+
+          {/* Füll-Gradient entlang der Linie (Desktop) */}
+          {!prefersReducedMotion && (
+            <motion.div
+              className="absolute left-1/2 top-28 hidden w-px -translate-x-1/2 lg:block"
+              style={{
+                scaleY: pathScale,
+                transformOrigin: "top",
+                background: "linear-gradient(#3399FF, rgba(51,153,255,0.12))",
+                height: "calc(100% - 7rem)",
+              }}
+            />
+          )}
+
+          {/* Mobile: Leitlinie links */}
+          <div className="absolute left-4 top-0 h-full w-px bg-border lg:hidden" />
+
+          {/* Items */}
+          <div className="space-y-14 sm:space-y-16 lg:space-y-20">
+            {milestones.map((m, i) => (
+              <div key={`${m.year}-${i}`} className="relative">
+                {/* Marker/Badge Desktop Mitte */}
+                <div className="pointer-events-none absolute left-1/2 hidden -translate-x-1/2 lg:block">
+                  <div className="relative -top-4 flex h-10 w-10 items-center justify-center rounded-full border border-border/70 bg-card text-[0.9rem] font-semibold text-foreground shadow">
+                    {m.year}
+                  </div>
+                </div>
+
+                {/* Marker Mobile links */}
+                <div className="pointer-events-none absolute -left-[11px] top-1.5 h-5 w-5 rounded-full border border-border/70 bg-card shadow lg:hidden" />
+
+                <MilestoneCard milestone={m} index={i} />
               </div>
-              <MilestoneCard milestone={m} />
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
+        {/* Abschluss / kleine CTA */}
+        <motion.div
+          className="mx-auto mt-16 flex max-w-3xl flex-col items-center justify-center gap-3 sm:mt-20"
+          variants={fadeUpVariants}
+          initial={prefersReducedMotion ? undefined : "hidden"}
+          animate={prefersReducedMotion ? undefined : "show"}
+          transition={prefersReducedMotion ? undefined : { delay: 0.05 }}
+        >
+          <p className="text-center text-base text-muted-foreground">
+            Lust auf mehr Einblicke?
+          </p>
+          <a
+            href="/referenzen"
+            className="inline-flex items-center justify-center rounded-md border border-transparent bg-brand-blue px-4 py-2 text-sm font-semibold text-white shadow hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2"
+          >
+            Mehr über uns
+          </a>
+        </motion.div>
       </div>
     </section>
   );
-};
+}
+
+export default StoryTimeline;

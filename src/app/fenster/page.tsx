@@ -3,7 +3,7 @@ import {
   FeatureGallery,
   FeatureGalleryProps,
 } from "@/components/FeatureGallery";
-import ReferenzenHero from "@/components/ReferenzenHero";
+import FensterHero from "@/components/FensterHero";
 import CTA from "@/components/CTA";
 import { ProcessStepper } from "@/components/ProcessStepper";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
@@ -51,11 +51,11 @@ const fensterFeatures: FeatureGalleryProps[] = [
         alt: "Energieeffizientes Fenster in einem Wohnzimmer",
       },
       {
-        src: "/bilder_ordner/referenzen/grundreinigung-privat-neuss-fensterrahmen.webp",
+        src: "/bilder_ordner/referenzen/gebaeudereinigung-privathaushalt-neuss-fenster.webp",
         alt: "Professionelle Montage eines Fensterrahmens",
       },
       {
-        src: "/bilder_ordner/referenzen/reinigungsservice-neuss-fensterjustierung.webp",
+        src: "/bilder_ordner/referenzen/reinigungsservice-neuss-fensterbau.webp",
         alt: "Präzise Justierung eines Fensters",
       },
     ],
@@ -85,11 +85,11 @@ const fensterFeatures: FeatureGalleryProps[] = [
         alt: "Detailaufnahme eines sicheren Fensterbeschlags",
       },
       {
-        src: "/bilder_ordner/referenzen/gebaeudereinigung-privathaushalt-neuss-fenster.webp",
+        src: "/bilder_ordner/referenzen/mehrere-fensterelemente-auf-anhaenger-festgeschnallt-sicherer-transport.webp",
         alt: "Sauber montiertes Fenster in einem Privathaushalt",
       },
       {
-        src: "/bilder_ordner/referenzen/reinigungsdienst-neuss-fensteranlagen.webp",
+        src: "/bilder_ordner/hoening/fenster/reinigungsdienst-neuss-fensteranlagen.webp",
         alt: "Große Fensteranlage in einem modernen Gebäude",
       },
     ],
@@ -116,7 +116,7 @@ const fensterFeatures: FeatureGalleryProps[] = [
 export default function FensterPage() {
   return (
     <>
-      <ReferenzenHero />
+      <FensterHero />
       {fensterFeatures.map((feature) => (
         <FeatureGallery key={feature.title} {...feature} />
       ))}
