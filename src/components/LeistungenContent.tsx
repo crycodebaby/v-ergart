@@ -11,46 +11,46 @@ const coreServices = [
   {
     title: "Fenster- & Türmontage",
     description:
-      "Von der Beratung bis zum fachgerechten Einbau – wir liefern und montieren energieeffiziente Fenster und Türen in Höning-Qualität.",
+      "Wir beraten, liefern und montieren hochwertige Höning Fenster und Türen. Effizient, sauber und fachgerecht für ein spürbar besseres Zuhause.",
     icon: DoorOpen,
     link: "/fenster",
   },
   {
     title: "Innenausbau & Renovierung",
     description:
-      "Bodenverlegung, Trockenbau, Malerarbeiten – wir verwandeln Ihre Räume und schaffen ein neues Wohngefühl.",
+      "Wir erneuern Böden, Wände und Decken, realisieren Trockenbau und frische Anstriche. Von der ersten Idee bis zum bezugsfertigen Raum aus einer Hand.",
     icon: Paintbrush,
-    link: "/leistungen#innenausbau",
+    link: "/leistungen/innenausbau",
   },
   {
     title: "Garten- & Landschaftspflege",
     description:
-      "Von der Neuanlage bis zur regelmäßigen Pflege – Ihr Garten ist bei uns in besten Händen. Wir schaffen grüne Oasen.",
+      "Wir gestalten neue Grünflächen und pflegen bestehende Anlagen. Rasen, Hecken, Beete und Bewässerung in verlässlichen Intervallen für einen gepflegten Eindruck.",
     icon: Leaf,
-    link: "/leistungen#gartenpflege",
+    link: "/leistungen/gartenpflege",
   },
   {
     title: "Hausmeisterdienste",
     description:
-      "Rundum-Service für Ihre Immobilie. Kleinreparaturen, Wartung und Objektbetreuung – wir kümmern uns um alles.",
+      "Wir betreuen Ihre Immobilie zuverlässig. Regelmäßige Kontrollen, kleine Reparaturen, Winterdienst sowie die Koordination von Handwerkern mit kurzen Reaktionszeiten.",
     icon: Wrench,
-    link: "/leistungen#hausmeister",
+    link: "/leistungen/hausmeister",
   },
   {
     title: "Gebäudereinigung",
     description:
-      "Professionelle Reinigung für makellose Sauberkeit in privaten und gewerblichen Objekten. Glas-, Grund- und Unterhaltsreinigung.",
+      "Makellose Sauberkeit für Privat und Gewerbe. Unterhaltsreinigung, Glasreinigung und Grundreinigung mit geschultem Team und klaren Qualitätsstandards.",
     icon: Home,
-    link: "/leistungen#reinigung",
+    link: "/leistungen/reinigung",
   },
   {
     title: "Sicherheitstechnik",
     description:
-      "Schutz für Ihr Zuhause und Ihr Unternehmen. Wir beraten Sie zu modernen Schließsystemen und Einbruchschutz.",
+      "Wir planen und installieren moderne Schließsysteme und wirksamen Einbruchschutz. Beratung vor Ort, fachgerechter Einbau und verständliche Einweisung inklusive.",
     icon: Shield,
-    link: "/leistungen#sicherheit",
+    link: "/leistungen/sicherheit",
   },
-];
+] as const;
 
 export function LeistungenContent() {
   return (

@@ -11,7 +11,7 @@ export default function LeistungenPage() {
       <ReferenzenHero
         title="Ihre Projekte, unsere Expertise"
         description="Entdecken Sie die Vielfalt unserer Leistungen, maßgeschneidert für Ihre Anforderungen – von der Beratung bis zur perfekten Umsetzung."
-        imageSrc="/bilder_ordner/referenzen/titelbild.webp"
+        imageSrc="/bilder_ordner/leistungen-hero.webp"
         heightClass="h-[70vh]"
       />
       <LeistungenContent />
