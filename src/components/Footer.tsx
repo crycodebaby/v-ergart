@@ -168,7 +168,7 @@ const Footer = () => {
               href="https://www.smairys-netz-manufaktur.de/"
               className="hover:text-foreground transition-colors"
             >
-              Web-Design & Entwicklung Erster Klasse: Smairys
+              Web-Design & Entwicklung: Smairys
             </Link>
           </div>
         </div>
