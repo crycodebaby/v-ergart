@@ -1,10 +1,81 @@
 // src/app/kontakt/page.tsx
+import type { Metadata } from "next";
+import Script from "next/script";
 import KontaktHero from "@/components/KontaktHero";
 import ContactForm from "@/components/ContactForm";
 import CalendlyButton from "@/components/CalendlyButton";
 import { ShieldCheck, Clock, MapPin, Phone, Mail, Star } from "lucide-react";
 import CTA from "@/components/CTA";
-import MapSection from "@/components/MapSection"; // falls vorhanden, sonst entfernen
+import MapSection from "@/components/MapSection";
+
+export const metadata: Metadata = {
+  title:
+    "Kontakt – Alexander Ergart | Hausmeister- & Fensterservice in Neuss & Umgebung",
+  description:
+    "Schnellanfrage an Alexander Ergart: Hausmeisterservice, Fensterservice, Reparaturen & Wartung, Grundstückspflege u. v. m. Öffnungszeiten Mo–Fr 08–12 & 13–16 Uhr. Jetzt Termin sichern.",
+  robots: { index: true, follow: true },
+  alternates: { canonical: "/kontakt" },
+  openGraph: {
+    title:
+      "Kontakt – Alexander Ergart | Hausmeister- & Fensterservice in Neuss",
+    description:
+      "Schnellanfrage, Terminwahl, Telefon & E-Mail. Leistungen: Hausmeisterservice, Fensterservice, Reparaturen & Wartung, Grundstückspflege, Verwaltung von Immobilien.",
+    type: "website",
+    url: "/kontakt",
+  },
+};
+
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  name: "Alexander Ergart Hausmeister- & Fensterservice",
+  areaServed: [
+    "Neuss",
+    "Rhein-Kreis Neuss",
+    "Düsseldorf",
+    "Kaarst",
+    "Dormagen",
+  ],
+  url: "https://alexander-ergart.de/kontakt", // ggf. anpassen
+  email: "mailto:aergart@gmail.com",
+  telephone: "+49 176 668 25 889",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Neuss",
+    addressCountry: "DE",
+  },
+  sameAs: [],
+  makesOffer: [
+    "Hausmeisterservice",
+    "Fensterservice / Glasreinigung",
+    "Reparaturen & Wartung",
+    "Grundstückspflege",
+    "Verwaltung von Mietimmobilien",
+    "Verwaltung von Eigentumswohnungen",
+    "Verwaltung von Apartmentkomplexen",
+    "Hotelmanagement (technischer Service)",
+    "Verwaltung gewerblicher Immobilien",
+    "Verwaltung von Immobilienanlagen",
+    "Verwaltung von Immobilien auf Inseln",
+    "Eigenheimverwaltung",
+    "Hausverwaltung für Ferienunterkünfte",
+    "Immobilienmanagement",
+  ],
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "08:00",
+      closes: "12:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "13:00",
+      closes: "16:00",
+    },
+  ],
+};
 
 export default function KontaktPage() {
   return (

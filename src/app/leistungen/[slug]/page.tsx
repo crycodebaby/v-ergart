@@ -1,28 +1,36 @@
 // src/app/leistungen/[slug]/page.tsx
+
+// --- GRUNDLAGEN & IMPORTE ---
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { LEISTUNGEN_DETAILS } from "@/lib/leistungen-data";
 import { Button } from "@/components/ui/button";
+import { CheckCircle } from "lucide-react";
+import { LeistungGallery } from "@/components/LeistungGallery";
+import CTA from "@/components/CTA";
 
+// --- DATEN-HELFER & PROPS ---
 type Props = { params: { slug: string } };
 
 function getLeistung(slug: string) {
   return LEISTUNGEN_DETAILS.find((l) => l.slug === slug);
 }
 
-/* ---- Static params ---- */
+// --- SEITEN-GENERIERUNG (STATIC PARAMS) ---
 export function generateStaticParams() {
   return LEISTUNGEN_DETAILS.map((l) => ({ slug: l.slug }));
 }
 
-/* ---- SEO / OpenGraph ---- */
+// --- DYNAMISCHE SEO METADATEN ---
 export function generateMetadata({ params }: Props): Metadata {
   const item = getLeistung(params.slug);
   if (!item) return {};
-  const title = `${item.title} | V-ERGART Leistungen`;
+
+  const title = `${item.title} | ERGART Leistungen`;
   const description = item.description;
-  const url = `https://www.deine-domain.de/leistungen/${item.slug}`;
+  const url = `https://www.alexander-ergart.de/leistungen/${item.slug}`; // Domain angepasst
 
   return {
     title,
@@ -33,110 +41,117 @@ export function generateMetadata({ params }: Props): Metadata {
       description,
       url,
       type: "article",
-      images: [{ url: "/og-default.jpg", width: 1200, height: 630 }],
+      images: [
+        {
+          url: new URL(
+            item.heroImage,
+            "https://www.alexander-ergart.de"
+          ).toString(),
+          width: 1200,
+          height: 630,
+        },
+      ],
     },
   };
 }
 
+// ==================================================================
+// HAUPTKOMPONENTE: Die Seite selbst
+// KORREKTUR: Dies darf KEINE async function sein, da es eine reine Server-Komponente ist,
+// die ihre Daten synchron abruft.
+// ==================================================================
 export default function LeistungDetailPage({ params }: Props) {
   const item = getLeistung(params.slug);
   if (!item) return notFound();
 
   return (
-    <main className="bg-background text-foreground font-sans">
-      {/* JSON-LD Breadcrumb */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "Leistungen",
-                item: "https://www.deine-domain.de/leistungen",
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: item.title,
-                item: `https://www.deine-domain.de/leistungen/${item.slug}`,
-              },
-            ],
-          }),
-        }}
-      />
-      <section className="border-b border-border bg-gradient-subtle">
-        <div className="container mx-auto px-4 lg:px-8 py-10 md:py-14">
-          <nav className="text-sm text-muted-foreground mb-4">
+    <>
+      {/* Hero Sektion */}
+      <section className="relative h-[50vh] flex items-center justify-center text-white">
+        <Image
+          src={item.heroImage}
+          alt={item.title}
+          fill
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 text-center p-4">
+          <nav className="text-sm text-slate-300 mb-2">
             <Link href="/leistungen" className="hover:underline">
               Leistungen
             </Link>{" "}
-            / <span className="text-foreground">{item.title}</span>
+            / <span>{item.title}</span>
           </nav>
-
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight drop-shadow-md">
             {item.title}
           </h1>
-          <p className="mt-3 text-lg text-muted-foreground max-w-3xl">
+          <p className="mt-3 text-lg text-slate-200 max-w-3xl mx-auto drop-shadow">
             {item.description}
           </p>
-
-          <div className="mt-6">
-            <Button asChild size="lg" className="shadow-button">
-              <Link href="/kontakt">Unverbindlich anfragen</Link>
-            </Button>
-          </div>
         </div>
       </section>
 
-      <section className="py-12 md:py-16">
-        <div className="container mx-auto px-4 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold">Ihre Vorteile</h2>
-          <ul className="mt-5 grid gap-3 md:grid-cols-2">
-            {item.benefits.map((b) => (
-              <li
-                key={b}
-                className="rounded-xl border border-border bg-card/90 p-4"
-              >
-                {b}
-              </li>
-            ))}
-          </ul>
-
-          {item.faq && item.faq.length > 0 && (
-            <div className="mt-12">
-              <h2 className="text-2xl md:text-3xl font-bold">FAQ</h2>
-              <div className="mt-5 grid gap-4">
-                {item.faq.map(({ q, a }) => (
-                  <div
-                    key={q}
-                    className="rounded-xl border border-border bg-card/90 p-5"
-                  >
-                    <p className="font-semibold">{q}</p>
-                    <p className="mt-1 text-muted-foreground">{a}</p>
-                  </div>
+      {/* Hauptinhalt Sektion */}
+      <section className="py-16 md:py-24 bg-background">
+        <div className="container mx-auto px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Linke Spalte: Vorteile & FAQ */}
+          <div className="lg:col-span-2">
+            <div>
+              <h2 className="text-3xl font-bold text-foreground">
+                Ihre Vorteile im Überblick
+              </h2>
+              <ul className="mt-6 space-y-4">
+                {item.benefits.map((b) => (
+                  <li key={b} className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-brand-blue mt-1 flex-shrink-0" />
+                    <span className="text-lg text-muted-foreground">{b}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
-          )}
+
+            {item.faq && item.faq.length > 0 && (
+              <div className="mt-16">
+                <h2 className="text-3xl font-bold text-foreground">
+                  Häufig gestellte Fragen
+                </h2>
+                <div className="mt-6 border-t border-border">
+                  {item.faq.map(({ q, a }) => (
+                    <div key={q} className="py-6 border-b border-border">
+                      <p className="font-semibold text-lg text-foreground">
+                        {q}
+                      </p>
+                      <p className="mt-2 text-muted-foreground">{a}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Rechte Spalte: Galerie oder CTA */}
+          <aside className="lg:sticky top-28 h-fit">
+            {item.galleryImages && item.galleryImages.length > 0 ? (
+              <LeistungGallery images={item.galleryImages} />
+            ) : (
+              <div className="bg-card border border-border p-6 rounded-lg text-center">
+                <h3 className="font-bold text-foreground">
+                  Interesse geweckt?
+                </h3>
+                <p className="text-muted-foreground mt-2 text-sm">
+                  Lassen Sie uns über Ihr Projekt sprechen.
+                </p>
+                <Button asChild className="mt-4 w-full">
+                  <Link href="/kontakt">Jetzt anfragen</Link>
+                </Button>
+              </div>
+            )}
+          </aside>
         </div>
       </section>
 
-      <section className="py-10 border-t border-border">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex flex-wrap gap-3">
-            <Button variant="outline" asChild>
-              <Link href="/leistungen">Zurück zur Übersicht</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/kontakt">Projekt anfragen</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-    </main>
+      <CTA />
+    </>
   );
 }
