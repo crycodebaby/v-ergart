@@ -9,7 +9,6 @@ import { trackCTAClick } from "@/lib/analytics";
 
 const Footer = () => {
   return (
-    // KORREKTUR: Feste Farben entfernt, themenfähige Klassen verwendet
     <footer className="bg-slate-50 dark:bg-zinc-900 text-foreground">
       {/* Haupt-Footer mit Blueprint-Thema, jetzt mit Theme-Farben */}
       <div className="bg-secondary text-secondary-foreground">
