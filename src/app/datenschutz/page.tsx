@@ -5,164 +5,235 @@ import Link from "next/link";
 export default function DatenschutzPage() {
   return (
     <ContentPage title="Datenschutzerklärung">
-      <p>
-        Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen. Wir
-        verarbeiten Ihre personenbezogenen Daten ausschließlich im Rahmen der
-        gesetzlichen Datenschutzvorschriften (DSGVO, BDSG, TTDSG) und nur soweit
-        dies zur Bereitstellung einer funktionsfähigen Website sowie unserer
-        Inhalte und Leistungen erforderlich ist.
-      </p>
+      <section>
+        <h2>1. Datenschutz auf einen Blick</h2>
+        
+        <h3>Einleitung</h3>
+        <p>
+          Der Schutz Ihrer persönlichen Daten ist uns ein zentrales Anliegen. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.
+        </p>
+        <p>
+          Wir informieren Sie hiermit transparent darüber, welche Daten wir erheben, wie wir sie nutzen und welche Rechte Sie haben. Die Verarbeitung erfolgt auf Basis der Datenschutz-Grundverordnung (DSGVO), des Bundesdatenschutzgesetzes (BDSG) und des Telekommunikation-Digitale-Dienste-Datenschutz-Gesetzes (TDDDG).
+        </p>
 
-      <h2>1. Verantwortlicher</h2>
-      <p>
-        Verantwortlich für die Datenverarbeitung auf dieser Website ist:
-        <br />
-        <strong>Alexander Ergart</strong>
-        <br />
-        Further Straße 89B
-        <br />
-        41462 Neuss / Deutschland
-        <br />
-        Telefon: <a href="tel:+4917666825889">0176 – 668 25 889</a>
-        <br />
-        E-Mail: <a href="mailto:aergart@gmail.com">aergart@gmail.com</a>
-      </p>
+        <h3>Verantwortlicher</h3>
+        <p>
+          Verantwortlich für die Datenverarbeitung auf dieser Website im Sinne der DSGVO ist:
+        </p>
+        <p>
+          <strong>Alexander Ergart</strong><br />
+          Further Straße 89B<br />
+          41462 Neuss<br />
+          Deutschland
+        </p>
+        <p>
+          Telefon: <a href="tel:+4917666825889">0176 – 668 25 889</a><br />
+          E-Mail: <a href="mailto:aergart@gmail.com">aergart@gmail.com</a>
+        </p>
+      </section>
 
-      <h2>2. Hosting durch Vercel Inc.</h2>
-      <p>
-        Diese Website wird von Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA
-        91789, USA, gehostet. Vercel erhält in diesem Zusammenhang technische
-        Zugriffsdaten (z. B. IP-Adresse, Browserinformationen, Zeitstempel).
-        Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse
-        an einer sicheren und effizienten Bereitstellung). Ein
-        EU-Standardvertrags- mechanismus (SCCs) gem. Art. 46 DSGVO stellt beim
-        Datentransfer in die USA ein angemessenes Schutzniveau sicher. Weitere
-        Informationen finden Sie in der{" "}
-        <a
-          href="https://vercel.com/legal/privacy-policy"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Datenschutzerklärung von Vercel
-        </a>
-        .
-      </p>
+      <section>
+        <h2>2. Hosting und technische Bereitstellung</h2>
+        
+        <h3>Hosting durch Vercel</h3>
+        <p>
+          Wir hosten unsere Website bei dem externen Dienstleister Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA („Vercel").
+        </p>
+        <p>
+          Damit unsere Website sicher und schnell aufgerufen werden kann, werden personenbezogene Daten (z. B. IP-Adressen) auf den Servern von Vercel verarbeitet. Vercel verwendet Content Delivery Networks (CDNs), die Daten weltweit auf Servern zwischenspeichern, um Ladezeiten zu optimieren.
+        </p>
+        <p>
+          <strong>Rechtsgrundlage:</strong> Die Nutzung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren, effizienten und schnellen Bereitstellung des Online-Angebots).
+        </p>
+        <p>
+          <strong>US-Datentransfer:</strong> Soweit Daten in die USA übertragen werden, stützen wir uns auf die Standardvertragsklauseln (Standard Contractual Clauses – SCCs) der EU-Kommission, die ein angemessenes Datenschutzniveau gewährleisten. Weitere Details finden Sie in der{" "}
+          <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">
+            Datenschutzerklärung von Vercel
+          </a>.
+        </p>
+        <p>
+          <strong>Auftragsverarbeitung:</strong> Wir haben einen Vertrag über die Auftragsverarbeitung (AVV) mit Vercel geschlossen, um sicherzustellen, dass Ihre Daten nur nach unseren Weisungen und unter Einhaltung der DSGVO verarbeitet werden.
+        </p>
 
-      <h2>3. Server-Logfiles</h2>
-      <p>
-        Bei jedem Seitenaufruf werden automatisch Zugriffsdaten durch den
-        Browser übermittelt und von unserem Hosting-Anbieter in sogenannten
-        Server-Logfiles gespeichert (z. B. IP-Adresse, Datum und Uhrzeit,
-        angeforderte Datei, Referrer-URL, User-Agent). Die Verarbeitung erfolgt
-        gem. Art. 6 Abs. 1 lit. f DSGVO zur technischen Bereitstellung,
-        Systemsicherheit und Fehleranalyse. Eine Zusammenführung dieser Daten
-        mit anderen Datenquellen findet nicht statt.
-      </p>
+        <h3>Server-Logfiles</h3>
+        <p>
+          Bei jedem Aufruf unserer Website erfasst das System automatisch Daten und Informationen vom Computersystem des aufrufenden Rechners. Diese Daten werden in sogenannten Server-Logfiles gespeichert:
+        </p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>IP-Adresse (ggf. anonymisiert)</li>
+          <li>Datum und Uhrzeit des Zugriffs</li>
+          <li>Browsertyp und Browserversion</li>
+          <li>Verwendetes Betriebssystem</li>
+          <li>Referrer URL (die zuvor besuchte Seite)</li>
+          <li>Hostname des zugreifenden Rechners</li>
+        </ul>
+        <p>
+          Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen. Die Erfassung erfolgt gemäß Art. 6 Abs. 1 lit. f DSGVO zur Gewährleistung der technischen Sicherheit und Fehlerbehebung.
+        </p>
+      </section>
 
-      <h2>4. Verwendung externer Links (HÖNING-Webseiten)</h2>
-      <p>
-        Auf einigen Unterseiten verlinken wir zu unserem Partner HÖNING (z. B.{" "}
-        <a
-          href="https://www.hoening.de/unternehmen/ueber-uns/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          www.hoening.de
-        </a>{" "}
-        und{" "}
-        <a
-          href="https://haustuerkonfigurator.hoening.de/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          haustuerkonfigurator.hoening.de
-        </a>
-        ). Es handelt sich dabei um externe Webseiten, für deren Inhalte und
-        Datenschutzbestimmungen ausschließlich HÖNING verantwortlich ist. Beim
-        Anklicken dieser Links werden Sie auf fremde Server weitergeleitet, auf
-        deren Datenverarbeitung wir keinen Einfluss haben.
-      </p>
+      <section>
+        <h2>3. Datenerfassung durch Eingaben</h2>
+        
+        <h3>Kontaktformular und E-Mail-Kontakt</h3>
+        <p>
+          Wenn Sie uns per Kontaktformular Anfragen zukommen lassen oder uns per E-Mail schreiben, werden Ihre Angaben aus dem Anfrageformular (z. B. Name, E-Mail-Adresse, Telefonnummer, Nachrichtentext) inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.
+        </p>
+        <p>
+          <strong>Rechtsgrundlage:</strong> Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO).
+        </p>
+        <p>
+          <strong>Speicherdauer:</strong> Die von Ihnen eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Aufbewahrungsfristen bleiben unberührt.
+        </p>
+      </section>
 
-      <h2>5. Terminbuchung über Calendly</h2>
-      <p>
-        Für die Online-Terminvereinbarung nutzen wir das Tool{" "}
-        <a
-          href="https://calendly.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Calendly LLC
-        </a>
-        , 271 17th St NW, Atlanta, GA 30363, USA. Bei der Terminbuchung werden
-        die von Ihnen eingegebenen Daten (z. B. Name, E-Mail, gewählter Termin)
-        verarbeitet und an Calendly übermittelt. Rechtsgrundlage ist Art. 6 Abs.
-        1 lit. b DSGVO (Vertragserfüllung bzw. vorvertragliche Maßnahmen). Die
-        Datenübermittlung in die USA erfolgt auf Basis der EU-
-        Standardvertragsklauseln. Details finden Sie unter{" "}
-        <a
-          href="https://calendly.com/privacy"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          https://calendly.com/privacy
-        </a>
-        .
-      </p>
+      <section>
+        <h2>4. Webanalyse und Statistik (Plausible)</h2>
+        <p>
+          Wir verwenden auf dieser Website <strong>Plausible Analytics</strong>, einen datenschutzfreundlichen Webanalysedienst der Plausible Insights OÜ, Västriku tn 2, 50403, Tartu, Estland.
+        </p>
 
-      <h2>6. Einbindung externer Plattformen (z. B. TikTok-Link)</h2>
-      <p>
-        Unsere Website enthält Links zu Social-Media-Profilen oder externen
-        Plattformen (z. B. TikTok). Beim Aufruf dieser Links werden ggf. Daten
-        an den jeweiligen Anbieter übertragen (z. B. IP-Adresse, Referrer-URL).
-        Eine automatische Datenübertragung von unserer Website an diese
-        Plattformen findet jedoch nicht statt. Bitte beachten Sie die
-        Datenschutzhinweise der jeweiligen Anbieter.
-      </p>
+        <h3>Warum Plausible?</h3>
+        <p>
+          Plausible ermöglicht uns, die Nutzung unserer Website zu verstehen und zu optimieren, ohne Ihre Privatsphäre zu verletzen.
+        </p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li><strong>Keine Cookies:</strong> Plausible setzt keine Cookies auf Ihrem Endgerät.</li>
+          <li><strong>Keine personenbezogenen Daten:</strong> Es werden keine persönlichen Daten (wie IP-Adressen) dauerhaft gespeichert.</li>
+          <li><strong>EU-Hosting:</strong> Alle Daten werden auf Servern in Deutschland/der EU verarbeitet.</li>
+        </ul>
 
-      <h2>7. Cookies & Tracking</h2>
-      <p>
-        Unsere Website setzt aktuell keine Cookies zu Analyse- oder
-        Marketingzwecken ein. Technisch notwendige Cookies können zur
-        Sicherstellung der Funktionalität verwendet werden (Art. 6 Abs. 1 lit. f
-        DSGVO).
-      </p>
+        <h3>Was wird erfasst?</h3>
+        <p>
+          Plausible erfasst aggregierte Informationen wie:
+        </p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>Seitenaufrufe und Verweildauer</li>
+          <li>Ungefährer Standort (Land/Region) basierend auf der anonymisierten IP</li>
+          <li>Gerätetyp (Desktop/Mobil), Browser und Betriebssystem</li>
+          <li>Herkunftsquelle (über welche Website oder Kampagne Sie zu uns kamen)</li>
+        </ul>
 
-      <h2>8. SSL-/TLS-Verschlüsselung</h2>
-      <p>
-        Diese Website nutzt zum Schutz der Übertragung vertraulicher Inhalte
-        eine SSL-/TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen
-        Sie an „https://“ und dem Schloss-Symbol in der Browserzeile.
-      </p>
+        <h3>Event-Tracking & Offline-Kampagnen</h3>
+        <p>
+          Zusätzlich messen wir anonyme Interaktionen ("Events"), um den Erfolg unserer Marketingmaßnahmen zu bewerten. Dazu gehören:
+        </p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>Klicks auf Kontakt-Buttons (Telefon, E-Mail, Formular)</li>
+          <li>Nutzung von Formularen (Start und Absenden)</li>
+          <li>Besuche über QR-Codes oder Flyer (z. B. über Parameter wie utm_source=flyer)</li>
+        </ul>
+        <p>
+          Diese Daten helfen uns zu erkennen, ob unsere Offline-Werbung (z. B. Flyer) funktioniert, ohne dass wir Sie persönlich identifizieren können.
+        </p>
 
-      <h2>9. Ihre Rechte</h2>
-      <ul className="list-disc pl-5 space-y-1">
-        <li>Auskunft über die von uns verarbeiteten personenbezogenen Daten</li>
-        <li>Berichtigung unrichtiger Daten</li>
-        <li>
-          Löschung bzw. Einschränkung der Verarbeitung (Art. 17 und 18 DSGVO)
-        </li>
-        <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
-        <li>Widerspruch gegen die Verarbeitung (Art. 21 DSGVO)</li>
-        <li>Beschwerderecht bei einer Aufsichtsbehörde (Art. 77 DSGVO)</li>
-      </ul>
-      <p className="mt-3">
-        Zuständige Aufsichtsbehörde für Nordrhein-Westfalen ist die{" "}
-        <a
-          href="https://www.ldi.nrw.de/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Landesbeauftragte für Datenschutz und Informationsfreiheit NRW
-        </a>
-        .
-      </p>
+        <p>
+          <strong>Rechtsgrundlage:</strong> Die Nutzung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der statistischen Analyse des Nutzerverhaltens zur Optimierung des Webangebots und der Werbung). Da das Tracking vollständig anonym und ohne Cookies erfolgt, ist keine Einwilligung (Consent-Banner) erforderlich.
+        </p>
+        <p>
+          Weitere Informationen finden Sie in der{" "}
+          <a href="https://plausible.io/privacy" target="_blank" rel="noopener noreferrer">
+            Datenschutzerklärung von Plausible
+          </a>.
+        </p>
+      </section>
 
-      <h2>10. Aktualität dieser Datenschutzerklärung</h2>
-      <p>
-        Wir behalten uns vor, diese Datenschutzerklärung bei Änderungen unserer
-        Website oder der gesetzlichen Vorgaben anzupassen. Gültig ab Oktober
-        2025.
-      </p>
+      <section>
+        <h2>5. Externe Tools und Inhalte</h2>
+        
+        <h3>Terminbuchung über Calendly</h3>
+        <p>
+          Auf unserer Website bieten wir die Möglichkeit, Online-Termine über das Tool Calendly (Calendly LLC, 271 17th St NW, Atlanta, GA 30363, USA) zu vereinbaren.
+        </p>
+        <p>
+          Wenn Sie einen Termin buchen, werden die eingegebenen Daten (Name, E-Mail, Terminwunsch) an Calendly übertragen. Calendly speichert zudem technisch notwendige Cookies, um den Buchungsprozess zu ermöglichen.
+        </p>
+        <p>
+          <strong>Rechtsgrundlage:</strong> Die Verarbeitung erfolgt zur Durchführung vorvertraglicher Maßnahmen oder zur Vertragserfüllung gemäß Art. 6 Abs. 1 lit. b DSGVO.
+        </p>
+        <p>
+          <strong>Datentransfer USA:</strong> Die Datenübermittlung in die USA wird durch Standardvertragsklauseln (SCCs) abgesichert. Weitere Details finden Sie unter{" "}
+          <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer">
+            https://calendly.com/privacy
+          </a>.
+        </p>
+
+        <h3>Externe Links (Partner & Social Media)</h3>
+        <p>
+          Unsere Website enthält Verlinkungen zu externen Webseiten Dritter. Hierzu gehören:
+        </p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>
+            <strong>Partnerseiten:</strong> HÖNING ({" "}
+            <a href="https://www.hoening.de" target="_blank" rel="noopener noreferrer">
+              www.hoening.de
+            </a>, {" "}
+            <a href="https://haustuerkonfigurator.hoening.de" target="_blank" rel="noopener noreferrer">
+              haustuerkonfigurator.hoening.de
+            </a>)
+          </li>
+          <li><strong>Social Media:</strong> Profile auf Plattformen wie TikTok oder Instagram</li>
+        </ul>
+        <p>
+          Dies sind einfache Links, keine eingebetteten Plugins. Erst wenn Sie auf den Link klicken, werden Sie zum jeweiligen Anbieter weitergeleitet. Ab diesem Zeitpunkt unterliegt die Datenverarbeitung den Datenschutzerklärungen des Ziel-Anbieters. Wir haben keinen Einfluss auf die dortige Verarbeitung.
+        </p>
+      </section>
+
+      <section>
+        <h2>6. Sicherheit</h2>
+        
+        <h3>SSL-/TLS-Verschlüsselung</h3>
+        <p>
+          Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an uns als Seitenbetreiber senden, eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://" auf „https://" wechselt und an dem Schloss-Symbol in Ihrer Browserzeile. Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden.
+        </p>
+      </section>
+
+      <section>
+        <h2>7. Ihre Rechte als Betroffener</h2>
+        <p>
+          Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf:
+        </p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>
+            <strong>Auskunft</strong> über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung (Art. 15 DSGVO).
+          </li>
+          <li>
+            <strong>Berichtigung</strong> unrichtiger oder Vervollständigung Ihrer bei uns gespeicherten Daten (Art. 16 DSGVO).
+          </li>
+          <li>
+            <strong>Löschung</strong> Ihrer gespeicherten Daten, sofern nicht gesetzliche Aufbewahrungspflichten entgegenstehen (Art. 17 DSGVO).
+          </li>
+          <li>
+            <strong>Einschränkung der Datenverarbeitung</strong> unter bestimmten Voraussetzungen (Art. 18 DSGVO).
+          </li>
+          <li>
+            <strong>Datenübertragbarkeit</strong> (Herausgabe Ihrer Daten in einem gängigen, maschinenlesbaren Format) (Art. 20 DSGVO).
+          </li>
+          <li>
+            <strong>Widerspruch</strong> gegen die Verarbeitung Ihrer Daten, sofern diese auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse) erfolgt (Art. 21 DSGVO).
+          </li>
+          <li>
+            <strong>Beschwerde</strong> bei der zuständigen Aufsichtsbehörde (Art. 77 DSGVO).
+          </li>
+        </ul>
+        <p className="mt-3">
+          Zuständige Aufsichtsbehörde für unseren Sitz in Nordrhein-Westfalen ist die{" "}
+          <a href="https://www.ldi.nrw.de/" target="_blank" rel="noopener noreferrer">
+            Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen
+          </a>{" "}
+          (Postfach 20 04 44, 40102 Düsseldorf).
+        </p>
+      </section>
+
+      <section>
+        <h2>8. Aktualität und Änderung</h2>
+        <p>
+          Diese Datenschutzerklärung ist aktuell gültig und hat den Stand Oktober 2025.
+        </p>
+        <p>
+          Durch die Weiterentwicklung unserer Website und Angebote darüber oder aufgrund geänderter gesetzlicher beziehungsweise behördlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung zu ändern.
+        </p>
+      </section>
 
       <p className="mt-8 text-sm text-muted-foreground">
         Weitere Informationen zu Haftung und Urheberrechten finden Sie im{" "}

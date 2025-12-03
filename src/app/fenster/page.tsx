@@ -3,7 +3,6 @@ import { FeatureGallery } from "@/components/FeatureGallery";
 import FensterHero from "@/components/FensterHero";
 import CTA from "@/components/CTA";
 import { ProcessStepper } from "@/components/ProcessStepper";
-import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 import PartnerBrandSpotlight from "@/components/PartnerBrandSpotlight"; // NEUER IMPORT
 import PartnerBenefitsSplit from "@/components/PartnerBenefitsSplit"; // NEUER IMPORT
 import { fensterFeatures } from "@/lib/fenster-data"; // NEUER IMPORT-PFAD
@@ -30,8 +29,6 @@ export default function FensterPage() {
       />
 
       <ProcessStepper />
-
-      <BeforeAfterSlider />
 
       {/* Der Benefits-Split liefert die konkreten Argumente, warum HÖNING die richtige Wahl ist. */}
       <PartnerBenefitsSplit
