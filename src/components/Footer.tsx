@@ -1,3 +1,5 @@
+'use client';
+
 // src/components/Footer.tsx
 import Image from "next/image";
 import Link from "next/link";
@@ -160,6 +162,27 @@ const Footer = () => {
                 <li className="flex items-center gap-3">
                   <Phone size={18} className="text-brand-blue" />
                   <a
+                    href="tel:+4917666825889"
+                    onClick={() => trackCTAClick('phone', 'footer')}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    +49 176 668 25 889
+                  </a>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Mail size={18} className="text-brand-blue" />
+                  <a
+                    href="mailto:aergart@gmail.com"
+                    onClick={() => trackCTAClick('email', 'footer')}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    aergart@gmail.com
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Die Credit-Leiste */}
