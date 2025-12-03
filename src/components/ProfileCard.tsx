@@ -40,6 +40,7 @@ const ProfileCard = () => {
               width={300}
               height={300}
               className="rounded-xl object-cover shadow-md transition-transform duration-300 hover:scale-105"
+              unoptimized
             />
           </div>
           <div className="profil-details flex-1 min-w-[300px] text-zinc-800 dark:text-gray-200 p-5 rounded-xl">
@@ -85,6 +86,7 @@ const ProfileCard = () => {
                         width={800}
                         height={1120}
                         className="w-full h-auto rounded-md"
+                        unoptimized
                       />
                     )}
                   </div>

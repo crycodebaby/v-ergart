@@ -1,12 +1,4 @@
-// src/app/kontakt/page.tsx
-import type { Metadata } from "next";
-import Script from "next/script";
-import KontaktHero from "@/components/KontaktHero";
-import ContactForm from "@/components/ContactForm";
-import CalendlyButton from "@/components/CalendlyButton";
-import { ShieldCheck, Clock, MapPin, Phone, Mail, Star } from "lucide-react";
-import CTA from "@/components/CTA";
-import MapSection from "@/components/MapSection";
+import { LOCATIONS } from "@/lib/locations";
 
 export const metadata: Metadata = {
   title:
@@ -35,6 +27,7 @@ const orgJsonLd = {
     "Düsseldorf",
     "Kaarst",
     "Dormagen",
+    ...LOCATIONS.map((loc) => loc.name),
   ],
   url: "https://alexander-ergart.de/kontakt", // ggf. anpassen
   email: "mailto:aergart@gmail.com",

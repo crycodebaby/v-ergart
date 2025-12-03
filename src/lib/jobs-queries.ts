@@ -9,18 +9,20 @@ export type JobPosting = {
   slug: { current: string };
   excerpt?: any;
   description?: any;
+  metaTitle?: string;
+  metaDescription?: string;
 };
 
 const LIST_QUERY = groq`
 *[_type == "jobPosting" && isActive == true && defined(slug.current)]
 | order(_createdAt desc){
-  _id, title, location, employmentType, slug, excerpt
+  _id, title, location, employmentType, slug, excerpt, metaTitle, metaDescription
 }
 `;
 
 const DETAIL_QUERY = groq`
 *[_type == "jobPosting" && slug.current == $slug][0]{
-  _id, title, location, employmentType, description, slug
+  _id, title, location, employmentType, description, slug, metaTitle, metaDescription
 }
 `;
 

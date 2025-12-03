@@ -36,6 +36,7 @@ const Hero = () => {
             alt={`Hausmeisterservice in Neuss - Bild ${index + 1}`}
             fill
             priority={index === 0}
+            unoptimized
           />
         ))}
         {/* Ein dunkles Overlay, um den Text lesbarer zu machen */}

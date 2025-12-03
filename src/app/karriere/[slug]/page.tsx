@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
-import { fetchJobBySlug, type JobPosting } from "@/lib/jobs-queries";
+import { fetchJobBySlug, fetchJobs, type JobPosting } from "@/lib/jobs-queries";
 import type { Metadata } from "next";
 import { StickySidebarApply } from "@/components/StickySidebarApply";
 
@@ -13,8 +13,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const job = await fetchJobBySlug(params.slug);
   if (!job) return { title: "Stelle nicht gefunden" };
   return {
-    title: `${job.title} | Karriere bei Ergart`,
-    description: `Bewerben Sie sich als ${job.title} bei Ergart in ${
+    title: job.metaTitle || `${job.title} | Karriere bei Ergart`,
+    description: job.metaDescription || `Bewerben Sie sich als ${job.title} bei Ergart in ${
       job.location ?? "Neuss"
     }.`,
   };
@@ -90,4 +90,11 @@ export default async function JobDetailPage({ params }: Props) {
       </div>
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  const jobs = await fetchJobs();
+  return jobs.map((job) => ({
+    slug: job.slug.current,
+  }));
 }

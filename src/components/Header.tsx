@@ -146,16 +146,14 @@ export default function Header() {
                     className={cn(
                       "relative isolate z-50 rounded-xl p-0",
                       // Solider Grundhintergrund => garantiert lesbar
-                      "bg-background text-foreground",
-                      // Wenn möglich: sanfte Transparenz + starker Blur (aber Basis bleibt solide)
-                      "supports-[backdrop-filter]:bg-background/90 supports-[backdrop-filter]:backdrop-blur-xl supports-[backdrop-filter]:backdrop-saturate-125",
+                      "bg-brand-blue text-white",
                       // Tiefe/Kanten
                       "ring-1 ring-border/70 shadow-2xl drop-shadow-xl overflow-hidden"
                     )}
                   >
                     {/* optionaler Kopf für Klarheit */}
-                    <div className="px-4 py-3 border-b border-border/60 bg-secondary/60">
-                      <p className="text-xs font-medium uppercase tracking-wide text-foreground/80">
+                    <div className="px-4 py-3 border-b border-white/20 bg-white/10">
+                      <p className="text-xs font-medium uppercase tracking-wide text-white/90">
                         Kategorien
                       </p>
                     </div>
@@ -170,11 +168,11 @@ export default function Header() {
                             title={item.label}
                             description={item.description}
                             icon={
-                              <Icon
-                                size={20}
-                                className="text-brand-blue"
-                                aria-hidden
-                              />
+                                <Icon
+                                  size={20}
+                                  className="text-white"
+                                  aria-hidden
+                                />
                             }
                           />
                         );
@@ -182,10 +180,10 @@ export default function Header() {
                     </ul>
 
                     {/* optionaler Footer-Link */}
-                    <div className="px-4 py-3 border-t border-border/60 bg-muted/60">
+                    <div className="px-4 py-3 border-t border-white/20 bg-white/10">
                       <Link
                         href="/leistungen"
-                        className="text-sm font-medium hover:underline"
+                        className="text-sm font-medium hover:underline text-white"
                       >
                         Alle Leistungen ansehen
                       </Link>
@@ -311,11 +309,11 @@ const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
             className={cn(
               "group flex items-start gap-3 rounded-lg px-4 py-3",
               // Fundament: klarer Kontrast auf beiden Themes
-              "bg-transparent text-foreground",
+              "bg-transparent text-white",
               // Hover: spürbar, aber nicht „brüllend“
-              "hover:bg-muted focus:bg-muted",
+              "hover:bg-white/10 focus:bg-white/10",
               // Zusätzliche visuelle Führung
-              "ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/70",
+              "ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
               // feine Trennung bei dichtem Inhalt
               "transition-colors",
               className
@@ -330,7 +328,7 @@ const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
               <span className="block text-sm font-semibold leading-tight">
                 {title}
               </span>
-              <span className="mt-1 block text-sm leading-relaxed text-foreground/80">
+              <span className="mt-1 block text-sm leading-relaxed text-white/80">
                 {description}
               </span>
             </span>

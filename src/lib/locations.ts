@@ -1,0 +1,25 @@
+export const LOCATIONS = [
+  { name: "Innenstadt / Neuss Zentrum", slug: "neuss-zentrum" },
+  { name: "Furth-Nord", slug: "neuss-furth-nord" },
+  { name: "Furth-Mitte", slug: "neuss-furth-mitte" },
+  { name: "Furth-Süd", slug: "neuss-furth-sued" },
+  { name: "Reuschenberg", slug: "neuss-reuschenberg" },
+  { name: "Weckhoven", slug: "neuss-weckhoven" },
+  { name: "Grimlinghausen", slug: "neuss-grimlinghausen" },
+  { name: "Uedesheim", slug: "neuss-uedesheim" },
+  { name: "Norf", slug: "neuss-norf" },
+  { name: "Rosellen", slug: "neuss-rosellen" },
+  { name: "Hoisten", slug: "neuss-hoisten" },
+  { name: "Helpenstein", slug: "neuss-helpenstein" },
+  { name: "Holzheim", slug: "neuss-holzheim" },
+  { name: "Grefrath", slug: "neuss-grefrath" },
+  { name: "Allerheiligen", slug: "neuss-allerheiligen" },
+  { name: "Derikum", slug: "neuss-derikum" },
+  { name: "Erfttal", slug: "neuss-erfttal" },
+  { name: "Vogelsang", slug: "neuss-vogelsang" },
+  { name: "Gnadental", slug: "neuss-gnadental" },
+  { name: "Barbaraviertel", slug: "neuss-barbaraviertel" },
+  { name: "Hammfeld", slug: "neuss-hammfeld" },
+] as const;
+
+export type LocationSlug = (typeof LOCATIONS)[number]["slug"];

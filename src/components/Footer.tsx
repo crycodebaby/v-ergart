@@ -2,6 +2,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import { LOCATIONS } from "@/lib/locations";
+import { trackCTAClick } from "@/lib/analytics";
 
 const Footer = () => {
   return (
@@ -45,6 +47,14 @@ const Footer = () => {
                     className="text-muted-foreground hover:text-brand-blue transition-colors"
                   >
                     Leistungen
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/blog"
+                    className="text-muted-foreground hover:text-brand-blue transition-colors"
+                  >
+                    Blog
                   </Link>
                 </li>
                 <li>
@@ -116,6 +126,30 @@ const Footer = () => {
                   </a>
                 </li>
               </ul>
+
+              <h3 className="font-mono text-base font-bold mt-8 mb-4 text-foreground uppercase tracking-wider">
+                Einsatzgebiet
+              </h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                {LOCATIONS.slice(0, 5).map((loc) => (
+                  <li key={loc.slug}>
+                    <Link
+                      href={`/einsatzgebiet/${loc.slug}`}
+                      className="hover:text-brand-blue transition-colors"
+                    >
+                      {loc.name}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <Link
+                    href="/kontakt"
+                    className="text-brand-blue font-medium hover:underline"
+                  >
+                    Alle Gebiete ansehen
+                  </Link>
+                </li>
+              </ul>
             </div>
 
             <div className="lg:col-span-3">
@@ -126,25 +160,6 @@ const Footer = () => {
                 <li className="flex items-center gap-3">
                   <Phone size={18} className="text-brand-blue" />
                   <a
-                    href="tel:+4917666825889"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    +49 176 668 25 889
-                  </a>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Mail size={18} className="text-brand-blue" />
-                  <a
-                    href="mailto:aergart@gmail.com"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    aergart@gmail.com
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Die Credit-Leiste */}

@@ -1,5 +1,6 @@
-// src/app/sitemap.ts
 import type { MetadataRoute } from "next";
+import { LOCATIONS } from "@/lib/locations";
+import { fetchPostSlugs } from "@/lib/blog-queries";
 
 /**
  * WICHTIG:
@@ -8,7 +9,7 @@ import type { MetadataRoute } from "next";
  */
 const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-  "https://www.deine-domain.de";
+  "https://alexander-ergart.de/";
 
 /** Statisch bekannte Routen aus deiner Struktur */
 const STATIC_ROUTES = [
@@ -73,6 +74,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
+  // Dynamische /einsatzgebiet/[slug]
+  const locationEntries = LOCATIONS.map<MetadataRoute.Sitemap[number]>((loc) => ({
+    url: `${BASE_URL}/einsatzgebiet/${loc.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
   // Statische Seiten
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((path) => ({
     url: `${BASE_URL}${path}`,
@@ -81,5 +90,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: priorityFor(path),
   }));
 
-  return [...staticEntries, ...dynamicLeistungen];
+  // Dynamische /blog/[slug]
+  const blogSlugs = await fetchPostSlugs();
+  const blogEntries = blogSlugs.map<MetadataRoute.Sitemap[number]>((item) => ({
+    url: `${BASE_URL}/blog/${item.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
+
+  return [
+    ...staticEntries,
+    ...dynamicLeistungen,
+    ...locationEntries,
+    ...blogEntries,
+  ];
 }
