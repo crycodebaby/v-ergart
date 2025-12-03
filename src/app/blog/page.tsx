@@ -58,7 +58,7 @@ export default async function BlogPage() {
             </div>
             <p className="text-lg text-muted-foreground max-w-2xl">
               Praktische Tipps, Fachwissen und Neuigkeiten rund um
-              Hausmeisterservice, Fensterreinigung und Gebäudepflege – direkt
+              Hausmeisterservice, Fensterreinigung und Gebäudepflege; direkt
               aus Neuss und dem Rhein-Kreis.
             </p>
           </div>
@@ -88,7 +88,7 @@ export default async function BlogPage() {
               weitere Dienstleistungen
             </Link>
             {" "}in Neuss und Umgebung. Praktische Tipps, Branchenwissen und
-            Neuigkeiten – direkt vom Profi.
+            Neuigkeiten; direkt vom Profi.
           </p>
         </div>
 

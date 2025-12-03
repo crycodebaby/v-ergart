@@ -1,64 +1,67 @@
 // src/app/karriere/page.tsx
+import type { Metadata } from "next";
 import { fetchJobs } from "@/lib/jobs-queries";
 import JobsList from "@/components/JobsList";
-import { Award, ShieldCheck, Users } from "lucide-react";
+import { KarriereHero } from "@/components/KarriereHero";
+import { WhyWorkWithUs } from "@/components/WhyWorkWithUs";
+import CTA from "@/components/CTA";
+
+export const metadata: Metadata = {
+  title: "Karriere bei Alexander Ergart | Jobs in Neuss & Umgebung",
+  description:
+    "Werden Sie Teil unseres Teams! Hausmeisterservice, Fensterservice und mehr. Offene Stellen in Neuss für Fenster- und Türenbauer, Hausmeister und Servicetechniker.",
+  alternates: {
+    canonical: "/karriere",
+  },
+  openGraph: {
+    title: "Karriere bei Alexander Ergart | Jobs in Neuss",
+    description:
+      "Werden Sie Teil unseres Teams! Offene Stellen in Neuss für Fenster- und Türenbauer, Hausmeister und Servicetechniker.",
+    type: "website",
+    url: "/karriere",
+    locale: "de_DE",
+    siteName: "Alexander Ergart Hausmeister- & Fensterservice",
+  },
+  twitter: {
+    card: "summary",
+    title: "Karriere bei Alexander Ergart",
+    description:
+      "Werden Sie Teil unseres Teams! Offene Stellen in Neuss für Fenster- und Türenbauer, Hausmeister und Servicetechniker.",
+  },
+};
 
 export default async function KarrierePage() {
   const jobs = await fetchJobs();
 
   return (
     <>
-      <div className="bg-background">
-        <div className="container mx-auto max-w-7xl px-4 py-16 lg:py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Jobliste */}
-            <div className="lg:col-span-2">
-              <JobsList jobs={jobs} />
+      <KarriereHero />
+      
+      {/* Main Content */}
+      <div className="bg-background py-16 lg:py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            {/* Section Header */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Offene Stellen
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                {jobs.length > 0
+                  ? `${jobs.length} ${jobs.length === 1 ? 'Position' : 'Positionen'} verfügbar`
+                  : 'Bewerben Sie sich initiativ – wir freuen uns auf Sie!'}
+              </p>
             </div>
 
-            {/* Sidebar "Warum bei Ergart arbeiten?" */}
-            <aside className="lg:sticky top-28 h-fit">
-              <div className="bg-card p-6 rounded-lg shadow-md border border-border/20">
-                <h3 className="text-lg font-bold text-foreground mb-4">
-                  Warum bei Ergart arbeiten?
-                </h3>
-                <ul className="space-y-4 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-3">
-                    <Award
-                      size={16}
-                      className="text-brand-blue mt-1 flex-shrink-0"
-                    />
-                    <span>
-                      <strong>Qualitätsfokus:</strong> Wir liefern Arbeit, auf
-                      die man stolz sein kann.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <ShieldCheck
-                      size={16}
-                      className="text-brand-blue mt-1 flex-shrink-0"
-                    />
-                    <span>
-                      <strong>Sicherer Arbeitsplatz:</strong> Unbefristeter
-                      Vertrag & moderne Ausrüstung.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Users
-                      size={16}
-                      className="text-brand-blue mt-1 flex-shrink-0"
-                    />
-                    <span>
-                      <strong>Starkes Team:</strong> Respektvoller, ehrlicher
-                      Umgang & Unterstützung.
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </aside>
+            {/* Jobs List */}
+            <JobsList jobs={jobs} />
           </div>
         </div>
       </div>
+
+      <WhyWorkWithUs />
+      
+      <CTA />
     </>
   );
 }

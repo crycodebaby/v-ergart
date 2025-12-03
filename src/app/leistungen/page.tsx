@@ -1,19 +1,23 @@
 // src/app/leistungen/page.tsx
-import ReferenzenHero from "@/components/ReferenzenHero";
+import { LeistungenHero } from "@/components/LeistungenHero";
+import { LeistungenContent } from "@/components/LeistungenContent";
 import { TerrassenFensterSlider } from "@/components/TerrassenFensterSlider";
 import { HoeningShowroom } from "@/components/HoeningShowroom";
 import CTA from "@/components/CTA";
-import { LeistungenContent } from "@/components/LeistungenContent"; // Importiere die neue Client-Komponente
+
+export const metadata = {
+  title: "Leistungen | Alexander Ergart - Full-Service Dienstleister",
+  description:
+    "Fenster & Türen, Innenausbau, Gartenpflege, Hausmeisterdienste, Gebäudereinigung und Sicherheitstechnik. Ihr kompetenter Partner in Neuss & Umgebung.",
+  alternates: {
+    canonical: "/leistungen",
+  },
+};
 
 export default function LeistungenPage() {
   return (
     <>
-      <ReferenzenHero
-        title="Ihre Projekte, unsere Expertise"
-        description="Entdecken Sie die Vielfalt unserer Leistungen, maßgeschneidert für Ihre Anforderungen – von der Beratung bis zur perfekten Umsetzung."
-        imageSrc="/bilder_ordner/leistungen-hero.webp"
-        heightClass="h-[70vh]"
-      />
+      <LeistungenHero />
       <LeistungenContent />
       <TerrassenFensterSlider />
       <HoeningShowroom />
