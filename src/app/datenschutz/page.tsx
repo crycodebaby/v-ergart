@@ -37,7 +37,7 @@ export default function DatenschutzPage() {
         
         <h3>Hosting durch Vercel</h3>
         <p>
-          Wir hosten unsere Website bei dem externen Dienstleister Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA („Vercel").
+          Wir hosten unsere Website bei dem externen Dienstleister Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA (&bdquo;Vercel&ldquo;).
         </p>
         <p>
           Damit unsere Website sicher und schnell aufgerufen werden kann, werden personenbezogene Daten (z. B. IP-Adressen) auf den Servern von Vercel verarbeitet. Vercel verwendet Content Delivery Networks (CDNs), die Daten weltweit auf Servern zwischenspeichern, um Ladezeiten zu optimieren.
@@ -116,7 +116,7 @@ export default function DatenschutzPage() {
 
         <h3>Event-Tracking & Offline-Kampagnen</h3>
         <p>
-          Zusätzlich messen wir anonyme Interaktionen ("Events"), um den Erfolg unserer Marketingmaßnahmen zu bewerten. Dazu gehören:
+          Zusätzlich messen wir anonyme Interaktionen (&quot;Events&quot;), um den Erfolg unserer Marketingmaßnahmen zu bewerten. Dazu gehören:
         </p>
         <ul className="list-disc pl-5 space-y-1">
           <li>Klicks auf Kontakt-Buttons (Telefon, E-Mail, Formular)</li>
@@ -184,7 +184,7 @@ export default function DatenschutzPage() {
         
         <h3>SSL-/TLS-Verschlüsselung</h3>
         <p>
-          Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an uns als Seitenbetreiber senden, eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://" auf „https://" wechselt und an dem Schloss-Symbol in Ihrer Browserzeile. Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden.
+          Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an uns als Seitenbetreiber senden, eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von &bdquo;http://&ldquo; auf &bdquo;https://&ldquo; wechselt und an dem Schloss-Symbol in Ihrer Browserzeile. Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden.
         </p>
       </section>
 
