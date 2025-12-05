@@ -11,6 +11,16 @@ export type JobPosting = {
   description?: any;
   metaTitle?: string;
   metaDescription?: string;
+  // New CMS fields
+  responsibilities?: string[];
+  requirements?: string[];
+  niceToHave?: string[];
+  benefits?: Array<{
+    icon: string;
+    title: string;
+    description?: string;
+  }>;
+  quickFacts?: string[];
 };
 
 const LIST_QUERY = groq`
@@ -22,7 +32,23 @@ const LIST_QUERY = groq`
 
 const DETAIL_QUERY = groq`
 *[_type == "jobPosting" && slug.current == $slug][0]{
-  _id, title, location, employmentType, description, slug, metaTitle, metaDescription
+  _id,
+  title,
+  location,
+  employmentType,
+  description,
+  slug,
+  metaTitle,
+  metaDescription,
+  responsibilities,
+  requirements,
+  niceToHave,
+  benefits[]{
+    icon,
+    title,
+    description
+  },
+  quickFacts
 }
 `;
 

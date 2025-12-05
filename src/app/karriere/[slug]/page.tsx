@@ -1,12 +1,13 @@
 // src/app/karriere/[slug]/page.tsx
 import { notFound } from "next/navigation";
-import { ArrowLeft, Briefcase, MapPin, Clock } from "lucide-react";
+import { ArrowLeft, Briefcase, MapPin, Clock, CheckCircle, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { fetchJobBySlug, fetchJobs, type JobPosting } from "@/lib/jobs-queries";
 import type { Metadata } from "next";
 import { StickySidebarApply } from "@/components/StickySidebarApply";
 import { JobDetailTracking } from "@/components/JobDetailTracking";
+import { DynamicIcon } from "@/components/DynamicIcon";
 
 type Props = { params: { slug: string } };
 
@@ -55,7 +56,10 @@ function JobJsonLd({ job }: { job: JobPosting }) {
       : undefined,
     employmentType: job.employmentType,
     datePosted: new Date().toISOString(),
-    description: "Details auf der Seite.",
+    description: job.metaDescription || "Stellenbeschreibung verfügbar auf der Website.",
+    responsibilities: job.responsibilities?.join("; "),
+    skills: job.requirements?.join(", "),
+    jobBenefits: job.benefits?.map((b) => b.title).join(", "),
   };
   return (
     <script
@@ -76,7 +80,7 @@ export default async function JobDetailPage({ params }: Props) {
 
       {/* Hero Section */}
       <div className="bg-gradient-to-b from-slate-50 to-background dark:from-zinc-900 dark:to-background border-b border-border/40">
-        <div className="container mx-auto max-w-7xl px-4 py-12 lg:py-16">
+        <div className="container mx-auto max-w-7xl px-4 py-16 lg:py-20">
           <Link
             href="/karriere"
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-brand-blue transition-colors group mb-8"
@@ -89,7 +93,7 @@ export default async function JobDetailPage({ params }: Props) {
           </Link>
 
           <div className="max-w-3xl">
-            <div className="flex flex-wrap items-center gap-3 mb-4">
+            <div className="flex flex-wrap items-center gap-3 mb-6">
               {job.employmentType && (
                 <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand-blue/10 text-brand-blue">
                   <Briefcase className="w-3 h-3 mr-1.5" />
@@ -108,7 +112,7 @@ export default async function JobDetailPage({ params }: Props) {
               </span>
             </div>
 
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
               {job.title}
             </h1>
 
@@ -122,22 +126,103 @@ export default async function JobDetailPage({ params }: Props) {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto max-w-7xl px-4 py-12 lg:py-16">
+      <div className="container mx-auto max-w-7xl px-4 py-16 lg:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Job Description */}
-          <div className="lg:col-span-2">
-            <div className="prose prose-lg dark:prose-invert max-w-none">
-              {job.description ? (
-                <PortableText value={job.description} />
-              ) : (
-                <div className="bg-muted/50 rounded-lg p-8 text-center">
-                  <p className="text-muted-foreground">Keine Beschreibung vorhanden.</p>
+          {/* Left Column: Job Content */}
+          <div className="lg:col-span-2 space-y-12">
+            {/* Job Description */}
+            {job.description && (
+              <section>
+                <h2 className="text-2xl font-bold text-foreground mb-6">
+                  Über die Stelle
+                </h2>
+                <div className="prose prose-lg dark:prose-invert max-w-none">
+                  <PortableText value={job.description} />
                 </div>
-              )}
-            </div>
+              </section>
+            )}
 
-            {/* Additional Info Card */}
-            <div className="mt-12 p-6 bg-card border border-border/40 rounded-xl">
+            {/* Responsibilities */}
+            {job.responsibilities && job.responsibilities.length > 0 && (
+              <section>
+                <h2 className="text-2xl font-bold text-foreground mb-6">
+                  Ihre Aufgaben
+                </h2>
+                <ul className="space-y-3">
+                  {job.responsibilities.map((task, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" />
+                      <span className="text-base text-foreground">{task}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* Requirements */}
+            {job.requirements && job.requirements.length > 0 && (
+              <section>
+                <h2 className="text-2xl font-bold text-foreground mb-6">
+                  Das bringen Sie mit
+                </h2>
+                <ul className="space-y-3">
+                  {job.requirements.map((req, index) => (
+                    <li key={index} className="flex items-start gap-3 p-4 bg-card border border-border/40 rounded-lg">
+                      <CheckCircle className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" />
+                      <span className="text-base text-foreground">{req}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* Nice-to-Have */}
+            {job.niceToHave && job.niceToHave.length > 0 && (
+              <section>
+                <h2 className="text-2xl font-bold text-foreground mb-6">
+                  Von Vorteil
+                </h2>
+                <ul className="space-y-3">
+                  {job.niceToHave.map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <AlertCircle className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+                      <span className="text-base text-muted-foreground">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* Benefits */}
+            {job.benefits && job.benefits.length > 0 && (
+              <section>
+                <h2 className="text-2xl font-bold text-foreground mb-6">
+                  Das erwartet Sie
+                </h2>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {job.benefits.map((benefit, index) => (
+                    <div
+                      key={index}
+                      className="p-6 bg-card border border-border/40 rounded-xl hover:border-brand-blue/50 hover:shadow-lg transition-all group"
+                    >
+                      <DynamicIcon
+                        name={benefit.icon}
+                        className="w-8 h-8 text-brand-blue mb-3 group-hover:scale-110 transition-transform"
+                      />
+                      <h3 className="font-bold text-foreground mb-2">{benefit.title}</h3>
+                      {benefit.description && (
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {benefit.description}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Application Info Card */}
+            <div className="p-6 bg-muted/50 border border-border/40 rounded-xl">
               <h3 className="text-lg font-bold text-foreground mb-3">
                 Haben wir Ihr Interesse geweckt?
               </h3>
@@ -154,12 +239,13 @@ export default async function JobDetailPage({ params }: Props) {
             </div>
           </div>
 
-          {/* Sticky Apply Sidebar */}
+          {/* Right Column: Sidebar */}
           <aside>
             <StickySidebarApply
               title={job.title}
               location={job.location}
               employmentType={job.employmentType}
+              quickFacts={job.quickFacts}
             />
           </aside>
         </div>

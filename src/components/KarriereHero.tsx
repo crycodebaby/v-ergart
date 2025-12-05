@@ -140,7 +140,7 @@ export function KarriereHero() {
               className="absolute -top-6 -right-6 bg-white dark:bg-zinc-900 rounded-xl p-4 shadow-xl border border-border/20"
             >
               <div className="text-center">
-                <div className="text-3xl font-bold text-brand-blue">15+</div>
+                <div className="text-3xl font-bold text-brand-blue">13+</div>
                 <div className="text-xs text-muted-foreground mt-1">Jahre Erfahrung</div>
               </div>
             </motion.div>

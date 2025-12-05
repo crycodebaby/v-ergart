@@ -9,23 +9,31 @@ type Props = {
   title: string;
   location?: string;
   employmentType?: string;
+  quickFacts?: string[]; // NEW: from Sanity CMS
 };
+
+// Default fallback wenn keine quickFacts in Sanity
+const DEFAULT_QUICK_FACTS = [
+  "Unbefristeter Vertrag",
+  "Faire Bezahlung",
+  "Modernes Equipment",
+  "Teamgeist & Support",
+];
 
 export const StickySidebarApply = ({
   title,
   location,
   employmentType,
+  quickFacts,
 }: Props) => {
   const mailtoLink = `mailto:aergart@gmail.com?subject=Bewerbung als ${encodeURIComponent(
     title
   )}`;
 
-  const quickFacts = [
-    "Unbefristeter Vertrag",
-    "Faire Bezahlung",
-    "Modernes Equipment",
-    "Teamgeist & Support",
-  ];
+  // Use Sanity facts if available, otherwise use defaults
+  const displayFacts = quickFacts && quickFacts.length > 0 
+    ? quickFacts 
+    : DEFAULT_QUICK_FACTS;
 
   return (
     <div className="sticky top-28">
@@ -59,12 +67,12 @@ export const StickySidebarApply = ({
           )}
         </div>
 
-        {/* Quick Facts */}
+        {/* Quick Facts (Dynamic from Sanity or Default) */}
         <div className="mb-6">
           <h4 className="text-sm font-semibold text-foreground mb-3">Das erwartet Sie:</h4>
           <ul className="space-y-2">
-            {quickFacts.map((fact) => (
-              <li key={fact} className="flex items-start gap-2 text-sm">
+            {displayFacts.map((fact, index) => (
+              <li key={index} className="flex items-start gap-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-brand-blue flex-shrink-0 mt-0.5" />
                 <span className="text-muted-foreground">{fact}</span>
               </li>
