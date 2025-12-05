@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Providers } from "@/components/providers";
 import { ScrollToTopButton } from "@/components/ScrollToTopButton";
+import { AnnouncementProvider } from "@/components/AnnouncementProvider";
 import PlausibleProvider from "next-plausible";
 
 const roboto = Roboto({
@@ -67,6 +68,7 @@ export default function RootLayout({
           </a>
 
           <Providers>
+            <AnnouncementProvider />
             <Header />
 
             {/* WICHTIG: flex-1 damit der Content die Lücke füllt -> Footer bleibt unten */}
