@@ -46,27 +46,38 @@
 
 ### QR-Code URL für Flyer
 
-Für den Firmenflyer mit QR-Code verwenden wir:
+Für gedruckte Flyer mit QR-Code verwenden wir:
 
 ```
 https://alexander-ergart.de/flyer
 ```
 
-**Was passiert:**
+### Aktive Kampagnen
+
+#### FirstTriFoldFlyer (ab Dezember 2024)
+
+**Erster gedruckter TriFold-Flyer**
+
+- **URL**: `https://alexander-ergart.de/flyer`
+- **Kampagnenname**: `FirstTriFoldFlyer`
+- **UTM-Parameter**:
+  ```
+  /?utm_source=flyer&utm_medium=offline&utm_campaign=FirstTriFoldFlyer
+  ```
+
+**Was passiert beim Scan:**
 1. Kunde scannt QR-Code → wird auf `/flyer` geleitet
-2. Custom Event `flyer_visit` wird getrackt
-3. Automatischer Redirect zur Startseite mit UTM-Parametern:
-   ```
-   /?utm_source=flyer&utm_medium=offline&utm_campaign=ergart_hausmeister_flyer_2025
-   ```
+2. Pageview für `/flyer` wird getrackt
+3. Custom Event `flyer_visit` mit `campaign: FirstTriFoldFlyer` wird getrackt
+4. Automatischer Redirect zur Startseite mit UTM-Parametern
 
 ### Auswertung in Plausible
 
 Die Flyer-Performance lässt sich in Plausible auf **3 Arten** messen:
 
 1. **Via Pageview**: Filter auf Seite `/flyer`
-2. **Via UTM**: Filter auf `utm_source=flyer`
-3. **Via Custom Event**: Filter auf Event `flyer_visit`
+2. **Via UTM**: Filter auf `utm_campaign=FirstTriFoldFlyer`
+3. **Via Custom Event**: Filter auf Event `flyer_visit` → Property `campaign` = `FirstTriFoldFlyer`
 
 **Empfohlene Metriken:**
 - Anzahl Besucher über Flyer (Event `flyer_visit`)

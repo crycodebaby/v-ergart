@@ -172,10 +172,12 @@ export function trackKarriereAction(
  * Track Flyer/QR-Code Besuch (Offline-Kampagne)
  * 
  * Wird automatisch auf /flyer Route aufgerufen
+ * 
+ * @param campaign - Name der Kampagne (z.B. "FirstTriFoldFlyer")
  */
 export function trackFlyerVisit(campaign?: string): void {
   trackEvent('flyer_visit', {
-    campaign: campaign || 'hausmeister_flyer_2025',
+    campaign: campaign || 'FirstTriFoldFlyer',
     page: '/flyer',
   });
 }
