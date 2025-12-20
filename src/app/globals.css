@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  /* Farben für den Light-Mode (Standard) */
+  /* ==================== FARBEN ==================== */
+  
+  /* Light Mode (Standard) */
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -25,9 +27,14 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
+    
+    /* Scrollbar Farben */
+    --scrollbar-track: 210 40% 96%;
+    --scrollbar-thumb: 215 16% 70%;
+    --scrollbar-thumb-hover: 215 16% 55%;
   }
  
-  /* Farben für den Dark-Mode */
+  /* Dark Mode */
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -48,15 +55,194 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+    
+    /* Scrollbar Farben Dark */
+    --scrollbar-track: 217 33% 12%;
+    --scrollbar-thumb: 215 20% 40%;
+    --scrollbar-thumb-hover: 207 90% 54%;
   }
 }
 
 @layer base {
   body {
-    /* KORREKTUR: Wir verwenden die CSS-Variablen direkt */
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     min-height: 100vh;
+    
+    /* Smooth Scrolling */
+    scroll-behavior: smooth;
+    
+    /* Touch-Optimierungen */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+  
+  /* ==================== SCROLLBAR STYLES ==================== */
+  
+  /* Webkit-Browser (Chrome, Safari, Edge, Opera) */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--scrollbar-track));
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--scrollbar-thumb));
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+    transition: background 0.2s ease;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--scrollbar-thumb-hover));
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  
+  ::-webkit-scrollbar-thumb:active {
+    background: hsl(207 90% 54%);
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+  
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--scrollbar-thumb)) hsl(var(--scrollbar-track));
+  }
+  
+  /* Mobile: Scrollbar verstecken für cleanes Design */
+  @media (max-width: 767px) {
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      border: 0;
+    }
+  }
+  
+  /* ==================== TABLET OPTIMIERUNGEN ==================== */
+  
+  /* Tablet Portrait (iPad Mini, Standard iPad) */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    html {
+      font-size: 17px;
+    }
+  }
+  
+  /* Tablet Landscape + iPad Pro */
+  @media (min-width: 1024px) and (max-width: 1366px) {
+    html {
+      font-size: 18px;
+    }
+  }
+  
+  /* ==================== TOUCH IMPROVEMENTS ==================== */
+  
+  /* Größere Touch-Targets */
+  @media (pointer: coarse) {
+    button,
+    a,
+    input,
+    select,
+    textarea {
+      min-height: 44px;
+    }
+    
+    /* Besseres Tappen auf Links */
+    a {
+      padding: 0.25rem;
+      margin: -0.25rem;
+    }
+  }
+  
+  /* Fokus-Styles für Touch + Keyboard */
+  :focus-visible {
+    outline: 2px solid hsl(207 90% 54%);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  
+  /* ==================== RESPONSIVE TEXT ==================== */
+  
+  /* Fluid Typography für bessere Lesbarkeit */
+  h1 {
+    font-size: clamp(1.75rem, 4vw + 1rem, 3.5rem);
+  }
+  
+  h2 {
+    font-size: clamp(1.5rem, 3vw + 0.5rem, 2.5rem);
+  }
+  
+  h3 {
+    font-size: clamp(1.25rem, 2vw + 0.5rem, 1.75rem);
+  }
+  
+  /* Paragraph-Optimierung für Mobile */
+  p {
+    text-wrap: pretty;
+    hyphens: auto;
+  }
+  
+  @media (min-width: 768px) {
+    p {
+      hyphens: none;
+    }
   }
 }
 
+@layer utilities {
+  /* ==================== CUSTOM UTILITIES ==================== */
+  
+  /* Safe-Area für Notch-Geräte */
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  .safe-top {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+  
+  /* Horizontal Scroll ohne Scrollbar (für Carousels) */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Touch-Scroll-Momentum für iOS */
+  .scroll-touch {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* GPU-beschleunigtes Scrolling */
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+  
+  /* Tablet-spezifische Container */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .tablet\:px-8 {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    
+    .tablet\:gap-6 {
+      gap: 1.5rem;
+    }
+  }
+}

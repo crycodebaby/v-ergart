@@ -10,6 +10,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      // Tablet-spezifische Breakpoints
+      screens: {
+        'xs': '475px',      // Große Phones
+        'tablet': '768px',   // iPad Mini, Standard Tablets
+        'tablet-lg': '1024px', // iPad Pro, große Tablets
+        '3xl': '1920px',    // Ultra-wide
+      },
       colors: {
         "accent-green": "#3399FF",
         "brand-blue": "#3399FF",
@@ -22,6 +29,11 @@ const config: Config = {
           "SFMono-Regular",
           "monospace",
         ],
+      },
+      // Verbesserte Spacing für Tablets
+      spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
       },
       keyframes: {
         "accordion-down": {
