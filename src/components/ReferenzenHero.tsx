@@ -32,7 +32,8 @@ export default function ReferenzenHero({
           src={imageSrc}
           alt={title}
           fill
-          priority
+          sizes="100vw"
+          quality={85}
           className="object-cover object-center"
           // Parallax-Effekt: Bild bewegt sich langsamer als der Scroll
           style={{ transform: "translateY(var(--parallax-translate-y))" }}

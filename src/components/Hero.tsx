@@ -12,6 +12,15 @@ const images = [
   "/bilder_ordner/startbilder/treppenhausreinigung neuss und reinigungsservice neuss.webp"
 ];
 
+// Spezifische Alt-Texte für bessere SEO
+const altTexts = [
+  "Fensterservice und Fensterreinigung in Neuss",
+  "Hausmeisterdienste und Gebäudemanagement Neuss",
+  "Professioneller Reinigungsservice in Neuss",
+  "Handwerksarbeiten und Reparaturen Neuss",
+  "Treppenhausreinigung und Gebäudereinigung Neuss"
+];
+
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -24,7 +33,6 @@ const Hero = () => {
   }, []);
 
   return (
-    // KORREKTUR: Ein gemeinsamer Container mit `relative` Positionierung
     <section className="relative h-[70vh] w-full flex items-center justify-center">
       {/* Der Bilder-Slider als Hintergrund-Ebene */}
       <div className="absolute inset-0 z-0">
@@ -33,10 +41,11 @@ const Hero = () => {
             key={src}
             className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
             src={src}
-            alt={`Hausmeisterservice in Neuss - Bild ${index + 1}`}
+            alt={altTexts[index]}
             fill
+            sizes="100vw"
             priority={index === 0}
-            unoptimized
+            quality={85}
           />
         ))}
         {/* Ein dunkles Overlay, um den Text lesbarer zu machen */}

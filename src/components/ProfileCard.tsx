@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button"; // Jetzt verwenden wir den echten Shadcn Button
+import { Button } from "@/components/ui/button";
 
 const ProfileCard = () => {
   const [selectedCertificate, setSelectedCertificate] = useState<string | null>(null);
@@ -36,11 +36,11 @@ const ProfileCard = () => {
           <div className="profil-image flex-shrink-0">
             <Image
               src="/bilder_ordner/fensterbauer-neuss-profi.webp"
-              alt="Alexander Ergart"
+              alt="Alexander Ergart – Geschäftsführer Hausmeister- und Fensterservice Neuss"
               width={300}
               height={300}
               className="rounded-xl object-cover shadow-md transition-transform duration-300 hover:scale-105"
-              unoptimized
+              quality={85}
             />
           </div>
           <div className="profil-details flex-1 min-w-[300px] text-zinc-800 dark:text-gray-200 p-5 rounded-xl">
@@ -49,18 +49,18 @@ const ProfileCard = () => {
               Ihr zuverlässiger Hausmeister und Allround-Handwerker
             </p>
             <p className="description text-base leading-relaxed mb-5">
-              Mit über <strong>12 Jahren Erfahrung</strong>...
+              Mit über <strong>12 Jahren Erfahrung</strong> in Gebäudemanagement und Handwerk stehe ich für Qualität, Zuverlässigkeit und persönlichen Service.
             </p>
             <div className="zertifikate">
               <h3 className="text-2xl font-semibold mb-4 text-brand-blue">Zertifikate</h3>
               <ul className="list-none p-0 mb-6 space-y-2">
                 <li className="flex items-start gap-3">
                   <Check className="text-brand-blue mt-1 flex-shrink-0" size={20} />
-                  <span>TÜV Nord: Beauftragte Person für Aufzugsanlagen...</span>
+                  <span>TÜV Nord: Beauftragte Person für Aufzugsanlagen nach TRBS 3121</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="text-brand-blue mt-1 flex-shrink-0" size={20} />
-                  <span>Sicherheitsbeauftragter gemäß...</span>
+                  <span>Sicherheitsbeauftragter gemäß DGUV Vorschrift 1</span>
                 </li>
               </ul>
               <Dialog>
@@ -80,13 +80,13 @@ const ProfileCard = () => {
                   </DialogHeader>
                   <div className="p-4">
                     {selectedCertificate && (
-                       <Image
+                      <Image
                         src={`/bilder_ordner/zertifikate/${selectedCertificate}`}
-                        alt="Zertifikat von Alexander Ergart"
+                        alt="Zertifikat von Alexander Ergart – TÜV und Sicherheitsbeauftragter"
                         width={800}
                         height={1120}
                         className="w-full h-auto rounded-md"
-                        unoptimized
+                        quality={90}
                       />
                     )}
                   </div>
@@ -99,4 +99,5 @@ const ProfileCard = () => {
     </motion.section>
   );
 };
+
 export default ProfileCard;

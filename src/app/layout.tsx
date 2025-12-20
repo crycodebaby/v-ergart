@@ -1,4 +1,18 @@
 // src/app/layout.tsx
+/**
+ * Root Layout
+ *
+ * Enthält das Weihnachts-Theme (steuerbar über Sanity siteSettings),
+ * das Announcement-System, Header, Footer und alle globalen Provider.
+ *
+ * Reihenfolge der Elemente:
+ * 1. Weihnachts-Effekte (Lichterkette, Gruß)
+ * 2. Announcement TopBar
+ * 3. Header
+ * 4. Announcement Banner
+ * 5. Main Content
+ * 6. Footer
+ */
 import type { Metadata, Viewport } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
@@ -6,7 +20,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Providers } from "@/components/providers";
 import { ScrollToTopButton } from "@/components/ScrollToTopButton";
-import { AnnouncementProvider } from "@/components/AnnouncementProvider";
+import {
+  AnnouncementTopBarProvider,
+  AnnouncementBannerProvider,
+} from "@/components/AnnouncementProvider";
+import { ChristmasProvider, getChristmasMode } from "@/components/christmas";
 import PlausibleProvider from "next-plausible";
 
 const roboto = Roboto({
@@ -36,16 +54,23 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Lade Weihnachtsmodus für data-Attribut (parallel zum Render)
+  const christmasMode = await getChristmasMode();
+
   return (
     <PlausibleProvider
       domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || "alexander-ergart.de"}
       trackOutboundLinks
       taggedEvents
     >
-      <html lang="de" suppressHydrationWarning>
+      <html
+        lang="de"
+        suppressHydrationWarning
+        data-christmas={christmasMode}
+      >
         {/* Sticky-Footer-Setup: body als Flex-Spalte, volle Viewport-Höhe */}
         <body
           className={[
@@ -68,8 +93,16 @@ export default function RootLayout({
           </a>
 
           <Providers>
-            <AnnouncementProvider />
+            {/* Weihnachts-Effekte (Lichterkette, Gruß) - ganz oben */}
+            <ChristmasProvider />
+
+            {/* Schmale Mitteilungs-Leiste (vor Header) */}
+            <AnnouncementTopBarProvider />
+
             <Header />
+
+            {/* Großes Mitteilungs-Banner (nach Header) */}
+            <AnnouncementBannerProvider />
 
             {/* WICHTIG: flex-1 damit der Content die Lücke füllt -> Footer bleibt unten */}
             <main id="main" role="main" className="flex-1">
