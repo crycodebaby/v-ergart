@@ -1,34 +1,17 @@
 // src/app/karriere/page.tsx
-import type { Metadata } from "next";
+import { generateSEOMetadata } from "@/lib/seo-utils";
 import { fetchJobs } from "@/lib/jobs-queries";
 import JobsList from "@/components/JobsList";
 import { KarriereHero } from "@/components/KarriereHero";
 import { WhyWorkWithUs } from "@/components/WhyWorkWithUs";
 import CTA from "@/components/CTA";
 
-export const metadata: Metadata = {
-  title: "Karriere bei Alexander Ergart | Jobs in Neuss & Umgebung",
+export const metadata = generateSEOMetadata({
+  title: "Karriere bei Alexander Ergart | Jobs im Hausmeisterservice in Neuss",
   description:
-    "Werden Sie Teil unseres Teams! Hausmeisterservice, Fensterservice und mehr. Offene Stellen in Neuss für Fenster- und Türenbauer, Hausmeister und Servicetechniker.",
-  alternates: {
-    canonical: "/karriere",
-  },
-  openGraph: {
-    title: "Karriere bei Alexander Ergart | Jobs in Neuss",
-    description:
-      "Werden Sie Teil unseres Teams! Offene Stellen in Neuss für Fenster- und Türenbauer, Hausmeister und Servicetechniker.",
-    type: "website",
-    url: "/karriere",
-    locale: "de_DE",
-    siteName: "Alexander Ergart Hausmeister- & Fensterservice",
-  },
-  twitter: {
-    card: "summary",
-    title: "Karriere bei Alexander Ergart",
-    description:
-      "Werden Sie Teil unseres Teams! Offene Stellen in Neuss für Fenster- und Türenbauer, Hausmeister und Servicetechniker.",
-  },
-};
+    "Entdecken Sie offene Stellen bei Alexander Ergart: Jobs im Hausmeisterservice, in der Objektpflege und im Fensterservice in Neuss und Umgebung. Bewerben Sie sich jetzt und werden Sie Teil des Teams.",
+  path: "/karriere",
+});
 
 export default async function KarrierePage() {
   const jobs = await fetchJobs();

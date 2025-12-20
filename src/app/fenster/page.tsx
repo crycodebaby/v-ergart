@@ -1,11 +1,23 @@
 // src/app/fenster/page.tsx
+import { generateSEOMetadata } from "@/lib/seo-utils";
 import { FeatureGallery } from "@/components/FeatureGallery";
 import FensterHero from "@/components/FensterHero";
 import CTA from "@/components/CTA";
 import { ProcessStepper } from "@/components/ProcessStepper";
-import PartnerBrandSpotlight from "@/components/PartnerBrandSpotlight"; // NEUER IMPORT
-import PartnerBenefitsSplit from "@/components/PartnerBenefitsSplit"; // NEUER IMPORT
-import { fensterFeatures } from "@/lib/fenster-data"; // NEUER IMPORT-PFAD
+import PartnerBrandSpotlight from "@/components/PartnerBrandSpotlight";
+import PartnerBenefitsSplit from "@/components/PartnerBenefitsSplit";
+import { fensterFeatures } from "@/lib/fenster-data";
+
+export const metadata = generateSEOMetadata({
+  title: "Fensterservice & Fenstermontage in Neuss | Alexander Ergart",
+  description:
+    "Professioneller Fensterservice in Neuss: Montage, Wartung und Pflege hochwertiger Fenster für Wohn- und Gewerbeobjekte. Partner von HÖNING – Qualität made in Germany.",
+  path: "/fenster",
+  image: {
+    url: "/bilder_ordner/hoening/fenster/hoening-zentrale-besuch/fenster-ausstellung7.webp",
+    alt: "Hochwertige Fenster von HÖNING in Neuss",
+  },
+});
 
 export default function FensterPage() {
   return (

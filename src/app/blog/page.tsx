@@ -1,14 +1,15 @@
-import { Metadata } from "next";
+import { generateSEOMetadata } from "@/lib/seo-utils";
 import Link from "next/link";
 import { fetchPosts, fetchCategories } from "@/lib/blog-queries";
 import BlogGrid from "@/components/BlogGrid";
 import { Newspaper } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Blog - Hausmeister-Tipps aus Neuss | Alexander Ergart",
+export const metadata = generateSEOMetadata({
+  title: "Blog | Tipps rund um Hausmeisterservice & Objektpflege – Alexander Ergart",
   description:
-    "Praktische Tipps rund um Hausmeisterservice, Fensterreinigung und Gebäudepflege im Raum Neuss, Kaarst und Rhein-Kreis Neuss.",
-};
+    "Aktuelle Beiträge, Tipps und Einblicke rund um Hausmeisterservice, Objektpflege, Gebäudereinigung und Fensterservice in Neuss. Der Blog von Alexander Ergart.",
+  path: "/blog",
+});
 
 // JSON-LD für Blog-Übersicht
 function BlogJsonLd() {

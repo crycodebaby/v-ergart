@@ -3,13 +3,26 @@
  *
  * Zentrale Hilfsfunktionen für SEO, Metadata und Open Graph.
  * Stellt konsistente Defaults und Generatoren für alle Seiten bereit.
+ * 
+ * @usage
+ * ```tsx
+ * import { generateSEOMetadata } from "@/lib/seo-utils";
+ * 
+ * export const metadata = generateSEOMetadata({
+ *   title: "Seiten-Titel",
+ *   description: "Beschreibung...",
+ *   path: "/leistungen",  // Relativer Pfad, wird zu absoluter URL
+ * });
+ * ```
  */
 import type { Metadata } from "next";
 
+/** Basis-URL für absolute URLs */
 export const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
   "https://alexander-ergart.de";
 
+/** Site-Name für OG-Tags */
 export const SITE_NAME = "Alexander Ergart Hausmeister- & Fensterservice";
 
 /**
@@ -23,7 +36,35 @@ export const DEFAULT_OG_IMAGE = {
 };
 
 /**
- * Generiert Standard-Metadata mit konsistenten OG-Tags
+ * Generiert absolute URL aus relativem Pfad
+ * 
+ * @param path - Relativer Pfad, z.B. "/leistungen" oder "/blog/mein-artikel"
+ * @returns Absolute URL wie "https://alexander-ergart.de/leistungen"
+ */
+export function absoluteUrl(path: string): string {
+  // Falls bereits absolute URL, unverändert zurückgeben
+  if (path.startsWith("http://") || path.startsWith("https://")) {
+    return path;
+  }
+  return `${BASE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+/**
+ * Prüft ob URL bereits absolut ist
+ */
+function isAbsoluteUrl(url: string): boolean {
+  return url.startsWith("http://") || url.startsWith("https://");
+}
+
+/**
+ * Generiert Standard-Metadata mit konsistenten OG-Tags und absoluten URLs
+ * 
+ * @param title - Seitentitel (wird auch für OG/Twitter verwendet)
+ * @param description - Meta-Description (max. 160 Zeichen empfohlen)
+ * @param path - RELATIVER Pfad zur Seite, z.B. "/leistungen" oder "/blog/artikel-slug"
+ * @param image - Optionales Custom-Bild für OG/Twitter (url kann relativ oder absolut sein)
+ * @param type - OG-Type: "website" (default) oder "article" für Blogposts
+ * @param noIndex - Wenn true, wird die Seite nicht indexiert
  */
 export function generateSEOMetadata({
   title,
@@ -35,23 +76,45 @@ export function generateSEOMetadata({
 }: {
   title: string;
   description: string;
+  /** Relativer Pfad zur Seite, z.B. "/leistungen" */
   path: string;
+  /** Custom OG-Image (url kann relativ oder absolut sein) */
   image?: { url: string; alt: string };
   type?: "website" | "article";
   noIndex?: boolean;
 }): Metadata {
-  const ogImage = image
-    ? { url: image.url, width: 1200, height: 630, alt: image.alt }
-    : DEFAULT_OG_IMAGE;
+  // Absolute URL für Canonical und OG
+  const canonicalUrl = absoluteUrl(path);
+
+  // OG-Image mit robuster URL-Behandlung
+  const ogImageUrl = image
+    ? isAbsoluteUrl(image.url)
+      ? image.url
+      : absoluteUrl(image.url)
+    : DEFAULT_OG_IMAGE.url;
+
+  const ogImage = {
+    url: ogImageUrl,
+    width: 1200,
+    height: 630,
+    alt: image?.alt ?? DEFAULT_OG_IMAGE.alt,
+  };
 
   return {
     title,
     description,
     alternates: {
-      canonical: path,
+      canonical: canonicalUrl,
     },
     robots: noIndex
-      ? { index: false, follow: false }
+      ? {
+          index: false,
+          follow: false,
+          googleBot: {
+            index: false,
+            follow: false,
+          },
+        }
       : {
           index: true,
           follow: true,
@@ -66,7 +129,7 @@ export function generateSEOMetadata({
     openGraph: {
       type,
       locale: "de_DE",
-      url: path,
+      url: canonicalUrl,
       siteName: SITE_NAME,
       title,
       description,
@@ -76,14 +139,31 @@ export function generateSEOMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [ogImage.url],
+      images: [ogImageUrl],
     },
   };
 }
 
 /**
- * Generiert absolute URL für Canonicals und OG
+ * Generiert Metadata für dynamische Seiten (z.B. Blog-Artikel)
+ * Convenience-Wrapper für generateSEOMetadata mit type="article"
  */
-export function absoluteUrl(path: string): string {
-  return `${BASE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+export function generateArticleMetadata({
+  title,
+  description,
+  path,
+  image,
+}: {
+  title: string;
+  description: string;
+  path: string;
+  image?: { url: string; alt: string };
+}): Metadata {
+  return generateSEOMetadata({
+    title,
+    description,
+    path,
+    image,
+    type: "article",
+  });
 }
