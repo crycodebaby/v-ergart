@@ -29,13 +29,13 @@ const navLinks = [
 
 const dropdownLinks = [
   {
-    href: "/fenster",
+    href: "/fensterservice",
     label: "Fenster",
     description: "Moderne und energieeffiziente Fensterlösungen.",
     icon: Building,
   },
   {
-    href: "/tueren",
+    href: "/fensterservice",
     label: "Türen",
     description: "Sichere und stilvolle Eingangs- und Innentüren.",
     icon: DoorOpen,
@@ -168,11 +168,11 @@ export default function Header() {
                             title={item.label}
                             description={item.description}
                             icon={
-                                <Icon
-                                  size={20}
-                                  className="text-white"
-                                  aria-hidden
-                                />
+                              <Icon
+                                size={20}
+                                className="text-white"
+                                aria-hidden
+                              />
                             }
                           />
                         );

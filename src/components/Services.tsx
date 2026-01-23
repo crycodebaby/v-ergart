@@ -2,6 +2,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 // KORRIGIERTER IMPORT: 'Window' wurde durch 'Frame' ersetzt.
 import {
   Frame,
@@ -13,7 +14,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-const services: { title: string; description: string; icon: LucideIcon }[] = [
+const services: { title: string; description: string; icon: LucideIcon; link?: string }[] = [
   // KORRIGIERTER EINTRAG: 'Window' wurde durch 'Frame' ersetzt.
   {
     title: "Fenstermontage & Service",
@@ -40,10 +41,11 @@ const services: { title: string; description: string; icon: LucideIcon }[] = [
     icon: Sparkles,
   },
   {
-    title: "Türen- und Fensterbauer",
+    title: "Fensterbauer & Fenstermontage",
     description:
-      "Hochwertige Bauelemente der Firma Höning aus Deutscher Wertarbeit - Für jeden Wunsch nach Sicherheit und Design.",
+      "Ihr Experte in Neuss für neue Fenster, Haustüren und fachgerechten Einbau.",
     icon: Construction,
+    link: "/fensterservice",
   },
   {
     title: "Raumausstattung",
@@ -83,11 +85,12 @@ const Services = () => {
         >
           {services.map((service, index) => {
             const Icon = service.icon;
-            return (
+            const Content = (
               <motion.div
                 key={index}
-                className="service-item bg-slate-50 dark:bg-zinc-900/80 p-8 rounded-xl shadow-lg border border-border/20 text-center flex flex-col items-center"
+                className="service-item bg-slate-50 dark:bg-zinc-900/80 p-8 rounded-xl shadow-lg border border-border/20 text-center flex flex-col items-center h-full hover:border-brand-blue/50 transition-colors"
                 variants={itemVariants}
+                whileHover={{ y: -5 }}
               >
                 <div className="icon-container bg-brand-blue/10 p-4 rounded-full mb-6 border border-brand-blue/20">
                   <Icon className="text-brand-blue" size={36} />
@@ -99,6 +102,14 @@ const Services = () => {
                   {service.description}
                 </p>
               </motion.div>
+            );
+
+            return (service as any).link ? (
+              <Link href={(service as any).link} key={index} className="block h-full">
+                {Content}
+              </Link>
+            ) : (
+              Content
             );
           })}
         </motion.div>

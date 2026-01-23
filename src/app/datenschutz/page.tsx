@@ -7,7 +7,7 @@ export default function DatenschutzPage() {
     <ContentPage title="Datenschutzerklärung">
       <section>
         <h2>1. Datenschutz auf einen Blick</h2>
-        
+
         <h3>Einleitung</h3>
         <p>
           Der Schutz Ihrer persönlichen Daten ist uns ein zentrales Anliegen. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.
@@ -34,7 +34,7 @@ export default function DatenschutzPage() {
 
       <section>
         <h2>2. Hosting und technische Bereitstellung</h2>
-        
+
         <h3>Hosting durch Vercel</h3>
         <p>
           Wir hosten unsere Website bei dem externen Dienstleister Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA (&bdquo;Vercel&ldquo;).
@@ -74,7 +74,7 @@ export default function DatenschutzPage() {
 
       <section>
         <h2>3. Datenerfassung durch Eingaben</h2>
-        
+
         <h3>Kontaktformular und E-Mail-Kontakt</h3>
         <p>
           Wenn Sie uns per Kontaktformular Anfragen zukommen lassen oder uns per E-Mail schreiben, werden Ihre Angaben aus dem Anfrageformular (z. B. Name, E-Mail-Adresse, Telefonnummer, Nachrichtentext) inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.
@@ -140,21 +140,21 @@ export default function DatenschutzPage() {
 
       <section>
         <h2>5. Externe Tools und Inhalte</h2>
-        
-        <h3>Terminbuchung über Calendly</h3>
+
+        <h3>Terminbuchung über Google Kalender</h3>
         <p>
-          Auf unserer Website bieten wir die Möglichkeit, Online-Termine über das Tool Calendly (Calendly LLC, 271 17th St NW, Atlanta, GA 30363, USA) zu vereinbaren.
+          Auf unserer Website bieten wir die Möglichkeit, Online-Termine über Google Kalender (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland) zu vereinbaren.
         </p>
         <p>
-          Wenn Sie einen Termin buchen, werden die eingegebenen Daten (Name, E-Mail, Terminwunsch) an Calendly übertragen. Calendly speichert zudem technisch notwendige Cookies, um den Buchungsprozess zu ermöglichen.
+          Wenn Sie einen Termin buchen, werden die eingegebenen Daten (Name, E-Mail, Terminwunsch) an Google übertragen.
         </p>
         <p>
           <strong>Rechtsgrundlage:</strong> Die Verarbeitung erfolgt zur Durchführung vorvertraglicher Maßnahmen oder zur Vertragserfüllung gemäß Art. 6 Abs. 1 lit. b DSGVO.
         </p>
         <p>
-          <strong>Datentransfer USA:</strong> Die Datenübermittlung in die USA wird durch Standardvertragsklauseln (SCCs) abgesichert. Weitere Details finden Sie unter{" "}
-          <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer">
-            https://calendly.com/privacy
+          <strong>Datentransfer:</strong> Weitere Details finden Sie unter{" "}
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+            https://policies.google.com/privacy
           </a>.
         </p>
 
@@ -181,7 +181,7 @@ export default function DatenschutzPage() {
 
       <section>
         <h2>6. Sicherheit</h2>
-        
+
         <h3>SSL-/TLS-Verschlüsselung</h3>
         <p>
           Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an uns als Seitenbetreiber senden, eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von &bdquo;http://&ldquo; auf &bdquo;https://&ldquo; wechselt und an dem Schloss-Symbol in Ihrer Browserzeile. Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden.

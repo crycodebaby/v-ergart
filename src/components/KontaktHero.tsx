@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import CalendlyButton from "./CalendlyButton";
+import GoogleCalendarButton from "./GoogleCalendarButton";
 import { Phone, Mail } from "lucide-react";
 
 export default function KontaktHero() {
@@ -29,7 +29,7 @@ export default function KontaktHero() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <CalendlyButton label="Termin online buchen" />
+            <GoogleCalendarButton label="Termin online buchen" />
             <a
               href="tel:+4917666825889"
               className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent"

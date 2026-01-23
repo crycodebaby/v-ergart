@@ -22,6 +22,7 @@ import Script from "next/script";
 import { generateSEOMetadata, BASE_URL, SITE_NAME } from "@/lib/seo-utils";
 import FensterserviceHero from "@/components/FensterserviceHero";
 import FensterserviceLeistungen from "@/components/FensterserviceLeistungen";
+import FensterserviceBildergalerie from "@/components/FensterserviceBildergalerie";
 import FensterserviceVorteile from "@/components/FensterserviceVorteile";
 import FensterserviceAblauf from "@/components/FensterserviceAblauf";
 import FensterserviceFAQ from "@/components/FensterserviceFAQ";
@@ -71,7 +72,7 @@ const faqData = [
     {
         frage: "Welche Fenstermarken verbauen Sie?",
         antwort:
-            "Wir sind offizieller Partner von HÖNING – einem deutschen Premium-Hersteller. Die Fenster überzeugen durch höchste Qualität, Energieeffizienz und lange Lebensdauer.",
+            "Wir sind offizieller Partner von HÖNING; einem deutschen Premium-Hersteller. Die Fenster überzeugen durch höchste Qualität, Energieeffizienz und lange Lebensdauer.",
     },
 ];
 
@@ -218,6 +219,7 @@ export default function FensterservicePage() {
             {/* Page Sections */}
             <FensterserviceHero />
             <FensterserviceLeistungen />
+            <FensterserviceBildergalerie />
             <FensterserviceVorteile />
             <FensterserviceAblauf />
             <FensterserviceFAQ />

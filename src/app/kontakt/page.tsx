@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import KontaktHero from "@/components/KontaktHero";
 import ContactForm from "@/components/ContactForm";
-import CalendlyButton from "@/components/CalendlyButton";
+import GoogleCalendarButton from "@/components/GoogleCalendarButton";
 import { ShieldCheck, Clock, MapPin, Phone, Mail, Star } from "lucide-react";
 import CTA from "@/components/CTA";
 import MapSection from "@/components/MapSection";
@@ -98,7 +98,7 @@ export default function KontaktPage() {
               </p>
               <ContactForm />
               <div className="mt-6 flex flex-wrap gap-3">
-                <CalendlyButton variant="outline" />
+                <GoogleCalendarButton variant="outline" />
                 <a
                   href="tel:+4917666825889"
                   className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent"
@@ -150,7 +150,7 @@ export default function KontaktPage() {
               </ul>
 
               <div className="mt-6">
-                <CalendlyButton
+                <GoogleCalendarButton
                   label="Termin sofort wählen"
                   className="w-full"
                 />

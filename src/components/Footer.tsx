@@ -68,6 +68,14 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
+                    href="/fensterservice"
+                    className="text-muted-foreground hover:text-brand-blue transition-colors font-medium text-brand-blue/90"
+                  >
+                    Fenster & Türen
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="/ueber-uns"
                     className="text-muted-foreground hover:text-brand-blue transition-colors"
                   >
