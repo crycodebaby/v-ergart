@@ -15,6 +15,7 @@ const BASE_URL =
 const STATIC_ROUTES = [
   "/", // Home
   "/fenster",
+  "/fensterservice", // Google Ads Landing Page
   "/fenster-tueren",
   "/tueren",
   "/referenzen",
@@ -47,6 +48,7 @@ function priorityFor(path: string): number {
   if (
     [
       "/fenster",
+      "/fensterservice",
       "/fenster-tueren",
       "/tueren",
       "/leistungen",
