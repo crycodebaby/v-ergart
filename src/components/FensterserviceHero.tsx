@@ -22,16 +22,18 @@ import { Phone, MessageCircle, MapPin, Clock } from "lucide-react";
 export default function FensterserviceHero() {
   return (
     <section className="relative min-h-[85vh] flex items-center overflow-hidden">
-      {/* Hintergrundbild */}
+      {/* Hintergrundbild mit Aspect-Ratio für CLS-Optimierung */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fertig-installierte-scheibe-neue-saubere-fensterfront.webp"
-          alt="Professioneller Fenstereinbau in Neuss"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
+        <div className="relative w-full h-full">
+          <Image
+            src="/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fertig-installierte-scheibe-neue-saubere-fensterfront.webp"
+            alt="Professioneller Fenstereinbau in Neuss"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
         {/* Gradient Overlay für bessere Lesbarkeit */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
       </div>

@@ -30,7 +30,7 @@ import FensterserviceKontakt from "@/components/FensterserviceKontakt";
 
 // SEO Metadata
 export const metadata = generateSEOMetadata({
-    title: "Fensterbau & Fensterservice in Neuss | Alexander Ergart",
+    title: "Fensterbauer Neuss: Einbau, Reparatur & Service | Alexander Ergart",
     description:
         "Professioneller Fensterservice in Neuss & Umgebung: Fenstermontage, Austausch, Reparatur & Wartung. 12+ Jahre Erfahrung, HÖNING-Partner. ✓ Kostenlose Beratung ☎ 0176 668 25 889",
     path: "/fensterservice",

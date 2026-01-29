@@ -12,7 +12,7 @@ const coreServices = [
     description:
       "Hochwertige HÖNING Fenster und Türen. Effizient, sauber und fachgerecht für ein spürbar besseres Zuhause.",
     icon: DoorOpen,
-    link: "/fenster",
+    link: "/fensterservice",
     image: "/bilder_ordner/hoening/fenster/fenstersanierung/fertige-terassen-fensterwand.webp",
   },
   {
@@ -72,7 +72,7 @@ export function LeistungenContent() {
             Unsere Kernkompetenzen
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Ein breites Spektrum an Dienstleistungen, zugeschnitten auf höchste Qualität, 
+            Ein breites Spektrum an Dienstleistungen, zugeschnitten auf höchste Qualität,
             Zuverlässigkeit und Ihre individuellen Bedürfnisse.
           </p>
         </motion.div>
@@ -111,11 +111,11 @@ export function LeistungenContent() {
                           {service.title}
                         </h3>
                       </div>
-                      
+
                       <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                         {service.description}
                       </p>
-                      
+
                       {/* CTA */}
                       <div className="flex items-center gap-2 text-brand-blue font-semibold text-sm">
                         <span>Mehr erfahren</span>

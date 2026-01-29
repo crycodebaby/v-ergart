@@ -41,10 +41,18 @@ const robotoMono = Roboto_Mono({
   display: "swap",
 });
 
+/**
+ * Root Metadata - Template-System für konsistente Titel
+ * 
+ * WICHTIG: Keine globale description hier!
+ * Jede Seite definiert ihre eigene description für optimales SEO.
+ */
 export const metadata: Metadata = {
-  title: "Hausmeister Neuss - Alexander Ergart",
-  description:
-    "Hausmeisterservice in Neuss: Reinigung, Reparaturen & Winterdienst.",
+  title: {
+    template: '%s | Alexander Ergart',
+    default: 'Hausmeisterservice Neuss - Alexander Ergart'
+  },
+  // KEINE description hier - wird auf Seitenebene definiert!
 };
 
 export const viewport: Viewport = {
@@ -71,6 +79,11 @@ export default async function RootLayout({
         suppressHydrationWarning
         data-christmas={christmasMode}
       >
+        <head>
+          {/* Preconnect für Google Fonts - reduziert TTFB */}
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        </head>
         {/* Sticky-Footer-Setup: body als Flex-Spalte, volle Viewport-Höhe */}
         <body
           className={[

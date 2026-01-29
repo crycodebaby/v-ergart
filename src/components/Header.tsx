@@ -21,6 +21,7 @@ import {
 const navLinks = [
   { href: "/", label: "Startseite" },
   { href: "/leistungen", label: "Leistungen" },
+  { href: "/fensterservice", label: "Fensterservice", highlight: true },
   { href: "/referenzen", label: "Referenzen" },
   { href: "/ueber-uns", label: "Über Uns" },
   { href: "/karriere", label: "Karriere" },
@@ -120,7 +121,10 @@ export default function Header() {
                   <NavigationMenuItem key={link.href}>
                     <Link href={link.href} legacyBehavior passHref>
                       <NavigationMenuLink
-                        className={navigationMenuTriggerStyle()}
+                        className={cn(
+                          navigationMenuTriggerStyle(),
+                          link.highlight && "text-brand-blue font-semibold"
+                        )}
                       >
                         {link.label}
                       </NavigationMenuLink>
