@@ -69,7 +69,16 @@ const Footer = () => {
                 <li>
                   <Link
                     href="/fensterservice"
-                    className="text-muted-foreground hover:text-brand-blue transition-colors font-medium text-brand-blue/90"
+                    className="text-brand-blue font-bold hover:text-blue-600 transition-colors uppercase tracking-wide text-sm"
+                    aria-label="Zum Fensterservice (Landingpage)"
+                  >
+                    Fensterservice
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/fenster-tueren"
+                    className="text-muted-foreground hover:text-brand-blue transition-colors"
                   >
                     Fenster & Türen
                   </Link>

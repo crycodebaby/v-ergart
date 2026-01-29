@@ -30,13 +30,13 @@ const navLinks = [
 
 const dropdownLinks = [
   {
-    href: "/fensterservice",
+    href: "/fenster",
     label: "Fenster",
     description: "Moderne und energieeffiziente Fensterlösungen.",
     icon: Building,
   },
   {
-    href: "/fensterservice",
+    href: "/tueren",
     label: "Türen",
     description: "Sichere und stilvolle Eingangs- und Innentüren.",
     icon: DoorOpen,

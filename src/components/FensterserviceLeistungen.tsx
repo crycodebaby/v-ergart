@@ -24,6 +24,7 @@ const leistungen = [
         title: "Fenstermontage & Einbau",
         description:
             "Professioneller Einbau neuer Fenster mit präziser Ausrichtung und fachgerechter Abdichtung.",
+        link: "/fenster", // Internal Link
     },
     {
         icon: RefreshCw,
@@ -54,6 +55,7 @@ const leistungen = [
         title: "Sicherheit & Einbruchschutz",
         description:
             "Nachrüstung von Sicherheitsbeschlägen und einbruchhemmenden Elementen.",
+        link: "/tueren", // Internal Link to Doors/Security
     },
 ];
 
@@ -115,29 +117,45 @@ export default function FensterserviceLeistungen() {
                     viewport={{ once: true, amount: 0.2 }}
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 >
-                    {leistungen.map((leistung) => (
-                        <motion.div
-                            key={leistung.title}
-                            variants={itemVariants}
-                            className="group p-6 md:p-8 rounded-2xl bg-white dark:bg-zinc-800 border border-border hover:border-brand-blue/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-blue/5"
-                        >
-                            {/* Icon */}
-                            <div className="w-14 h-14 mb-5 rounded-xl bg-brand-blue/10 flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-all duration-300">
-                                <leistung.icon
-                                    size={28}
-                                    className="text-brand-blue group-hover:text-white transition-colors"
-                                />
-                            </div>
+                    {leistungen.map((leistung) => {
+                        const CardContent = (
+                            <motion.div
+                                key={leistung.title}
+                                variants={itemVariants}
+                                className="group p-6 md:p-8 rounded-2xl bg-white dark:bg-zinc-800 border border-border hover:border-brand-blue/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-blue/5 h-full"
+                            >
+                                {/* Icon */}
+                                <div className="w-14 h-14 mb-5 rounded-xl bg-brand-blue/10 flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-all duration-300">
+                                    <leistung.icon
+                                        size={28}
+                                        className="text-brand-blue group-hover:text-white transition-colors"
+                                    />
+                                </div>
 
-                            {/* Text */}
-                            <h3 className="text-xl font-bold text-foreground mb-3">
-                                {leistung.title}
-                            </h3>
-                            <p className="text-muted-foreground leading-relaxed">
-                                {leistung.description}
-                            </p>
-                        </motion.div>
-                    ))}
+                                {/* Text */}
+                                <h3 className="text-xl font-bold text-foreground mb-3 flex items-center gap-2">
+                                    {leistung.title}
+                                    {/* Optional Arrow for links */}
+                                    {(leistung as any).link && (
+                                        <span className="opacity-0 group-hover:opacity-100 transition-opacity text-brand-blue text-sm">
+                                            ↗
+                                        </span>
+                                    )}
+                                </h3>
+                                <p className="text-muted-foreground leading-relaxed">
+                                    {leistung.description}
+                                </p>
+                            </motion.div>
+                        );
+
+                        return (leistung as any).link ? (
+                            <a href={(leistung as any).link} key={leistung.title} className="block h-full">
+                                {CardContent}
+                            </a>
+                        ) : (
+                            CardContent
+                        );
+                    })}
                 </motion.div>
 
                 {/* CTA */}
