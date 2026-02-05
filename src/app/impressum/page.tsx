@@ -30,14 +30,25 @@ export default function ImpressumPage() {
       {/* Optional: Falls Kleinunternehmerregelung (§ 19 UStG) genutzt wird, hier klarstellen. */}
 
       {/* Optional: Berufs-/Registerangaben, falls einschlägig */}
-      {/* 
-        Wenn eingetragenes Handwerk / HWK:
-        <h2>Eintragung / Aufsichtsbehörde</h2>
-        <p>
-          Eingetragen in die Handwerksrolle bei der Handwerkskammer [Ort], Betriebs-Nr.: [xxxxxx].<br />
-          Zuständige Aufsichtsbehörde: [z. B. Ordnungsamt Neuss, Adresse].
-        </p>
-      */}
+      {/* Eingetragenes Handwerk / HWK */}
+      <h2>Eintragung in die Handwerksrolle</h2>
+      <p>
+        Alexander Ergart ist bei der Handwerkskammer Düsseldorf eingetragen.
+        <br />
+        <strong>Betriebsnummer:</strong> 1830606
+        <br />
+        <strong>Mitglied seit:</strong> März 2018
+      </p>
+      <p>
+        <strong>Eingetragene Dienstleistungen:</strong>
+        <br />
+        Raumausstatter, Einbau von genormten Baufertigteilen (z.B. Fenster, Türen, Zargen, Regale) sowie Gebäudereiniger.
+      </p>
+      <p>
+        <strong>Anerkennung durch:</strong>
+        <br />
+        Präsident Andreas Ehlert sowie Hauptgeschäftsführer Dr. Axel Fuhrmann der Handwerkskammer Düsseldorf.
+      </p>
       {/* 
         Wenn Handels-/Vereinsregister:
         <h2>Registereintrag</h2>

@@ -27,6 +27,7 @@ import FensterserviceVorteile from "@/components/FensterserviceVorteile";
 import FensterserviceAblauf from "@/components/FensterserviceAblauf";
 import FensterserviceFAQ from "@/components/FensterserviceFAQ";
 import FensterserviceKontakt from "@/components/FensterserviceKontakt";
+import { HandwerkskammerCard } from "@/components/HandwerkskammerCard";
 
 // SEO Metadata
 export const metadata = generateSEOMetadata({
@@ -223,6 +224,9 @@ export default function FensterservicePage() {
             <FensterserviceVorteile />
             <FensterserviceAblauf />
             <FensterserviceFAQ />
+            <div className="container mx-auto px-4">
+                <HandwerkskammerCard />
+            </div>
             <FensterserviceKontakt />
         </>
     );

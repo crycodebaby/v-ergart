@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
  *   title: string;
  *   text: string;
  *   image: string;
+ *   badge?: string;
  *   align?: "left" | "right";
  * }
  */
@@ -64,11 +65,10 @@ function MilestoneCard({
     <motion.article
       ref={ref}
       style={prefersReducedMotion ? undefined : { opacity, y }}
-      className={`grid items-center gap-6 sm:gap-8 lg:gap-12 ${
-        isLeft
-          ? "lg:grid-cols-[1fr_1fr]"
-          : "lg:grid-cols-[1fr_1fr] lg:[&>*:first-child]:order-2"
-      }`}
+      className={`grid items-center gap-6 sm:gap-8 lg:gap-12 ${isLeft
+        ? "lg:grid-cols-[1fr_1fr]"
+        : "lg:grid-cols-[1fr_1fr] lg:[&>*:first-child]:order-2"
+        }`}
       aria-label={`Meilenstein ${milestone.year}: ${milestone.title}`}
     >
       {/* Textblock */}
@@ -82,6 +82,22 @@ function MilestoneCard({
         <p className="mt-3 text-base leading-relaxed text-muted-foreground">
           {milestone.text}
         </p>
+        {milestone.badge && (
+          <div className="mt-4 flex items-center gap-3">
+            <div className="relative h-12 w-12 rounded-lg overflow-hidden border border-border/40 bg-card shadow-sm flex-shrink-0">
+              <Image
+                src={milestone.badge}
+                alt="Zertifizierung"
+                fill
+                className="object-contain p-1"
+                sizes="48px"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground italic">
+              Offiziell anerkannt und zertifiziert
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Bildblock */}

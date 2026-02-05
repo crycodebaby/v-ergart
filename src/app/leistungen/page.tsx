@@ -5,6 +5,7 @@ import { LeistungenContent } from "@/components/LeistungenContent";
 import { TerrassenFensterSlider } from "@/components/TerrassenFensterSlider";
 import { HoeningShowroom } from "@/components/HoeningShowroom";
 import CTA from "@/components/CTA";
+import { HandwerkskammerCard } from "@/components/HandwerkskammerCard";
 
 export const metadata = generateSEOMetadata({
   title: "Leistungen | Hausmeisterservice & Objektpflege in Neuss – Alexander Ergart",
@@ -24,6 +25,9 @@ export default function LeistungenPage() {
       <LeistungenContent />
       <TerrassenFensterSlider />
       <HoeningShowroom />
+      <div className="container mx-auto px-4">
+        <HandwerkskammerCard />
+      </div>
       <CTA />
     </>
   );

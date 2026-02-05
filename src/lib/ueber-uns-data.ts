@@ -2,12 +2,22 @@
 export const ueberUnsHeroImage =
   "/bilder_ordner/ueberuns/firmenzentrale-weitaufnahme.webp";
 
-export const ueberUnsMilestones = [
+type Milestone = {
+  year: string;
+  title: string;
+  text: string;
+  image: string;
+  badge?: string;
+  align: "left" | "right";
+};
+
+export const ueberUnsMilestones: readonly Milestone[] = [
   {
     year: "2018",
-    title: "Die Gründung: Eine Vision wird geboren",
-    text: "Mit einer Leidenschaft für präzises Handwerk und dem Wunsch, einen wirklich zuverlässigen Service in Neuss zu etablieren, gründete Alexander Ergart das Unternehmen. Die Mission: Werte wie Vertrauen und Qualität neu zu definieren.",
+    title: "Startschuss & Handwerkskammer-Eintragung",
+    text: "Mit bereits über 13 Jahren Erfahrung in der Hausmeister-, Logistik- und Handwerksbranche gründete Alexander Ergart sein Unternehmen. Im März 2018 erfolgte die offizielle Eintragung bei der Handwerkskammer Düsseldorf – das Fundament für geprüfte Qualität und Vertrauen.",
     image: "/bilder_ordner/ueberuns/kran.webp",
+    badge: "/bilder_ordner/zertifikate/Handwerkskammer_Icon.jpeg",
     align: "left" as const,
   },
   {
