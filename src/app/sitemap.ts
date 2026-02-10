@@ -23,7 +23,7 @@ const STATIC_ROUTES = [
   "/karriere",
   "/kontakt",
   "/ueber-uns",
-  "/danke",
+  // "/danke" ENTFERNT - ist Utility-Seite, kein SEO-Ziel
   "/impressum",
   "/datenschutz",
 ] as const;
@@ -42,24 +42,58 @@ async function getLeistungenSlugs(): Promise<string[]> {
   ];
 }
 
-/** Optional: einfache Priorisierung nach Route */
+/** 
+ * Priorisierung nach Business-Relevanz
+ * 
+ * Fokus: Fensterservice Neuss, Fenster/Türen von HÖNING, Hausmeisterservice
+ * 
+ * HÖCHSTE PRIORITÄT (1.0):
+ * - Homepage
+ * 
+ * SEHR HOCH (0.9):
+ * - Fensterservice Landing Page (Google Ads)
+ * - Hauptproduktseiten (Fenster, Türen, Fenster & Türen)
+ * 
+ * HOCH (0.8):
+ * - Service-Übersichten (Leistungen, Kontakt)
+ * - Vertrauensbildende Seiten (Referenzen)
+ * 
+ * MITTEL (0.6-0.7):
+ * - Service-Details, Blog-Artikel, Karriere
+ * 
+ * NIEDRIG (0.3-0.5):
+ * - Standort-Seiten (außer Neuss), Rechtliches
+ */
 function priorityFor(path: string): number {
+  // Homepage - höchste Priorität
   if (path === "/") return 1.0;
-  if (
-    [
-      "/fenster",
-      "/fensterservice",
-      "/fenster-tueren",
-      "/tueren",
-      "/leistungen",
-      "/kontakt",
-      "/referenzen",
-    ].includes(path)
-  )
+
+  // Fensterservice & Hauptprodukte - sehr hoch (Business-Fokus)
+  if (["/fensterservice", "/fenster", "/fenster-tueren", "/tueren"].includes(path))
     return 0.9;
-  if (path.startsWith("/leistungen/")) return 0.8;
-  if (["/ueber-uns", "/karriere"].includes(path)) return 0.7;
-  return 0.5; // Rechtliches & sonstiges
+
+  // Service-Übersichten & Vertrauensbildung - hoch
+  if (["/leistungen", "/kontakt", "/referenzen"].includes(path))
+    return 0.8;
+
+  // Blog & Service-Details - mittel-hoch
+  if (path.startsWith("/blog/")) return 0.7;
+  if (path.startsWith("/leistungen/")) return 0.7;
+
+  // Karriere & Über Uns - mittel
+  if (["/ueber-uns", "/karriere"].includes(path)) return 0.6;
+  if (path.startsWith("/karriere/")) return 0.6;
+
+  // Haupt-Standort Neuss - mittel
+  if (path === "/einsatzgebiet/neuss") return 0.5;
+
+  // Andere Standorte - niedrig
+  if (path.startsWith("/einsatzgebiet/")) return 0.3;
+
+  // Rechtliches - sehr niedrig
+  if (["/impressum", "/datenschutz"].includes(path)) return 0.3;
+
+  return 0.5; // Default
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

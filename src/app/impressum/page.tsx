@@ -1,6 +1,13 @@
 // src/app/impressum/page.tsx
 import Link from "next/link";
 import { ContentPage } from "@/components/ContentPage";
+import { generateSEOMetadata } from "@/lib/seo-utils";
+
+export const metadata = generateSEOMetadata({
+  title: "Impressum | Alexander Ergart",
+  description: "Impressum und rechtliche Informationen von Alexander Ergart Hausmeister- & Fensterservice, eingetragen bei der Handwerkskammer Düsseldorf.",
+  path: "/impressum",
+});
 
 export default function ImpressumPage() {
   return (

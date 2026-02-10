@@ -1,6 +1,13 @@
 // src/app/datenschutz/page.tsx
 import { ContentPage } from "@/components/ContentPage";
 import Link from "next/link";
+import { generateSEOMetadata } from "@/lib/seo-utils";
+
+export const metadata = generateSEOMetadata({
+  title: "Datenschutzerklärung | Alexander Ergart",
+  description: "Datenschutzerklärung von Alexander Ergart Hausmeister- & Fensterservice. Informationen zur Datenverarbeitung gemäß DSGVO und Verarbeitung auf Vercel.",
+  path: "/datenschutz",
+});
 
 export default function DatenschutzPage() {
   return (

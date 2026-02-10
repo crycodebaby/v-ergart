@@ -95,7 +95,7 @@ export default function Header() {
       </div>
 
       {/* Main header */}
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 safe-top">
         <div className="container flex h-24 max-w-7xl mx-auto items-center justify-between px-4">
           <Link href="/" className="flex items-center gap-4">
             <Image
@@ -114,7 +114,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex">
+          <div className="hidden nav-desktop:flex">
             <NavigationMenu>
               <NavigationMenuList>
                 {navLinks.map((link) => (
@@ -200,7 +200,7 @@ export default function Header() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden z-50"
+            className="nav-desktop:hidden z-50"
             onClick={() => setIsMobileMenuOpen((v) => !v)}
             aria-label={isMobileMenuOpen ? "Menü schließen" : "Menü öffnen"}
           >
@@ -217,7 +217,7 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 md:hidden bg-background/95 backdrop-blur-lg"
+            className="fixed inset-0 z-40 nav-desktop:hidden bg-background/95 backdrop-blur-lg safe-top"
           >
             <motion.div
               className="flex flex-col items-center justify-center h-full"

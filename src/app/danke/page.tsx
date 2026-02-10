@@ -1,6 +1,20 @@
 // src/app/danke/page.tsx
 import Link from "next/link";
 import { CheckCircle } from "lucide-react";
+import type { Metadata } from "next";
+
+/**
+ * Utility-Seite: Formular-Bestätigung
+ * - Nicht für SEO gedacht (noindex)
+ * - Wird nach Formular-Absendung angezeigt
+ */
+export const metadata: Metadata = {
+  title: "Vielen Dank | Alexander Ergart",
+  robots: {
+    index: false,  // Nicht indexieren
+    follow: true,  // Links folgen
+  },
+};
 
 export default function DankePage() {
   return (

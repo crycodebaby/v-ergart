@@ -1,8 +1,19 @@
-// src/app/referenzen/page.tsx
+//src/app/referenzen/page.tsx
 import ReferenzenHero from "@/components/ReferenzenHero";
 import { PortfolioGallery } from "@/components/PortfolioGallery";
 import PartnerBrandSpotlight from "@/components/PartnerBrandSpotlight"; // NEUER IMPORT
 import CTA from "@/components/CTA";
+import { generateSEOMetadata } from "@/lib/seo-utils";
+
+export const metadata = generateSEOMetadata({
+  title: "Referenzen – Unsere Projekte | Alexander Ergart",
+  description: "Einblicke in unsere hochwertigen Fenster-, Türen- und Hausmeisterprojekte in Neuss und Umgebung. Qualität made in Germany mit HÖNING-Produkten.",
+  path: "/referenzen",
+  image: {
+    url: "/bilder_ordner/ueberuns/fensterbau-werkstatt.webp",
+    alt: "Referenzprojekte Alexander Ergart Fensterservice Neuss",
+  },
+});
 
 export default function ReferenzenPage() {
   return (

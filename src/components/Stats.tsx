@@ -29,13 +29,13 @@ const itemVariants = {
 
 const Stats = () => {
   return (
-    <section id="stats" className="py-20 px-5 bg-slate-50 dark:bg-zinc-900/80">
+    <section id="stats" className="py-20 bg-slate-50 dark:bg-zinc-900/80">
       <div className="container max-w-6xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12">
           Unsere Erfolge in Neuss: Zufriedene Kunden & Mehr
         </h2>
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -56,7 +56,7 @@ const Stats = () => {
             );
           })}
         </motion.div>
-        
+
         <div className="stats-hint mt-16 text-lg text-muted-foreground">
           <p>
             Helfen Sie uns zu wachsen und{" "}

@@ -74,7 +74,9 @@
     
     /* Touch-Optimierungen */
     -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
+    /* -webkit-touch-callout: none; REMOVED to allow context menu on iOS */
+    touch-action: manipulation;
+    overscroll-behavior: contain;
   }
   
   /* ==================== SCROLLBAR STYLES ==================== */
@@ -224,10 +226,8 @@
     display: none;
   }
   
-  /* Touch-Scroll-Momentum für iOS */
-  .scroll-touch {
-    -webkit-overflow-scrolling: touch;
-  }
+  /* Touch-Scroll-Momentum für iOS - DEPRECATED/DEFAULT SINCE iOS 13 */
+  /* .scroll-touch { -webkit-overflow-scrolling: touch; } */
   
   /* GPU-beschleunigtes Scrolling */
   .scroll-smooth {

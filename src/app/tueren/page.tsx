@@ -5,6 +5,17 @@ import TuerenHero from "@/components/TuerenHero";
 import PartnerBenefitsSplit from "@/components/PartnerBenefitsSplit"; // Nur diesen importieren
 import CTA from "@/components/CTA";
 import { tuerenFeatures } from "@/lib/tueren-data";
+import { generateSEOMetadata } from "@/lib/seo-utils";
+
+export const metadata = generateSEOMetadata({
+  title: "Haustüren & Türen von HÖNING | Alexander Ergart Neuss",
+  description: "Premium Haustüren und Türelemente in Neuss: HÖNING Qualität made in Germany, fachgerechter Einbau, individuelle Beratung. Sicherheit trifft Design. ✓ Jetzt Angebot anfordern!",
+  path: "/tueren",
+  image: {
+    url: "/bilder_ordner/hoening/tueren/tueren-detail.webp",
+    alt: "HÖNING Premium Haustüren in Neuss – Alexander Ergart",
+  },
+});
 
 export default function TuerenPage() {
   return (

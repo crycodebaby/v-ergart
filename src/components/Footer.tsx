@@ -23,7 +23,7 @@ const Footer = () => {
             backgroundSize: "30px 30px, 30px 30px",
           }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-4">
               <Image
                 src="/bilder_ordner/logo/ergart-hausmeister-logo.webp"
@@ -202,7 +202,7 @@ const Footer = () => {
       </div>
 
       {/* Die Credit-Leiste */}
-      <div className="bg-muted text-muted-foreground py-4 border-t border-border/20">
+      <div className="bg-muted text-muted-foreground py-4 border-t border-border/20 safe-bottom">
         <div className="container max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between text-xs">
           <div className="flex items-center gap-3">
             <Image

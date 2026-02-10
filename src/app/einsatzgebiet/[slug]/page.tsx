@@ -6,6 +6,7 @@ import { LOCATIONS, type LocationSlug } from "@/lib/locations";
 import CTA from "@/components/CTA";
 import MapSection from "@/components/MapSection";
 import KontaktHero from "@/components/KontaktHero"; // Reusing hero style or creating a specific one
+import { BASE_URL } from "@/lib/seo-utils";
 
 type Props = {
   params: { slug: string };
@@ -15,15 +16,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const location = LOCATIONS.find((l) => l.slug === params.slug);
   if (!location) return { title: "Einsatzgebiet nicht gefunden" };
 
+  // Nur Haupt-Standorte indexieren (Neuss ist Hauptstandort)
+  const shouldIndex = ['neuss'].includes(location.slug);
+
   return {
     title: `Hausmeister ${location.name} | Alexander Ergart`,
     description: `Ihr zuverlässiger Hausmeister in ${location.name}. Reinigung, Reparaturen, Gartenpflege & Winterdienst. Jetzt Angebot für ${location.name} anfordern!`,
     alternates: {
-      canonical: `/einsatzgebiet/${location.slug}`,
+      canonical: `${BASE_URL}/einsatzgebiet/${location.slug}`,
+    },
+    robots: {
+      index: shouldIndex,
+      follow: true,
     },
     openGraph: {
       title: `Hausmeister Service in ${location.name} | Alexander Ergart`,
       description: `Professioneller Hausmeisterservice direkt in ${location.name}. Schnell, zuverlässig & kompetent.`,
+      url: `${BASE_URL}/einsatzgebiet/${location.slug}`,
     },
   };
 }
@@ -81,7 +90,7 @@ export default function LocationPage({ params }: Props) {
                 Warum Alexander Ergart in {location.name}?
               </h2>
               <p className="text-muted-foreground mb-6 text-lg leading-relaxed">
-                Als lokaler Dienstleister kennen wir {location.name} und die Bedürfnisse unserer Kunden vor Ort. 
+                Als lokaler Dienstleister kennen wir {location.name} und die Bedürfnisse unserer Kunden vor Ort.
                 Egal ob private Immobilie, Mehrfamilienhaus oder Gewerbeobjekt – wir sorgen für Ordnung, Sauberkeit und Werterhalt.
               </p>
               <ul className="space-y-4">
@@ -107,12 +116,12 @@ export default function LocationPage({ params }: Props) {
               </div>
             </div>
             <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-2xl bg-zinc-100">
-               {/* Placeholder map or image - using MapSection below instead for real map */}
-               <div className="absolute inset-0 flex items-center justify-center bg-zinc-100 dark:bg-zinc-800">
-                  <MapPin className="h-16 w-16 text-brand-blue/50" />
-                  <span className="sr-only">Karte von {location.name}</span>
-               </div>
-               {/* If you had specific images for each district, you'd load them here */}
+              {/* Placeholder map or image - using MapSection below instead for real map */}
+              <div className="absolute inset-0 flex items-center justify-center bg-zinc-100 dark:bg-zinc-800">
+                <MapPin className="h-16 w-16 text-brand-blue/50" />
+                <span className="sr-only">Karte von {location.name}</span>
+              </div>
+              {/* If you had specific images for each district, you'd load them here */}
             </div>
           </div>
         </div>

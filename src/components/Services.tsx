@@ -70,7 +70,7 @@ const itemVariants = {
 
 const Services = () => {
   return (
-    <section id="leistungen" className="py-20 px-5 bg-background">
+    <section id="leistungen" className="py-20 bg-background">
       <div className="container max-w-6xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12">
           Unsere Kernkompetenzen

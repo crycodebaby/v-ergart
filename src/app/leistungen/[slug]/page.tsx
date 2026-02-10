@@ -1,6 +1,6 @@
 // src/app/leistungen/[slug]/page.tsx
 import { notFound } from "next/navigation";
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { LEISTUNGEN_DETAILS } from "@/lib/leistungen-data";
@@ -9,6 +9,7 @@ import { CheckCircle, ArrowLeft, Phone, Mail } from "lucide-react";
 import { LeistungGallery } from "@/components/LeistungGallery";
 import { ServiceAreaBadges } from "@/components/ServiceAreaBadges";
 import CTA from "@/components/CTA";
+import { BASE_URL } from "@/lib/seo-utils";
 
 type Props = { params: { slug: string } };
 
@@ -24,7 +25,7 @@ export function generateMetadata({ params }: Props): Metadata {
   const item = getLeistung(params.slug);
   if (!item) return {};
 
-  const url = `https://www.alexander-ergart.de/leistungen/${item.slug}`;
+  const url = `${BASE_URL}/leistungen/${item.slug}`;
 
   return {
     title: item.seoTitle,
@@ -40,7 +41,7 @@ export function generateMetadata({ params }: Props): Metadata {
       siteName: "Alexander Ergart Hausmeister- & Fensterservice",
       images: [
         {
-          url: new URL(item.heroImage, "https://www.alexander-ergart.de").toString(),
+          url: new URL(item.heroImage, BASE_URL).toString(),
           width: 1200,
           height: 630,
           alt: item.title,
@@ -69,7 +70,7 @@ function ServiceJsonLd({ item }: { item: typeof LEISTUNGEN_DETAILS[0] }) {
     description: item.detailedDescription,
     provider: {
       "@type": "LocalBusiness",
-      "@id": "https://www.alexander-ergart.de",
+      "@id": `${BASE_URL}/#organization`,
       name: "Alexander Ergart Hausmeister- & Fensterservice",
       telephone: "+49-176-66825889",
       email: "aergart@gmail.com",
@@ -145,7 +146,7 @@ export default function LeistungDetailPage({ params }: Props) {
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
                 {item.title}
               </h1>
-              
+
               {/* Service Area Badges */}
               <ServiceAreaBadges areas={item.serviceArea} className="mb-6" />
 

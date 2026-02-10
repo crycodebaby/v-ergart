@@ -11,15 +11,31 @@ const config: Config = {
   theme: {
     extend: {
       // Tablet-spezifische Breakpoints
+      // Neue Breakpoint-Strategie
       screens: {
-        'xs': '475px',      // Große Phones
-        'tablet': '768px',   // iPad Mini, Standard Tablets
-        'tablet-lg': '1024px', // iPad Pro, große Tablets
-        '3xl': '1920px',    // Ultra-wide
+        'xs': '475px',          // Smartphone Landscape
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'nav-desktop': '1100px', // Umschaltpunkt für Desktop-Navigation
+        'xl': '1280px',
+        '2xl': '1536px',
+        '3xl': '1920px',         // Ultra-wide
       },
       colors: {
         "accent-green": "#3399FF",
         "brand-blue": "#3399FF",
+      },
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: '1rem',
+          sm: '1.5rem',
+          lg: '2rem',
+        },
+        screens: {
+          '2xl': '1400px', // Nur eine max-width Begrenzung ganz oben
+        },
       },
       fontFamily: {
         sans: ["var(--font-roboto)", "system-ui", "sans-serif"],

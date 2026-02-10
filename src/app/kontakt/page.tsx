@@ -8,6 +8,7 @@ import { ShieldCheck, Clock, MapPin, Phone, Mail, Star } from "lucide-react";
 import CTA from "@/components/CTA";
 import MapSection from "@/components/MapSection";
 import { LOCATIONS } from "@/lib/locations";
+import { BASE_URL } from "@/lib/seo-utils";
 
 export const metadata: Metadata = {
   title:
@@ -15,14 +16,14 @@ export const metadata: Metadata = {
   description:
     "Schnellanfrage an Alexander Ergart: Hausmeisterservice, Fensterservice, Reparaturen & Wartung, Grundstückspflege u. v. m. Öffnungszeiten Mo–Fr 08–12 & 13–16 Uhr. Jetzt Termin sichern.",
   robots: { index: true, follow: true },
-  alternates: { canonical: "/kontakt" },
+  alternates: { canonical: `${BASE_URL}/kontakt` },
   openGraph: {
     title:
       "Kontakt – Alexander Ergart | Hausmeister- & Fensterservice in Neuss",
     description:
       "Schnellanfrage, Terminwahl, Telefon & E-Mail. Leistungen: Hausmeisterservice, Fensterservice, Reparaturen & Wartung, Grundstückspflege, Verwaltung von Immobilien.",
     type: "website",
-    url: "/kontakt",
+    url: `${BASE_URL}/kontakt`,
   },
 };
 

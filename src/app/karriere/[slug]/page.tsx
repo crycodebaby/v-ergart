@@ -8,20 +8,21 @@ import type { Metadata } from "next";
 import { StickySidebarApply } from "@/components/StickySidebarApply";
 import { JobDetailTracking } from "@/components/JobDetailTracking";
 import { DynamicIcon } from "@/components/DynamicIcon";
+import { BASE_URL } from "@/lib/seo-utils";
 
 type Props = { params: { slug: string } };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const job = await fetchJobBySlug(params.slug);
-  
+
   if (!job) {
     return { title: "Stelle nicht gefunden" };
   }
 
   const title = job.metaTitle || `${job.title} | Karriere bei Ergart`;
-  const description = job.metaDescription || 
+  const description = job.metaDescription ||
     `Bewerben Sie sich als ${job.title} bei Ergart in ${job.location ?? "Neuss"}.`;
-  const url = `/karriere/${params.slug}`;
+  const url = `${BASE_URL}/karriere/${params.slug}`;
 
   return {
     title,
@@ -227,11 +228,11 @@ export default async function JobDetailPage({ params }: Props) {
                 Haben wir Ihr Interesse geweckt?
               </h3>
               <p className="text-muted-foreground mb-4 leading-relaxed">
-                Wir freuen uns auf Ihre aussagekräftigen Bewerbungsunterlagen. 
+                Wir freuen uns auf Ihre aussagekräftigen Bewerbungsunterlagen.
                 Senden Sie uns gerne Ihren Lebenslauf, Zeugnisse und ein kurzes Anschreiben per E-Mail.
               </p>
               <p className="text-sm text-muted-foreground">
-                Bei Fragen zur Stelle können Sie uns auch gerne telefonisch kontaktieren: 
+                Bei Fragen zur Stelle können Sie uns auch gerne telefonisch kontaktieren:
                 <a href="tel:+4917666825889" className="text-brand-blue hover:underline ml-1">
                   +49 176 668 25 889
                 </a>
