@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { LOCATIONS } from "@/lib/locations";
 import { fetchPostSlugs } from "@/lib/blog-queries";
+import { LEISTUNGEN_DETAILS } from "@/lib/leistungen-data";
 
 /**
  * WICHTIG:
@@ -9,7 +10,7 @@ import { fetchPostSlugs } from "@/lib/blog-queries";
  */
 const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-  "https://alexander-ergart.de/";
+  "https://alexander-ergart.de";
 
 /** Statisch bekannte Routen aus deiner Struktur */
 const STATIC_ROUTES = [
@@ -27,20 +28,6 @@ const STATIC_ROUTES = [
   "/impressum",
   "/datenschutz",
 ] as const;
-
-/** Dynamische Slugs für /leistungen/[slug]
- *  -> diese Seiten verlinkst du über "Mehr erfahren"
- *  Falls du später aus einer DB/CMS liest, einfach hier ersetzen.
- */
-async function getLeistungenSlugs(): Promise<string[]> {
-  return [
-    "innenausbau",
-    "gartenpflege",
-    "hausmeister",
-    "reinigung",
-    "sicherheit",
-  ];
-}
 
 /** 
  * Priorisierung nach Business-Relevanz
@@ -100,13 +87,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   // Dynamische /leistungen/[slug]
-  const leistungenSlugs = await getLeistungenSlugs();
-  const dynamicLeistungen = leistungenSlugs.map<MetadataRoute.Sitemap[number]>(
-    (slug) => ({
-      url: `${BASE_URL}/leistungen/${slug}`,
+  // Quelle: src/lib/leistungen-data.ts (Single Source of Truth)
+  const dynamicLeistungen = LEISTUNGEN_DETAILS.map<MetadataRoute.Sitemap[number]>(
+    (service) => ({
+      url: `${BASE_URL}/leistungen/${service.slug}`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: priorityFor(`/leistungen/${slug}`),
+      priority: priorityFor(`/leistungen/${service.slug}`),
     })
   );
 
