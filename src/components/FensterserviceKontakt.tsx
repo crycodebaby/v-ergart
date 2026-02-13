@@ -67,7 +67,7 @@ export default function FensterserviceKontakt() {
                         <div className="mt-6 p-4 rounded-lg bg-muted/50 border border-border">
                             <p className="text-sm text-muted-foreground text-center">
                                 <strong className="text-foreground">HÖNING Leipzig:</strong> Deutsche Wertarbeit
-                                mit 10 Jahren Garantie bei regelmäßiger Inspektion durch Ergart's Fensterservice oder HÖNING
+                                mit 10 Jahren Garantie bei regelmäßiger Inspektion durch Ergart&apos;s Fensterservice oder HÖNING
                             </p>
                         </div>
                     </motion.div>
