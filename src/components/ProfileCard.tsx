@@ -31,7 +31,7 @@ const ProfileCard = () => {
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <div className="container max-w-6xl mx-auto border-2 border-brand-blue/50 dark:border-brand-blue/30 rounded-2xl p-5 shadow-lg bg-slate-50 dark:bg-black/30 backdrop-blur-sm">
+      <div className="container max-w-6xl mx-auto border border-border/50 rounded-2xl p-6 shadow-lg bg-card text-card-foreground backdrop-blur-sm">
         <div className="flex flex-wrap justify-center items-center gap-10">
           <div className="profil-image flex-shrink-0">
             <Image
@@ -43,7 +43,7 @@ const ProfileCard = () => {
               quality={85}
             />
           </div>
-          <div className="profil-details flex-1 min-w-[300px] text-zinc-800 dark:text-gray-200 p-5 rounded-xl">
+          <div className="profil-details flex-1 min-w-[300px] p-2 rounded-xl">
             <h2 className="text-4xl font-bold text-foreground">Alexander Ergart</h2>
             <p className="subtitle text-xl text-muted-foreground mb-5">
               Ihr zuverlässiger Hausmeister und Allround-Handwerker
