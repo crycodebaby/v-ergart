@@ -8,6 +8,7 @@ import PartnerBrandSpotlight from "@/components/PartnerBrandSpotlight";
 import PartnerBenefitsSplit from "@/components/PartnerBenefitsSplit";
 import { fensterFeatures } from "@/lib/fenster-data";
 import HoeningEnergierechner from "@/components/HoeningEnergierechner";
+import HoeningGarantieCard from "@/components/HoeningGarantieCard";
 
 export const metadata = generateSEOMetadata({
   title: "Fensterservice & Fenstermontage in Neuss | Alexander Ergart",
@@ -31,10 +32,6 @@ export default function FensterPage() {
       ))}
 
       {/* Der Spotlight stellt die Partnerschaft als zentrales Qualitätsmerkmal vor. */}
-      import HoeningEnergierechner from "@/components/HoeningEnergierechner";
-
-      // ... imports ...
-
       <PartnerBrandSpotlight
         className="py-12 md:py-24"
         title="Qualität bis ins Detail: Unsere Partnerschaft mit HÖNING"
@@ -46,6 +43,8 @@ export default function FensterPage() {
       />
 
       <HoeningEnergierechner />
+
+      <HoeningGarantieCard />
 
       <ProcessStepper />
 
