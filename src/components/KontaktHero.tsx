@@ -9,51 +9,32 @@ export default function KontaktHero() {
   return (
     <section className="relative overflow-hidden">
       <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center px-4 py-16 lg:py-20">
-        {/* Text */}
+        {/* Text Simplified */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="order-2 md:order-1"
         >
-          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground">
-            Schnell & unkompliziert Kontakt aufnehmen
-          </h1>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Ob Angebot, Rückruf oder Sofort-Termin – wir melden uns fix und
-            verbindlich.
-            <span className="font-semibold text-foreground">
-              {" "}
-              Ihr Anliegen hat Priorität.
-            </span>
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <GoogleCalendarButton label="Termin online buchen" />
-            <a
-              href="tel:+4917666825889"
-              className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent"
-            >
-              <Phone size={18} /> Anrufen:{" "}
-              <span className="font-semibold">
-                +49&nbsp;176&nbsp;668&nbsp;25&nbsp;889
-              </span>
-            </a>
-            <a
-              href="mailto:aergart@gmail.com"
-              className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent"
-            >
-              <Mail size={18} /> E-Mail schreiben
-            </a>
+          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full bg-brand-blue/10 text-brand-blue border border-brand-blue/20 w-fit">
+            <span className="text-sm font-medium">Wir sind für Sie da</span>
           </div>
 
-          <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
-            <li>
-              • Reaktionszeit i. d. R. <strong>&lt; 24h</strong>
-            </li>
-            <li>• Vor-Ort in Neuss & Umgebung</li>
-            <li>• Verbindliche Terminbestätigung</li>
-          </ul>
+          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground mb-6">
+            Persönlich & <br />
+            <span className="text-brand-blue">direkt erreichbar.</span>
+          </h1>
+
+          <p className="text-lg text-muted-foreground max-w-lg">
+            Ob für eine Beratung, ein Angebot oder einen dringenden Termin –
+            wir kümmern uns schnell und verbindlich um Ihr Anliegen.
+          </p>
+
+          <div className="mt-8 flex gap-4 items-center">
+            <GoogleCalendarButton label="Termin direkt buchen" />
+            <span className="text-sm text-muted-foreground">Dauert nur 1 Min.</span>
+          </div>
+
         </motion.div>
 
         {/* Bild rechts – dein 800×1200 Motiv */}

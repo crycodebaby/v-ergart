@@ -23,13 +23,53 @@ const nextConfig = {
   /**
    * Server-side Redirects
    * 
-   * /flyer: Offline-Kampagnen-Tracking Redirect
+   * Legacy HTML URLs + Karriereportal (301 Permanent)
+   * - Redirects aus dem alten Static-Setup (HTML) zu Next.js Routes
+   * - Verhindert 404-Fehler in Google Search Console
+   * - Überträgt SEO-Equity durch 301 Permanent Redirects
+   * 
+   * /flyer: Offline-Kampagnen-Tracking Redirect (307 Temporary)
    * - Ersetzt clientseitige React-Weiterleitung durch sauberen HTTP 307
    * - Google sieht dadurch keinen "Page with redirect" Fehler mehr
    * - Tracking-Parameter bleiben erhalten
    */
   async redirects() {
     return [
+      // Legacy HTML URLs → Next.js Routes (301 Permanent)
+      {
+        source: '/index.html',
+        destination: '/',
+        permanent: true, // 301 Permanent Redirect
+      },
+      {
+        source: '/leistungen.html',
+        destination: '/leistungen',
+        permanent: true,
+      },
+      {
+        source: '/ueber-uns.html',
+        destination: '/ueber-uns',
+        permanent: true,
+      },
+      {
+        source: '/fenster.html',
+        destination: '/fenster',
+        permanent: true,
+      },
+
+      // Legacy Karriereportal → /karriere (301 Permanent)
+      {
+        source: '/karriereportal/karriere',
+        destination: '/karriere',
+        permanent: true,
+      },
+      {
+        source: '/karriereportal/karriere/',
+        destination: '/karriere',
+        permanent: true,
+      },
+
+      // Offline-Kampagnen-Tracking (307 Temporary)
       {
         source: '/flyer',
         destination: '/?utm_source=flyer&utm_medium=offline&utm_campaign=FirstTriFoldFlyer',

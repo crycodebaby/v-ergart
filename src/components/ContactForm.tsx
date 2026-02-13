@@ -33,7 +33,17 @@ const SERVICES = [
   "Immobilienmanagement (allgemein)",
 ];
 
-export default function ContactForm() {
+type ContactFormProps = {
+  /** Optionale custom Service-Liste (z.B. für Landingpages) */
+  customServices?: string[];
+  /** Optionale Quelle für Tracking (z.B. "Fensterservice Landingpage") */
+  source?: string;
+};
+
+export default function ContactForm({
+  customServices,
+  source = "Kontaktseite"
+}: ContactFormProps = {}) {
   const {
     register,
     handleSubmit,
@@ -44,6 +54,9 @@ export default function ContactForm() {
     "idle" | "loading" | "success" | "error"
   >("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
+
+  // Services: Custom falls übergeben, sonst Standard
+  const services = customServices || SERVICES;
 
   const onSubmit = async (values: FormValues) => {
     // simple bot-stop: if honeypot filled, silently succeed
@@ -70,7 +83,7 @@ export default function ContactForm() {
           service: values.service ?? "",
           message: values.message,
           // Zusatzinfos, hilfreich im Posteingang:
-          source: "Kontaktseite",
+          source: source,
           project: "Alexander Ergart – Hausmeister- & Fensterservice",
           // Honeypot wird nicht gesendet (bereits abgefangen)
         }),
@@ -129,7 +142,7 @@ export default function ContactForm() {
             placeholder="Max Mustermann"
           />
           {errors.name && (
-            <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
+            <p className="text-sm text-blue-600 dark:text-blue-400 mt-1">{errors.name.message}</p>
           )}
         </div>
 
@@ -148,7 +161,7 @@ export default function ContactForm() {
             placeholder="beispiel@mail.de"
           />
           {errors.email && (
-            <p className="text-sm text-red-600 mt-1">{errors.email.message}</p>
+            <p className="text-sm text-blue-600 dark:text-blue-400 mt-1">{errors.email.message}</p>
           )}
         </div>
       </div>
@@ -176,7 +189,7 @@ export default function ContactForm() {
             <option value="" disabled>
               Bitte wählen (optional)
             </option>
-            {SERVICES.map((s) => (
+            {services.map((s) => (
               <option key={s} value={s}>
                 {s}
               </option>
@@ -196,7 +209,7 @@ export default function ContactForm() {
           placeholder="Beschreiben Sie kurz Ihr Anliegen, Objektart/Lage, gewünschte Leistung und ggf. Zeitfenster …"
         />
         {errors.message && (
-          <p className="text-sm text-red-600 mt-1">{errors.message.message}</p>
+          <p className="text-sm text-blue-600 dark:text-blue-400 mt-1">{errors.message.message}</p>
         )}
       </div>
 
@@ -219,7 +232,7 @@ export default function ContactForm() {
         </span>
       </label>
       {errors.consent && (
-        <p className="text-sm text-red-600 -mt-2">{errors.consent.message}</p>
+        <p className="text-sm text-blue-600 dark:text-blue-400 -mt-2">{errors.consent.message}</p>
       )}
 
       <div className="flex items-center gap-3 pt-2">
@@ -236,7 +249,7 @@ export default function ContactForm() {
           </span>
         )}
         {status === "error" && (
-          <span className="text-sm text-red-600">{errorMsg}</span>
+          <span className="text-sm text-blue-600 dark:text-blue-400">{errorMsg}</span>
         )}
       </div>
     </form>

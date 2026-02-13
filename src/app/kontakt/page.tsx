@@ -83,146 +83,165 @@ const orgJsonLd = {
 export default function KontaktPage() {
   return (
     <>
-      <KontaktHero />
+      <div className="relative isolate bg-background overflow-hidden min-h-screen">
+        {/* LIGHT MODE ONLY: Slate overlay to darken the white background */}
+        <div className="absolute inset-0 -z-30 bg-slate-100 dark:hidden"></div>
+        {/* LIGHT MODE BACKGROUND: Strong Checkered Pattern + Geometric Shapes */}
+        <div className="absolute inset-0 -z-20 h-full w-full bg-[linear-gradient(to_right,#8080801a_1px,transparent_1px),linear-gradient(to_bottom,#8080801a_1px,transparent_1px)] bg-[size:40px_40px] dark:hidden"></div>
 
-      <section className="bg-background">
-        <div className="container mx-auto px-4 py-12 lg:py-16 grid lg:grid-cols-3 gap-10">
-          {/* Formular */}
-          <div className="lg:col-span-2">
-            <div className="rounded-2xl border border-border p-6 md:p-8 bg-card shadow-sm">
-              <h2 className="text-2xl font-bold mb-2 text-foreground">
-                Schnellanfrage
-              </h2>
-              <p className="text-muted-foreground mb-6">
-                Kurz beschreiben, worum es geht – wir melden uns
-                schnellstmöglich zurück.
-              </p>
-              <ContactForm />
-              <div className="mt-6 flex flex-wrap gap-3">
-                <GoogleCalendarButton variant="outline" />
-                <a
-                  href="tel:+4917666825889"
-                  className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent"
-                >
-                  <Phone size={18} /> Anrufen
-                </a>
-                <a
-                  href="mailto:aergart@gmail.com"
-                  className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent"
-                >
-                  <Mail size={18} /> E-Mail
-                </a>
-              </div>
-            </div>
-          </div>
+        {/* Geometric Squares scattered for Light Mode */}
+        <div className="absolute top-20 left-20 -z-20 w-32 h-32 bg-blue-200/30 rounded-lg rotate-12 dark:hidden"></div>
+        <div className="absolute top-40 right-40 -z-20 w-24 h-24 bg-slate-300/40 rounded-lg -rotate-6 dark:hidden"></div>
+        <div className="absolute bottom-40 left-1/4 -z-20 w-28 h-28 bg-blue-100/30 rounded-lg rotate-45 dark:hidden"></div>
+        <div className="absolute bottom-60 right-1/3 -z-20 w-20 h-20 bg-slate-400/20 rounded-lg -rotate-12 dark:hidden"></div>
 
-          {/* Sidebar: Trust & Soforthilfe */}
-          <aside className="space-y-6 h-fit">
-            <div className="rounded-2xl border border-border p-6 bg-card shadow-sm">
-              <h3 className="text-lg font-bold mb-4">Darum Ergart</h3>
-              <ul className="space-y-3 text-sm text-muted-foreground">
-                <li className="flex items-start gap-3">
-                  <ShieldCheck className="text-brand-blue mt-0.5" size={18} />
-                  <span>
-                    <strong>Verbindlich & ehrlich:</strong> Feste Zusagen, klare
-                    Angebote.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Clock className="text-brand-blue mt-0.5" size={18} />
-                  <span>
-                    <strong>Schnelle Hilfe:</strong> Reaktionszeit i. d. R. &lt;
-                    24h.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <MapPin className="text-brand-blue mt-0.5" size={18} />
-                  <span>
-                    <strong>Neuss & Umgebung:</strong> regional & zuverlässig.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Star className="text-brand-blue mt-0.5" size={18} />
-                  <span>
-                    <strong>Saubere Arbeit:</strong> Wertarbeit, auf die man
-                    stolz sein kann.
-                  </span>
-                </li>
-              </ul>
+        {/* Larger Gradient Areas for Light Mode */}
+        <div className="absolute top-0 right-0 -z-20 w-[1000px] h-[1000px] bg-gradient-to-br from-blue-200/40 to-transparent rounded-full blur-3xl dark:hidden pointer-events-none translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 left-0 -z-20 w-[1000px] h-[1000px] bg-gradient-to-tr from-slate-300/40 to-transparent rounded-full blur-3xl dark:hidden pointer-events-none -translate-x-1/2 translate-y-1/2"></div>
 
-              <div className="mt-6">
-                <GoogleCalendarButton
-                  label="Termin sofort wählen"
-                  className="w-full"
-                />
-                <p className="text-xs text-muted-foreground mt-2">
-                  Alternativ:{" "}
-                  <a href="tel:+4917666825889" className="underline">
-                    anrufen
-                  </a>{" "}
-                  oder{" "}
-                  <a href="mailto:aergart@gmail.com" className="underline">
-                    E-Mail
-                  </a>
-                  .
-                </p>
-              </div>
-            </div>
-            <div className="rounded-2xl border border-border p-6 bg-card shadow-sm">
-              <h3 className="text-lg font-bold mb-4">Öffnungszeiten</h3>
-              <ul className="text-sm text-muted-foreground space-y-2">
-                {/* Wochentage mit Flexbox für saubere Ausrichtung */}
-                <li className="flex justify-between items-baseline">
-                  <span>Mo – Fr</span>
-                  <div className="text-right font-medium text-foreground">
-                    <p>08:00 – 12:00 Uhr</p>
-                    <p>13:00 – 16:00 Uhr</p>
-                  </div>
-                </li>
-                {/* Trennlinie für visuelle Klarheit */}
-                <li className="border-b border-border/50 !my-3"></li>
-                {/* Wochenende */}
-                <li className="flex justify-between items-center">
-                  <span>Samstag</span>
-                  <span className="font-medium text-foreground">
-                    Geschlossen
-                  </span>
-                </li>
-                <li className="flex justify-between items-center">
-                  <span>Sonntag</span>
-                  <span className="font-medium text-foreground">
-                    Geschlossen
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="rounded-2xl border border-border p-6 bg-card shadow-sm">
-              <h3 className="text-lg font-bold mb-3">Direktkontakt</h3>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <a
-                  href="tel:+4917666825889"
-                  className="flex items-center gap-2 hover:text-foreground"
-                >
-                  <Phone size={16} /> +49 176 668 25 889
-                </a>
-                <a
-                  href="mailto:aergart@gmail.com"
-                  className="flex items-center gap-2 hover:text-foreground"
-                >
-                  <Mail size={16} /> aergart@gmail.com
-                </a>
-              </div>
-            </div>
-          </aside>
+        {/* DARK MODE BACKGROUND: Existing Geometric Pattern + Radial Gradients */}
+        <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80 hidden dark:block">
+          <div
+            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-brand-blue to-[#9089fc] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            style={{
+              clipPath:
+                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+            }}
+          />
         </div>
-      </section>
 
-      {/* Karte / Servicegebiet – falls du das Modul nutzt */}
+        {/* Hero Section Simplified */}
+        <KontaktHero />
+
+        <div className="container mx-auto px-4 pb-24 lg:pb-32">
+          {/* Main Grid: Symmetrical Layout */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+
+            {/* Left Column: Information & Trust */}
+            <div className="space-y-10">
+
+              {/* Trust Section */}
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-8 shadow-sm">
+                <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+                  <Star className="text-brand-blue" />
+                  Darum Ergart
+                </h2>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-4">
+                    <div className="p-2 rounded-lg bg-brand-blue/10 text-brand-blue">
+                      <ShieldCheck size={20} />
+                    </div>
+                    <div>
+                      <strong className="block text-foreground">Verbindlich & ehrlich</strong>
+                      <span className="text-muted-foreground text-sm">Feste Zusagen, keine versteckten Kosten.</span>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="p-2 rounded-lg bg-brand-blue/10 text-brand-blue">
+                      <Clock size={20} />
+                    </div>
+                    <div>
+                      <strong className="block text-foreground">Schnelle Reaktion</strong>
+                      <span className="text-muted-foreground text-sm">Antwort i. d. R. innerhalb von 24h.</span>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="p-2 rounded-lg bg-brand-blue/10 text-brand-blue">
+                      <MapPin size={20} />
+                    </div>
+                    <div>
+                      <strong className="block text-foreground">Aus der Region</strong>
+                      <span className="text-muted-foreground text-sm">Schnell vor Ort in Neuss & Umgebung.</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Opening Hours & Direct Contact */}
+              <div className="grid sm:grid-cols-2 gap-6">
+                <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 shadow-sm">
+                  <h3 className="font-semibold mb-4 flex items-center gap-2">
+                    <Clock size={16} className="text-muted-foreground" />
+                    Öffnungszeiten
+                  </h3>
+                  <ul className="space-y-3 text-sm">
+                    <li className="flex justify-between">
+                      <span className="text-muted-foreground">Mo – Fr</span>
+                      <span className="font-medium">08:00 – 16:00</span>
+                    </li>
+                    <li className="flex justify-between border-t border-border/50 pt-2">
+                      <span className="text-muted-foreground">Mittagspause</span>
+                      <span className="font-medium">12:00 – 13:00</span>
+                    </li>
+                    <li className="flex justify-between text-muted-foreground pt-2">
+                      <span>Sa / So</span>
+                      <span>Geschlossen</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 shadow-sm flex flex-col justify-center gap-4">
+                  <a href="tel:+4917666825889" className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted transition-colors group">
+                    <div className="p-2 rounded-full bg-brand-blue/10 text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                      <Phone size={18} />
+                    </div>
+                    <div>
+                      <span className="text-xs text-muted-foreground block">Telefon</span>
+                      <span className="font-medium">0176 668 25 889</span>
+                    </div>
+                  </a>
+
+                  <a href="mailto:aergart@gmail.com" className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted transition-colors group">
+                    <div className="p-2 rounded-full bg-brand-blue/10 text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                      <Mail size={18} />
+                    </div>
+                    <div>
+                      <span className="text-xs text-muted-foreground block">E-Mail</span>
+                      <span className="font-medium">aergart@gmail.com</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Right Column: The Form */}
+            <div className="relative">
+              {/* Depth Decor behind Form */}
+              <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/20 to-blue-400/20 blur-3xl -z-10 rounded-full opacity-50 transform translate-y-10"></div>
+
+              <div className="bg-card/80 backdrop-blur-md border border-border/60 rounded-3xl p-1 shadow-2xl ring-1 ring-black/5 dark:ring-white/10">
+                <div className="bg-background/50 rounded-[1.4rem] p-6 md:p-8">
+                  <div className="mb-8">
+                    <h2 className="text-3xl font-bold mb-2">Kontakt aufnehmen</h2>
+                    <p className="text-muted-foreground">
+                      Schreiben Sie uns Ihr Anliegen. Wir prüfen es und melden uns mit einer Ersteinschätzung oder einem Terminvorschlag.
+                    </p>
+                  </div>
+
+                  <ContactForm
+                    customServices={[
+                      "Immobilienverwaltung (allgemein)",
+                      "Fensterservice",
+                      "Haustürelemente",
+                      "Objektreinigung",
+                      "Grundstückspflege",
+                      "Hausmeisterservice"
+                    ]}
+                  />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Bottom Decoration */}
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+      </div>
+
+      {/* Map Section stays full width */}
       <MapSection />
-
-      {/* Finaler Catch-All-CTA */}
-      <CTA />
     </>
   );
 }

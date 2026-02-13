@@ -6,6 +6,7 @@ import { TerrassenFensterSlider } from "@/components/TerrassenFensterSlider";
 import { HoeningShowroom } from "@/components/HoeningShowroom";
 import CTA from "@/components/CTA";
 import { HandwerkskammerCard } from "@/components/HandwerkskammerCard";
+import HoeningEnergierechner from "@/components/HoeningEnergierechner";
 
 export const metadata = generateSEOMetadata({
   title: "Leistungen | Hausmeisterservice & Objektpflege in Neuss – Alexander Ergart",
@@ -24,7 +25,13 @@ export default function LeistungenPage() {
       <LeistungenHero />
       <LeistungenContent />
       <TerrassenFensterSlider />
+      import HoeningEnergierechner from "@/components/HoeningEnergierechner";
+
+      // ... imports ...
+
+      <TerrassenFensterSlider />
       <HoeningShowroom />
+      <HoeningEnergierechner />
       <div className="container mx-auto px-4">
         <HandwerkskammerCard />
       </div>

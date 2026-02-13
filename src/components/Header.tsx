@@ -103,6 +103,7 @@ export default function Header() {
               alt="Logo"
               width={90}
               height={68}
+              style={{ width: "auto", height: "auto" }}
               priority
             />
             <div className="hidden lg:block">

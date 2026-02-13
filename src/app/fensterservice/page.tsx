@@ -28,6 +28,7 @@ import FensterserviceAblauf from "@/components/FensterserviceAblauf";
 import FensterserviceFAQ from "@/components/FensterserviceFAQ";
 import FensterserviceKontakt from "@/components/FensterserviceKontakt";
 import { HandwerkskammerCard } from "@/components/HandwerkskammerCard";
+import HoeningEnergierechner from "@/components/HoeningEnergierechner";
 
 // SEO Metadata
 export const metadata = generateSEOMetadata({
@@ -221,6 +222,10 @@ export default function FensterservicePage() {
             <FensterserviceHero />
             <FensterserviceLeistungen />
             <FensterserviceBildergalerie />
+
+            {/* Energieeinspar-Rechner */}
+            <HoeningEnergierechner />
+
             <FensterserviceVorteile />
             <FensterserviceAblauf />
             <FensterserviceFAQ />

@@ -48,6 +48,7 @@ const robotoMono = Roboto_Mono({
  * Jede Seite definiert ihre eigene description für optimales SEO.
  */
 export const metadata: Metadata = {
+  metadataBase: new URL('https://alexander-ergart.de'),
   title: {
     template: '%s | Alexander Ergart',
     default: 'Hausmeisterservice Neuss - Alexander Ergart'
