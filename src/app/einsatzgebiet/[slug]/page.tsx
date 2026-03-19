@@ -17,6 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!location) return { title: "Einsatzgebiet nicht gefunden" };
 
   // Nur Haupt-Standorte indexieren (Neuss ist Hauptstandort)
+  // TODO [SEO Review]: Review whether sub-locations like neuss-hoisten 
+  // should remain noindex or be opened up for indexation strategically.
   const shouldIndex = ['neuss'].includes(location.slug);
 
   return {

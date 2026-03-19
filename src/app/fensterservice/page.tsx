@@ -30,6 +30,7 @@ import FensterserviceKontakt from "@/components/FensterserviceKontakt";
 import { HandwerkskammerCard } from "@/components/HandwerkskammerCard";
 import HoeningEnergierechner from "@/components/HoeningEnergierechner";
 import HoeningGarantieCard from "@/components/HoeningGarantieCard";
+import StickyMobileCTA from "@/components/StickyMobileCTA";
 
 // SEO Metadata
 export const metadata = generateSEOMetadata({
@@ -221,6 +222,7 @@ export default function FensterservicePage() {
 
             {/* Page Sections */}
             <FensterserviceHero />
+            <FensterserviceKontakt />
             <FensterserviceLeistungen />
             <FensterserviceBildergalerie />
 
@@ -233,10 +235,11 @@ export default function FensterservicePage() {
             <FensterserviceVorteile />
             <FensterserviceAblauf />
             <FensterserviceFAQ />
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 pb-24 md:pb-0">
                 <HandwerkskammerCard />
             </div>
-            <FensterserviceKontakt />
+            
+            <StickyMobileCTA />
         </>
     );
 }

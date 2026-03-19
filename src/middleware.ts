@@ -17,6 +17,12 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(url, { status: 301, statusText: 'Moved Permanently' });
     }
 
+    // 2. Globally catch and redirect /index.html to their clean equivalent
+    if (url.pathname.endsWith('/index.html')) {
+        url.pathname = url.pathname.replace(/\/index\.html$/, '') || '/';
+        return NextResponse.redirect(url, { status: 301, statusText: 'Moved Permanently' });
+    }
+
     // Für alle anderen Anfragen: weiterleiten
     return NextResponse.next();
 }

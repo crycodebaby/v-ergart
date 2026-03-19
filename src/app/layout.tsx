@@ -26,6 +26,8 @@ import {
 } from "@/components/AnnouncementProvider";
 import { ChristmasProvider, getChristmasMode } from "@/components/christmas";
 import PlausibleProvider from "next-plausible";
+import { GoogleTagManager } from '@next/third-parties/google';
+import CookieBanner from "@/components/CookieBanner";
 
 const roboto = Roboto({
   weight: ["400", "700"],
@@ -85,6 +87,35 @@ export default async function RootLayout({
           {/* Preconnect für Google Fonts - reduziert TTFB */}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          
+          {/* Google Consent Mode v2 Default State */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                
+                // Set default consent to 'denied' before GTM loads
+                gtag('consent', 'default', {
+                  'ad_storage': 'denied',
+                  'ad_user_data': 'denied',
+                  'ad_personalization': 'denied',
+                  'analytics_storage': 'denied',
+                  'wait_for_update': 500
+                });
+                
+                // Pass consent back to localStorage if already granted
+                if(localStorage.getItem('cookie_consent') === 'granted') {
+                  gtag('consent', 'update', {
+                    'ad_storage': 'granted',
+                    'ad_user_data': 'granted',
+                    'ad_personalization': 'granted',
+                    'analytics_storage': 'granted'
+                  });
+                }
+              `,
+            }}
+          />
         </head>
         {/* Sticky-Footer-Setup: body als Flex-Spalte, volle Viewport-Höhe */}
         <body
@@ -129,6 +160,12 @@ export default async function RootLayout({
 
           {/* UI-Utility kann außerhalb von main bleiben */}
           <ScrollToTopButton />
+          
+          {/* Google Tag Manager - Requires valid consent mode UI */}
+          <GoogleTagManager gtmId="GTM-NXD3FFQL" />
+          
+          {/* Global Cookie Banner for DSGVO/Consent Mode Updates */}
+          <CookieBanner />
         </body>
       </html>
     </PlausibleProvider>

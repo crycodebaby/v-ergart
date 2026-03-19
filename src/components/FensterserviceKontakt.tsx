@@ -87,6 +87,12 @@ export default function FensterserviceKontakt() {
                             href="tel:+4917666825889"
                             id="fensterservice-phone-cta-bottom"
                             data-track="call-fensterservice-bottom"
+                            onClick={() => {
+                                if (typeof window !== "undefined") {
+                                    window.dataLayer = window.dataLayer || [];
+                                    window.dataLayer.push({ event: 'phone_click' });
+                                }
+                            }}
                             className="inline-flex items-center gap-3 px-8 py-4 bg-brand-blue text-white font-semibold text-lg rounded-lg hover:bg-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02]"
                         >
                             <Phone size={20} />

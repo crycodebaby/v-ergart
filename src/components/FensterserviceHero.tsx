@@ -59,8 +59,7 @@ export default function FensterserviceHero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
           >
-            Fensterbau & Fensterservice{" "}
-            <span className="text-brand-blue">in Neuss & Umgebung</span>
+            Fensterservice in Neuss & Umgebung – <span className="text-brand-blue">Reparatur, Wartung, Einstellung</span>
           </motion.h1>
 
           {/* Subtext */}
@@ -68,10 +67,9 @@ export default function FensterserviceHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl"
+            className="text-lg md:text-xl text-yellow-400 font-semibold mb-8 max-w-2xl bg-black/40 inline-block p-2 rounded-lg backdrop-blur-sm"
           >
-            Ihr zuverlässiger Partner für Fenstermontage, Reparatur und Wartung.
-            Über 12 Jahre Erfahrung, regionale Nähe und Premium-Qualität von HÖNING.
+            ⭐ 4.9/5 Sterne | Über 12 Jahre Erfahrung | Schnelle Termine vor Ort
           </motion.p>
 
           {/* USP Pills */}
@@ -108,6 +106,12 @@ export default function FensterserviceHero() {
               href="tel:+4917666825889"
               id="fensterservice-phone-cta"
               data-track="call-fensterservice"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.dataLayer = window.dataLayer || [];
+                  window.dataLayer.push({ event: 'phone_click' });
+                }
+              }}
               className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-blue text-white font-bold text-lg rounded-lg hover:bg-blue-600 transition-all duration-300 shadow-lg shadow-brand-blue/25 hover:shadow-xl hover:shadow-brand-blue/30 hover:scale-[1.02]"
             >
               <Phone size={24} className="shrink-0" />

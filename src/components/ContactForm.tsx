@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
+import { trackEvent, trackLeadForm } from "@/lib/analytics";
 
 type FormValues = {
   name: string;
@@ -44,6 +45,8 @@ export default function ContactForm({
   customServices,
   source = "Kontaktseite"
 }: ContactFormProps = {}) {
+  const [hasStarted, setHasStarted] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -54,6 +57,30 @@ export default function ContactForm({
     "idle" | "loading" | "success" | "error"
   >("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
+
+  // Track form first interaction (friction tracking)
+  const handleFormStart = () => {
+    if (!hasStarted) {
+      setHasStarted(true);
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: "form_start" });
+        trackEvent('lead_form_view', { form_context: source });
+      }
+    }
+  };
+
+  // Track form validation errors (friction tracking)
+  const onFormError = (errors: any) => {
+    if (typeof window !== "undefined") {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ 
+        event: "form_error",
+        errorFields: Object.keys(errors)
+      });
+      trackEvent('cta_contact_click', { form_context: source, error_type: 'validation' });
+    }
+  };
 
   // Services: Custom falls übergeben, sonst Standard
   const services = customServices || SERVICES;
@@ -97,6 +124,17 @@ export default function ContactForm({
 
       setStatus("success");
       reset();
+
+      // Primary Conversion Google Ads & Plausible
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ 
+          event: "fensterservice_lead_submit_success",
+          source: source,
+          service: values.service || "Keine Angabe"
+        });
+        trackLeadForm('submit', 'contact_form', source);
+      }
     } catch (e: any) {
       setStatus("error");
       setErrorMsg(
@@ -107,7 +145,9 @@ export default function ContactForm({
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, onFormError)}
+      onChange={handleFormStart}
+      onFocusCapture={handleFormStart}
       className="space-y-5 relative rounded-xl border border-border bg-gradient-to-b from-card to-card/80 p-5 md:p-6"
     >
       {/* subtile Akzentkante oben */}

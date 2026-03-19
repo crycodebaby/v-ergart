@@ -42,6 +42,11 @@ const nextConfig = {
         permanent: true, // 301 Permanent Redirect
       },
       {
+        source: '/impressum.html',
+        destination: '/impressum',
+        permanent: true,
+      },
+      {
         source: '/leistungen.html',
         destination: '/leistungen',
         permanent: true,
@@ -58,6 +63,11 @@ const nextConfig = {
       },
 
       // Legacy Karriereportal → /karriere (301 Permanent)
+      {
+        source: '/karriereportal/karriere.php',
+        destination: '/karriere',
+        permanent: true,
+      },
       {
         source: '/karriereportal/karriere',
         destination: '/karriere',
