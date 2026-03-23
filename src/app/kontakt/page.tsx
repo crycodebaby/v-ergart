@@ -167,12 +167,9 @@ export default function KontaktPage() {
                   <ul className="space-y-3 text-sm">
                     <li className="flex justify-between">
                       <span className="text-muted-foreground">Mo – Fr</span>
-                      <span className="font-medium">08:00 – 16:00</span>
+                      <span className="font-medium">08:00 – 12:00 &amp; 13:00 – 16:00</span>
                     </li>
-                    <li className="flex justify-between border-t border-border/50 pt-2">
-                      <span className="text-muted-foreground">Mittagspause</span>
-                      <span className="font-medium">12:00 – 13:00</span>
-                    </li>
+
                     <li className="flex justify-between text-muted-foreground pt-2">
                       <span>Sa / So</span>
                       <span>Geschlossen</span>
