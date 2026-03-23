@@ -80,13 +80,14 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok"
+              className="flex items-center justify-center shrink-0"
             >
               <Image
                 src="/bilder_ordner/icons/tiktok.webp"
                 alt="TikTok Icon"
                 width={20}
                 height={20}
-                className="dark:invert opacity-60 hover:opacity-100 transition-opacity"
+                className="w-5 h-5 object-contain dark:invert opacity-60 hover:opacity-100 transition-opacity"
                 unoptimized
               />
             </a>
@@ -275,13 +276,14 @@ export default function Header() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="TikTok"
+                  className="flex items-center justify-center shrink-0"
                 >
                   <Image
                     src="/bilder_ordner/icons/tiktok.webp"
                     alt="TikTok Icon"
                     width={28}
                     height={28}
-                    className="dark:invert"
+                    className="w-7 h-7 object-contain dark:invert"
                     unoptimized
                   />
                 </a>
