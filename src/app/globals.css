@@ -245,4 +245,11 @@
       gap: 1.5rem;
     }
   }
+
+  /* reCAPTCHA Badge ausblenden – Pflichthinweis ist inline im Formular */
+  .grecaptcha-badge {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
 }

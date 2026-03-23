@@ -4,8 +4,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Sparkles } from "lucide-react";
+import { Sparkles, ShieldCheck } from "lucide-react";
 import { trackEvent, trackLeadForm } from "@/lib/analytics";
+import { useRecaptcha } from "@/hooks/useRecaptcha";
 
 type FormValues = {
   name: string;
@@ -46,6 +47,7 @@ export default function ContactForm({
   source = "Kontaktseite"
 }: ContactFormProps = {}) {
   const [hasStarted, setHasStarted] = useState(false);
+  const { executeRecaptcha } = useRecaptcha();
 
   const {
     register,
@@ -97,6 +99,14 @@ export default function ContactForm({
     setErrorMsg("");
 
     try {
+      // reCAPTCHA v3: Token vor dem Absenden holen
+      const recaptchaToken = await executeRecaptcha("contact_form");
+      if (!recaptchaToken) {
+        setStatus("error");
+        setErrorMsg("Sicherheitscheck fehlgeschlagen. Bitte Seite neu laden.");
+        return;
+      }
+
       const res = await fetch("https://formcarry.com/s/tUPZr1Mwu_1", {
         method: "POST",
         headers: {
@@ -112,6 +122,8 @@ export default function ContactForm({
           // Zusatzinfos, hilfreich im Posteingang:
           source: source,
           project: "Alexander Ergart – Hausmeister- & Fensterservice",
+          // reCAPTCHA v3 Token – wird von Formcarry serverseitig verifiziert
+          "g-recaptcha-response": recaptchaToken,
           // Honeypot wird nicht gesendet (bereits abgefangen)
         }),
       });
@@ -292,6 +304,29 @@ export default function ContactForm({
           <span className="text-sm text-blue-600 dark:text-blue-400">{errorMsg}</span>
         )}
       </div>
+
+      {/* reCAPTCHA-Pflichthinweis (ersetzt das ausgeblendete Badge) */}
+      <p className="flex items-center gap-1.5 text-[11px] text-muted-foreground/70 pt-1">
+        <ShieldCheck size={12} className="shrink-0 text-muted-foreground/50" />
+        Geschützt durch reCAPTCHA –{" "}
+        <a
+          href="https://policies.google.com/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2 hover:text-muted-foreground transition-colors"
+        >
+          Datenschutz
+        </a>
+        {" · "}
+        <a
+          href="https://policies.google.com/terms"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2 hover:text-muted-foreground transition-colors"
+        >
+          Nutzungsbedingungen
+        </a>
+      </p>
     </form>
   );
 }
