@@ -4,8 +4,8 @@ const nextConfig = {
     // Moderne Formate für bessere Kompression
     formats: ['image/avif', 'image/webp'],
 
-    // Device-Breakpoints passend zu Tailwind
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+    // Device-Breakpoints passend zu Tailwind Screens
+    deviceSizes: [475, 640, 768, 1024, 1100, 1280, 1536, 1920, 2048],
 
     // Kleinere Größen für Icons/Thumbnails
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -18,6 +18,7 @@ const nextConfig = {
         pathname: '/images/**',
       },
     ],
+    minimumCacheTTL: 31536000,
   },
 
   /**

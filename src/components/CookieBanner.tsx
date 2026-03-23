@@ -42,34 +42,37 @@ export default function CookieBanner() {
     <AnimatePresence>
       {show && (
         <motion.div
-          initial={{ y: 100, opacity: 0 }}
+          initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-0 left-0 right-0 z-[100] bg-background border-t border-border shadow-[0_-10px_40px_rgba(0,0,0,0.1)]"
+          exit={{ y: 50, opacity: 0 }}
+          className="fixed bottom-0 sm:bottom-6 left-0 sm:left-6 z-[100] w-full sm:max-w-md bg-background/95 backdrop-blur-xl border-t sm:border border-border/50 shadow-[0_-10px_40px_rgba(0,0,0,0.15)] dark:shadow-[0_-10px_40px_rgba(0,0,0,0.5)] sm:rounded-2xl overflow-hidden"
         >
-          <div className="container mx-auto px-4 py-6 md:flex md:items-center md:justify-between gap-4">
-            <div className="mb-4 md:mb-0 max-w-3xl">
-              <h3 className="text-lg font-bold mb-1">Ihre Privatsphäre ist uns wichtig</h3>
-              <p className="text-sm text-muted-foreground">
-                Wir nutzen Cookies und ähnliche Technologien, um unsere Webseite für Sie optimal zu gestalten und fortlaufend zu verbessern. Mit Klick auf &quot;Alle akzeptieren&quot; stimmen Sie der Verwendung für Analyse- und Marketingzwecke (z.B. Google Ads) zu. Weitere Informationen finden Sie in unserer{" "}
-                <a href="/datenschutz" className="underline text-brand-blue hover:text-blue-500 transition-colors">
-                  Datenschutzerklärung
-                </a>.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3 whitespace-nowrap">
-              <button
-                onClick={handleDecline}
-                className="px-6 py-2.5 rounded-lg border border-border bg-card hover:bg-muted text-foreground text-sm font-medium transition-colors"
-              >
-                Nur Notwendige
-              </button>
+          <div className="p-6">
+            <h3 className="text-lg font-bold mb-3 flex items-center gap-2 text-foreground">
+              <span className="text-xl">🍪</span> Ihre Privatsphäre
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+              Wir nutzen Cookies, um unsere Webseite für Sie optimal zu gestalten. Mit Klick auf &quot;Alle akzeptieren&quot; stimmen Sie der Verwendung für Analyse- und Marketingzwecke zu.
+              <br />
+              <br />
+              Weitere Infos finden Sie in unserer{" "}
+              <a href="/datenschutz" className="font-medium text-foreground underline decoration-brand-blue/30 hover:decoration-brand-blue transition-all">
+                Datenschutzerklärung
+              </a>.
+            </p>
+            <div className="flex flex-col gap-3">
               <button
                 onClick={handleAccept}
-                className="px-6 py-2.5 rounded-lg bg-brand-blue text-white hover:bg-blue-600 text-sm font-medium shadow-lg transition-colors"
+                className="w-full px-4 py-3 rounded-xl bg-brand-blue text-white font-medium shadow-md shadow-brand-blue/20 hover:bg-blue-600 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
                 id="cookie-accept-all"
               >
                 Alle akzeptieren
+              </button>
+              <button
+                onClick={handleDecline}
+                className="w-full px-4 py-3 rounded-xl border-2 border-border bg-transparent hover:bg-muted text-foreground font-medium transition-all duration-200"
+              >
+                Nur notwendige Cookies
               </button>
             </div>
           </div>

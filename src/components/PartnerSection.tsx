@@ -19,11 +19,11 @@ const PartnerSection = () => {
                 </h3>
                 <div className="flex justify-center items-center gap-12 md:gap-20">
                     <div className="flex flex-col items-center gap-4">
-                        <Image src="/bilder_ordner/coop/hoening.png" alt="Höning Logo" width={180} height={60} className="dark:brightness-0 dark:invert" />
+                        <Image src="/bilder_ordner/coop/hoening.png" alt="Höning Logo" width={180} height={60} className="dark:brightness-0 dark:invert" unoptimized />
                         <p className="text-xs text-muted-foreground">Premium Partner</p>
                     </div>
                     <div className="flex flex-col items-center gap-4">
-                        <Image src="/bilder_ordner/coop/made-in-germany.png" alt="Made in Germany Siegel" width={80} height={80} />
+                        <Image src="/bilder_ordner/coop/made-in-germany.png" alt="Made in Germany Siegel" width={80} height={80} unoptimized />
                          <p className="text-xs text-muted-foreground">Deutsche Wertarbeit</p>
                     </div>
                 </div>

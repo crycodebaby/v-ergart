@@ -87,6 +87,7 @@ export default function Header() {
                 width={20}
                 height={20}
                 className="dark:invert opacity-60 hover:opacity-100 transition-opacity"
+                unoptimized
               />
             </a>
             <ThemeToggleButton />
@@ -99,12 +100,13 @@ export default function Header() {
         <div className="container flex h-24 max-w-7xl mx-auto items-center justify-between px-4">
           <Link href="/" className="flex items-center gap-4">
             <Image
-              src="/bilder_ordner/logo/ergart-hausmeister-logo.webp"
+              src="/bilder_ordner/AE_logo.svg"
               alt="Logo"
-              width={90}
-              height={68}
-              style={{ width: "auto", height: "auto" }}
+              width={135}
+              height={100}
+              className="w-16 md:w-20 lg:w-24 h-auto transition-all"
               priority
+              unoptimized
             />
             <div className="hidden lg:block">
               <span className="font-bold text-xl">Alexander Ergart</span>
@@ -280,6 +282,7 @@ export default function Header() {
                     width={28}
                     height={28}
                     className="dark:invert"
+                    unoptimized
                   />
                 </a>
               </motion.div>

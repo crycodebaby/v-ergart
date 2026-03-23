@@ -10,7 +10,8 @@ import {
   fetchRelatedPosts,
   type BlogPost,
 } from "@/lib/blog-queries";
-import { getBlogImageUrl } from "@/lib/sanity-image";
+import { getBlogImageUrl, urlForImage } from "@/lib/sanity-image";
+import sanityLoader from "@/lib/sanity-loader";
 import AuthorBox from "@/components/AuthorBox";
 import BlogPostCard from "@/components/BlogPostCard";
 import BlogServiceCTA from "@/components/BlogServiceCTA";
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await fetchPostBySlug(params.slug);
   if (!post) return { title: "Artikel nicht gefunden" };
 
-  const imageUrl = post.mainImage ? getBlogImageUrl(post.mainImage.asset, 1200) : null;
+  const imageUrl = post.mainImage ? urlForImage(post.mainImage).width(1200).height(630).format('webp').url() : null;
   const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://alexander-ergart.de'}/blog/${params.slug}`;
   
   // SEO-optimierte Fallbacks
@@ -60,7 +61,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 // Article JSON-LD
 function ArticleJsonLd({ post }: { post: BlogPost }) {
-  const imageUrl = post.mainImage ? getBlogImageUrl(post.mainImage.asset, 1200) : null;
+  const imageUrl = post.mainImage ? urlForImage(post.mainImage).width(1200).height(630).format('webp').url() : null;
 
   const data = {
     "@context": "https://schema.org",
@@ -82,7 +83,7 @@ function ArticleJsonLd({ post }: { post: BlogPost }) {
       name: "Alexander Ergart Hausmeister- & Fensterservice",
       logo: {
         "@type": "ImageObject",
-        url: "https://alexander-ergart.de/bilder_ordner/logo/ergart-hausmeister-logo.webp",
+        url: "https://alexander-ergart.de/bilder_ordner/AE_logo.svg",
       },
     },
     articleSection: post.categories?.map((c) => c.title).join(", "),
@@ -155,7 +156,7 @@ export default async function BlogPostPage({ params }: Props) {
   const post = await fetchPostBySlug(params.slug);
   if (!post) return notFound();
 
-  const imageUrl = post.mainImage ? getBlogImageUrl(post.mainImage.asset) : null;
+  const imageUrl = post.mainImage ? getBlogImageUrl(post.mainImage) : null;
 
   // Fetch related posts - use manual category ID extraction
   // Categories in the post type don't have _id, we need to query them separately
@@ -218,9 +219,11 @@ export default async function BlogPostPage({ params }: Props) {
           {imageUrl && (
             <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-8">
               <Image
+                loader={sanityLoader}
                 src={imageUrl}
                 alt={post.mainImage?.alt || post.title}
                 fill
+                sizes="(max-width: 1024px) 100vw, 800px"
                 className="object-cover"
                 priority
               />

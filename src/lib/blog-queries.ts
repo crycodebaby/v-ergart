@@ -55,6 +55,8 @@ const POSTS_LIST_QUERY = groq`
   excerpt,
   mainImage {
     asset,
+    crop,
+    hotspot,
     alt
   },
   author->{
@@ -84,6 +86,8 @@ const POST_BY_SLUG_QUERY = groq`
   body,
   mainImage {
     asset,
+    crop,
+    hotspot,
     alt
   },
   author->{
@@ -116,6 +120,8 @@ const FEATURED_POSTS_QUERY = groq`
   excerpt,
   mainImage {
     asset,
+    crop,
+    hotspot,
     alt
   },
   categories[]->{
@@ -197,6 +203,8 @@ export async function fetchRelatedPosts(
     excerpt,
     mainImage {
       asset,
+      crop,
+      hotspot,
       alt
     },
     categories[]->{

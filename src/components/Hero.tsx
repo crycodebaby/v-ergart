@@ -23,8 +23,10 @@ const altTexts = [
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 6000);
@@ -37,18 +39,20 @@ const Hero = () => {
       {/* Der Bilder-Slider als Hintergrund-Ebene mit Wrapper für CLS-Optimierung */}
       <div className="absolute inset-0 z-0">
         <div className="relative w-full h-full">
-          {images.map((src, index) => (
-            <Image
-              key={src}
-              className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
-              src={src}
-              alt={altTexts[index]}
-              fill
-              sizes="100vw"
-              priority={index === 0}
-              quality={85}
-            />
-          ))}
+          {images.map((src, index) => {
+            if (index > 0 && !mounted) return null;
+            return (
+              <Image
+                key={src}
+                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
+                src={src}
+                alt={altTexts[index]}
+                fill
+                sizes="100vw"
+                priority={index === 0}
+              />
+            );
+          })}
         </div>
         {/* Ein dunkles Overlay, um den Text lesbarer zu machen */}
         <div className="absolute inset-0 bg-black/40"></div>

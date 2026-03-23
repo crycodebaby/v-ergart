@@ -26,10 +26,12 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-4">
               <Image
-                src="/bilder_ordner/logo/ergart-hausmeister-logo.webp"
+                src="/bilder_ordner/AE_logo.svg"
                 alt="Logo Alexander Ergart"
-                width={180}
-                height={138}
+                width={135}
+                height={100}
+                className="w-24 md:w-32 h-auto"
+                unoptimized
               />
               <p className="mt-6 text-sm text-muted-foreground max-w-xs">
                 Ihr zuverlässiger Partner für professionelle Hausmeisterdienste,

@@ -3,6 +3,7 @@ import { User, Globe, Linkedin } from "lucide-react";
 import { PortableText } from "@portabletext/react";
 import { type BlogPost } from "@/lib/blog-queries";
 import { urlForImage } from "@/lib/sanity-image";
+import sanityLoader from "@/lib/sanity-loader";
 
 type Author = NonNullable<BlogPost["author"]>;
 
@@ -11,7 +12,7 @@ type Props = {
 };
 
 export default function AuthorBox({ author }: Props) {
-  const imageUrl = author.image ? urlForImage(author.image).width(150).url() : null;
+  const imageUrl = author.image ? urlForImage(author.image).url() : null;
 
   return (
     <div className="bg-muted/30 rounded-lg p-6 border border-border/20">
@@ -20,9 +21,11 @@ export default function AuthorBox({ author }: Props) {
         {imageUrl && (
           <div className="relative w-20 h-20 rounded-full overflow-hidden flex-shrink-0">
             <Image
+              loader={sanityLoader}
               src={imageUrl}
               alt={author.name}
               fill
+              sizes="80px"
               className="object-cover"
             />
           </div>

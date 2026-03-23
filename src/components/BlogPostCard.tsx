@@ -3,13 +3,14 @@ import Image from "next/image";
 import { Calendar } from "lucide-react";
 import { type BlogPost } from "@/lib/blog-queries";
 import { getThumbnailUrl } from "@/lib/sanity-image";
+import sanityLoader from "@/lib/sanity-loader";
 
 type Props = {
   post: BlogPost;
 };
 
 export default function BlogPostCard({ post }: Props) {
-  const imageUrl = post.mainImage ? getThumbnailUrl(post.mainImage.asset) : null;
+  const imageUrl = post.mainImage ? getThumbnailUrl(post.mainImage) : null;
   const categoryColor = post.categories?.[0]?.color || "blue";
 
   // Color mapping for category badges
@@ -32,9 +33,11 @@ export default function BlogPostCard({ post }: Props) {
       {imageUrl && (
         <div className="relative w-full aspect-video bg-muted overflow-hidden">
           <Image
+            loader={sanityLoader}
             src={imageUrl}
             alt={post.mainImage?.alt || post.title}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
         </div>

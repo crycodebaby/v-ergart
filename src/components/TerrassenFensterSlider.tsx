@@ -104,7 +104,7 @@ export const TerrassenFensterSlider = () => {
                     alt="Nach der Fenstersanierung - Moderne Terrassenfenster"
                     fill
                     className="object-cover"
-                    priority
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                 </div>
 
@@ -118,7 +118,7 @@ export const TerrassenFensterSlider = () => {
                     alt="Vor der Fenstersanierung - Alte Terrassenfenster"
                     fill
                     className="object-cover"
-                    priority
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                 </div>
 

@@ -110,7 +110,7 @@ const localBusinessJsonLd = {
     url: `${BASE_URL}/fensterservice`,
     telephone: "+49 176 668 25 889",
     email: "aergart@gmail.com",
-    logo: `${BASE_URL}/bilder_ordner/logo/ergart-hausmeister-logo.webp`,
+    logo: `${BASE_URL}/bilder_ordner/AE_logo.svg`,
     image: `${BASE_URL}/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fertig-installierte-scheibe-neue-saubere-fensterfront.webp`,
     address: {
         "@type": "PostalAddress",
