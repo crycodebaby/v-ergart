@@ -5,7 +5,7 @@ import { LeistungenContent } from "@/components/LeistungenContent";
 import { TerrassenFensterSlider } from "@/components/TerrassenFensterSlider";
 import { HoeningShowroom } from "@/components/HoeningShowroom";
 import CTA from "@/components/CTA";
-import { HandwerkskammerCard } from "@/components/HandwerkskammerCard";
+import { TrustAndPartnerSection } from "@/components/TrustAndPartnerSection";
 import HoeningEnergierechner from "@/components/HoeningEnergierechner";
 import HoeningGarantieCard from "@/components/HoeningGarantieCard";
 
@@ -30,9 +30,7 @@ export default function LeistungenPage() {
       <HoeningShowroom />
       <HoeningEnergierechner />
       <HoeningGarantieCard />
-      <div className="container mx-auto px-4">
-        <HandwerkskammerCard />
-      </div>
+      <TrustAndPartnerSection />
       <CTA />
     </>
   );

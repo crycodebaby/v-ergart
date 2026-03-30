@@ -9,7 +9,7 @@ import WhyErgart from "@/components/WhyErgart";
 import MapSection from "@/components/MapSection";
 import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
-import { HandwerkskammerCard } from "@/components/HandwerkskammerCard";
+import { TrustAndPartnerSection } from "@/components/TrustAndPartnerSection";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "")
   || "https://alexander-ergart.de";
@@ -176,7 +176,7 @@ export default function HomePage() {
       <Hero />
       <Stats />
       <Services />
-      <HandwerkskammerCard />
+      <TrustAndPartnerSection />
       <WhyErgart />
       <ProfileCard />
       <Testimonials />

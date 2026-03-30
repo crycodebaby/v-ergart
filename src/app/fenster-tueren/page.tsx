@@ -1,7 +1,7 @@
 // src/app/fenster-und-tueren/page.tsx
 import { ShowroomDashboard } from "@/components/ShowroomDashboard";
 import CTA from "@/components/CTA";
-import { HandwerkskammerCard } from "@/components/HandwerkskammerCard";
+import { TrustAndPartnerSection } from "@/components/TrustAndPartnerSection";
 import { generateSEOMetadata } from "@/lib/seo-utils";
 
 export const metadata = generateSEOMetadata({
@@ -18,9 +18,7 @@ export default function FensterTuerenDashboardPage() {
   return (
     <>
       <ShowroomDashboard />
-      <div className="container mx-auto px-4">
-        <HandwerkskammerCard />
-      </div>
+      <TrustAndPartnerSection />
       <CTA />
     </>
   );

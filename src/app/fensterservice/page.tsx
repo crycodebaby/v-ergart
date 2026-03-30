@@ -27,7 +27,7 @@ import FensterserviceVorteile from "@/components/FensterserviceVorteile";
 import FensterserviceAblauf from "@/components/FensterserviceAblauf";
 import FensterserviceFAQ from "@/components/FensterserviceFAQ";
 import FensterserviceKontakt from "@/components/FensterserviceKontakt";
-import { HandwerkskammerCard } from "@/components/HandwerkskammerCard";
+import TrustAndPartnerSection from "@/components/TrustAndPartnerSection";
 import HoeningEnergierechner from "@/components/HoeningEnergierechner";
 import HoeningGarantieCard from "@/components/HoeningGarantieCard";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
@@ -235,9 +235,7 @@ export default function FensterservicePage() {
             <FensterserviceVorteile />
             <FensterserviceAblauf />
             <FensterserviceFAQ />
-            <div className="container mx-auto px-4 pb-24 md:pb-0">
-                <HandwerkskammerCard />
-            </div>
+            <TrustAndPartnerSection />
             
             <StickyMobileCTA />
         </>
