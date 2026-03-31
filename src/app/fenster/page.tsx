@@ -1,4 +1,5 @@
 // src/app/fenster/page.tsx
+import Script from "next/script";
 import { generateSEOMetadata } from "@/lib/seo-utils";
 import { FeatureGallery } from "@/components/FeatureGallery";
 import FensterHero from "@/components/FensterHero";
@@ -21,9 +22,98 @@ export const metadata = generateSEOMetadata({
   },
 });
 
+/**
+ * HowTo Schema.org JSON-LD
+ * Beschreibt den 8-Schritte-Montageprozess für Google Rich Snippets.
+ * Kann als nummerierte Liste direkt in den Google-Suchergebnissen erscheinen.
+ */
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Fenstermontage – Transparenz von Anfang bis Ende",
+  description:
+    "Unser bewährter 8-Schritte-Montageprozess für professionellen Fenstereinbau in Neuss und Umgebung – meisterhaft ausgeführt von Alexander Ergart.",
+  totalTime: "PT4H",
+  estimatedCost: {
+    "@type": "MonetaryAmount",
+    currency: "EUR",
+    value: "400",
+  },
+  tool: [
+    { "@type": "HowToTool", name: "Saugkraft-Hebelift" },
+    { "@type": "HowToTool", name: "Montagekran" },
+    { "@type": "HowToTool", name: "Präzisionswerkzeug" },
+  ],
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Bestandsaufnahme",
+      text: "Jedes Projekt beginnt mit der Analyse. Wir begutachten die alten Fenster und die Bausubstanz – so entstehen keine Überraschungen beim Einbau.",
+      image: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/vorherige-alte-fenster.webp",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Vorbereitung",
+      text: "Nach dem Ausbau der alten Elemente wird der Arbeitsplatz sauber vorbereitet und geschützt. Sauberkeit und Schutz Ihrer Räume sind für uns selbstverständlich.",
+      image: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/vorherige-alte-fenster-ausgebaut-vorbereiteter-arbeitsplatz.webp",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Logistik",
+      text: "Mit schwerem Gerät wie Kränen und Spezialfahrzeugen positionieren wir auch große Fensterelemente millimetergenau – sicher und schadensfrei.",
+      image: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterelement-kran.webp",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Anlieferung",
+      text: "Die neuen, maßgefertigten HÖNING-Fensterelemente werden sicher auf Spezialgestellen angeliefert. Jedes Element wird auf Transportschäden geprüft.",
+      image: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterscheiben-auf-gestell-für-fensterelemente.webp",
+    },
+    {
+      "@type": "HowToStep",
+      position: 5,
+      name: "Präzisionsarbeit",
+      text: "Der spezielle Saugkraft-Hebelift ermöglicht eine sichere und beschädigungsfreie Handhabung der Scheiben. Modernste Technik für maximale Qualität.",
+      image: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterscheibe-hochgehoben-durch-saugkraft-lift.webp",
+    },
+    {
+      "@type": "HowToStep",
+      position: 6,
+      name: "Montage",
+      text: "Das neue Fensterelement wird passgenau in die Öffnung eingesetzt und professionell verankert. Jeder Handgriff sitzt – das Ergebnis hält Jahrzehnte.",
+      image: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/montageprozess-der-neuen-scheibe-via-sauglift.webp",
+    },
+    {
+      "@type": "HowToStep",
+      position: 7,
+      name: "Finale Justierung",
+      text: "Nach dem Einbau wird alles absolut präzise justiert: Dichtigkeit, Öffnungswinkel, Beschläge. Erst wenn alles perfekt sitzt, ist der Schritt abgeschlossen.",
+      image: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/finale-fensterelement-abdichtung.webp",
+    },
+    {
+      "@type": "HowToStep",
+      position: 8,
+      name: "Abschluss & Übergabe",
+      text: "Das Endergebnis: Eine neue, saubere und energieeffiziente Fensterfront. Wir erklären Ihnen die Pflege und Funktionen – und hinterlassen eine makellos saubere Baustelle.",
+      image: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fertig-installierte-scheibe-neue-saubere-fensterfront.webp",
+    },
+  ],
+};
+
 export default function FensterPage() {
   return (
     <>
+      {/* HowTo Structured Data – Google Rich Snippets */}
+      <Script
+        id="fenster-howto-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      />
+
       <FensterHero />
 
       {/* Die 3 Feature-Galerien bleiben erhalten, sie liefern wertvolle Details. */}
@@ -46,6 +136,7 @@ export default function FensterPage() {
 
       <HoeningGarantieCard />
 
+      {/* Montageprozess – 8 Schritte */}
       <ProcessStepper />
 
       {/* Der Benefits-Split liefert die konkreten Argumente, warum HÖNING die richtige Wahl ist. */}

@@ -28,6 +28,7 @@ import FensterserviceAblauf from "@/components/FensterserviceAblauf";
 import FensterserviceFAQ from "@/components/FensterserviceFAQ";
 import FensterserviceKontakt from "@/components/FensterserviceKontakt";
 import TrustAndPartnerSection from "@/components/TrustAndPartnerSection";
+import { ProcessStepper } from "@/components/ProcessStepper";
 import HoeningEnergierechner from "@/components/HoeningEnergierechner";
 import HoeningGarantieCard from "@/components/HoeningGarantieCard";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
@@ -94,6 +95,28 @@ const faqJsonLd = {
             text: faq.antwort,
         },
     })),
+};
+
+/**
+ * HowTo Schema.org JSON-LD – Montageprozess für Google Rich Snippets
+ */
+const howToJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "Fenstermontage – Transparenz von Anfang bis Ende",
+    description:
+        "Unser bewährter 8-Schritte-Montageprozess für professionellen Fenstereinbau in Neuss und Umgebung – meisterhaft ausgeführt von Alexander Ergart.",
+    totalTime: "PT4H",
+    step: [
+        { "@type": "HowToStep", position: 1, name: "Bestandsaufnahme", text: "Jedes Projekt beginnt mit der Analyse. Wir begutachten die alten Fenster und die Bausubstanz." },
+        { "@type": "HowToStep", position: 2, name: "Vorbereitung", text: "Nach dem Ausbau der alten Elemente wird der Arbeitsplatz sauber vorbereitet und geschützt." },
+        { "@type": "HowToStep", position: 3, name: "Logistik", text: "Mit Kränen und Spezialfahrzeugen positionieren wir große Fensterelemente millimetergenau." },
+        { "@type": "HowToStep", position: 4, name: "Anlieferung", text: "Die maßgefertigten HÖNING-Fensterelemente werden sicher auf Spezialgestellen angeliefert." },
+        { "@type": "HowToStep", position: 5, name: "Präzisionsarbeit", text: "Der Saugkraft-Hebelift ermöglicht sichere und beschädigungsfreie Handhabung der Scheiben." },
+        { "@type": "HowToStep", position: 6, name: "Montage", text: "Das Fensterelement wird passgenau eingesetzt und professionell verankert." },
+        { "@type": "HowToStep", position: 7, name: "Finale Justierung", text: "Dichtigkeit, Öffnungswinkel und Beschläge werden präzise justiert." },
+        { "@type": "HowToStep", position: 8, name: "Abschluss & Übergabe", text: "Das Ergebnis: Neue energieeffiziente Fensterfront, sauber übergeben." },
+    ],
 };
 
 /**
@@ -220,6 +243,13 @@ export default function FensterservicePage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
             />
 
+            {/* Structured Data: HowTo – Montageprozess */}
+            <Script
+                id="fensterservice-howto-schema"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+            />
+
             {/* Page Sections */}
             <FensterserviceHero />
             <FensterserviceKontakt />
@@ -234,6 +264,10 @@ export default function FensterservicePage() {
 
             <FensterserviceVorteile />
             <FensterserviceAblauf />
+
+            {/* Montageprozess – 8 Schritte als visuelle Beweisführung nach dem Ablauf */}
+            <ProcessStepper />
+
             <FensterserviceFAQ />
             <TrustAndPartnerSection />
             
