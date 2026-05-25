@@ -1,9 +1,6 @@
-// src/components/GoogleCalendarButton.tsx
-"use client";
-
 import Link from "next/link";
-import { Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SITE_LINKS } from "@/lib/site-links";
 
 /**
  * Google Kalender Termin-Button
@@ -22,8 +19,6 @@ interface GoogleCalendarButtonProps {
     showDescription?: boolean;
 }
 
-const GOOGLE_CALENDAR_URL = "https://calendar.app.google/ZYpM2cqo9omejSDR7";
-
 export default function GoogleCalendarButton({
     label = "Termin buchen",
     variant = "default",
@@ -38,7 +33,7 @@ export default function GoogleCalendarButton({
                 className={`inline-flex items-center gap-2 ${className}`}
             >
                 <Link
-                    href={GOOGLE_CALENDAR_URL}
+                    href={SITE_LINKS.external.googleCalendarBooking}
                     target="_blank"
                     rel="noopener noreferrer"
                     data-track="calendar-booking"

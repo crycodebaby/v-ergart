@@ -32,10 +32,9 @@ import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Calendar, CheckCircle2, ChevronDown } from "lucide-react";
+import { SITE_LINKS } from "@/lib/site-links";
 
 // ─── Konstanten ──────────────────────────────────────────────────────────────
-
-const GOOGLE_CALENDAR_URL = "https://calendar.app.google/ZYpM2cqo9omejSDR7";
 
 // ─── Step-Daten (Schritt 3 ↔ 4 korrigiert: Logistik vor Anlieferung) ─────────
 
@@ -145,7 +144,7 @@ function BookingCTA() {
         Überzeugt? Vereinbaren Sie jetzt Ihren kostenlosen Beratungstermin:
       </p>
       <Link
-        href={GOOGLE_CALENDAR_URL}
+        href={SITE_LINKS.external.googleCalendarBooking}
         target="_blank"
         rel="noopener noreferrer"
         data-track="process-stepper-calendar-cta"
