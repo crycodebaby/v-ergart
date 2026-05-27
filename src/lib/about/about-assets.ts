@@ -60,8 +60,13 @@ export const ABOUT_ASSETS: AboutAssetCatalog = {
     width: 260,
     height: 80,
   },
-  // TODO(about-social-image): Add optimized social engagement image and replace null.
-  socialEngagement: null,
+  socialEngagement: {
+    src: "/bilder_ordner/soziales-engagement/verkehrswacht-kinder-sicher-collage.webp",
+    alt: "Collage zum Projekt Kinder sicher im Straßenverkehr",
+    width: 1600,
+    height: 1000,
+    sizes: "(max-width: 1200px) 100vw, 900px",
+  },
   socialEngagementImageTodo:
     "/bilder_ordner/soziales-engagement/verkehrswacht-kinder-sicher-collage.webp",
 };

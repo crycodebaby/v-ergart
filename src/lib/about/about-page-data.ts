@@ -8,7 +8,7 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
     eyebrow: "Über uns",
     title: "Verlässliche Arbeit. Klare Prozesse. Langfristiger Werterhalt.",
     intro:
-      "Wir betreuen Immobilien in Neuss und der Region für private Kunden, Eigentümergemeinschaften und gewerbliche Auftraggeber - strukturiert, verbindlich und mit handwerklichem Anspruch.",
+      "Für private und gewerbliche Immobilien bieten wir verlässliche Betreuung mit klaren Abläufen, hochwertiger Ausführung und Fokus auf Werterhalt.",
     figure: ABOUT_ASSETS.hero,
     ctas: {
       primary: {
@@ -30,11 +30,11 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
     eyebrow: "Herkunft",
     title: "Vom Logistikalltag zur strukturierten Dienstleistung",
     intro:
-      "Ordnung, Sortierung, Prozessdisziplin und Verlässlichkeit prägen unsere Arbeit bis heute.",
+      "Ordnung, Prozessdisziplin und Verlässlichkeit prägen unseren Arbeitsstil bis heute.",
     paragraphs: [
-      "Alexander Ergart arbeitete viele Jahre in logistikorientierten Abläufen und lernte dort, wie wichtig Struktur, Taktung und klare Verantwortlichkeiten sind.",
-      "Noch vor der Familiengründung wuchs der Anspruch, nicht nur Aufgaben zu erledigen, sondern Qualität zuverlässig zu organisieren - vom ersten Kontakt bis zur sauberen Übergabe.",
-      "So entstand in der Region Schritt für Schritt der Ruf als verlässlicher Hausmeister, Handwerker und Servicepartner.",
+      "Alexander Ergart sammelte über Jahre Erfahrung in logistischen und handwerksnahen Abläufen - mit Fokus auf Struktur, Taktung und Verantwortung.",
+      "Noch vor der Familiengründung wuchs der Anspruch, Leistungen nicht nur auszuführen, sondern sauber zu organisieren: vom ersten Kontakt bis zur Übergabe.",
+      "So entstand in der Region Schritt für Schritt ein verlässlicher Servicebetrieb.",
     ],
     figure: {
       ...ABOUT_ASSETS.origin,
@@ -47,9 +47,9 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
     eyebrow: "Führung & Organisation",
     title: "Alexander und Tanja Ergart bündeln operative und kaufmännische Stärke",
     paragraphs: [
-      "Alexander Ergart verantwortet Einsatzplanung, Ausführung und Servicequalität in der Praxis.",
-      "Tanja Ergart stärkt Administration, Zahlen, Struktur und verlässliche interne Abläufe.",
-      "Parallel zum Hausmeisterservice wurde mit Ergart Immobilienverwaltung ein weiterer professioneller Unternehmensbereich aufgebaut.",
+      "Alexander Ergart verantwortet Einsatzplanung, Ausführung und Servicequalität vor Ort.",
+      "Tanja Ergart steuert Administration, Zahlen und belastbare interne Abläufe.",
+      "Neben dem Hausmeister- und Fensterservice wurde Ergart Immobilienverwaltung als eigener Bereich aufgebaut.",
     ],
     figure: {
       ...ABOUT_ASSETS.leadership,
@@ -67,28 +67,28 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
         year: "2018",
         title: "Startschuss & Handwerkskammer-Eintragung",
         body:
-          "Mit mehr als 13 Jahren Erfahrung in Hausmeisterservice, Logistik und handwerksnahen Dienstleistungen wurde das Unternehmen gegründet. Die Eintragung bei der Handwerkskammer Düsseldorf schuf ein belastbares Fundament für Qualität und Vertrauen.",
+          "Mit mehr als 13 Jahren Erfahrung wurde der Betrieb gegründet. Die Eintragung bei der Handwerkskammer Düsseldorf legte das Fundament für Qualität und Vertrauen.",
       },
       {
         id: "m-growth",
         year: "Folgejahre",
         title: "Verlässlicher regionaler Partner",
         body:
-          "Der Betrieb entwickelte sich zur festen Größe in der Region - mit Objektpflege, Reparaturen, Gartenpflege, Tonnenservice, Treppenhausreinigung, Winterdienst und Fokus auf Werterhalt.",
+          "Der Betrieb entwickelte sich zur verlässlichen Größe in der Region: Objektpflege, Reparaturen, Treppenhausreinigung, Winterdienst und Werterhalt.",
       },
       {
         id: "m-2023",
         year: "2023",
         title: "Ausbau zum spezialisierten Fenster- und Türenservice",
         body:
-          "Als Vater von drei Kindern entschied Alexander Ergart, den Betrieb weiter zu professionalisieren. Weiterbildungen und Zertifizierungen (u. a. TÜV, ift Rosenheim, DIN/EN 14351) stärkten die Grundlage für den spezialisierten Fensterservice.",
+          "Mit zusätzlicher Qualifizierung (u. a. TÜV, ift Rosenheim, DIN/EN 14351) wurde der spezialisierte Fenster- und Türenservice professionell ausgebaut.",
       },
       {
         id: "m-2025-2026",
         year: "2025/2026",
         title: "Partnerschaften mit HÖNING und Kilbinger",
         body:
-          "Mit starken Partnern aus Produktion und Fachhandel wurde die Qualität in Beratung, Lieferung und Umsetzung weiter ausgebaut.",
+          "Mit starken Partnern aus Produktion und Fachhandel wurden Beratung, Lieferung und Ausführung weiter professionalisiert.",
       },
     ],
   },
@@ -131,25 +131,25 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
     eyebrow: "Qualitätsanspruch",
     title: "Nicht der billigste Anbieter - bewusst",
     intro:
-      "Unser Fokus liegt auf verlässlicher Ausführung, hochwertigen Materialien und langfristigem Werterhalt statt kurzfristiger Billiglösung.",
+      "Unser Fokus liegt auf verlässlicher Ausführung, hochwertigen Materialien und langfristigem Werterhalt - nicht auf kurzfristigen Billiglösungen.",
     principles: [
       {
         id: "q-reliability",
         title: "Verbindliche Umsetzung",
         body:
-          "Feste Zusagen, klare Kommunikation und termingerechte Arbeit sind Teil unseres Qualitätsstandards.",
+          "Feste Zusagen, klare Kommunikation und termingerechte Umsetzung sind Standard.",
       },
       {
         id: "q-materials",
         title: "Sorgfältige Material- und Werkzeugwahl",
         body:
-          "Wir arbeiten mit professionellen Standards und ausgewählten Herstellern, um dauerhafte Ergebnisse zu sichern.",
+          "Wir arbeiten mit professionellen Standards und ausgewählten Herstellern für dauerhafte Ergebnisse.",
       },
       {
         id: "q-value",
         title: "Wertorientiertes Arbeiten",
         body:
-          "Ziel ist nicht die schnelle Lösung, sondern ein Ergebnis, das Immobilien langfristig schützt und aufwertet.",
+          "Ziel ist nicht die schnelle Lösung, sondern belastbarer Werterhalt über Jahre.",
       },
     ],
     toolsNote:
@@ -164,7 +164,7 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
         id: "hoening",
         name: "HÖNING",
         body:
-          "Als Partner eines deutschen Premium-Herstellers für Fenster und Haustüren bauen wir auf Qualität, Langlebigkeit und präzise Systemlösungen.",
+          "Als Partner eines deutschen Premium-Herstellers setzen wir auf langlebige Fenster- und Haustürlösungen.",
         logo: ABOUT_ASSETS.hoeningLogo,
         href: SITE_LINKS.external.hoeningCompany,
         hrefLabel: "Mehr über HÖNING",
@@ -173,14 +173,14 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
         id: "kilbinger",
         name: "Kilbinger Fachhandel & Service Neuss",
         body:
-          "Als offizieller Partner von Kilbinger setzen wir auf lokale Qualität, verlässliche Lieferwege und erstklassige Materialien - direkt aus Neuss für unsere Kunden.",
+          "Als offizieller Partner von Kilbinger setzen wir auf lokale Qualität, verlässliche Lieferwege und erstklassige Materialien.",
         logo: ABOUT_ASSETS.kilbingerLogo,
       },
       {
         id: "immobilienverwaltung",
         name: "Ergart Immobilienverwaltung",
         body:
-          "Mit einem eigenen Verwaltungsbereich ergänzen wir operative Leistung um strukturierte kaufmännische und organisatorische Kompetenz.",
+          "Der eigene Verwaltungsbereich ergänzt operative Leistung um strukturierte kaufmännische Kompetenz.",
         logo: ABOUT_ASSETS.immobilienverwaltungLogo,
         href: SITE_LINKS.external.immobilienverwaltung,
         hrefLabel: "Zur Immobilienverwaltung",
@@ -193,7 +193,7 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
     title: "Digitale Weiterentwicklung der Ergart-Unternehmen",
     paragraphs: [
       "Hausmeisterservice, Fensterservice und Immobilienverwaltung werden digital enger verzahnt.",
-      "Ein AE-System für Wartungsplanung, Erinnerungen und strukturierte Dokumentation ist als nächster Entwicklungsschritt vorgesehen.",
+      "Ein AE-System für Wartungsplanung, Erinnerungen und Dokumentation ist als nächster Entwicklungsschritt vorgesehen.",
       "Perspektivisch werden QR-bezogene Elementinformationen für Wartung und Nachverfolgung geprüft.",
     ],
     disclaimer:
@@ -204,7 +204,7 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
     eyebrow: "Regionales Engagement",
     title: "Kinder sicher im Straßenverkehr",
     body:
-      "Wir unterstützen das Projekt \"Arbeitsbuch Radfahrausbildung / Kinder sicher im Straßenverkehr\" für die Verkehrswacht Rhein-Kreis Neuss e. V. und leisten damit einen regionalen Beitrag zur Verkehrssicherheit von Kindern.",
+      "Wir unterstützen das Projekt \"Arbeitsbuch Radfahrausbildung / Kinder sicher im Straßenverkehr\" der Verkehrswacht Rhein-Kreis Neuss e. V. und stärken damit die Verkehrssicherheit von Kindern in der Region.",
     legalNote:
       "Dieses Engagement ist ein gesellschaftlicher Beitrag und kein Kundenreferenzprojekt.",
     imageTodo: ABOUT_ASSETS.socialEngagementImageTodo,
@@ -232,12 +232,12 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
       {
         id: "v2",
         title: "Struktur",
-        body: "Klare Prozesse sorgen für Transparenz, Nachvollziehbarkeit und Ruhe in der Zusammenarbeit.",
+        body: "Klare Prozesse sorgen für Transparenz und planbare Zusammenarbeit.",
       },
       {
         id: "v3",
         title: "Verantwortung",
-        body: "Wir arbeiten so, dass Immobilien langfristig gepflegt, erhalten und sinnvoll weiterentwickelt werden.",
+        body: "Wir arbeiten so, dass Immobilien langfristig gepflegt und erhalten bleiben.",
       },
     ],
   },

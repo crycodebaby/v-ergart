@@ -11,6 +11,17 @@ import ResponsiveImageFigure from "@/components/about/ResponsiveImageFigure";
 import { ABOUT_PAGE_DATA } from "@/lib/about/about-page-data";
 import { ABOUT_ASSETS } from "@/lib/about/about-assets";
 import { generateSEOMetadata } from "@/lib/seo-utils";
+import {
+  Building2,
+  Compass,
+  Handshake,
+  HeartHandshake,
+  MapPin,
+  ShieldCheck,
+  Sparkles,
+  Workflow,
+  Wrench,
+} from "lucide-react";
 
 export const metadata = generateSEOMetadata({
   title:
@@ -29,33 +40,42 @@ export default function UeberUnsPage() {
 
   return (
     <>
-      <SectionShell id={data.hero.id} spacing="lg" containerWidth="2xl">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-          <div>
-            <p className="inline-flex rounded-full border border-brand-blue/20 bg-brand-blue/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-blue">
-              {data.hero.eyebrow}
-            </p>
-            <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-foreground md:text-5xl">
-              {data.hero.title}
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-              {data.hero.intro}
-            </p>
-            <div className="mt-8">
-              <CTAGroup data={data.hero.ctas} />
+      <SectionShell id={data.hero.id} spacing="lg" containerWidth="2xl" className="pt-10 md:pt-14">
+        <div className="relative overflow-hidden rounded-3xl border border-border/50 shadow-xl">
+          <Image
+            src={data.hero.figure.src}
+            alt={data.hero.figure.alt}
+            width={data.hero.figure.width ?? 1600}
+            height={data.hero.figure.height ?? 1000}
+            priority
+            sizes={data.hero.figure.sizes ?? "100vw"}
+            className="h-[520px] w-full object-cover md:h-[620px]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/45 to-black/20" />
+          <div className="pointer-events-none absolute inset-0 opacity-70">
+            <svg viewBox="0 0 1200 600" aria-hidden="true" className="h-full w-full">
+              <path
+                d="M780 0C730 120 760 260 870 360C930 414 1014 456 1100 480V600H1200V0H780Z"
+                fill="rgba(51,153,255,0.18)"
+              />
+            </svg>
+          </div>
+          <div className="absolute inset-0 flex items-end p-6 md:p-10">
+            <div className="max-w-2xl rounded-2xl border border-white/20 bg-black/35 p-5 backdrop-blur-md md:p-7">
+              <p className="inline-flex rounded-full border border-brand-blue/30 bg-brand-blue/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+                {data.hero.eyebrow}
+              </p>
+              <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-white md:text-5xl">
+                {data.hero.title}
+              </h1>
+              <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-200 md:text-lg">
+                {data.hero.intro}
+              </p>
+              <div className="mt-6">
+                <CTAGroup data={data.hero.ctas} inverted />
+              </div>
             </div>
           </div>
-          <figure className="relative overflow-hidden rounded-2xl border border-border/40 bg-muted shadow-lg">
-            <Image
-              src={data.hero.figure.src}
-              alt={data.hero.figure.alt}
-              width={data.hero.figure.width ?? 1600}
-              height={data.hero.figure.height ?? 1000}
-              priority
-              sizes={data.hero.figure.sizes ?? "(max-width: 1024px) 100vw, 50vw"}
-              className="h-auto w-full object-cover"
-            />
-          </figure>
         </div>
       </SectionShell>
 
@@ -68,6 +88,7 @@ export default function UeberUnsPage() {
           figure={data.origin.figure}
           mediaPosition="right"
           ratio="4/3"
+          objectFit="cover"
         />
       </SectionShell>
 
@@ -87,6 +108,8 @@ export default function UeberUnsPage() {
         <SectionHeader
           eyebrow={data.milestones.eyebrow}
           title={data.milestones.title ?? ""}
+          intro="Kompakt, nachvollziehbar und auf langfristige Entwicklung ausgerichtet."
+          icon={<Compass size={18} />}
           align="center"
           className="mx-auto max-w-3xl"
         />
@@ -97,6 +120,7 @@ export default function UeberUnsPage() {
               title={item.title}
               body={item.body}
               badge={item.year}
+              icon={<Workflow size={14} />}
             />
           ))}
         </FeatureGrid>
@@ -106,21 +130,34 @@ export default function UeberUnsPage() {
         <SectionHeader
           eyebrow={data.regionScope.eyebrow}
           title={data.regionScope.title ?? ""}
+          intro="Kurze Wege, klare Kommunikation und saubere Umsetzung vor Ort."
+          icon={<MapPin size={18} />}
           align="center"
           className="mx-auto max-w-3xl"
         />
         <FeatureGrid columns={3} className="mt-10">
-          <FeatureCard
-            title="Einsatzgebiet"
-            body={data.regionScope.regions.join(", ")}
-          />
+          <article className="rounded-xl border border-border/40 bg-card/90 p-6 shadow-sm">
+            <h3 className="text-lg font-semibold text-foreground">Einsatzgebiet</h3>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {data.regionScope.regions.map((region) => (
+                <span
+                  key={region}
+                  className="rounded-full border border-border/60 bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground"
+                >
+                  {region}
+                </span>
+              ))}
+            </div>
+          </article>
           <FeatureCard
             title="Leistungen für private Kunden"
-            body={data.regionScope.b2cServices.join(", ")}
+            body={data.regionScope.b2cServices.join(" • ")}
+            icon={<HeartHandshake size={14} />}
           />
           <FeatureCard
             title="Leistungen für B2B & Verwaltung"
-            body={data.regionScope.b2bServices.join(", ")}
+            body={data.regionScope.b2bServices.join(" • ")}
+            icon={<Building2 size={14} />}
           />
         </FeatureGrid>
       </SectionShell>
@@ -130,6 +167,7 @@ export default function UeberUnsPage() {
           eyebrow={data.quality.eyebrow}
           title={data.quality.title ?? ""}
           intro={data.quality.intro}
+          icon={<ShieldCheck size={18} />}
           align="center"
           className="mx-auto max-w-3xl"
         />
@@ -139,6 +177,7 @@ export default function UeberUnsPage() {
               key={principle.id}
               title={principle.title}
               body={principle.body}
+              icon={<Sparkles size={14} />}
             />
           ))}
         </FeatureGrid>
@@ -153,6 +192,8 @@ export default function UeberUnsPage() {
         <SectionHeader
           eyebrow={data.partnerships.eyebrow}
           title={data.partnerships.title ?? ""}
+          intro="Qualität entsteht in der Zusammenarbeit mit starken Partnern und kurzen Lieferwegen."
+          icon={<Handshake size={18} />}
           align="center"
           className="mx-auto max-w-3xl"
         />
@@ -174,6 +215,8 @@ export default function UeberUnsPage() {
         <SectionHeader
           eyebrow={data.future.eyebrow}
           title={data.future.title ?? ""}
+          intro="Digitale Prozesse sollen Transparenz, Wartungssicherheit und Werterhalt weiter verbessern."
+          icon={<Wrench size={18} />}
           align="center"
           className="mx-auto max-w-3xl"
         />
@@ -192,6 +235,7 @@ export default function UeberUnsPage() {
           eyebrow={data.socialEngagement.eyebrow}
           title={data.socialEngagement.title}
           intro={data.socialEngagement.body}
+          icon={<HeartHandshake size={18} />}
           align="center"
           className="mx-auto max-w-3xl"
         />
@@ -221,20 +265,28 @@ export default function UeberUnsPage() {
         <SectionHeader
           eyebrow={data.values.eyebrow}
           title={data.values.title ?? ""}
+          icon={<ShieldCheck size={18} />}
           align="center"
           className="mx-auto max-w-3xl"
         />
         <FeatureGrid columns={3} className="mt-10">
           {data.values.principles.map((principle) => (
-            <FeatureCard key={principle.id} title={principle.title} body={principle.body} />
+            <FeatureCard
+              key={principle.id}
+              title={principle.title}
+              body={principle.body}
+              icon={<ShieldCheck size={14} />}
+            />
           ))}
         </FeatureGrid>
       </SectionShell>
 
-      <SectionShell id={data.finalCta.id}>
+      <SectionShell id={data.finalCta.id} tone="accent" className="border-y border-border/40">
         <SectionHeader
           eyebrow={data.finalCta.eyebrow}
           title={data.finalCta.title ?? ""}
+          intro="Direkter Kontakt, klare Abstimmung und verbindliche nächste Schritte."
+          icon={<Handshake size={18} />}
           align="center"
           className="mx-auto max-w-3xl"
         />

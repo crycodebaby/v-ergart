@@ -13,8 +13,12 @@ export default function LogoPartnerGrid({ partners }: LogoPartnerGridProps) {
       {partners.map((partner) => (
         <li
           key={partner.id}
-          className="h-full rounded-xl border border-border/40 bg-card p-6 shadow-sm"
+          className="group relative h-full overflow-hidden rounded-xl border border-border/40 bg-card/90 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-blue/30 hover:shadow-md"
         >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-brand-blue/10 blur-2xl"
+          />
           <div className="mb-5 flex min-h-[64px] items-center">
             <Image
               src={partner.logo.src}

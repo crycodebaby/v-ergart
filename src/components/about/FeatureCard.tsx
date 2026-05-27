@@ -25,7 +25,7 @@ export default function FeatureCard({
   return (
     <Tag
       className={cn(
-        "h-full rounded-xl border border-border/40 bg-card p-6 shadow-sm",
+        "group h-full rounded-xl border border-border/40 bg-card/90 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-blue/30 hover:shadow-md",
         className
       )}
     >
@@ -44,7 +44,11 @@ export default function FeatureCard({
         </div>
       )}
       <h3 className="flex items-start gap-2 text-xl font-bold text-foreground">
-        {icon ? <span className="mt-0.5 text-brand-blue">{icon}</span> : null}
+        {icon ? (
+          <span className="mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue">
+            {icon}
+          </span>
+        ) : null}
         <span>{title}</span>
       </h3>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{body}</p>

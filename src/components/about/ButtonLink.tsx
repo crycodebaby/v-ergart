@@ -18,7 +18,16 @@ export default function ButtonLink({
   const isExternal = link.kind === "external";
 
   return (
-    <Button asChild variant={variant} size={size} className={className}>
+    <Button
+      asChild
+      variant={variant}
+      size={size}
+      className={[
+        "font-semibold shadow-sm transition-all hover:shadow-md",
+        variant === "default" ? "bg-brand-blue text-white hover:bg-brand-blue/90" : "",
+        className ?? "",
+      ].join(" ")}
+    >
       <Link
         href={link.href}
         target={isExternal ? "_blank" : undefined}
