@@ -9,6 +9,8 @@ import CTA from "@/components/CTA";
 import MapSection from "@/components/MapSection";
 import { LOCATIONS } from "@/lib/locations";
 import { BASE_URL } from "@/lib/seo-utils";
+import WhatsAppButton from "@/components/contact/WhatsAppButton";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title:
@@ -198,6 +200,23 @@ export default function KontaktPage() {
                     </div>
                   </a>
                 </div>
+              </div>
+
+              {/* WhatsApp Contact Card */}
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 shadow-sm">
+                <h3 className="font-semibold mb-3 text-foreground">Direkt per WhatsApp</h3>
+                <WhatsAppButton
+                  label="Per WhatsApp schreiben"
+                  helperText="Senden Sie uns Fotos oder eine kurze Beschreibung Ihres Anliegens direkt per WhatsApp."
+                  className="w-full justify-center"
+                />
+                <p className="mt-3 text-xs text-muted-foreground">
+                  Bei Nutzung des WhatsApp-Kontaktlinks werden Sie zu WhatsApp weitergeleitet. Dabei gelten die Datenschutzbestimmungen von WhatsApp/Meta.{" "}
+                  <Link href="/datenschutz" className="underline hover:text-foreground">
+                    Mehr erfahren
+                  </Link>
+                  .
+                </p>
               </div>
 
             </div>

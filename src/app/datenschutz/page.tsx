@@ -184,6 +184,19 @@ export default function DatenschutzPage() {
         <p>
           Dies sind einfache Links, keine eingebetteten Plugins. Erst wenn Sie auf den Link klicken, werden Sie zum jeweiligen Anbieter weitergeleitet. Ab diesem Zeitpunkt unterliegt die Datenverarbeitung den Datenschutzerklärungen des Ziel-Anbieters. Wir haben keinen Einfluss auf die dortige Verarbeitung.
         </p>
+
+        <h3>WhatsApp-Kontaktlink</h3>
+        <p>
+          Auf unserer Website können Sie uns über einen externen WhatsApp-Kontaktlink (wa.me) erreichen.
+          Bei Nutzung des WhatsApp-Kontaktlinks werden Sie zu WhatsApp weitergeleitet. Dabei gelten die
+          Datenschutzbestimmungen von WhatsApp/Meta.
+        </p>
+        <p>
+          Weitere Informationen finden Sie unter{" "}
+          <a href="https://www.whatsapp.com/legal/privacy-policy-eea" target="_blank" rel="noopener noreferrer">
+            https://www.whatsapp.com/legal/privacy-policy-eea
+          </a>.
+        </p>
       </section>
 
       <section>

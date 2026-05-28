@@ -5,7 +5,7 @@
  * Verwendet für Weihnachts-Theme und zukünftige saisonale Features.
  */
 
-import { client } from "./sanity-client";
+import { client, isSanityConfigured } from "./sanity-client";
 import groq from "groq";
 
 /** Mögliche Weihnachtsmodus-Werte */
@@ -37,6 +37,10 @@ export const SITE_SETTINGS_TAG = "siteSettings";
  * Mit ISR-Caching (60 Sekunden)
  */
 export async function fetchSiteSettings(): Promise<SiteSettings | null> {
+  if (!isSanityConfigured) {
+    return null;
+  }
+
   try {
     return await client.fetch(
       SITE_SETTINGS_QUERY,

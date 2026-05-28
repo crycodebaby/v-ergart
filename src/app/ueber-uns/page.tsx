@@ -49,14 +49,19 @@ export default function UeberUnsPage() {
             height={data.hero.figure.height ?? 1000}
             priority
             sizes={data.hero.figure.sizes ?? "100vw"}
-            className="h-[520px] w-full object-cover md:h-[620px]"
+            className="h-[56vh] min-h-[440px] max-h-[660px] w-full object-cover md:h-[62vh] lg:h-[66vh]"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/45 to-black/20" />
-          <div className="pointer-events-none absolute inset-0 opacity-70">
-            <svg viewBox="0 0 1200 600" aria-hidden="true" className="h-full w-full">
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 opacity-80">
+            <svg
+              viewBox="0 0 1440 160"
+              aria-hidden="true"
+              className="h-20 w-full text-brand-blue/25"
+              preserveAspectRatio="none"
+            >
               <path
-                d="M780 0C730 120 760 260 870 360C930 414 1014 456 1100 480V600H1200V0H780Z"
-                fill="rgba(51,153,255,0.18)"
+                d="M0,96 C210,132 370,36 560,62 C760,90 920,156 1120,128 C1260,108 1350,76 1440,84 L1440,160 L0,160 Z"
+                fill="currentColor"
               />
             </svg>
           </div>
@@ -89,6 +94,7 @@ export default function UeberUnsPage() {
           mediaPosition="right"
           ratio="4/3"
           objectFit="cover"
+          className="items-center"
         />
       </SectionShell>
 
@@ -101,6 +107,7 @@ export default function UeberUnsPage() {
           mediaPosition="left"
           ratio="3/2"
           objectFit="cover"
+          className="items-center"
         />
       </SectionShell>
 
@@ -220,7 +227,7 @@ export default function UeberUnsPage() {
           align="center"
           className="mx-auto max-w-3xl"
         />
-        <div className="mx-auto mt-8 max-w-3xl space-y-4 text-base leading-relaxed text-muted-foreground">
+        <div className="mx-auto mt-8 max-w-3xl space-y-3 text-base leading-relaxed text-muted-foreground">
           {data.future.paragraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}

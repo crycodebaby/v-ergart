@@ -40,7 +40,7 @@ export default function MediaTextBlock({
       <div>
         <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
         {paragraphs?.length ? (
-          <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground">
+          <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-muted-foreground">
             {paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}

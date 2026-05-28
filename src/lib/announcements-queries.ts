@@ -14,7 +14,7 @@
  * - 'inline': Card im Content-Bereich
  */
 
-import { client } from "./sanity-client";
+import { client, isSanityConfigured } from "./sanity-client";
 import groq from "groq";
 
 /** Verfügbare Mitteilungs-Typen (bestimmt Farbe/Icon) */
@@ -79,6 +79,10 @@ export const ANNOUNCEMENTS_TAG = "announcements";
  * Mit ISR-Caching (60 Sekunden)
  */
 export async function fetchActiveAnnouncements(): Promise<Announcement[]> {
+  if (!isSanityConfigured) {
+    return [];
+  }
+
   try {
     return await client.fetch(
       ACTIVE_ANNOUNCEMENTS_QUERY,

@@ -4,6 +4,7 @@
 import { motion } from "framer-motion";
 import { Phone, MessageCircle } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
+import WhatsAppButton from "@/components/contact/WhatsAppButton";
 
 /**
  * Kontakt-Sektion für die Fensterservice Landing Page
@@ -81,7 +82,17 @@ export default function FensterserviceKontakt() {
                         className="text-center"
                     >
                         <p className="text-sm text-muted-foreground mb-4">
-                            Oder rufen Sie uns direkt an:
+                            Oder senden Sie uns direkt ein Foto Ihres Problems:
+                        </p>
+                        <div className="mb-4">
+                            <WhatsAppButton
+                                label="Fensterproblem? Foto per WhatsApp senden."
+                                helperText="Ideal für schnelle Ersteinschätzung bei Schäden oder Defekten."
+                                className="px-6 py-3 border-emerald-500/40 hover:border-emerald-500/60"
+                            />
+                        </div>
+                        <p className="text-sm text-muted-foreground mb-4">
+                            Alternativ telefonisch erreichbar:
                         </p>
                         <a
                             href="tel:+4917666825889"

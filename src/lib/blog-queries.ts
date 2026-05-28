@@ -1,4 +1,4 @@
-import { client } from "./sanity-client";
+import { client, isSanityConfigured } from "./sanity-client";
 import groq from "groq";
 
 // TypeScript Types
@@ -153,6 +153,7 @@ export const BLOG_TAG = "blog";
 
 // Fetch Functions
 export async function fetchPosts(): Promise<BlogPost[]> {
+  if (!isSanityConfigured) return [];
   return client.fetch(
     POSTS_LIST_QUERY,
     {},
@@ -161,6 +162,7 @@ export async function fetchPosts(): Promise<BlogPost[]> {
 }
 
 export async function fetchPostBySlug(slug: string): Promise<BlogPost | null> {
+  if (!isSanityConfigured) return null;
   return client.fetch(
     POST_BY_SLUG_QUERY,
     { slug },
@@ -169,6 +171,7 @@ export async function fetchPostBySlug(slug: string): Promise<BlogPost | null> {
 }
 
 export async function fetchFeaturedPosts(): Promise<BlogPost[]> {
+  if (!isSanityConfigured) return [];
   return client.fetch(
     FEATURED_POSTS_QUERY,
     {},
@@ -177,6 +180,7 @@ export async function fetchFeaturedPosts(): Promise<BlogPost[]> {
 }
 
 export async function fetchCategories(): Promise<BlogCategory[]> {
+  if (!isSanityConfigured) return [];
   return client.fetch(
     CATEGORIES_QUERY,
     {},
@@ -185,6 +189,7 @@ export async function fetchCategories(): Promise<BlogCategory[]> {
 }
 
 export async function fetchPostSlugs(): Promise<Array<{ slug: string }>> {
+  if (!isSanityConfigured) return [];
   return client.fetch(SLUGS_QUERY, {}, { cache: "force-cache" });
 }
 
@@ -193,6 +198,8 @@ export async function fetchRelatedPosts(
   currentPostId: string,
   categoryIds: string[]
 ): Promise<BlogPost[]> {
+  if (!isSanityConfigured) return [];
+
   const query = groq`
   *[_type == "post" && isPublished == true && _id != $currentPostId && count((categories[]._ref)[@ in $categoryIds]) > 0] 
   | order(publishedAt desc) [0...3] {

@@ -129,31 +129,29 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
   quality: {
     id: "quality",
     eyebrow: "Qualitätsanspruch",
-    title: "Nicht der billigste Anbieter - bewusst",
+    title: "Qualität mit Weitblick",
     intro:
-      "Unser Fokus liegt auf verlässlicher Ausführung, hochwertigen Materialien und langfristigem Werterhalt - nicht auf kurzfristigen Billiglösungen.",
+      "Unser Anspruch ist klar: verlässliche Ausführung, hochwertige Materialien und Lösungen, die den Wert Ihrer Immobilie langfristig sichern.",
     principles: [
       {
         id: "q-reliability",
-        title: "Verbindliche Umsetzung",
+        title: "Verlässlich von Anfang bis Abschluss",
         body:
-          "Feste Zusagen, klare Kommunikation und termingerechte Umsetzung sind Standard.",
+          "Klare Zusagen, transparente Kommunikation und terminsichere Abläufe sorgen für Planbarkeit und Vertrauen.",
       },
       {
         id: "q-materials",
-        title: "Sorgfältige Material- und Werkzeugwahl",
+        title: "Materialien mit Substanz",
         body:
-          "Wir arbeiten mit professionellen Standards und ausgewählten Herstellern für dauerhafte Ergebnisse.",
+          "Wir setzen auf bewährte Qualität und professionelles Werkzeug, damit Ergebnisse dauerhaft funktionieren.",
       },
       {
         id: "q-value",
-        title: "Wertorientiertes Arbeiten",
+        title: "Werterhalt statt Kurzfristdenken",
         body:
-          "Ziel ist nicht die schnelle Lösung, sondern belastbarer Werterhalt über Jahre.",
+          "Maßnahmen werden so geplant, dass Zustand und Wert Ihrer Immobilie über Jahre stabil bleiben.",
       },
     ],
-    toolsNote:
-      "Markennennungen wie Würth, Bosch, Hilti oder Makita erfolgen ausschließlich als sachliche Beispiele professioneller Werkzeugstandards.",
   },
   partnerships: {
     id: "partnerships",

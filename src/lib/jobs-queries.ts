@@ -1,4 +1,4 @@
-import { client } from "./sanity-client";
+import { client, isSanityConfigured } from "./sanity-client";
 import groq from "groq";
 
 export type JobPosting = {
@@ -56,6 +56,7 @@ const DETAIL_QUERY = groq`
 export const JOBS_TAG = "jobs";
 
 export async function fetchJobs(): Promise<JobPosting[]> {
+  if (!isSanityConfigured) return [];
   return client.fetch(
     LIST_QUERY,
     {},
@@ -64,6 +65,7 @@ export async function fetchJobs(): Promise<JobPosting[]> {
 }
 
 export async function fetchJobBySlug(slug: string): Promise<JobPosting | null> {
+  if (!isSanityConfigured) return null;
   return client.fetch(
     DETAIL_QUERY,
     { slug },

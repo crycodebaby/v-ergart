@@ -15,6 +15,7 @@ import sanityLoader from "@/lib/sanity-loader";
 import AuthorBox from "@/components/AuthorBox";
 import BlogPostCard from "@/components/BlogPostCard";
 import BlogServiceCTA from "@/components/BlogServiceCTA";
+import { SITE_LINKS } from "@/lib/site-links";
 
 type Props = { params: { slug: string } };
 
@@ -116,7 +117,7 @@ function ShareButtons({ post }: { post: BlogPost }) {
 
   const shareLinks = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-    whatsapp: `https://wa.me/?text=${encodeURIComponent(text + " " + url)}`,
+    whatsapp: `${SITE_LINKS.external.whatsappShareBase}?text=${encodeURIComponent(text + " " + url)}`,
     email: `mailto:?subject=${encodeURIComponent(text)}&body=${encodeURIComponent(url)}`,
   };
 

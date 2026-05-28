@@ -6,9 +6,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { cva } from "class-variance-authority";
-import { Menu, X, Mail, Phone, Building, DoorOpen } from "lucide-react";
+import { Menu, X, Mail, Phone, Building, DoorOpen, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggleButton } from "./ThemeToggleButton";
+import { SITE_LINKS } from "@/lib/site-links";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -270,6 +271,15 @@ export default function Header() {
                   className="text-muted-foreground hover:text-foreground"
                 >
                   <Mail size={28} />
+                </a>
+                <a
+                  href={SITE_LINKS.external.whatsappChat}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Per WhatsApp schreiben"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <MessageCircle size={28} className="text-emerald-500" />
                 </a>
                 <a
                   href="https://www.tiktok.com/@alexanderergart"

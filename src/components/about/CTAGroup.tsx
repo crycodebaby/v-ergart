@@ -35,7 +35,11 @@ export default function CTAGroup({ data, align = "left", inverted = false }: CTA
       >
         <ButtonLink
           link={data.primary}
-          className={inverted ? "!bg-white !text-foreground hover:!bg-white/90" : undefined}
+          className={
+            inverted
+              ? "!bg-white !text-brand-blue hover:!bg-white/90 dark:!text-brand-blue"
+              : undefined
+          }
         />
         {data.secondary ? (
           secondaryIsCalendar ? (

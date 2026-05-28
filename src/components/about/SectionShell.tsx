@@ -46,21 +46,24 @@ export default function SectionShell({
     <Tag
       id={id}
       className={cn(
-        "relative overflow-hidden",
+        "relative",
         toneClasses[tone],
         spacingClasses[spacing],
         className
       )}
     >
       {tone !== "default" ? (
-        <div className="pointer-events-none absolute inset-0 -z-10 opacity-70">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 opacity-80">
           <svg
-            viewBox="0 0 1200 220"
+            viewBox="0 0 1440 120"
             aria-hidden="true"
-            className="absolute -top-12 right-[-12rem] h-[220px] w-[560px] text-brand-blue/10 dark:text-brand-blue/15"
+            className="h-14 w-full text-brand-blue/10 dark:text-brand-blue/15 md:h-20"
+            preserveAspectRatio="none"
           >
-            <circle cx="320" cy="110" r="180" fill="currentColor" />
-            <circle cx="520" cy="110" r="120" fill="currentColor" />
+            <path
+              d="M0,64 C180,98 340,20 520,44 C690,66 840,114 1020,92 C1180,72 1300,28 1440,52 L1440,120 L0,120 Z"
+              fill="currentColor"
+            />
           </svg>
         </div>
       ) : null}

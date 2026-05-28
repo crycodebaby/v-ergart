@@ -11,7 +11,8 @@ type FeatureGridProps = {
 const columnClasses: Record<NonNullable<FeatureGridProps["columns"]>, string> = {
   1: "grid-cols-1",
   2: "grid-cols-1 md:grid-cols-2",
-  3: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+  // Tablet-first: auf iPad (md/lg) 2 Spalten, erst ab xl 3 Spalten
+  3: "grid-cols-1 md:grid-cols-2 xl:grid-cols-3",
   4: "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
 };
 
