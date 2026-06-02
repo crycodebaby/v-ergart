@@ -27,6 +27,7 @@ import FensterserviceVorteile from "@/components/FensterserviceVorteile";
 import FensterserviceAblauf from "@/components/FensterserviceAblauf";
 import FensterserviceFAQ from "@/components/FensterserviceFAQ";
 import FensterserviceKontakt from "@/components/FensterserviceKontakt";
+import FensterservicePreisBewertungen from "@/components/FensterservicePreisBewertungen";
 import TrustAndPartnerSection from "@/components/TrustAndPartnerSection";
 import { ProcessStepper } from "@/components/ProcessStepper";
 import HoeningEnergierechner from "@/components/HoeningEnergierechner";
@@ -255,6 +256,7 @@ export default function FensterservicePage() {
             <FensterserviceKontakt />
             <FensterserviceLeistungen />
             <FensterserviceBildergalerie />
+            <FensterservicePreisBewertungen />
 
             {/* Energieeinspar-Rechner */}
             <HoeningEnergierechner />
