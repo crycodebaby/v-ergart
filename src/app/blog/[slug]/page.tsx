@@ -15,6 +15,7 @@ import sanityLoader from "@/lib/sanity-loader";
 import AuthorBox from "@/components/AuthorBox";
 import BlogPostCard from "@/components/BlogPostCard";
 import BlogServiceCTA from "@/components/BlogServiceCTA";
+import BlogWhatsAppCTA from "@/components/blog/BlogWhatsAppCTA";
 import { SITE_LINKS } from "@/lib/site-links";
 
 type Props = { params: { slug: string } };
@@ -239,6 +240,9 @@ export default async function BlogPostPage({ params }: Props) {
               <p>Kein Inhalt vorhanden.</p>
             )}
           </div>
+
+          {/* WhatsApp Business-Kontakt */}
+          <BlogWhatsAppCTA className="mb-8" />
 
           {/* Service CTA */}
           <BlogServiceCTA categories={post.categories} />

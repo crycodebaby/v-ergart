@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { SITE_LINKS } from "@/lib/site-links";
-import { MessageCircle } from "lucide-react";
+import Image from "next/image";
 
 type WhatsAppButtonProps = {
   label?: string;
@@ -15,7 +15,7 @@ export default function WhatsAppButton({
   helperText,
   variant = "outline",
   className,
-  iconSize = 18,
+  iconSize = 20,
 }: WhatsAppButtonProps) {
   return (
     <div>
@@ -28,7 +28,15 @@ export default function WhatsAppButton({
           data-track="whatsapp-chat"
           className="inline-flex items-center gap-2"
         >
-          <MessageCircle size={iconSize} className="text-emerald-500" />
+          <Image
+            src="/bilder_ordner/icons/whatsapp.svg"
+            alt=""
+            aria-hidden="true"
+            width={iconSize}
+            height={iconSize}
+            className="shrink-0 rounded-[22%]"
+            unoptimized
+          />
           {label}
         </a>
       </Button>

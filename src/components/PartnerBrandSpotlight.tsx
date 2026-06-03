@@ -75,7 +75,7 @@ export const PartnerBrandSpotlight: React.FC<PartnerBrandSpotlightProps> = ({
         <div className="relative z-10 flex flex-col justify-center gap-5 p-6 sm:p-10 lg:p-12">
           <div className="flex items-center gap-4">
             <Image
-              src="/bilder_ordner/hoening/hoening.png"
+              src="/bilder_ordner/coop/hoening.png"
               alt="HÖNING"
               width={160}
               height={36}

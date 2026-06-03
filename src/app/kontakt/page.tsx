@@ -46,6 +46,8 @@ const orgJsonLd = {
   telephone: "+49 176 668 25 889",
   address: {
     "@type": "PostalAddress",
+    streetAddress: "Further Str. 89B",
+    postalCode: "41462",
     addressLocality: "Neuss",
     addressCountry: "DE",
   },
@@ -197,6 +199,23 @@ export default function KontaktPage() {
                     <div>
                       <span className="text-xs text-muted-foreground block">E-Mail</span>
                       <span className="font-medium">aergart@gmail.com</span>
+                    </div>
+                  </a>
+
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Further+Str.+89B+41462+Neuss"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted transition-colors group"
+                  >
+                    <div className="p-2 rounded-full bg-brand-blue/10 text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                      <MapPin size={18} />
+                    </div>
+                    <div>
+                      <span className="text-xs text-muted-foreground block">Firmenzentrale</span>
+                      <address className="not-italic font-medium leading-snug">
+                        Further Str. 89B, 41462 Neuss
+                      </address>
                     </div>
                   </a>
                 </div>

@@ -138,7 +138,7 @@ export default function HoeningEnergierechner() {
                             {/* HÖNING Logo Overlay */}
                             <div className="absolute top-4 right-4 bg-white/95 dark:bg-slate-900/95 p-3 rounded-xl shadow-lg backdrop-blur-sm">
                                 <Image
-                                    src="/bilder_ordner/hoening/hoening.png"
+                                    src="/bilder_ordner/coop/hoening.png"
                                     alt="HÖNING Logo - Offizieller Partner"
                                     width={100}
                                     height={40}

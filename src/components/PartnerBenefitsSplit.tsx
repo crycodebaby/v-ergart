@@ -69,7 +69,7 @@ export const PartnerBenefitsSplit: React.FC<PartnerBenefitsSplitProps> = ({
         <div className="flex flex-col justify-center gap-5 p-6 sm:p-10 lg:p-12">
           <div className="flex flex-wrap items-center gap-4">
             <Image
-              src="/bilder_ordner/hoening/hoening.png"
+              src="/bilder_ordner/coop/hoening.png"
               alt="HÖNING"
               width={150}
               height={34}

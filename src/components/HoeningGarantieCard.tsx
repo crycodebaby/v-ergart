@@ -130,7 +130,7 @@ export default function HoeningGarantieCard() {
                                 </Link>
                                 <div className="flex items-center gap-3 px-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-lg border border-border/50">
                                     <Image
-                                        src="/bilder_ordner/hoening/hoening.png"
+                                        src="/bilder_ordner/coop/hoening.png"
                                         alt="HÖNING Logo"
                                         width={80}
                                         height={24}

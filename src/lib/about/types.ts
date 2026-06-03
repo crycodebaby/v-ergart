@@ -58,15 +58,6 @@ export interface AboutMilestone {
   badges?: string[];
 }
 
-export interface AboutPartner {
-  id: "hoening" | "kilbinger" | "immobilienverwaltung";
-  name: string;
-  body: string;
-  logo: AboutImageData;
-  href?: string;
-  hrefLabel?: string;
-}
-
 export interface AboutQualityPrinciple {
   id: string;
   title: string;
@@ -108,9 +99,7 @@ export interface AboutPageData {
     principles: AboutQualityPrinciple[];
     toolsNote?: string;
   };
-  partnerships: AboutSection & {
-    partners: AboutPartner[];
-  };
+  partnerships: AboutSection;
   future: AboutSection & {
     paragraphs: string[];
     disclaimer: string;

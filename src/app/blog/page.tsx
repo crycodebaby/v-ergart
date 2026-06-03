@@ -2,6 +2,7 @@ import { generateSEOMetadata } from "@/lib/seo-utils";
 import Link from "next/link";
 import { fetchPosts, fetchCategories } from "@/lib/blog-queries";
 import BlogGrid from "@/components/BlogGrid";
+import BlogWhatsAppCTA from "@/components/blog/BlogWhatsAppCTA";
 import { Newspaper } from "lucide-react";
 
 export const metadata = generateSEOMetadata({
@@ -114,6 +115,11 @@ export default async function BlogPage() {
           ) : (
             <BlogGrid posts={posts} categories={categories} />
           )}
+        </div>
+
+        {/* WhatsApp Business-Kontakt */}
+        <div className="container mx-auto max-w-7xl px-4 pb-16 lg:pb-24">
+          <BlogWhatsAppCTA />
         </div>
       </div>
     </>

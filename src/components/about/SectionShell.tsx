@@ -11,12 +11,19 @@ type SectionShellProps = {
   children: ReactNode;
 };
 
-const toneClasses: Record<NonNullable<SectionShellProps["tone"]>, string> = {
-  default: "bg-background",
-  muted:
-    "bg-gradient-to-b from-slate-50/80 to-background dark:from-zinc-900/60 dark:to-background",
-  accent:
-    "bg-gradient-to-b from-brand-blue/10 via-brand-blue/5 to-background dark:from-brand-blue/15 dark:via-brand-blue/8 dark:to-background",
+/**
+ * Weiche Sektions-Übergänge ohne harte Kanten.
+ *
+ * Jede Sektion steht auf `bg-background`. Getönte Sektionen erhalten lediglich
+ * einen zart gefederten Verlaufs-Layer, der an Ober- UND Unterkante auf
+ * `transparent` ausläuft. Dadurch ist die Nahtstelle zweier Sektionen immer
+ * dieselbe Farbe (background → background) – es gibt keine sichtbare Trennlinie
+ * und keine harten Schwarz/Weiß-Kontraste, nur ein sanftes „Atmen“ des Tons.
+ */
+const toneOverlay: Record<NonNullable<SectionShellProps["tone"]>, string | null> = {
+  default: null,
+  muted: "bg-gradient-to-b from-transparent via-muted/60 to-transparent",
+  accent: "bg-gradient-to-b from-transparent via-brand-blue/[0.08] to-transparent",
 };
 
 const spacingClasses: Record<NonNullable<SectionShellProps["spacing"]>, string> = {
@@ -41,31 +48,22 @@ export default function SectionShell({
   children,
 }: SectionShellProps) {
   const Tag = as;
+  const overlay = toneOverlay[tone];
 
   return (
     <Tag
       id={id}
       className={cn(
-        "relative",
-        toneClasses[tone],
+        "relative isolate bg-background",
         spacingClasses[spacing],
         className
       )}
     >
-      {tone !== "default" ? (
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 opacity-80">
-          <svg
-            viewBox="0 0 1440 120"
-            aria-hidden="true"
-            className="h-14 w-full text-brand-blue/10 dark:text-brand-blue/15 md:h-20"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M0,64 C180,98 340,20 520,44 C690,66 840,114 1020,92 C1180,72 1300,28 1440,52 L1440,120 L0,120 Z"
-              fill="currentColor"
-            />
-          </svg>
-        </div>
+      {overlay ? (
+        <div
+          aria-hidden="true"
+          className={cn("pointer-events-none absolute inset-0 -z-10", overlay)}
+        />
       ) : null}
       <div className={cn("container mx-auto px-4", widthClasses[containerWidth])}>
         {children}

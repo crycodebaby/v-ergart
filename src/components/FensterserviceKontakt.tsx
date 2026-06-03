@@ -88,6 +88,7 @@ export default function FensterserviceKontakt() {
                             <WhatsAppButton
                                 label="Fensterproblem? Foto per WhatsApp senden."
                                 helperText="Ideal für schnelle Ersteinschätzung bei Schäden oder Defekten."
+                                iconSize={24}
                                 className="px-6 py-3 border-emerald-500/40 hover:border-emerald-500/60"
                             />
                         </div>

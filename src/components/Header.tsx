@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { cva } from "class-variance-authority";
-import { Menu, X, Mail, Phone, Building, DoorOpen, MessageCircle } from "lucide-react";
+import { Menu, X, Mail, Phone, Building, DoorOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggleButton } from "./ThemeToggleButton";
 import { SITE_LINKS } from "@/lib/site-links";
@@ -56,49 +56,47 @@ export default function Header() {
 
   return (
     <>
-      {/* Topbar */}
-      <div className="bg-zinc-100 dark:bg-zinc-900 text-sm border-b border-black/5 dark:border-white/5">
-        <div className="container max-w-7xl mx-auto flex items-center justify-between h-12 px-4">
-          <div className="flex gap-6">
-            <a
-              href="tel:+4917666825889"
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Phone size={16} />
-              <span className="hidden sm:inline">+49 176 668 25 889</span>
-            </a>
-            <a
-              href="mailto:aergart@gmail.com"
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Mail size={16} />
-              <span className="hidden sm:inline">aergart@gmail.com</span>
-            </a>
-          </div>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://www.tiktok.com/@alexanderergart"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="TikTok"
-              className="flex items-center justify-center shrink-0"
-            >
-              <Image
-                src="/bilder_ordner/icons/tiktok.webp"
-                alt="TikTok Icon"
-                width={20}
-                height={20}
-                className="w-5 h-5 object-contain dark:invert opacity-60 hover:opacity-100 transition-opacity"
-                unoptimized
-              />
-            </a>
-            <ThemeToggleButton />
+      {/* Sticky-Einheit: Topbar + Header bleiben beim Scrollen immer sichtbar
+          – auf Mobile, Tablet (iPad) und Desktop. */}
+      <div className="sticky top-0 z-50">
+        {/* Topbar */}
+        <div className="bg-zinc-100 dark:bg-zinc-900 text-sm border-b border-black/5 dark:border-white/5">
+          <div className="container max-w-7xl mx-auto flex items-center justify-between h-12 px-4">
+            <div className="flex gap-6">
+              <a
+                href={SITE_LINKS.external.whatsappChat}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Per WhatsApp schreiben"
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Image
+                  src="/bilder_ordner/icons/whatsapp.svg"
+                  alt=""
+                  aria-hidden="true"
+                  width={18}
+                  height={18}
+                  className="shrink-0 rounded-[22%]"
+                  unoptimized
+                />
+                <span className="hidden sm:inline">+49 176 668 25 889</span>
+              </a>
+              <a
+                href="mailto:aergart@gmail.com"
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Mail size={16} />
+                <span className="hidden sm:inline">aergart@gmail.com</span>
+              </a>
+            </div>
+            <div className="flex items-center gap-4">
+              <ThemeToggleButton />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Main header */}
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 safe-top">
+        {/* Main header */}
+        <header className="w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 safe-top">
         <div className="container flex h-24 max-w-7xl mx-auto items-center justify-between px-4">
           <Link href="/" className="flex items-center gap-4">
             <Image
@@ -212,7 +210,8 @@ export default function Header() {
             {isMobileMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
-      </header>
+        </header>
+      </div>
 
       {/* Mobile overlay menu */}
       <AnimatePresence>
@@ -262,12 +261,14 @@ export default function Header() {
               >
                 <a
                   href="tel:+4917666825889"
+                  aria-label="Anrufen"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   <Phone size={28} />
                 </a>
                 <a
                   href="mailto:aergart@gmail.com"
+                  aria-label="E-Mail schreiben"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   <Mail size={28} />
@@ -277,23 +278,15 @@ export default function Header() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Per WhatsApp schreiben"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  <MessageCircle size={28} className="text-emerald-500" />
-                </a>
-                <a
-                  href="https://www.tiktok.com/@alexanderergart"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="TikTok"
                   className="flex items-center justify-center shrink-0"
                 >
                   <Image
-                    src="/bilder_ordner/icons/tiktok.webp"
-                    alt="TikTok Icon"
+                    src="/bilder_ordner/icons/whatsapp.svg"
+                    alt=""
+                    aria-hidden="true"
                     width={28}
                     height={28}
-                    className="w-7 h-7 object-contain dark:invert"
+                    className="w-7 h-7 rounded-[22%]"
                     unoptimized
                   />
                 </a>

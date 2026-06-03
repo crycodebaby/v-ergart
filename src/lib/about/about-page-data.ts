@@ -157,33 +157,6 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
     id: "partnerships",
     eyebrow: "Partnerschaften",
     title: "Starke Partner für belastbare Qualität",
-    partners: [
-      {
-        id: "hoening",
-        name: "HÖNING",
-        body:
-          "Als Partner eines deutschen Premium-Herstellers setzen wir auf langlebige Fenster- und Haustürlösungen.",
-        logo: ABOUT_ASSETS.hoeningLogo,
-        href: SITE_LINKS.external.hoeningCompany,
-        hrefLabel: "Mehr über HÖNING",
-      },
-      {
-        id: "kilbinger",
-        name: "Kilbinger Fachhandel & Service Neuss",
-        body:
-          "Als offizieller Partner von Kilbinger setzen wir auf lokale Qualität, verlässliche Lieferwege und erstklassige Materialien.",
-        logo: ABOUT_ASSETS.kilbingerLogo,
-      },
-      {
-        id: "immobilienverwaltung",
-        name: "Ergart Immobilienverwaltung",
-        body:
-          "Der eigene Verwaltungsbereich ergänzt operative Leistung um strukturierte kaufmännische Kompetenz.",
-        logo: ABOUT_ASSETS.immobilienverwaltungLogo,
-        href: SITE_LINKS.external.immobilienverwaltung,
-        hrefLabel: "Zur Immobilienverwaltung",
-      },
-    ],
   },
   future: {
     id: "future",

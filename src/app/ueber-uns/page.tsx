@@ -5,7 +5,7 @@ import SectionHeader from "@/components/about/SectionHeader";
 import MediaTextBlock from "@/components/about/MediaTextBlock";
 import FeatureGrid from "@/components/about/FeatureGrid";
 import FeatureCard from "@/components/about/FeatureCard";
-import LogoPartnerGrid from "@/components/about/LogoPartnerGrid";
+import PartnersSection from "@/components/PartnersSection";
 import CTAGroup from "@/components/about/CTAGroup";
 import ResponsiveImageFigure from "@/components/about/ResponsiveImageFigure";
 import { ABOUT_PAGE_DATA } from "@/lib/about/about-page-data";
@@ -52,19 +52,10 @@ export default function UeberUnsPage() {
             className="h-[56vh] min-h-[440px] max-h-[660px] w-full object-cover md:h-[62vh] lg:h-[66vh]"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/45 to-black/20" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 opacity-80">
-            <svg
-              viewBox="0 0 1440 160"
-              aria-hidden="true"
-              className="h-20 w-full text-brand-blue/25"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M0,96 C210,132 370,36 560,62 C760,90 920,156 1120,128 C1260,108 1350,76 1440,84 L1440,160 L0,160 Z"
-                fill="currentColor"
-              />
-            </svg>
-          </div>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/40 to-transparent"
+          />
           <div className="absolute inset-0 flex items-end p-6 md:p-10">
             <div className="max-w-2xl rounded-2xl border border-white/20 bg-black/35 p-5 backdrop-blur-md md:p-7">
               <p className="inline-flex rounded-full border border-brand-blue/30 bg-brand-blue/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
@@ -204,8 +195,8 @@ export default function UeberUnsPage() {
           align="center"
           className="mx-auto max-w-3xl"
         />
-        <div className="mt-10">
-          <LogoPartnerGrid partners={data.partnerships.partners} />
+        <div className="mt-4">
+          <PartnersSection />
         </div>
         <div className="mx-auto mt-10 max-w-4xl">
           <ResponsiveImageFigure

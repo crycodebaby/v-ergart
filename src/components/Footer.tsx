@@ -3,19 +3,18 @@
 // src/components/Footer.tsx
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import { LOCATIONS } from "@/lib/locations";
 import { trackCTAClick } from "@/lib/analytics";
 
 const Footer = () => {
   return (
     <footer className="bg-slate-50 dark:bg-zinc-900 text-foreground">
-      {/* Haupt-Footer mit Blueprint-Thema, jetzt mit Theme-Farben */}
+      {/* Haupt-Footer mit Blueprint-Thema */}
       <div className="bg-secondary text-secondary-foreground">
         <div
           className="container max-w-7xl mx-auto px-4 py-16"
           style={{
-            // Das Grid-Muster bleibt erhalten, liegt aber über der Theme-Farbe
             backgroundImage: `
               repeating-linear-gradient(0deg, transparent, transparent 29px, hsla(208, 25%, 84%, 0.05) 30px),
               repeating-linear-gradient(90deg, transparent, transparent 29px, hsla(208, 25%, 84%, 0.05) 30px)
@@ -23,8 +22,9 @@ const Footer = () => {
             backgroundSize: "30px 30px, 30px 30px",
           }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
-            <div className="lg:col-span-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+            {/* ─── Gruppe 1: Brand + Social ───────────────────────────── */}
+            <div className="sm:col-span-2 lg:col-span-4">
               <Image
                 src="/bilder_ordner/AE_logo.svg"
                 alt="Logo Alexander Ergart"
@@ -33,41 +33,59 @@ const Footer = () => {
                 className="w-24 md:w-32 h-auto"
                 unoptimized
               />
-              <p className="mt-6 text-sm text-muted-foreground max-w-xs">
+              <p className="mt-6 text-sm text-muted-foreground max-w-xs leading-relaxed">
                 Ihr zuverlässiger Partner für professionelle Hausmeisterdienste,
                 Reparaturen und Gebäudepflege in Neuss und Umgebung.
               </p>
+
+              {/* Social Media */}
+              <p className="mt-8 mb-3 text-sm font-semibold text-foreground">
+                Folgen Sie uns
+              </p>
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://www.facebook.com/profile.php?id=61588187158143"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Ergart's Fensterservice auf Facebook"
+                  onClick={() => trackCTAClick('facebook', 'footer')}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-border/60 bg-background/40 hover:border-brand-blue hover:bg-brand-blue/5 transition-colors"
+                >
+                  <Image
+                    src="/bilder_ordner/icons/facebook.svg"
+                    alt="Facebook"
+                    width={22}
+                    height={22}
+                    className="h-5 w-5"
+                    unoptimized
+                  />
+                </a>
+                <a
+                  href="https://www.tiktok.com/@alexanderergart"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Alexander Ergart auf TikTok"
+                  onClick={() => trackCTAClick('tiktok', 'footer')}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-border/60 bg-background/40 hover:border-brand-blue hover:bg-brand-blue/5 transition-colors"
+                >
+                  <Image
+                    src="/bilder_ordner/icons/tiktok.webp"
+                    alt="TikTok"
+                    width={22}
+                    height={22}
+                    className="h-5 w-5 object-contain dark:invert"
+                    unoptimized
+                  />
+                </a>
+              </div>
             </div>
 
-            <div className="lg:col-span-2">
+            {/* ─── Gruppe 2: Entdecken + Partner ──────────────────────── */}
+            <div className="lg:col-span-3">
               <h3 className="font-mono text-base font-bold mb-4 text-foreground uppercase tracking-wider">
-                Navigation
+                Entdecken
               </h3>
               <ul className="space-y-3">
-                <li>
-                  <Link
-                    href="/leistungen"
-                    className="text-muted-foreground hover:text-brand-blue transition-colors"
-                  >
-                    Leistungen
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/blog"
-                    className="text-muted-foreground hover:text-brand-blue transition-colors"
-                  >
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/referenzen"
-                    className="text-muted-foreground hover:text-brand-blue transition-colors"
-                  >
-                    Referenzen
-                  </Link>
-                </li>
                 <li>
                   <Link
                     href="/fensterservice"
@@ -79,52 +97,18 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
-                    href="/fenster-tueren"
+                    href="/blog"
                     className="text-muted-foreground hover:text-brand-blue transition-colors"
                   >
-                    Fenster & Türen
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/ueber-uns"
-                    className="text-muted-foreground hover:text-brand-blue transition-colors"
-                  >
-                    Über Uns
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/kontakt"
-                    className="text-muted-foreground hover:text-brand-blue transition-colors"
-                  >
-                    Kontakt
+                    Blog
                   </Link>
                 </li>
               </ul>
-            </div>
 
-            <div className="lg:col-span-3">
-              <h3 className="font-mono text-base font-bold mb-4 text-foreground uppercase tracking-wider">
-                Informationen
+              <h3 className="font-mono text-base font-bold mt-8 mb-4 text-foreground uppercase tracking-wider">
+                Partner
               </h3>
               <ul className="space-y-3">
-                <li>
-                  <Link
-                    href="/impressum"
-                    className="text-muted-foreground hover:text-brand-blue transition-colors"
-                  >
-                    Impressum
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/datenschutz"
-                    className="text-muted-foreground hover:text-brand-blue transition-colors"
-                  >
-                    Datenschutz
-                  </Link>
-                </li>
                 <li>
                   <a
                     href="https://ergart-immobilienverwaltung.de/"
@@ -132,7 +116,7 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-brand-blue transition-colors"
                   >
-                    Partner: Ergart Immobilien
+                    Ergart Immobilien
                   </a>
                 </li>
                 <li>
@@ -142,12 +126,15 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-brand-blue transition-colors"
                   >
-                    Partner: Hoening Fenster & Türen
+                    HÖNING Fenster &amp; Türen
                   </a>
                 </li>
               </ul>
+            </div>
 
-              <h3 className="font-mono text-base font-bold mt-8 mb-4 text-foreground uppercase tracking-wider">
+            {/* ─── Gruppe 3: Einsatzgebiet (Local SEO) ────────────────── */}
+            <div className="lg:col-span-2">
+              <h3 className="font-mono text-base font-bold mb-4 text-foreground uppercase tracking-wider">
                 Einsatzgebiet
               </h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
@@ -172,13 +159,14 @@ const Footer = () => {
               </ul>
             </div>
 
+            {/* ─── Gruppe 4: Direktkontakt (NAP) ──────────────────────── */}
             <div className="lg:col-span-3">
               <h3 className="font-mono text-base font-bold mb-4 text-foreground uppercase tracking-wider">
                 Direktkontakt
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-center gap-3">
-                  <Phone size={18} className="text-brand-blue" />
+                  <Phone size={18} className="text-brand-blue shrink-0" />
                   <a
                     href="tel:+4917666825889"
                     onClick={() => trackCTAClick('phone', 'footer')}
@@ -188,7 +176,7 @@ const Footer = () => {
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Mail size={18} className="text-brand-blue" />
+                  <Mail size={18} className="text-brand-blue shrink-0" />
                   <a
                     href="mailto:aergart@gmail.com"
                     onClick={() => trackCTAClick('email', 'footer')}
@@ -197,15 +185,31 @@ const Footer = () => {
                     aergart@gmail.com
                   </a>
                 </li>
+                <li className="flex items-start gap-3">
+                  <MapPin size={18} className="text-brand-blue shrink-0 mt-0.5" />
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Further+Str.+89B+41462+Neuss"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <address className="not-italic leading-snug">
+                      Further Str. 89B
+                      <br />
+                      41462 Neuss
+                    </address>
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Die Credit-Leiste */}
+      {/* Credit-/Rechtliches-Leiste */}
       <div className="bg-muted text-muted-foreground py-4 border-t border-border/20 safe-bottom">
-        <div className="container max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between text-xs">
+        <div className="container max-w-7xl mx-auto px-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-xs">
+          {/* Links: Credit */}
           <div className="flex items-center gap-3">
             <Image
               src="/bilder_ordner/logo/smairys-logo.png"
@@ -219,12 +223,26 @@ const Footer = () => {
               {new Date().getFullYear()}
             </span>
           </div>
-          <div className="mt-4 sm:mt-0">
+
+          {/* Rechts: Rechtliches + Credit-Link */}
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <Link
+              href="/impressum"
+              className="hover:text-foreground transition-colors"
+            >
+              Impressum
+            </Link>
+            <Link
+              href="/datenschutz"
+              className="hover:text-foreground transition-colors"
+            >
+              Datenschutz
+            </Link>
             <Link
               href="https://www.smairys-netz-manufaktur.de/"
               className="hover:text-foreground transition-colors"
             >
-              Web-Design & Entwicklung: Smairys
+              Web-Design &amp; Entwicklung: Smairys
             </Link>
           </div>
         </div>

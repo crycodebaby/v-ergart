@@ -5,9 +5,6 @@ type AboutAssetCatalog = {
   origin: AboutImageData;
   leadership: AboutImageData;
   windowService: AboutImageData;
-  hoeningLogo: AboutImageData;
-  kilbingerLogo: AboutImageData;
-  immobilienverwaltungLogo: AboutImageData;
   socialEngagement: AboutImageData | null;
   socialEngagementImageTodo: string;
 };
@@ -41,24 +38,6 @@ export const ABOUT_ASSETS: AboutAssetCatalog = {
     width: 1400,
     height: 900,
     sizes: "(max-width: 1024px) 100vw, 50vw",
-  },
-  hoeningLogo: {
-    src: "/bilder_ordner/hoening/hoening.png",
-    alt: "HÖNING Logo",
-    width: 180,
-    height: 40,
-  },
-  kilbingerLogo: {
-    src: "/bilder_ordner/coop/Kilbinger-Logo.jpg",
-    alt: "Kilbinger Fachhandel & Service Neuss Logo",
-    width: 180,
-    height: 80,
-  },
-  immobilienverwaltungLogo: {
-    src: "/bilder_ordner/coop/Ergart-Immobilienverwaltung-Neuss-Logo.png",
-    alt: "Ergart Immobilienverwaltung Neuss Logo",
-    width: 260,
-    height: 80,
   },
   socialEngagement: {
     src: "/bilder_ordner/soziales-engagement/verkehrswacht-kinder-sicher-collage.webp",
