@@ -7,7 +7,7 @@ export default function TuerenHero() {
   return (
     <section className="relative h-[60vh] md:h-[70vh] w-full flex items-center justify-center overflow-hidden">
       <Image
-        src="/bilder_ordner/hoening/tueren/tueren-hero.png" // Stelle sicher, dass dieses Bild existiert
+        src="/bilder_ordner/hoening/tueren/tueren-hero.webp"
         alt="Moderne und sichere Haustür eines Einfamilienhauses"
         fill
         priority
