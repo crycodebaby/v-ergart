@@ -12,7 +12,7 @@ export const metadata = generateSEOMetadata({
   description: "Premium Haustüren und Türelemente in Neuss: HÖNING Qualität made in Germany, fachgerechter Einbau, individuelle Beratung. Sicherheit trifft Design. ✓ Jetzt Angebot anfordern!",
   path: "/tueren",
   image: {
-    url: "/bilder_ordner/hoening/tueren/tueren-detail.webp",
+    url: "/bilder_ordner/hoening/tueren/vorschau-aluminium-tuer.webp",
     alt: "HÖNING Premium Haustüren in Neuss – Alexander Ergart",
   },
 });
@@ -36,7 +36,7 @@ export default function TuerenPage() {
         ]}
         ctaText="Unverbindlich anfragen"
         ctaHref="/kontakt"
-        imageSrc="/bilder_ordner/hoening/tueren/tueren-detail.webp"
+        imageSrc="/bilder_ordner/hoening/tueren/vorschau-aluminium-tuer.webp"
       />
 
       {/* Die Feature-Galerien zeigen die Produktvielfalt und -details */}
