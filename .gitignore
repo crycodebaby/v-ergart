@@ -4,21 +4,11 @@ node_modules/
 # Next.js
 .next/
 out/
-.next/cache/
-
-
-cat > .gitignore << 'EOF'
-# Dependencies
-node_modules/
-
-# Next.js
-.next/
-out/
-.next/cache/
 
 # Build outputs
 dist/
 coverage/
+*.tsbuildinfo
 
 # Env & local
 .env
@@ -26,8 +16,10 @@ coverage/
 .env.*.local
 .vercel/
 .turbo/
+
+# Lockfiles anderer Paketmanager (package-lock.json wird bewusst versioniert –
+# Vercel installiert damit reproduzierbar)
 pnpm-lock.yaml
-package-lock.json
 yarn.lock
 
 # OS & misc
