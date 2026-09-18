@@ -23,7 +23,12 @@ import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
-const sectionVariants = cva("w-full", {
+// overflow-x-clip: Inhaltskomponenten fliegen teils horizontal ein
+// (framer-motion `x: ±50`). Bis die Animation laeuft, steht das Element
+// 50px neben seiner Position und ragt – bei 16-32px Container-Padding –
+// aus dem Viewport: horizontales Scrollen. `clip` statt `hidden`, weil es
+// keinen Scroll-Container erzeugt und `position: sticky` im Inhalt nicht bricht.
+const sectionVariants = cva("w-full overflow-x-clip", {
   variants: {
     surface: {
       base: "bg-background",
