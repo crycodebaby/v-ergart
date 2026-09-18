@@ -105,10 +105,10 @@ export const PARTNERS: Partner[] = [
     href: "https://www.kilbinger.de/",
     hrefLabel: "kilbinger.de",
     logo: {
-      src: "/bilder_ordner/coop/Kilbinger-Logo.jpg",
+      src: "/bilder_ordner/coop/kilbinger-logo.webp",
       alt: "Kilbinger Fachhandel & Service Neuss Logo",
       width: 200,
-      height: 90,
+      height: 93,
       plaque: "light",
     },
   },
