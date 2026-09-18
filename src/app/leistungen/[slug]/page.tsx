@@ -74,7 +74,7 @@ function ServiceJsonLd({ item }: { item: typeof LEISTUNGEN_DETAILS[0] }) {
       "@id": `${BASE_URL}/#organization`,
       name: "Alexander Ergart Hausmeister- & Fensterservice",
       telephone: "+49-176-66825889",
-      email: "aergart@gmail.com",
+      email: "info@ergart.de",
       address: {
         "@type": "PostalAddress",
         streetAddress: "Further Straße 89B",

@@ -4,6 +4,7 @@ import TuerenHero from "@/components/TuerenHero";
 // Der PartnerBrandSpotlight wird nicht mehr benötigt
 import PartnerBenefitsSplit from "@/components/PartnerBenefitsSplit"; // Nur diesen importieren
 import CTA from "@/components/CTA";
+import { Section } from "@/components/ui/section";
 import { tuerenFeatures } from "@/lib/tueren-data";
 import { generateSEOMetadata } from "@/lib/seo-utils";
 
@@ -23,8 +24,10 @@ export default function TuerenPage() {
       <TuerenHero />
 
       {/* Der Benefits-Split liefert die konkreten Vorteile für den Kunden */}
-      <PartnerBenefitsSplit
-        className="py-12 md:py-24"
+      {/* Wrapper erhaelt den bisherigen Zustand dieser Route. Die
+          Section-Migration von /tueren folgt in einem spaeteren Batch. */}
+      <Section surface="base">
+        <PartnerBenefitsSplit
         title="Warum eine HÖNING Tür die richtige Wahl ist"
         subtitle="Sicherheit, Komfort und Design in Perfektion"
         features={[
@@ -37,11 +40,14 @@ export default function TuerenPage() {
         ctaText="Unverbindlich anfragen"
         ctaHref="/kontakt"
         imageSrc="/bilder_ordner/hoening/tueren/vorschau-aluminium-tuer.webp"
-      />
+        />
+      </Section>
 
       {/* Die Feature-Galerien zeigen die Produktvielfalt und -details */}
       {tuerenFeatures.map((feature) => (
-        <FeatureGallery key={feature.title} {...feature} />
+        <Section key={feature.title} surface="base">
+          <FeatureGallery {...feature} />
+        </Section>
       ))}
 
       {/*

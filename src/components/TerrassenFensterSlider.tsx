@@ -57,8 +57,7 @@ export const TerrassenFensterSlider = () => {
   }, [isDragging]);
 
   return (
-    <section className="py-24 bg-gradient-to-b from-slate-50 to-background dark:from-zinc-900 dark:to-background">
-      <div className="container mx-auto px-4">
+    <>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -127,14 +126,18 @@ export const TerrassenFensterSlider = () => {
                   className="absolute top-0 bottom-0 w-1 bg-white shadow-lg"
                   style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
                 >
-                  {/* Handle Circle */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 md:w-12 md:h-12 bg-white rounded-full shadow-xl flex items-center justify-center border-4 border-brand-blue">
+                  {/* Handle Circle.
+                      brand-solid statt brand: Rand und Pfeile sind die einzige
+                      visuelle Abgrenzung des Bedienelements (WCAG 1.4.11, 3:1).
+                      Das helle --brand erreicht auf dem weissen Kreis nur
+                      2.94:1, --brand-solid 4.78:1. */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 md:w-12 md:h-12 bg-white rounded-full shadow-xl flex items-center justify-center border-4 border-brand-solid">
                     {/* Arrows */}
                     <div className="flex items-center gap-1">
-                      <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 text-brand-solid" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
                       </svg>
-                      <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 text-brand-solid" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
@@ -151,7 +154,7 @@ export const TerrassenFensterSlider = () => {
 
                 {/* Mobile Touch Hint (shows briefly on mobile) */}
                 {!isDragging && (
-                  <div className="md:hidden absolute bottom-4 left-1/2 -translate-x-1/2 bg-brand-blue/90 text-white px-4 py-2 rounded-full text-xs font-medium animate-pulse">
+                  <div className="md:hidden absolute bottom-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-2 rounded-full text-xs font-medium animate-pulse">
                     ← Zum Vergleichen ziehen →
                   </div>
                 )}
@@ -208,7 +211,6 @@ export const TerrassenFensterSlider = () => {
             </ul>
           </motion.div>
         </div>
-      </div>
-    </section>
+    </>
   );
 };

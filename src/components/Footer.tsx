@@ -9,7 +9,7 @@ import { trackCTAClick } from "@/lib/analytics";
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-50 dark:bg-zinc-900 text-foreground">
+    <footer className="bg-background text-foreground">
       {/* Haupt-Footer mit Blueprint-Thema */}
       <div className="bg-secondary text-secondary-foreground">
         <div
@@ -89,7 +89,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="/fensterservice"
-                    className="text-brand-blue font-bold hover:text-blue-600 transition-colors uppercase tracking-wide text-sm"
+                    className="text-brand-text font-bold hover:underline transition-colors uppercase tracking-wide text-sm"
                     aria-label="Zum Fensterservice (Landingpage)"
                   >
                     Fensterservice
@@ -98,7 +98,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="/blog"
-                    className="text-muted-foreground hover:text-brand-blue transition-colors"
+                    className="text-muted-foreground hover:text-brand-text transition-colors"
                   >
                     Blog
                   </Link>
@@ -114,7 +114,7 @@ const Footer = () => {
                     href="https://ergart-immobilienverwaltung.de/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-brand-blue transition-colors"
+                    className="text-muted-foreground hover:text-brand-text transition-colors"
                   >
                     Ergart Immobilien
                   </a>
@@ -124,7 +124,7 @@ const Footer = () => {
                     href="https://www.hoening.de/unternehmen/ueber-uns/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-brand-blue transition-colors"
+                    className="text-muted-foreground hover:text-brand-text transition-colors"
                   >
                     HÖNING Fenster &amp; Türen
                   </a>
@@ -142,7 +142,7 @@ const Footer = () => {
                   <li key={loc.slug}>
                     <Link
                       href={`/einsatzgebiet/${loc.slug}`}
-                      className="hover:text-brand-blue transition-colors"
+                      className="hover:text-brand-text transition-colors"
                     >
                       {loc.name}
                     </Link>
@@ -151,7 +151,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="/kontakt"
-                    className="text-brand-blue font-medium hover:underline"
+                    className="text-brand-text font-medium hover:underline"
                   >
                     Alle Gebiete ansehen
                   </Link>
@@ -178,11 +178,11 @@ const Footer = () => {
                 <li className="flex items-center gap-3">
                   <Mail size={18} className="text-brand-blue shrink-0" />
                   <a
-                    href="mailto:aergart@gmail.com"
+                    href="mailto:info@ergart.de"
                     onClick={() => trackCTAClick('email', 'footer')}
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    aergart@gmail.com
+                    info@ergart.de
                   </a>
                 </li>
                 <li className="flex items-start gap-3">

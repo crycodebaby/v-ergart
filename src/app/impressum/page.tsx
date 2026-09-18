@@ -29,7 +29,7 @@ export default function ImpressumPage() {
         Telefon:{" "}
         <a href="tel:+4917666825889">0176&nbsp;–&nbsp;668&nbsp;25&nbsp;889</a>
         <br />
-        E-Mail: <a href="mailto:aergart@gmail.com">aergart@gmail.com</a>
+        E-Mail: <a href="mailto:info@ergart.de">info@ergart.de</a>
       </p>
 
       <h2>Umsatzsteuer-ID</h2>
@@ -92,6 +92,23 @@ export default function ImpressumPage() {
           rel="noopener noreferrer"
         >
           HÖNING-Haustürkonfigurator
+        </a>
+        . In unserer Partner-Übersicht verlinken wir außerdem auf die Websites
+        unserer Lieferanten{" "}
+        <a
+          href="https://www.germanwindows.de/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GERMAN WINDOWS
+        </a>{" "}
+        und{" "}
+        <a
+          href="https://www.wuerth.de/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          WÜRTH
         </a>
         . Es handelt sich um externe Angebote. Für deren Inhalte sind
         ausschließlich die jeweiligen Betreiber verantwortlich. Wir haben die

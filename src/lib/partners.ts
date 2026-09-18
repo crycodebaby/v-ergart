@@ -22,6 +22,14 @@ export type PartnerLogo = {
    * - "dark":  dunkle Plakette (für Logos mit weißer Schrift, z. B. Cylex)
    */
   plaque: "light" | "dark";
+  /**
+   * Darstellungshöhe in der Plakette (h-20):
+   * - "default": max. 48px
+   * - "compact": max. 36px – für sehr breite Logos bzw. Marken mit
+   *   vorgeschriebener Schutzzone (Würth: mind. Höhe des unteren
+   *   Schraubenkopfes ≈ 44 % der Logohöhe rundum).
+   */
+  size?: "default" | "compact";
   /** Logo wird direkt vom Anbieter-Server geladen (z. B. Cylex-Widget) → <img> statt next/image */
   external?: boolean;
 };
@@ -29,6 +37,8 @@ export type PartnerLogo = {
 export type Partner = {
   id: string;
   name: string;
+  /** Kurze Einordnung der Beziehung, z. B. "Lieferant · Fenster & Türen". */
+  role?: string;
   description: string;
   href: string;
   hrefLabel?: string;
@@ -39,6 +49,7 @@ export const PARTNERS: Partner[] = [
   {
     id: "hoening",
     name: "HÖNING",
+    role: "Lieferant · Fenster & Haustüren",
     description:
       "Deutscher Premium-Hersteller für langlebige Fenster- und Haustürlösungen „Made in Germany“.",
     href: "https://www.hoening.de/",
@@ -52,8 +63,43 @@ export const PARTNERS: Partner[] = [
     },
   },
   {
+    id: "german-windows",
+    name: "GERMAN WINDOWS",
+    role: "Lieferant · Fenster & Türen",
+    description:
+      "Unser zweiter Lieferant für Fensterelemente und Türen: familiengeführter Hersteller mit über 40 Jahren Erfahrung – maßgefertigt aus Kunststoff, Holz und Aluminium.",
+    href: "https://www.germanwindows.de/",
+    hrefLabel: "germanwindows.de",
+    logo: {
+      src: "/bilder_ordner/coop/german_window_logo_white.svg",
+      alt: "GERMAN WINDOWS Logo",
+      width: 189,
+      height: 60,
+      plaque: "dark",
+    },
+  },
+  {
+    id: "wuerth",
+    name: "WÜRTH",
+    role: "Partner & Lieferant",
+    description:
+      "Partner und Lieferant für Montage- und Befestigungstechnik, Werkzeug und Verbrauchsmaterial in Profiqualität.",
+    href: "https://www.wuerth.de/",
+    hrefLabel: "wuerth.de",
+    logo: {
+      src: "/bilder_ordner/coop/WRT_Linie_RGB_pos.jpg",
+      alt: "WÜRTH Logo",
+      width: 280,
+      height: 60,
+      // Laut Würth-Logoanleitung: pos-Variante nur auf Weiß, unverändert, mit Schutzzone.
+      plaque: "light",
+      size: "compact",
+    },
+  },
+  {
     id: "kilbinger",
     name: "Kilbinger Fachhandel & Service Neuss",
+    role: "Fachhandel · Neuss",
     description:
       "Lokaler Fachhandel aus Neuss für verlässliche Lieferwege und erstklassige Materialien.",
     href: "https://www.kilbinger.de/",
@@ -69,6 +115,7 @@ export const PARTNERS: Partner[] = [
   {
     id: "immobilienverwaltung",
     name: "Ergart Immobilienverwaltung",
+    role: "Unternehmensgruppe",
     description:
       "Strukturierte kaufmännische Verwaltung als eigener Geschäftsbereich der Ergart-Unternehmen.",
     href: SITE_LINKS.external.immobilienverwaltung,
@@ -84,6 +131,7 @@ export const PARTNERS: Partner[] = [
   {
     id: "verkehrswacht",
     name: "Verkehrswacht Rhein-Kreis Neuss e. V.",
+    role: "Engagement",
     description:
       "Gemeinsam für mehr Verkehrssicherheit – wir unterstützen das Projekt „Kinder sicher im Straßenverkehr“.",
     href: "https://vrkn.de/",
@@ -99,6 +147,7 @@ export const PARTNERS: Partner[] = [
   {
     id: "cylex",
     name: "CYLEX Dienstleistungs GmbH",
+    role: "Branchenverzeichnis",
     description:
       "Für mehr Transparenz und Auffindbarkeit sind wir im Cylex Branchenbuch gelistet.",
     href: "https://web2.cylex.de/firma-home/hausmeisterservice-alexander-ergart-17001936.html",

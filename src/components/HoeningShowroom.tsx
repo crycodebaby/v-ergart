@@ -19,8 +19,7 @@ const showroomImages = [
 
 export const HoeningShowroom = () => {
   return (
-    <section className="py-24 bg-gradient-to-t from-slate-50 to-background dark:from-zinc-900 dark:to-background">
-      <div className="container mx-auto px-4">
+    <>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -100,7 +99,6 @@ export const HoeningShowroom = () => {
             </ul>
           </motion.div>
         </div>
-      </div>
-    </section>
+    </>
   );
 };

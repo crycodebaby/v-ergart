@@ -35,7 +35,7 @@ export default function StickyMobileCTA() {
             window.dataLayer.push({ event: 'phone_click' });
           }
         }}
-        className="flex items-center justify-center w-full py-3.5 text-white font-bold text-lg rounded-xl bg-brand-blue hover:bg-blue-600 shadow-lg shadow-brand-blue/30 active:scale-95 transition-all"
+        className="flex items-center justify-center w-full py-3.5 text-primary-foreground font-bold text-lg rounded-xl bg-primary hover:bg-brand-solid-hover shadow-lg shadow-brand-blue/30 active:scale-95 transition-all"
       >
         <Phone size={22} className="mr-2" />
         Jetzt anrufen

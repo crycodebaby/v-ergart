@@ -26,15 +26,14 @@ const bilder = [
 
 export default function FensterserviceBildergalerie() {
     return (
-        <section className="py-16 md:py-24 bg-white dark:bg-zinc-950">
-            <div className="container mx-auto px-4">
+        <>
                 {/* Header */}
                 <div className="text-center mb-12">
                     <motion.span
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-block mb-4 px-4 py-1.5 rounded-full bg-brand-blue/10 text-brand-blue text-sm font-medium"
+                        className="inline-block mb-4 px-4 py-1.5 rounded-full bg-brand-blue/10 text-brand-text text-sm font-medium"
                     >
                         Einblicke
                     </motion.span>
@@ -84,7 +83,6 @@ export default function FensterserviceBildergalerie() {
                         </motion.div>
                     ))}
                 </div>
-            </div>
-        </section>
+        </>
     );
 }

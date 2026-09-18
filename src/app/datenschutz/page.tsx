@@ -35,7 +35,7 @@ export default function DatenschutzPage() {
         </p>
         <p>
           Telefon: <a href="tel:+4917666825889">0176 – 668 25 889</a><br />
-          E-Mail: <a href="mailto:aergart@gmail.com">aergart@gmail.com</a>
+          E-Mail: <a href="mailto:info@ergart.de">info@ergart.de</a>
         </p>
       </section>
 
@@ -177,6 +177,12 @@ export default function DatenschutzPage() {
             </a>, {" "}
             <a href="https://haustuerkonfigurator.hoening.de" target="_blank" rel="noopener noreferrer">
               haustuerkonfigurator.hoening.de
+            </a>), GERMAN WINDOWS ({" "}
+            <a href="https://www.germanwindows.de" target="_blank" rel="noopener noreferrer">
+              www.germanwindows.de
+            </a>), WÜRTH ({" "}
+            <a href="https://www.wuerth.de" target="_blank" rel="noopener noreferrer">
+              www.wuerth.de
             </a>)
           </li>
           <li><strong>Social Media:</strong> Profile auf Plattformen wie TikTok oder Instagram</li>

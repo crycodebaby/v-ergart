@@ -9,8 +9,7 @@ import { CORE_SERVICES } from "@/lib/service-data";
 
 export function LeistungenContent() {
   return (
-    <section className="py-16 lg:py-24 bg-background">
-      <div className="container mx-auto px-4">
+    <>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,7 +56,7 @@ export function LeistungenContent() {
                         <div className="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center flex-shrink-0">
                           <Icon className="w-5 h-5 text-brand-blue" />
                         </div>
-                        <h3 className="text-xl font-bold text-foreground group-hover:text-brand-blue transition-colors flex-1">
+                        <h3 className="text-xl font-bold text-foreground group-hover:text-brand-text transition-colors flex-1">
                           {service.title}
                         </h3>
                       </div>
@@ -67,7 +66,7 @@ export function LeistungenContent() {
                       </p>
 
                       {/* CTA */}
-                      <div className="flex items-center gap-2 text-brand-blue font-semibold text-sm">
+                      <div className="flex items-center gap-2 text-brand-text font-semibold text-sm">
                         <span>Mehr erfahren</span>
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </div>
@@ -78,7 +77,6 @@ export function LeistungenContent() {
             );
           })}
         </div>
-      </div>
-    </section>
+    </>
   );
 }

@@ -61,7 +61,7 @@ export const PartnerBrandSpotlight: React.FC<PartnerBrandSpotlightProps> = ({
 
   return (
     <section
-      className={cn("relative mx-auto max-w-7xl px-4", className)}
+      className={cn("relative", className)}
       aria-label="Partner-Spotlight"
     >
       <motion.div
@@ -74,17 +74,18 @@ export const PartnerBrandSpotlight: React.FC<PartnerBrandSpotlightProps> = ({
         {/* Textseite (links) */}
         <div className="relative z-10 flex flex-col justify-center gap-5 p-6 sm:p-10 lg:p-12">
           <div className="flex items-center gap-4">
-            <Image
-              src="/bilder_ordner/coop/hoening.png"
-              alt="HÖNING"
-              width={160}
-              height={36}
-              // ==================================================================
-              // KORREKTUR: Saubere Farbumkehr für Dark Mode statt Helligkeits-Hack
-              // ==================================================================
-              className="h-auto w-auto dark:invert"
-              priority={false}
-            />
+            {/* Weiße Plakette statt dark:invert – Invertieren würde den roten
+                Akzent im HÖNING-Logo türkis färben. Logo bleibt im Original. */}
+            <span className="inline-flex items-center rounded-lg bg-white px-3 py-2 ring-1 ring-black/5">
+              <Image
+                src="/bilder_ordner/coop/hoening.png"
+                alt="HÖNING"
+                width={160}
+                height={36}
+                className="h-auto w-auto"
+                priority={false}
+              />
+            </span>
             <MadeInGermanyBadge />
           </div>
 
@@ -93,7 +94,7 @@ export const PartnerBrandSpotlight: React.FC<PartnerBrandSpotlightProps> = ({
               {title}
             </h3>
             {subtitle ? (
-              <p className="mt-1 text-base font-medium text-brand-blue">
+              <p className="mt-1 text-base font-medium text-brand-text">
                 {subtitle}
               </p>
             ) : null}
@@ -108,7 +109,7 @@ export const PartnerBrandSpotlight: React.FC<PartnerBrandSpotlightProps> = ({
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <Link
               href={ctaHref}
-              className="inline-flex items-center justify-center rounded-md bg-brand-blue px-4 py-2 text-sm font-semibold text-white shadow hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow hover:bg-brand-solid-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               {ctaText}
             </Link>
@@ -117,7 +118,7 @@ export const PartnerBrandSpotlight: React.FC<PartnerBrandSpotlightProps> = ({
               href={externalInfoHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-md border border-border/60 bg-card px-4 py-2 text-sm font-medium text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
+              className="inline-flex items-center justify-center rounded-md border border-border/60 bg-card px-4 py-2 text-sm font-medium text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               Mehr zu HÖNING
             </Link>

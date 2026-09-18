@@ -51,7 +51,7 @@ export function ThemeToggleButton({ className }: { className?: string }) {
         // Äußere Hit-Area (Touch ≥ 44px) – das Padding ist die Klickfläche
         "group relative inline-flex items-center justify-center rounded-full p-1.5",
         "transition-transform active:scale-90",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-full",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-full",
         className
       )}
     >

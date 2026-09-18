@@ -5,57 +5,134 @@
 @layer base {
   /* ==================== FARBEN ==================== */
   
+  /* ------------------------------------------------------------------
+     Ergart Design-System v1 (Welle 2B)
+     Neutral-Hue 222 (Navy/Slate) · Brand-Hue 210
+     Alle Werte sind HSL-Kanaele ohne hsl()-Wrapper — Tailwind setzt ihn.
+     ------------------------------------------------------------------ */
+
   /* Light Mode (Standard) */
   :root {
+    /* --- Brand: die einzige Quelle der Wahrheit fuer Ergart-Blau --------
+       --brand        #3399FF  Akzent, Icons, Linien, aktive Zustaende,
+                               Text auf dunklem Grund, Ring im Dark Mode.
+                               NICHT als Flaeche unter weissem Text
+                               und NICHT als Text auf hellem Grund (2.94:1).
+       --brand-solid  #0070E0  Gefuellter Primary-CTA, Brand-Text auf hell,
+                               Ring im Light Mode. Weiss darauf 4.78:1.
+       --brand-solid-hover #0061C2  Hover/Active des Primary-CTA.
+                               Verdunkelt in BEIDEN Themes — oberhalb von
+                               44% Lightness bricht der Weisskontrast. */
+    /* Primitive Brand-Farbwerte */
+    --brand: 210 100% 60%;
+    --brand-solid: 210 100% 44%;
+    --brand-strong: 210 100% 38%;
+
+    /* Semantische Ableitungen — keine zweiten Hardcodes.
+       --brand-text  Brandfarbe als TEXT. Besteht mit #0061C2 auf allen
+                     hellen Flaechen inkl. bg-brand/10 (5.01-6.02:1).
+                     --brand-solid (#0070E0) reicht dafuer NICHT:
+                     auf --muted nur 4.36:1, auf bg-brand/10 nur 3.98:1.
+       --brand-solid-hover  Hover/Active des gefuellten Primary-CTA.
+                     Teilt derzeit denselben Primitive wie --brand-text;
+                     das ist ein Zufall der Werte, keine geteilte Rolle.
+
+       REGEL: Brandfarbe als Text (Welle 2D.1, Befund H1)
+       -------------------------------------------------
+       Auf THEME-GESTEUERTER Flaeche — background, muted, card, popover —
+       gilt `text-brand-text`. Der Token schaltet das Theme selbst um.
+
+       Auf PERMANENT DUNKLER Flaeche — Bild-Hero mit dunklem Scrim,
+       Image-CTA, `surface-inverse` und vergleichbare dauerhaft dunkle
+       Media-Flaechen — gilt `text-brand`, also die rohe helle
+       Markenfarbe. Dort darf NICHT umgeschaltet werden: `text-brand-text`
+       waere im Light Mode #0061C2 und damit auf dunklem Grund unlesbar.
+       Es braucht dafuer keinen eigenen Token — die Flaeche ist
+       themeunabhaengig, also ist es die Textfarbe auch. */
+    --brand-text: var(--brand-strong);
+    --brand-solid-hover: var(--brand-strong);
+
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+
+    /* Alias, kein zweiter Hardcode: Primary IST brand-solid. */
+    --primary: var(--brand-solid);
+    --primary-foreground: 0 0% 100%;
+
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* 46.9% -> 44%: der alte Wert erreichte auf --muted nur 4.34:1. */
+    --muted-foreground: 215.4 16.3% 44%;
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
+
     --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Von --border entkoppelt: Bedienelement-Grenzen brauchen 3:1
+       (WCAG 1.4.11). #8096B3 erreicht 3.03:1 gegen Weiss. */
+    --input: 214 25% 60%;
+    --ring: var(--brand-solid);
+
+    /* Bewusst dunkle Sektion auf heller Seite. Seltene Rolle,
+       ca. 1x pro Seite, nur fuer CTA-/Hero-/Kampagnenmomente. */
+    --surface-inverse: 222.2 47% 11%;
+    --foreground-inverse: 210 40% 98%;
+
     --radius: 0.5rem;
-    
+
     /* Scrollbar Farben */
     --scrollbar-track: 210 40% 96%;
     --scrollbar-thumb: 215 16% 70%;
     --scrollbar-thumb-hover: 215 16% 55%;
   }
- 
-  /* Dark Mode */
+
+  /* Dark Mode
+     Flaechenstaffel steigt monoton in der Helligkeit:
+     background #020817 < muted #11192C < card #18223A < popover #1F2B47.
+     Dadurch kann eine Karte strukturell nicht mehr dunkler
+     als ihre Sektion sein. */
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --card: 222 42% 16%;
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
+    --popover: 222 40% 20%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
+
+    /* --primary und --primary-foreground erben aus :root — ein Wert
+       fuer beide Themes, kein Theme-Branching noetig. */
+
+    --secondary: 222 45% 12%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
+    --muted: 222 45% 12%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
+    --accent: 222 45% 12%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    
+
+    --border: 222 30% 20%;
+    --input: 222 25% 52%;
+    /* Im Dark Mode traegt das helle --brand den Ring besser (6.80:1
+       gegen --background) als --brand-solid. */
+    --ring: var(--brand);
+
+    /* Brandfarbe als Text auf dunklem Grund: #3399FF besteht auf allen
+       Dark-Flaechen (4.78-6.80:1). --primary und --brand-solid-hover
+       bleiben bewusst themenunabhaengig — sie sind Flaechenrollen. */
+    --brand-text: var(--brand);
+
+    /* Im Dark Mode faellt inverse mit muted zusammen: die Sektion
+       bleibt abgesetzt, nur in die andere Richtung. */
+    --surface-inverse: 222 45% 12%;
+    --foreground-inverse: 210 40% 98%;
+
     /* Scrollbar Farben Dark */
     --scrollbar-track: 217 33% 12%;
     --scrollbar-thumb: 215 20% 40%;
@@ -169,9 +246,15 @@
     }
   }
   
-  /* Fokus-Styles für Touch + Keyboard */
+  /* Fokus-Styles für Touch + Keyboard.
+     Bewusst NICHT entfernt: 34 Dateien enthalten interaktive Elemente
+     ohne eigene Fokusklasse (u. a. CTA, Footer, Services, Stats, BlogGrid,
+     JobsList, CookieBanner, das Announcement-System und alle page.tsx).
+     Ohne diese Regel haetten sie gar keinen Fokusindikator mehr.
+     Geaendert wurde nur die Farbe: vorher hsl(207 90% 54%) — ein dritter,
+     markenfremder Blauton — jetzt derselbe --ring wie ueberall sonst. */
   :focus-visible {
-    outline: 2px solid hsl(207 90% 54%);
+    outline: 2px solid hsl(var(--ring));
     outline-offset: 2px;
     border-radius: 4px;
   }
@@ -245,11 +328,13 @@
       gap: 1.5rem;
     }
   }
+}
 
-  /* reCAPTCHA Badge ausblenden – Pflichthinweis ist inline im Formular */
-  .grecaptcha-badge {
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
+/* reCAPTCHA Badge ausblenden – Pflichthinweis ist inline im Formular.
+   Bewusst AUSSERHALB von @layer: Tailwind purged Layer-Klassen, die nicht im
+   eigenen Quellcode vorkommen – .grecaptcha-badge wird aber von Google injiziert. */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }

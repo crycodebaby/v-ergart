@@ -55,7 +55,7 @@ export const FeatureGallery = ({
   };
 
   return (
-    <div className="container mx-auto px-4 py-16">
+    <>
       <motion.div
         className={cn(
           "grid grid-cols-1 lg:grid-cols-2 gap-12 items-center",
@@ -130,6 +130,6 @@ export const FeatureGallery = ({
         slides={galleryImages.map((img) => ({ src: img.src }))}
         index={lightboxIndex}
       />
-    </div>
+    </>
   );
 };

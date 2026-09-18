@@ -3,6 +3,7 @@ import groq from "groq";
 
 export type JobPosting = {
   _id: string;
+  _createdAt?: string;
   title: string;
   location?: string;
   employmentType?: string;
@@ -26,16 +27,19 @@ export type JobPosting = {
 const LIST_QUERY = groq`
 *[_type == "jobPosting" && isActive == true && defined(slug.current)]
 | order(_createdAt desc){
-  _id, title, location, employmentType, slug, excerpt, metaTitle, metaDescription
+  _id, _createdAt, title, location, employmentType, slug, excerpt, metaTitle, metaDescription,
+  responsibilities, quickFacts
 }
 `;
 
 const DETAIL_QUERY = groq`
-*[_type == "jobPosting" && slug.current == $slug][0]{
+*[_type == "jobPosting" && isActive == true && slug.current == $slug][0]{
   _id,
+  _createdAt,
   title,
   location,
   employmentType,
+  excerpt,
   description,
   slug,
   metaTitle,
@@ -71,4 +75,47 @@ export async function fetchJobBySlug(slug: string): Promise<JobPosting | null> {
     { slug },
     { next: { revalidate: 60, tags: [JOBS_TAG] } }
   );
+}
+
+// ---------------------------------------------------------------------------
+// Anzeige-Helfer – normalisieren die im CMS gepflegten Rohwerte
+// ---------------------------------------------------------------------------
+
+const EMPLOYMENT_TYPES: Record<string, { label: string; schema: string }> = {
+  VOLLZEIT: { label: "Vollzeit", schema: "FULL_TIME" },
+  TEILZEIT: { label: "Teilzeit", schema: "PART_TIME" },
+  MINIJOB: { label: "Minijob", schema: "PART_TIME" },
+  AUSHILFE: { label: "Aushilfe", schema: "TEMPORARY" },
+  AUSBILDUNG: { label: "Ausbildung", schema: "OTHER" },
+  PRAKTIKUM: { label: "Praktikum", schema: "INTERN" },
+};
+
+const employmentKey = (value?: string) =>
+  value?.trim().toUpperCase().replace(/[\s-]+/g, "_") ?? "";
+
+/** "VOLLZEIT" → "Vollzeit"; unbekannte Werte werden unverändert angezeigt. */
+export function formatEmploymentType(value?: string): string | undefined {
+  if (!value?.trim()) return undefined;
+  return EMPLOYMENT_TYPES[employmentKey(value)]?.label ?? value.trim();
+}
+
+/** schema.org-Wert für JobPosting.employmentType (Google for Jobs). */
+export function schemaEmploymentType(value?: string): string | undefined {
+  if (!value?.trim()) return undefined;
+  return EMPLOYMENT_TYPES[employmentKey(value)]?.schema ?? "OTHER";
+}
+
+/** Entfernt leere/nur-Leerzeichen-Einträge, die im Studio leicht entstehen. */
+export function cleanList(items?: string[]): string[] {
+  return (items ?? []).map((item) => item?.trim()).filter(Boolean) as string[];
+}
+
+/** Portable Text → reiner Text (für JSON-LD / Meta), Absätze durch Leerzeile getrennt. */
+export function portableTextToPlain(blocks?: any): string {
+  if (!Array.isArray(blocks)) return "";
+  return blocks
+    .filter((block) => block?._type === "block" && Array.isArray(block.children))
+    .map((block) => block.children.map((child: any) => child?.text ?? "").join("").trim())
+    .filter(Boolean)
+    .join("\n\n");
 }

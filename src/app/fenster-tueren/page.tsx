@@ -1,6 +1,7 @@
 // src/app/fenster-und-tueren/page.tsx
 import { ShowroomDashboard } from "@/components/ShowroomDashboard";
 import CTA from "@/components/CTA";
+import { Section } from "@/components/ui/section";
 import { TrustAndPartnerSection } from "@/components/TrustAndPartnerSection";
 import { generateSEOMetadata } from "@/lib/seo-utils";
 
@@ -18,7 +19,11 @@ export default function FensterTuerenDashboardPage() {
   return (
     <>
       <ShowroomDashboard />
-      <TrustAndPartnerSection />
+      {/* Preservation-Wrapper (Welle 2D.1), siehe /: haelt den bisherigen
+          Zustand dieser noch nicht migrierten Route. */}
+      <Section surface="base" spacing="compact">
+        <TrustAndPartnerSection />
+      </Section>
       <CTA />
     </>
   );

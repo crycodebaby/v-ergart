@@ -5,6 +5,7 @@ import { FeatureGallery } from "@/components/FeatureGallery";
 import FensterHero from "@/components/FensterHero";
 import CTA from "@/components/CTA";
 import { ProcessStepper } from "@/components/ProcessStepper";
+import { Section } from "@/components/ui/section";
 import PartnerBrandSpotlight from "@/components/PartnerBrandSpotlight";
 import PartnerBenefitsSplit from "@/components/PartnerBenefitsSplit";
 import { fensterFeatures } from "@/lib/fenster-data";
@@ -116,33 +117,44 @@ export default function FensterPage() {
 
       <FensterHero />
 
-      {/* Die 3 Feature-Galerien bleiben erhalten, sie liefern wertvolle Details. */}
-      {fensterFeatures.map((feature) => (
-        <FeatureGallery key={feature.title} {...feature} />
+      {/* Die 3 Feature-Galerien bleiben erhalten, sie liefern wertvolle Details.
+          Der Flaechenwechsel trennt die drei Themen voneinander. */}
+      {fensterFeatures.map((feature, i) => (
+        <Section key={feature.title} surface={i % 2 === 0 ? "base" : "muted"}>
+          <FeatureGallery {...feature} />
+        </Section>
       ))}
 
       {/* Der Spotlight stellt die Partnerschaft als zentrales Qualitätsmerkmal vor. */}
-      <PartnerBrandSpotlight
-        className="py-12 md:py-24"
+      <Section surface="muted">
+        <PartnerBrandSpotlight
         title="Qualität bis ins Detail: Unsere Partnerschaft mit HÖNING"
         subtitle="Deutsche Ingenieurskunst für Ihr Zuhause"
         description="Wir überlassen nichts dem Zufall. Deshalb setzen wir bei Fenstern auf die kompromisslose Qualität von HÖNING. Jedes Element wird nach höchsten Standards gefertigt und von uns meisterhaft montiert."
         ctaText="Beratungstermin vereinbaren"
         ctaHref="/kontakt"
         imageSrc="/bilder_ordner/hoening/fenster/hoening-zentrale-besuch/fenster-ausstellung7.webp"
-      />
+        />
+      </Section>
 
-      <HoeningEnergierechner />
-
-      <HoeningGarantieCard />
+      {/* HÖNING-Block: Rechner und Garantie gehoeren inhaltlich zusammen
+          und teilen sich deshalb eine Flaeche (wie auf /fensterservice). */}
+      <Section surface="base">
+        <HoeningEnergierechner />
+        <div className="mt-16 md:mt-20">
+          <HoeningGarantieCard />
+        </div>
+      </Section>
 
       {/* Montageprozess – 8 Schritte */}
-      <ProcessStepper />
+      <Section surface="muted" aria-label="Unser Montageprozess – 8 Schritte">
+        <ProcessStepper />
+      </Section>
 
       {/* Der Benefits-Split liefert die konkreten Argumente, warum HÖNING die richtige Wahl ist. */}
-      <PartnerBenefitsSplit
-        className="py-12 md:py-24"
-        title="Ihre Vorteile auf einen Blick"
+      <Section surface="base">
+        <PartnerBenefitsSplit
+          title="Ihre Vorteile auf einen Blick"
         subtitle="Warum sich die Investition in HÖNING Fenster lohnt"
         features={[
           "Maximale Energieeffizienz senkt Ihre Heizkosten nachhaltig.",
@@ -153,8 +165,9 @@ export default function FensterPage() {
         ]}
         ctaText="Mehr technische Details"
         ctaHref="https://www.hoening.de/produkte/kunststofffenster/systemuebersicht-pvc-fenster/"
-        imageSrc="/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterelement-kran.webp"
-      />
+          imageSrc="/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterelement-kran.webp"
+        />
+      </Section>
 
       <CTA />
     </>

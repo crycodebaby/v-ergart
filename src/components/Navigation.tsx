@@ -49,7 +49,7 @@ const Navigation = () => {
                   href={link.href}
                   className={cn(
                     "px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/70",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                     pathname === link.href
                       ? "bg-muted text-foreground"
                       : "text-foreground/80 hover:bg-muted hover:text-foreground"
@@ -69,7 +69,7 @@ const Navigation = () => {
           <div className="absolute left-4 md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen((v) => !v)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-foreground/80 hover:text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/70"
+              className="inline-flex items-center justify-center p-2 rounded-md text-foreground/80 hover:text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               aria-label="Hauptmenü umschalten"
               aria-expanded={isMobileMenuOpen}
             >
@@ -160,7 +160,7 @@ function Dropdown({
         className={cn(
           "flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors",
           "text-foreground/80 hover:text-foreground hover:bg-muted",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/70",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           open && "bg-muted text-foreground"
         )}
         aria-haspopup="menu"
@@ -202,7 +202,7 @@ function Dropdown({
                     className={cn(
                       "block w-full text-left px-4 py-2 text-sm",
                       "text-foreground hover:bg-muted focus:bg-muted",
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/70"
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     )}
                   >
                     {it.label}

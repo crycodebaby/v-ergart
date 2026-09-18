@@ -42,7 +42,7 @@ const orgJsonLd = {
     ...LOCATIONS.map((loc) => loc.name),
   ],
   url: "https://alexander-ergart.de/kontakt", // ggf. anpassen
-  email: "mailto:aergart@gmail.com",
+  email: "mailto:info@ergart.de",
   telephone: "+49 176 668 25 889",
   address: {
     "@type": "PostalAddress",
@@ -192,13 +192,13 @@ export default function KontaktPage() {
                     </div>
                   </a>
 
-                  <a href="mailto:aergart@gmail.com" className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted transition-colors group">
+                  <a href="mailto:info@ergart.de" className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted transition-colors group">
                     <div className="p-2 rounded-full bg-brand-blue/10 text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors">
                       <Mail size={18} />
                     </div>
                     <div>
                       <span className="text-xs text-muted-foreground block">E-Mail</span>
-                      <span className="font-medium">aergart@gmail.com</span>
+                      <span className="font-medium">info@ergart.de</span>
                     </div>
                   </a>
 

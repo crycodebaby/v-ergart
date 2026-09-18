@@ -55,7 +55,7 @@ export const PartnerBenefitsSplit: React.FC<PartnerBenefitsSplitProps> = ({
 
   return (
     <section
-      className={cn("relative mx-auto max-w-7xl px-4", className)}
+      className={cn("relative", className)}
       aria-label="Partner-Benefits"
     >
       <motion.div
@@ -68,16 +68,17 @@ export const PartnerBenefitsSplit: React.FC<PartnerBenefitsSplitProps> = ({
         {/* Textspalte */}
         <div className="flex flex-col justify-center gap-5 p-6 sm:p-10 lg:p-12">
           <div className="flex flex-wrap items-center gap-4">
-            <Image
-              src="/bilder_ordner/coop/hoening.png"
-              alt="HÖNING"
-              width={150}
-              height={34}
-              // ==================================================================
-              // KORREKTUR: Auch hier die saubere Farbumkehr anwenden
-              // ==================================================================
-              className="h-auto w-auto dark:invert"
-            />
+            {/* Weiße Plakette statt dark:invert – Invertieren würde den roten
+                Akzent im HÖNING-Logo türkis färben. Logo bleibt im Original. */}
+            <span className="inline-flex items-center rounded-lg bg-white px-3 py-2 ring-1 ring-black/5">
+              <Image
+                src="/bilder_ordner/coop/hoening.png"
+                alt="HÖNING"
+                width={150}
+                height={34}
+                className="h-auto w-auto"
+              />
+            </span>
             <MadeInGermanyBadge />
           </div>
 
@@ -86,7 +87,7 @@ export const PartnerBenefitsSplit: React.FC<PartnerBenefitsSplitProps> = ({
               {title}
             </h3>
             {subtitle ? (
-              <p className="mt-1 text-base font-medium text-brand-blue">
+              <p className="mt-1 text-base font-medium text-brand-text">
                 {subtitle}
               </p>
             ) : null}
@@ -109,7 +110,7 @@ export const PartnerBenefitsSplit: React.FC<PartnerBenefitsSplitProps> = ({
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <Link
               href={ctaHref}
-              className="inline-flex items-center justify-center rounded-md bg-brand-blue px-4 py-2 text-sm font-semibold text-white shadow hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow hover:bg-brand-solid-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               {ctaText}
             </Link>
@@ -118,7 +119,7 @@ export const PartnerBenefitsSplit: React.FC<PartnerBenefitsSplitProps> = ({
               href={externalInfoHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-md border border-border/60 bg-card px-4 py-2 text-sm font-medium text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
+              className="inline-flex items-center justify-center rounded-md border border-border/60 bg-card px-4 py-2 text-sm font-medium text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               Produktdetails bei HÖNING
             </Link>

@@ -34,11 +34,11 @@ export const LEISTUNGEN_DETAILS: readonly LeistungDetail[] = [
     description:
       "Von der durchdachten Planung bis zum letzten Feinschliff realisieren wir Ihren kompletten Innenausbau in Neuss und der Region. Ob Bodenverlegung, Trockenbau oder Malerarbeiten – wir garantieren saubere Abläufe, verlässliche Termine und den Einsatz hochwertiger Materialien für ein Ergebnis, das begeistert.",
     detailedDescription:
-      "Unser erfahrenes Team übernimmt Ihre Renovierungs- und Innenausbauprojekte im gesamten Rhein-Kreis Neuss. Mit über 15 Jahren Erfahrung kennen wir die Anforderungen moderner Wohn- und Gewerberäume. Von Altbauten in Neuss-Innenstadt bis zu Neubauten in Kaarst – wir setzen auf Qualität, Präzision und Kundenzufriedenheit.",
+      "Unser erfahrenes Team übernimmt Ihre Renovierungs- und Innenausbauprojekte im gesamten Rhein-Kreis Neuss. Mit über 13 Jahren Erfahrung kennen wir die Anforderungen moderner Wohn- und Gewerberäume. Von Altbauten in Neuss-Innenstadt bis zu Neubauten in Kaarst – wir setzen auf Qualität, Präzision und Kundenzufriedenheit.",
     heroImage: "/bilder_ordner/leistungen/hausmeisterreparaturen.webp",
     seoTitle: "Innenausbau & Renovierung Neuss | Trockenbau, Böden, Malerarbeiten",
     seoDescription:
-      "Professioneller Innenausbau in Neuss, Kaarst & Dormagen. ✓ Bodenverlegung ✓ Trockenbau ✓ Malerarbeiten ✓ 15+ Jahre Erfahrung. Jetzt kostenlos beraten lassen!",
+      "Professioneller Innenausbau in Neuss, Kaarst & Dormagen. ✓ Bodenverlegung ✓ Trockenbau ✓ Malerarbeiten ✓ 13+ Jahre Erfahrung. Jetzt kostenlos beraten lassen!",
     keywords: [
       "Innenausbau Neuss",
       "Renovierung Rhein-Kreis Neuss",
@@ -230,7 +230,7 @@ export const LEISTUNGEN_DETAILS: readonly LeistungDetail[] = [
       "Pragmatische und effektive Maßnahmen, die sich auch nachrüsten lassen",
       "Professioneller Einbau und verständliche Einweisung aus einer Hand",
       "Zugriff auf bewährte Produkte renommierter Hersteller",
-      "Persönliche Beratung mit Erfahrung aus über 15 Jahren im Rhein-Kreis Neuss",
+      "Persönliche Beratung mit Erfahrung aus über 13 Jahren im Rhein-Kreis Neuss",
     ],
     faq: [
       {

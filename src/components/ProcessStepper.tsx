@@ -22,7 +22,7 @@
  * - Große Schritt-Nummerierung (01–08) mit Bauhaus-Typographie
  * - Progress-Indicator oben
  * - Schritt 8 ("Abschluss") mit Termin-Buchungs-CTA
- * - Header-Badges: "12+ Jahre Erfahrung" + "Meisterbetrieb"
+ * - Header-Badges: "13+ Jahre Erfahrung" + "Meisterbetrieb"
  */
 "use client";
 
@@ -128,7 +128,11 @@ function ProgressBar({ active, total }: { active: number; total: number }) {
           key={i}
           className={cn(
             "h-1 flex-1 rounded-full transition-all duration-500",
-            i <= active ? "bg-brand-blue" : "bg-border"
+            // brand-solid statt brand: der Balken zeigt Fortschritt an und
+            // ist damit ein Statusindikator (WCAG 1.4.11, 3:1). Das helle
+            // --brand erreicht auf --muted nur 2.68:1, --brand-solid 4.36:1
+            // (light) bzw. 3.77:1 (dark).
+            i <= active ? "bg-brand-solid" : "bg-border"
           )}
         />
       ))}
@@ -150,10 +154,10 @@ function BookingCTA() {
         data-track="process-stepper-calendar-cta"
         className={cn(
           "inline-flex items-center gap-2 rounded-lg",
-          "bg-brand-blue text-white px-5 py-2.5",
+          "bg-primary text-primary-foreground px-5 py-2.5",
           "text-sm font-semibold shadow-md",
           "hover:opacity-90 active:scale-95 transition-all duration-200",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2"
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         )}
       >
         <Calendar className="w-4 h-4 shrink-0" aria-hidden="true" />
@@ -174,19 +178,18 @@ export const ProcessStepper = () => {
     setActiveStep(index);
   };
 
+  // Kein aria-label auf diesem div: ohne Rolle wird es ignoriert. Die
+  // Benennung gehoert an die <Section> der jeweiligen Page, die als
+  // <section> eine echte Landmark rendert.
   return (
-    <section
-      aria-label="Unser Montageprozess – 8 Schritte"
-      className="py-20 md:py-28 bg-slate-50 dark:bg-zinc-900"
-    >
-      <div className="container mx-auto px-4 max-w-7xl">
+    <div>
         {/* ── Section Header ─────────────────────────────────────────── */}
         <div className="text-center mb-14">
           {/* Trust Badges */}
           <div className="flex flex-wrap justify-center gap-3 mb-5">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/20 px-3 py-1 text-xs font-semibold text-brand-blue uppercase tracking-wide">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/20 px-3 py-1 text-xs font-semibold text-brand-text uppercase tracking-wide">
               <CheckCircle2 className="w-3.5 h-3.5" aria-hidden="true" />
-              12+ Jahre Erfahrung
+              13+ Jahre Erfahrung
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 px-3 py-1 text-xs font-semibold text-orange-600 dark:text-orange-400 uppercase tracking-wide">
               <CheckCircle2 className="w-3.5 h-3.5" aria-hidden="true" />
@@ -219,8 +222,8 @@ export const ProcessStepper = () => {
                 className={cn(
                   "rounded-xl border-2 transition-all duration-300 overflow-hidden",
                   isActive
-                    ? "border-brand-blue bg-white dark:bg-zinc-800 shadow-lg"
-                    : "border-border bg-white/60 dark:bg-zinc-800/40"
+                    ? "border-brand-blue bg-card shadow-lg"
+                    : "border-border bg-card/60"
                 )}
               >
                 {/* Step Header – immer sichtbar, klickbar */}
@@ -228,14 +231,14 @@ export const ProcessStepper = () => {
                   onClick={() => handleStep(index)}
                   aria-expanded={isActive}
                   aria-controls={`step-content-${index}`}
-                  className="w-full flex items-center gap-4 p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-inset rounded-xl"
+                  className="w-full flex items-center gap-4 p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset rounded-xl"
                 >
                   {/* Schrittnummer */}
                   <span
                     className={cn(
                       "shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-black transition-colors duration-300",
                       isActive
-                        ? "bg-brand-blue text-white"
+                        ? "bg-primary text-primary-foreground"
                         : "bg-muted text-muted-foreground"
                     )}
                     aria-hidden="true"
@@ -371,7 +374,7 @@ export const ProcessStepper = () => {
                         className={cn(
                           "shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-xs font-black",
                           isActive
-                            ? "bg-brand-blue text-white"
+                            ? "bg-primary text-primary-foreground"
                             : index < activeStep
                             ? "bg-green-100 dark:bg-green-900/40 text-green-600"
                             : "bg-muted text-muted-foreground"
@@ -444,7 +447,7 @@ export const ProcessStepper = () => {
                           className={cn(
                             "shrink-0 font-black text-2xl leading-none tabular-nums transition-colors duration-300",
                             isActive
-                              ? "text-brand-blue"
+                              ? "text-brand-text"
                               : index < activeStep
                               ? "text-green-500"
                               : "text-muted-foreground/40"
@@ -472,7 +475,7 @@ export const ProcessStepper = () => {
                         <ChevronDown
                           className={cn(
                             "w-4 h-4 text-muted-foreground transition-transform duration-300 shrink-0",
-                            isActive ? "rotate-180 text-brand-blue" : "group-hover:text-brand-blue"
+                            isActive ? "rotate-180 text-brand-text" : "group-hover:text-brand-text"
                           )}
                           aria-hidden="true"
                         />
@@ -541,8 +544,14 @@ export const ProcessStepper = () => {
                             {processSteps[activeStep].title}
                           </h3>
                         </div>
-                        {/* Großes Schrittnummer-Badge */}
-                        <span className="text-white/20 font-black text-6xl leading-none tabular-nums select-none">
+                        {/* Großes Schrittnummer-Badge — rein dekorativ:
+                            "Schritt X von Y" steht direkt daneben als Text.
+                            aria-hidden macht die WCAG-1.4.3-Ausnahme fuer
+                            dekorativen Text explizit. */}
+                        <span
+                          aria-hidden="true"
+                          className="text-white/20 font-black text-6xl leading-none tabular-nums select-none"
+                        >
                           {stepNum(activeStep)}
                         </span>
                       </div>
@@ -561,9 +570,11 @@ export const ProcessStepper = () => {
                     aria-label={`Schritt ${i + 1}: ${step.title}`}
                     onClick={() => handleStep(i)}
                     className={cn(
-                      "rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue",
+                      "rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                      // brand-solid: der aktive Punkt ist Statusindikator,
+                      // nicht Dekoration. Siehe ProgressBar.
                       activeStep === i
-                        ? "w-6 h-2 bg-brand-blue"
+                        ? "w-6 h-2 bg-brand-solid"
                         : "w-2 h-2 bg-border hover:bg-brand-blue/50"
                     )}
                   />
@@ -572,8 +583,7 @@ export const ProcessStepper = () => {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+    </div>
   );
 };
 

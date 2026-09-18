@@ -3,107 +3,123 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Briefcase, MapPin, ArrowRight, Clock, Euro } from "lucide-react";
-import type { JobPosting } from "@/lib/jobs-queries";
+import { ArrowRight, Briefcase, Check, Clock, Mail, MapPin } from "lucide-react";
+import {
+  cleanList,
+  formatEmploymentType,
+  type JobPosting,
+} from "@/lib/jobs-queries";
 
-export default function JobsList({jobs }: { jobs: JobPosting[] }) {
+export default function JobsList({ jobs }: { jobs: JobPosting[] }) {
   if (jobs.length === 0) {
     return (
-      <div className="text-center py-16 px-4">
-        <div className="max-w-md mx-auto">
-          <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
-            <Briefcase className="w-10 h-10 text-muted-foreground" />
-          </div>
-          <h3 className="text-2xl font-bold text-foreground mb-3">
-            Aktuell keine offenen Stellen
-          </h3>
-          <p className="text-muted-foreground leading-relaxed mb-6">
-            Momentan haben wir keine offenen Stellenangebote. Schauen Sie gerne später
-            noch einmal vorbei oder senden Sie uns eine Initiativbewerbung.
-          </p>
-          <a
-            href="mailto:aergart@gmail.com"
-            className="inline-flex items-center gap-2 text-brand-blue hover:underline font-medium"
-          >
-            Initiativbewerbung senden
-            <ArrowRight className="w-4 h-4" />
-          </a>
+      <div className="mx-auto max-w-xl rounded-2xl border border-border bg-card p-10 text-center shadow-sm">
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-brand-blue/10">
+          <Briefcase className="h-8 w-8 text-brand-text" aria-hidden="true" />
         </div>
+        <h3 className="text-2xl font-bold text-foreground">
+          Aktuell keine offenen Stellen
+        </h3>
+        <p className="mt-3 leading-relaxed text-muted-foreground">
+          Gute Leute suchen wir trotzdem immer. Schicken Sie uns eine kurze
+          Initiativbewerbung – wir melden uns.
+        </p>
+        <a
+          href="mailto:info@ergart.de?subject=Initiativbewerbung"
+          className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 font-semibold text-primary-foreground transition-colors hover:bg-brand-solid-hover"
+        >
+          <Mail size={18} aria-hidden="true" />
+          Initiativbewerbung senden
+        </a>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      {jobs.map((job, index) => (
-        <motion.div
-          key={job._id}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
-        >
-          <Link
-            href={`/karriere/${job.slug.current}`}
-            className="group block"
+    <ul className="space-y-6">
+      {jobs.map((job, index) => {
+        const tasks = cleanList(job.responsibilities).slice(0, 3);
+        const employmentType = formatEmploymentType(job.employmentType);
+
+        return (
+          <motion.li
+            key={job._id}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.08 }}
           >
-            <article className="relative bg-card border border-border/40 rounded-xl p-6 hover:border-brand-blue/50 hover:shadow-xl transition-all duration-300 overflow-hidden">
-              {/* Gradient Background Effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              
-              <div className="relative">
-                {/* Header */}
-                <div className="flex items-start justify-between gap-4 mb-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center flex-shrink-0">
-                        <Briefcase className="w-5 h-5 text-brand-blue" />
-                      </div>
-                      {job.employmentType && (
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-muted text-muted-foreground">
-                          {job.employmentType}
-                        </span>
-                      )}
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground group-hover:text-brand-blue transition-colors">
-                      {job.title}
-                    </h3>
-                  </div>
+            <Link
+              href={`/karriere/${job.slug.current}`}
+              aria-label={`${job.title} – Stellenanzeige ansehen`}
+              className="group relative block overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-blue/50 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              {/* Akzentkante */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-y-0 left-0 w-1.5 bg-brand-blue transition-all duration-300 group-hover:w-2.5"
+              />
 
-                  {/* Arrow Icon */}
-                  <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center group-hover:bg-brand-blue transition-colors">
-                    <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-white transition-colors" />
-                  </div>
-                </div>
-
-                {/* Excerpt */}
-                {job.excerpt && (
-                  <div className="text-muted-foreground text-sm mb-4 line-clamp-2 leading-relaxed">
-                    {/* Simplified excerpt rendering - you might want to use PortableText here */}
-                    {job.metaDescription || 'Erfahren Sie mehr über diese spannende Position.'}
-                  </div>
-                )}
-
-                {/* Footer Info */}
-                <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                  {job.location && (
-                    <span className="flex items-center gap-1.5">
-                      <MapPin className="w-4 h-4" />
-                      {job.location}
+              <div className="grid gap-6 p-6 pl-8 md:p-8 md:pl-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-10">
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {employmentType ? (
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-blue/10 px-3 py-1 text-xs font-semibold text-brand-text">
+                        <Briefcase size={13} aria-hidden="true" />
+                        {employmentType}
+                      </span>
+                    ) : null}
+                    {job.location ? (
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+                        <MapPin size={13} aria-hidden="true" />
+                        {job.location}
+                      </span>
+                    ) : null}
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+                      <Clock size={13} aria-hidden="true" />
+                      Start nächstmöglich
                     </span>
-                  )}
-                  <span className="flex items-center gap-1.5">
-                    <Clock className="w-4 h-4" />
-                    Zum nächstmöglichen Zeitpunkt
-                  </span>
+                  </div>
+
+                  <h3 className="mt-4 text-2xl font-bold text-foreground transition-colors group-hover:text-brand-text md:text-3xl">
+                    {job.title}
+                  </h3>
+
+                  {job.metaDescription ? (
+                    <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
+                      {job.metaDescription}
+                    </p>
+                  ) : null}
+
+                  {tasks.length > 0 ? (
+                    <ul className="mt-5 grid gap-x-6 gap-y-2 text-sm text-foreground sm:grid-cols-2">
+                      {tasks.map((task) => (
+                        <li key={task} className="flex items-start gap-2">
+                          <Check
+                            size={16}
+                            className="mt-0.5 shrink-0 text-brand-text"
+                            aria-hidden="true"
+                          />
+                          <span>{task}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
                 </div>
 
-                {/* Hover Effect Line */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-blue via-blue-500 to-brand-blue transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                <span className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 font-semibold text-primary-foreground transition-colors group-hover:bg-brand-solid-hover lg:self-center">
+                  Stelle ansehen
+                  <ArrowRight
+                    size={18}
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </span>
               </div>
-            </article>
-          </Link>
-        </motion.div>
-      ))}
-    </div>
+            </Link>
+          </motion.li>
+        );
+      })}
+    </ul>
   );
 }

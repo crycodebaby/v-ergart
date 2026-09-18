@@ -68,7 +68,7 @@ export default function GoogleCalendarButton({
 export function GoogleCalendarEmbed({ className = "" }: { className?: string }) {
     return (
         <div className={`rounded-xl overflow-hidden border border-border ${className}`}>
-            <div className="bg-slate-50 dark:bg-zinc-900 px-4 py-3 border-b border-border flex items-center gap-2">
+            <div className="bg-muted px-4 py-3 border-b border-border flex items-center gap-2">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"

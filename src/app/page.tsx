@@ -9,8 +9,11 @@ import WhyErgart from "@/components/WhyErgart";
 import MapSection from "@/components/MapSection";
 import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
+import { Section } from "@/components/ui/section";
 import { TrustAndPartnerSection } from "@/components/TrustAndPartnerSection";
 
+import { GOOGLE_AGGREGATE_RATING } from "@/lib/reviews";
+import BlogTeaser from "@/components/BlogTeaser";
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "")
   || "https://alexander-ergart.de";
 
@@ -20,7 +23,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "")
 export const metadata: Metadata = {
   title: "Hausmeisterservice Neuss | Alexander Ergart – Ihr Profi vor Ort",
   description:
-    "Ihr zuverlässiger Hausmeisterservice in Neuss und Umgebung: Gebäudereinigung, Objektpflege, Fenster- & Türenservice, Reparaturen und Winterdienst. Über 12 Jahre Erfahrung.",
+    "Ihr zuverlässiger Hausmeisterservice in Neuss und Umgebung: Gebäudereinigung, Objektpflege, Fenster- & Türenservice, Reparaturen und Winterdienst. Über 13 Jahre Erfahrung.",
   keywords: [
     "Hausmeisterservice Neuss",
     "Hausmeister Neuss",
@@ -82,7 +85,7 @@ const localBusinessJsonLd = {
     "Professioneller Hausmeisterservice in Neuss und Umgebung: Gebäudereinigung, Objektpflege, Fenster- und Türenservice, Reparaturen, Winterdienst.",
   url: BASE_URL,
   telephone: "+49 176 668 25 889",
-  email: "aergart@gmail.com",
+  email: "info@ergart.de",
   logo: `${BASE_URL}/bilder_ordner/AE_logo.svg`,
   image: `${BASE_URL}/bilder_ordner/office-ergart.webp`,
   address: {
@@ -154,13 +157,7 @@ const localBusinessJsonLd = {
     },
   ],
   priceRange: "€€",
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    reviewCount: "47",
-    bestRating: "5",
-    worstRating: "1",
-  },
+  aggregateRating: GOOGLE_AGGREGATE_RATING,
 };
 
 export default function HomePage() {
@@ -176,11 +173,22 @@ export default function HomePage() {
       <Hero />
       <Stats />
       <Services />
-      <TrustAndPartnerSection />
+      {/* Preservation-Wrapper (Welle 2D.1): PartnersSection hat ihr eigenes
+          py/px/max-w abgegeben. Der Wrapper haelt den bisherigen Zustand
+          dieser noch nicht migrierten Route. */}
+      <Section surface="base" spacing="compact">
+        <TrustAndPartnerSection />
+      </Section>
       <WhyErgart />
       <ProfileCard />
       <Testimonials />
       <MapSection />
+      <Section surface="muted">
+        <BlogTeaser
+          title="Aus unserem Ratgeber"
+          description="Praktische Tipps rund um Fenster, Gebäudepflege und Winterdienst – direkt aus der Praxis in Neuss."
+        />
+      </Section>
       <CTA />
     </>
   );

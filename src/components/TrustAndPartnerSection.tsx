@@ -23,16 +23,20 @@ export function TrustAndPartnerSection({
   className,
 }: TrustAndPartnerSectionProps) {
   return (
+    // Welle 2D.1 (Befund M1): Der Abstand zwischen Karte und Partnergrid ist
+    // internes Layout und liegt deshalb hier — als space-y statt als my-8 in
+    // der Karte. Das `px-4` an der HandwerkskammerCard ist entfallen: es hat
+    // das Container-Padding der umgebenden <Section> dupliziert.
     <section
       aria-label="Zertifizierungen & Partner"
-      className={cn("w-full", className)}
+      className={cn("w-full space-y-12", className)}
     >
-      <HandwerkskammerCard className="px-4" />
+      <HandwerkskammerCard />
 
       <PartnersSection
-        eyebrow="Partner & Kooperationen"
+        eyebrow="Partner, Lieferanten & Kooperationen"
         title="Starke Partner für belastbare Qualität"
-        description="Verlässliche Hersteller, lokale Fachpartner und regionales Engagement – gemeinsam sichern wir Qualität und Werterhalt."
+        description="Zwei Fensterhersteller, Profi-Montagetechnik, lokaler Fachhandel und regionales Engagement – gemeinsam sichern wir Qualität und Werterhalt."
       />
     </section>
   );

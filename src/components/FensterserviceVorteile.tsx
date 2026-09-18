@@ -12,6 +12,7 @@ import {
     ShieldCheck,
 } from "lucide-react";
 
+import { GOOGLE_RATING, GOOGLE_RATING_DISPLAY } from "@/lib/reviews";
 /**
  * Trust-Sektion für die Fensterservice Landing Page
  * 
@@ -22,7 +23,7 @@ import {
 const vorteile = [
     {
         icon: Award,
-        title: "12+ Jahre Erfahrung",
+        title: "13+ Jahre Erfahrung",
         description: "Langjährige Expertise im Fenster- und Hausmeisterservice.",
     },
     {
@@ -37,8 +38,8 @@ const vorteile = [
     },
     {
         icon: Star,
-        title: "4.9 ★ Bewertung",
-        description: "Höchste Kundenzufriedenheit auf Google.",
+        title: `${GOOGLE_RATING_DISPLAY} ★ auf Google`,
+        description: `${GOOGLE_RATING.count} Bewertungen – alle mit 5 Sternen.`,
     },
     {
         icon: Clock,
@@ -54,8 +55,7 @@ const vorteile = [
 
 export default function FensterserviceVorteile() {
     return (
-        <section className="py-20 md:py-28 bg-white dark:bg-zinc-950">
-            <div className="container mx-auto px-4">
+        <>
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                     {/* Icon-Visual statt CEO-Bild */}
                     <motion.div
@@ -84,10 +84,10 @@ export default function FensterserviceVorteile() {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.3 }}
-                                className="absolute top-4 right-4 md:top-8 md:right-8 bg-white dark:bg-zinc-800 rounded-xl shadow-lg p-3 flex items-center gap-2"
+                                className="absolute top-4 right-4 md:top-8 md:right-8 bg-card rounded-xl shadow-lg p-3 flex items-center gap-2"
                             >
-                                <Award className="text-brand-blue" size={20} />
-                                <span className="text-sm font-semibold">12+ Jahre</span>
+                                <Award className="text-brand-text" size={20} />
+                                <span className="text-sm font-semibold">13+ Jahre</span>
                             </motion.div>
 
                             <motion.div
@@ -95,10 +95,10 @@ export default function FensterserviceVorteile() {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.4 }}
-                                className="absolute bottom-4 left-4 md:bottom-8 md:left-8 bg-white dark:bg-zinc-800 rounded-xl shadow-lg p-3 flex items-center gap-2"
+                                className="absolute bottom-4 left-4 md:bottom-8 md:left-8 bg-card rounded-xl shadow-lg p-3 flex items-center gap-2"
                             >
                                 <Star className="text-yellow-500" size={20} />
-                                <span className="text-sm font-semibold">4.9 ★</span>
+                                <span className="text-sm font-semibold">{GOOGLE_RATING_DISPLAY} ★</span>
                             </motion.div>
 
                             <motion.div
@@ -106,7 +106,7 @@ export default function FensterserviceVorteile() {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.5 }}
-                                className="absolute bottom-16 right-0 md:bottom-20 md:right-4 bg-white dark:bg-zinc-800 rounded-xl shadow-lg p-3 flex items-center gap-2"
+                                className="absolute bottom-16 right-0 md:bottom-20 md:right-4 bg-card rounded-xl shadow-lg p-3 flex items-center gap-2"
                             >
                                 <BadgeCheck className="text-emerald-500" size={20} />
                                 <span className="text-sm font-semibold">HÖNING Partner</span>
@@ -120,7 +120,7 @@ export default function FensterserviceVorteile() {
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="inline-block mb-4 px-4 py-1.5 rounded-full bg-brand-blue/10 text-brand-blue text-sm font-medium"
+                            className="inline-block mb-4 px-4 py-1.5 rounded-full bg-brand-blue/10 text-brand-text text-sm font-medium"
                         >
                             Warum Ergart?
                         </motion.span>
@@ -156,10 +156,10 @@ export default function FensterserviceVorteile() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: 0.1 * index }}
-                                    className="flex items-start gap-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-zinc-900 transition-colors"
+                                    className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted transition-colors"
                                 >
                                     <div className="w-10 h-10 shrink-0 rounded-lg bg-brand-blue/10 flex items-center justify-center">
-                                        <vorteil.icon className="text-brand-blue" size={20} />
+                                        <vorteil.icon className="text-brand-text" size={20} />
                                     </div>
                                     <div>
                                         <h3 className="font-semibold text-foreground">
@@ -174,7 +174,6 @@ export default function FensterserviceVorteile() {
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+        </>
     );
 }

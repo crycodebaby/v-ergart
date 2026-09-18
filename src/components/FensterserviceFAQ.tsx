@@ -70,8 +70,7 @@ export default function FensterserviceFAQ() {
     };
 
     return (
-        <section className="py-20 md:py-28 bg-white dark:bg-zinc-950">
-            <div className="container mx-auto px-4">
+        <>
                 <div className="max-w-3xl mx-auto">
                     {/* Header */}
                     <div className="text-center mb-12">
@@ -79,7 +78,7 @@ export default function FensterserviceFAQ() {
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="inline-block mb-4 px-4 py-1.5 rounded-full bg-brand-blue/10 text-brand-blue text-sm font-medium"
+                            className="inline-block mb-4 px-4 py-1.5 rounded-full bg-brand-blue/10 text-brand-text text-sm font-medium"
                         >
                             Häufige Fragen
                         </motion.span>
@@ -112,11 +111,11 @@ export default function FensterserviceFAQ() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.05 }}
-                                className="border border-border rounded-xl overflow-hidden bg-slate-50 dark:bg-zinc-900"
+                                className="border border-border rounded-xl overflow-hidden bg-card"
                             >
                                 <button
                                     onClick={() => toggleFAQ(index)}
-                                    className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors"
+                                    className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-muted transition-colors"
                                     aria-expanded={openIndex === index}
                                 >
                                     <span className="font-semibold text-foreground pr-4">
@@ -149,7 +148,6 @@ export default function FensterserviceFAQ() {
                         ))}
                     </div>
                 </div>
-            </div>
-        </section>
+        </>
     );
 }

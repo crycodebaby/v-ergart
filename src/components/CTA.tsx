@@ -53,7 +53,7 @@ const CTA = () => {
         >
           <Link
             href="/kontakt"
-            className="inline-block bg-brand-blue text-white font-bold py-4 px-10 rounded-md text-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+            className="inline-block bg-primary text-primary-foreground font-bold py-4 px-10 rounded-md text-lg hover:bg-brand-solid-hover transition-all duration-300 transform hover:scale-105 shadow-lg"
           >
             Unverbindlich anfragen
           </Link>

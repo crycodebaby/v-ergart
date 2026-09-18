@@ -44,15 +44,14 @@ const schritte = [
 
 export default function FensterserviceAblauf() {
     return (
-        <section className="py-20 md:py-28 bg-slate-50 dark:bg-zinc-900">
-            <div className="container mx-auto px-4">
+        <>
                 {/* Header */}
                 <div className="text-center mb-16">
                     <motion.span
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-block mb-4 px-4 py-1.5 rounded-full bg-brand-blue/10 text-brand-blue text-sm font-medium"
+                        className="inline-block mb-4 px-4 py-1.5 rounded-full bg-brand-blue/10 text-brand-text text-sm font-medium"
                     >
                         Einfacher Ablauf
                     </motion.span>
@@ -94,12 +93,12 @@ export default function FensterserviceAblauf() {
                             >
                                 {/* Step Circle */}
                                 <div className="relative inline-flex flex-col items-center">
-                                    <div className="w-20 h-20 rounded-full bg-white dark:bg-zinc-800 border-2 border-brand-blue shadow-lg flex items-center justify-center mb-6 relative z-10">
-                                        <schritt.icon className="text-brand-blue" size={32} />
+                                    <div className="w-20 h-20 rounded-full bg-card border-2 border-brand-blue shadow-lg flex items-center justify-center mb-6 relative z-10">
+                                        <schritt.icon className="text-brand-text" size={32} />
                                     </div>
 
                                     {/* Step Number */}
-                                    <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-brand-blue text-white text-sm font-bold flex items-center justify-center shadow-md">
+                                    <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
                                         {schritt.nummer}
                                     </span>
                                 </div>
@@ -115,7 +114,6 @@ export default function FensterserviceAblauf() {
                         ))}
                     </div>
                 </div>
-            </div>
-        </section>
+        </>
     );
 }

@@ -15,7 +15,11 @@ const buttonVariants = cva(
         outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+        // Nicht text-primary: --primary ist eine Flaechenrolle
+        // (brand-solid #0070E0) und erreicht als Text auf dem
+        // Dark-Background nur 4.19:1. Brandfarbe als Text ist
+        // --brand-text; der Token regelt das Theme selbst.
+        link: "text-brand-text underline-offset-4 hover:underline",
       },
       size: {
         default: "h-10 px-4 py-2",

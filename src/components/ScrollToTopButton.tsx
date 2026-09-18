@@ -53,7 +53,7 @@ export const ScrollToTopButton = () => {
               "flex items-center justify-center",
               "shadow-lg",
               "hover:scale-110 focus:scale-110",
-              "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue",
+              "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring",
               "transition-all duration-300"
             )}
             aria-label="Nach oben scrollen"

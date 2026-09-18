@@ -4,7 +4,9 @@ import { fetchJobs } from "@/lib/jobs-queries";
 import JobsList from "@/components/JobsList";
 import { KarriereHero } from "@/components/KarriereHero";
 import { WhyWorkWithUs } from "@/components/WhyWorkWithUs";
-import CTA from "@/components/CTA";
+import { BewerbungsAblauf } from "@/components/BewerbungsAblauf";
+import { Section } from "@/components/ui/section";
+import { BewerbungsCTA } from "@/components/BewerbungsCTA";
 
 export const metadata = generateSEOMetadata({
   title: "Karriere bei Alexander Ergart | Jobs im Hausmeisterservice in Neuss",
@@ -18,33 +20,40 @@ export default async function KarrierePage() {
 
   return (
     <>
-      <KarriereHero />
-      
-      {/* Main Content */}
-      <div className="bg-background py-16 lg:py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            {/* Section Header */}
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+      <KarriereHero jobCount={jobs.length} />
+
+      {/* scroll-mt: Sprungziel des Hero-CTA, Platz für den Sticky-Header */}
+      <Section id="offene-stellen" surface="base" className="scroll-mt-32">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-10 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-brand-text">
+                Stellenangebote
+              </p>
+              <h2 className="mt-2 text-3xl font-bold text-foreground md:text-4xl">
                 Offene Stellen
               </h2>
-              <p className="text-lg text-muted-foreground">
-                {jobs.length > 0
-                  ? `${jobs.length} ${jobs.length === 1 ? 'Position' : 'Positionen'} verfügbar`
-                  : 'Bewerben Sie sich initiativ – wir freuen uns auf Sie!'}
-              </p>
             </div>
-
-            {/* Jobs List */}
-            <JobsList jobs={jobs} />
+            <p className="text-muted-foreground">
+              {jobs.length > 0
+                ? `${jobs.length} ${jobs.length === 1 ? "Position" : "Positionen"} in Neuss & Umgebung`
+                : "Bewerben Sie sich initiativ – wir freuen uns auf Sie!"}
+            </p>
           </div>
-        </div>
-      </div>
 
-      <WhyWorkWithUs />
-      
-      <CTA />
+          <JobsList jobs={jobs} />
+        </div>
+      </Section>
+
+      <Section surface="muted">
+        <WhyWorkWithUs />
+      </Section>
+
+      <Section surface="base">
+        <BewerbungsAblauf />
+      </Section>
+
+      <BewerbungsCTA />
     </>
   );
 }

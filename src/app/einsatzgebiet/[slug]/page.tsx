@@ -49,7 +49,7 @@ export default function LocationPage({ params }: Props) {
   return (
     <main>
       {/* Simple Hero for Location */}
-      <section className="relative bg-zinc-900 text-white py-20 lg:py-32 overflow-hidden">
+      <section className="relative bg-surface-inverse text-foreground-inverse py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-black/60 z-10" />
         <div
           className="absolute inset-0 bg-cover bg-center z-0 opacity-50"
@@ -117,9 +117,9 @@ export default function LocationPage({ params }: Props) {
                 </Link>
               </div>
             </div>
-            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-2xl bg-zinc-100">
+            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-2xl bg-muted">
               {/* Placeholder map or image - using MapSection below instead for real map */}
-              <div className="absolute inset-0 flex items-center justify-center bg-zinc-100 dark:bg-zinc-800">
+              <div className="absolute inset-0 flex items-center justify-center bg-muted">
                 <MapPin className="h-16 w-16 text-brand-blue/50" />
                 <span className="sr-only">Karte von {location.name}</span>
               </div>

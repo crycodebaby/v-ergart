@@ -2,7 +2,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Phone, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import WhatsAppButton from "@/components/contact/WhatsAppButton";
 
@@ -12,19 +12,13 @@ import WhatsAppButton from "@/components/contact/WhatsAppButton";
  * Enthält direktes Kontaktformular (statt Link zu /kontakt)
  * für maximale Conversion-Rate.
  * 
- * Tracking-Attribute:
- * - data-track="call-fensterservice-bottom" auf Telefon-Button
- * - Form-Submit erfolgt über ContactForm (Formcarry)
+ * Bewusst minimal: Headline · Formular · WhatsApp. Telefon & Zeiten
+ * stehen im Header bzw. Hero.
  */
 
 export default function FensterserviceKontakt() {
     return (
-        <section
-            id="kontakt-formular"
-            className="py-20 md:py-28 bg-background relative overflow-hidden"
-        >
-            <div className="container mx-auto px-4 relative z-10">
-                <div className="max-w-4xl mx-auto">
+        <div className="relative z-10 mx-auto max-w-4xl">
                     {/* Headline */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -32,7 +26,7 @@ export default function FensterserviceKontakt() {
                         viewport={{ once: true }}
                         className="text-center mb-12"
                     >
-                        <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-brand-blue/10 text-brand-blue border border-brand-blue/20">
+                        <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-brand-blue/10 text-brand-text border border-brand-blue/20">
                             <MessageCircle size={18} />
                             <span className="text-sm font-medium">Kostenlose Beratung</span>
                         </div>
@@ -41,9 +35,8 @@ export default function FensterserviceKontakt() {
                             Bereit für neue Fenster?
                         </h2>
 
-                        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                            Senden Sie uns eine unverbindliche Anfrage. Wir melden uns zeitnah
-                            bei Ihnen und besprechen Ihr Projekt.
+                        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+                            Unverbindlich anfragen – wir melden uns zeitnah.
                         </p>
                     </motion.div>
 
@@ -57,23 +50,15 @@ export default function FensterserviceKontakt() {
                     >
                         <ContactForm
                             customServices={[
-                                "Fensterelemente (HÖNING Qualität)",
+                                "Fensterelemente",
                                 "Fensterreparatur & Wartung",
-                                "Haustür / Nebeneingangstür (HÖNING)"
+                                "Haustür / Nebeneingangstür"
                             ]}
                             source="Fensterservice Landingpage"
                         />
-
-                        {/* HÖNING Qualitätshinweis */}
-                        <div className="mt-6 p-4 rounded-lg bg-muted/50 border border-border">
-                            <p className="text-sm text-muted-foreground text-center">
-                                <strong className="text-foreground">HÖNING Leipzig:</strong> Deutsche Wertarbeit
-                                mit 10 Jahren Garantie bei regelmäßiger Inspektion durch Ergart&apos;s Fensterservice oder HÖNING
-                            </p>
-                        </div>
                     </motion.div>
 
-                    {/* Alternative: Direkt anrufen */}
+                    {/* Alternative: Foto per WhatsApp */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -81,49 +66,12 @@ export default function FensterserviceKontakt() {
                         transition={{ delay: 0.3 }}
                         className="text-center"
                     >
-                        <p className="text-sm text-muted-foreground mb-4">
-                            Oder senden Sie uns direkt ein Foto Ihres Problems:
-                        </p>
-                        <div className="mb-4">
-                            <WhatsAppButton
-                                label="Fensterproblem? Foto per WhatsApp senden."
-                                helperText="Ideal für schnelle Ersteinschätzung bei Schäden oder Defekten."
-                                iconSize={24}
-                                className="px-6 py-3 border-emerald-500/40 hover:border-emerald-500/60"
-                            />
-                        </div>
-                        <p className="text-sm text-muted-foreground mb-4">
-                            Alternativ telefonisch erreichbar:
-                        </p>
-                        <a
-                            href="tel:+4917666825889"
-                            id="fensterservice-phone-cta-bottom"
-                            data-track="call-fensterservice-bottom"
-                            onClick={() => {
-                                if (typeof window !== "undefined") {
-                                    window.dataLayer = window.dataLayer || [];
-                                    window.dataLayer.push({ event: 'phone_click' });
-                                }
-                            }}
-                            className="inline-flex items-center gap-3 px-8 py-4 bg-brand-blue text-white font-semibold text-lg rounded-lg hover:bg-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02]"
-                        >
-                            <Phone size={20} />
-                            0176 668 25 889
-                        </a>
+                        <WhatsAppButton
+                            label="Foto per WhatsApp senden"
+                            iconSize={24}
+                            className="px-6 py-3 border-emerald-500/40 hover:border-emerald-500/60"
+                        />
                     </motion.div>
-
-                    {/* Verfügbarkeit */}
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.5 }}
-                        className="mt-8 text-center text-muted-foreground text-sm"
-                    >
-                        Mo–Fr 08:00–12:00 & 13:00–16:00 Uhr erreichbar
-                    </motion.p>
-                </div>
-            </div>
-        </section>
+        </div>
     );
 }

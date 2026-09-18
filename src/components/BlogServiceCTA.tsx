@@ -12,22 +12,22 @@ type Props = {
 const categoryToService: Record<string, { title: string; href: string; description: string }> = {
   "fensterreinigung": {
     title: "Fensterservice & Glasreinigung",
-    href: "/leistungen/fensterreinigung",
+    href: "/fensterservice",
     description: "Professionelle Reinigung für streifenfreien Durchblick",
   },
   "winterdienst": {
     title: "Winterdienst",
-    href: "/leistungen/winterdienst",
+    href: "/leistungen/hausmeister",
     description: "Zuverlässiger Räum- und Streudienst für Ihre Sicherheit",
   },
   "hausmeisterservice": {
     title: "Hausmeisterservice",
-    href: "/leistungen/hausmeisterservice",
+    href: "/leistungen/hausmeister",
     description: "Rundum-Betreuung für Ihr Gebäude",
   },
   "reparatur": {
     title: "Reparaturen & Wartung",
-    href: "/leistungen/reparaturen",
+    href: "/leistungen/hausmeister",
     description: "Schnelle Hilfe bei Schäden und regelmäßige Instandhaltung",
   },
 };

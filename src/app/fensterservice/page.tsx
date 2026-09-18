@@ -20,6 +20,7 @@
 
 import Script from "next/script";
 import { generateSEOMetadata, BASE_URL, SITE_NAME } from "@/lib/seo-utils";
+import { Section } from "@/components/ui/section";
 import FensterserviceHero from "@/components/FensterserviceHero";
 import FensterserviceLeistungen from "@/components/FensterserviceLeistungen";
 import FensterserviceBildergalerie from "@/components/FensterserviceBildergalerie";
@@ -34,11 +35,13 @@ import HoeningEnergierechner from "@/components/HoeningEnergierechner";
 import HoeningGarantieCard from "@/components/HoeningGarantieCard";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 
+import { GOOGLE_AGGREGATE_RATING } from "@/lib/reviews";
+import BlogTeaser from "@/components/BlogTeaser";
 // SEO Metadata
 export const metadata = generateSEOMetadata({
     title: "Fensterbauer Neuss: Einbau, Reparatur & Service | Alexander Ergart",
     description:
-        "Professioneller Fensterservice in Neuss & Umgebung: Fenstermontage, Austausch, Reparatur & Wartung. 12+ Jahre Erfahrung, HÖNING-Partner. ✓ Kostenlose Beratung ☎ 0176 668 25 889",
+        "Professioneller Fensterservice in Neuss & Umgebung: Fenstermontage, Austausch, Reparatur & Wartung. 13+ Jahre Erfahrung, HÖNING-Partner. ✓ Kostenlose Beratung ☎ 0176 668 25 889",
     path: "/fensterservice",
     image: {
         url: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fertig-installierte-scheibe-neue-saubere-fensterfront.webp",
@@ -133,7 +136,7 @@ const localBusinessJsonLd = {
         "Professioneller Fensterservice in Neuss und Umgebung: Fenstermontage, Austausch, Reparatur, Wartung und Dichtungserneuerung. HÖNING-Partner für Premium-Qualität.",
     url: `${BASE_URL}/fensterservice`,
     telephone: "+49 176 668 25 889",
-    email: "aergart@gmail.com",
+    email: "info@ergart.de",
     logo: `${BASE_URL}/bilder_ordner/AE_logo.svg`,
     image: `${BASE_URL}/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fertig-installierte-scheibe-neue-saubere-fensterfront.webp`,
     address: {
@@ -218,13 +221,7 @@ const localBusinessJsonLd = {
         },
     ],
     priceRange: "€€",
-    aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.9",
-        reviewCount: "47",
-        bestRating: "5",
-        worstRating: "1",
-    },
+    aggregateRating: GOOGLE_AGGREGATE_RATING,
 };
 
 export default function FensterservicePage() {
@@ -253,25 +250,66 @@ export default function FensterservicePage() {
 
             {/* Page Sections */}
             <FensterserviceHero />
-            <FensterserviceKontakt />
-            <FensterserviceLeistungen />
-            <FensterserviceBildergalerie />
-            <FensterservicePreisBewertungen />
 
-            {/* Energieeinspar-Rechner */}
-            <HoeningEnergierechner />
+            {/* Erste Ruheflaeche nach dem Hero */}
+            <Section id="kontakt-formular" surface="base" spacing="spacious" className="relative overflow-hidden">
+                <FensterserviceKontakt />
+            </Section>
 
-            {/* HÖNING Garantie & Digital ID */}
-            <HoeningGarantieCard />
+            <Section surface="muted">
+                <FensterserviceLeistungen />
+            </Section>
 
-            <FensterserviceVorteile />
-            <FensterserviceAblauf />
+            {/* Galerie: die Bilder sind der Fokus, ruhigster Grund, breiteste Spur */}
+            <Section surface="base" width="wide">
+                <FensterserviceBildergalerie />
+            </Section>
+
+            <Section surface="muted">
+                <FensterservicePreisBewertungen />
+            </Section>
+
+            {/* HÖNING-Block: Rechner und Garantie gehoeren inhaltlich zusammen
+                und teilen sich deshalb bewusst EINE Flaeche. Die Garantie ist
+                ein Bauteil (Card), keine eigene Seitenflaeche. */}
+            <Section surface="base">
+                <HoeningEnergierechner />
+                <div className="mt-16 md:mt-20">
+                    <HoeningGarantieCard />
+                </div>
+            </Section>
+
+            <Section surface="muted">
+                <FensterserviceVorteile />
+            </Section>
+
+            <Section surface="base">
+                <FensterserviceAblauf />
+            </Section>
 
             {/* Montageprozess – 8 Schritte als visuelle Beweisführung nach dem Ablauf */}
-            <ProcessStepper />
+            <Section surface="muted" aria-label="Unser Montageprozess – 8 Schritte">
+                <ProcessStepper />
+            </Section>
 
-            <FensterserviceFAQ />
-            <TrustAndPartnerSection />
+            {/* Passende Ratgeber-Artikel: interne Verlinkung Landingpage <-> Blog */}
+            <Section surface="base">
+                <BlogTeaser
+                    eyebrow="Ratgeber Fenster"
+                    title="Fenster-Wissen aus der Praxis"
+                    description="Zugluft, schwergängige Flügel, poröse Dichtungen: So erkennen Sie Probleme früh – und wann sich der Profi lohnt."
+                    topic="fenster"
+                />
+            </Section>
+
+            {/* Lange Accordion-Flaeche: schmalere Spur, ruhigster Grund */}
+            <Section surface="base" width="prose">
+                <FensterserviceFAQ />
+            </Section>
+
+            <Section surface="muted" spacing="compact">
+                <TrustAndPartnerSection />
+            </Section>
             
             <StickyMobileCTA />
         </>

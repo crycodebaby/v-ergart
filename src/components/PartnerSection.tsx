@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 const PartnerSection = () => {
     return (
         <motion.section 
-            className="py-16 bg-slate-50 dark:bg-zinc-900"
+            className="py-16 bg-muted"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.5 }}

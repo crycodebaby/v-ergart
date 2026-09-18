@@ -5,8 +5,7 @@ import { motion } from 'framer-motion';
 
 export function LeistungenHero() {
   return (
-    <section className="relative bg-gradient-to-b from-slate-50 to-background dark:from-zinc-900 dark:to-background py-16 lg:py-24">
-      <div className="container mx-auto px-4">
+    <>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -21,7 +20,6 @@ export function LeistungenHero() {
             Maßgeschneidert für Ihre Anforderungen.
           </p>
         </motion.div>
-      </div>
-    </section>
+    </>
   );
 }

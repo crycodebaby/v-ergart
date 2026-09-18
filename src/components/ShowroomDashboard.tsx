@@ -46,13 +46,14 @@ const ShowroomPanel = ({
 export const ShowroomDashboard = () => {
   return (
     <section className="relative w-full h-[calc(100vh-144px)] min-h-[700px]">
-      {/* Zentraler Text-Hub */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
+      {/* Zentraler Text-Hub – pointer-events-none: der Wrapper überdeckt die
+          gesamte Fläche und würde sonst Klicks/Hover der Panels darunter schlucken. */}
+      <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="w-full max-w-2xl text-center bg-background/80 dark:bg-zinc-900/80 backdrop-blur-md p-8 rounded-2xl border border-border/60 shadow-2xl"
+          className="w-full max-w-2xl text-center bg-card/80 backdrop-blur-md p-8 rounded-2xl border border-border/60 shadow-2xl"
         >
           <h1 className="text-4xl md:text-5xl font-bold text-foreground">
             Der Showroom für Ihr Zuhause
@@ -74,7 +75,7 @@ export const ShowroomDashboard = () => {
         />
         <ShowroomPanel
           href="/tueren"
-          image="/bilder_ord-ner/hoening/tueren/aluminium-tuer1.webp"
+          image="/bilder_ordner/hoening/tueren/aluminium-tuer1.webp"
           title="Türen"
           subtitle="Der perfekte Eingang für Ihr Zuhause."
         />

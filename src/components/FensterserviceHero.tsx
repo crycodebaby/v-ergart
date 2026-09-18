@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Phone, MessageCircle, MapPin, Clock } from "lucide-react";
+import { GOOGLE_RATING, GOOGLE_RATING_DISPLAY } from "@/lib/reviews";
 
 /**
  * Hero-Sektion für die Fensterservice Landing Page
@@ -41,12 +42,16 @@ export default function FensterserviceHero() {
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10 py-16 md:py-24">
         <div className="max-w-3xl">
-          {/* Badge */}
+          {/* Badge.
+              text-brand statt text-brand-text: diese Flaeche ist ein Foto mit
+              schwarzem Scrim und damit in BEIDEN Themes dunkel. Der
+              themegesteuerte --brand-text waere im Light Mode #0061C2 und
+              damit auf dunklem Grund unlesbar. Siehe Regel in globals.css. */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-brand-blue/20 border border-brand-blue/40 text-brand-blue"
+            className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-brand-blue/20 border border-brand-blue/40 text-brand"
           >
             <MapPin size={16} />
             <span className="text-sm font-medium">Neuss & Umgebung</span>
@@ -59,7 +64,7 @@ export default function FensterserviceHero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
           >
-            Fensterservice in Neuss & Umgebung – <span className="text-brand-blue">Reparatur, Wartung, Einstellung</span>
+            Fensterservice in Neuss & Umgebung – <span className="text-brand">Reparatur, Wartung, Einstellung</span>
           </motion.h1>
 
           {/* Subtext */}
@@ -69,7 +74,7 @@ export default function FensterserviceHero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg md:text-xl text-yellow-400 font-semibold mb-8 max-w-2xl bg-black/40 inline-block p-2 rounded-lg backdrop-blur-sm"
           >
-            ⭐ 4.9/5 Sterne | Über 12 Jahre Erfahrung | Schnelle Termine vor Ort
+            ⭐ {GOOGLE_RATING_DISPLAY}/5 Sterne bei {GOOGLE_RATING.count} Google-Bewertungen | Über 13 Jahre Erfahrung | Schnelle Termine vor Ort
           </motion.p>
 
           {/* USP Pills */}
@@ -80,7 +85,7 @@ export default function FensterserviceHero() {
             className="flex flex-wrap gap-3 mb-10"
           >
             {[
-              "12+ Jahre Erfahrung",
+              "13+ Jahre Erfahrung",
               "Kostenlose Beratung",
               "Faire Preise",
               "Schnelle Termine",
@@ -112,7 +117,7 @@ export default function FensterserviceHero() {
                   window.dataLayer.push({ event: 'phone_click' });
                 }
               }}
-              className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-blue text-white font-bold text-lg rounded-lg hover:bg-blue-600 transition-all duration-300 shadow-lg shadow-brand-blue/25 hover:shadow-xl hover:shadow-brand-blue/30 hover:scale-[1.02]"
+              className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-bold text-lg rounded-lg hover:bg-brand-solid-hover transition-all duration-300 shadow-lg shadow-brand-blue/25 hover:shadow-xl hover:shadow-brand-blue/30 hover:scale-[1.02]"
             >
               <Phone size={24} className="shrink-0" />
               <span className="flex flex-col items-start">

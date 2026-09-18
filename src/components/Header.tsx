@@ -60,7 +60,7 @@ export default function Header() {
           – auf Mobile, Tablet (iPad) und Desktop. */}
       <div className="sticky top-0 z-50">
         {/* Topbar */}
-        <div className="bg-zinc-100 dark:bg-zinc-900 text-sm border-b border-black/5 dark:border-white/5">
+        <div className="bg-muted text-sm border-b border-black/5 dark:border-white/5">
           <div className="container max-w-7xl mx-auto flex items-center justify-between h-12 px-4">
             <div className="flex gap-6">
               <a
@@ -82,11 +82,11 @@ export default function Header() {
                 <span className="hidden sm:inline">+49 176 668 25 889</span>
               </a>
               <a
-                href="mailto:aergart@gmail.com"
+                href="mailto:info@ergart.de"
                 className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Mail size={16} />
-                <span className="hidden sm:inline">aergart@gmail.com</span>
+                <span className="hidden sm:inline">info@ergart.de</span>
               </a>
             </div>
             <div className="flex items-center gap-4">
@@ -126,7 +126,10 @@ export default function Header() {
                       <NavigationMenuLink
                         className={cn(
                           navigationMenuTriggerStyle(),
-                          link.highlight && "text-brand-blue font-semibold"
+                          // brand-solid im Light Mode: das helle --brand
+                          // erreicht auf hellem Headergrund nur 2.94:1.
+                          link.highlight &&
+                            "text-brand-text font-semibold"
                         )}
                       >
                         {link.label}
@@ -142,25 +145,28 @@ export default function Header() {
                       "relative font-medium",
                       "hover:bg-muted hover:text-foreground",
                       "data-[state=open]:bg-muted data-[state=open]:text-foreground",
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/70"
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     )}
                   >
                     Fenster &amp; Türen
                   </NavigationMenuTrigger>
 
-                  {/* --- POPUP: maximaler Kontrast, kein „Durchscheinen“ --- */}
+                  {/* --- POPUP: neutrale Popover-Flaeche, Brand nur als Akzent ---
+                      Vorher vollflaechig bg-brand-blue mit weisser Schrift:
+                      2.94:1 und damit unter WCAG AA. Die Popover-Flaeche
+                      erreicht 20.0:1 (light) bzw. 13.4:1 (dark). */}
                   <NavigationMenuContent
                     className={cn(
                       "relative isolate z-50 rounded-xl p-0",
                       // Solider Grundhintergrund => garantiert lesbar
-                      "bg-brand-blue text-white",
+                      "bg-popover text-popover-foreground",
                       // Tiefe/Kanten
-                      "ring-1 ring-border/70 shadow-2xl drop-shadow-xl overflow-hidden"
+                      "ring-1 ring-border shadow-2xl drop-shadow-xl overflow-hidden"
                     )}
                   >
                     {/* optionaler Kopf für Klarheit */}
-                    <div className="px-4 py-3 border-b border-white/20 bg-white/10">
-                      <p className="text-xs font-medium uppercase tracking-wide text-white/90">
+                    <div className="px-4 py-3 border-b border-border bg-muted">
+                      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                         Kategorien
                       </p>
                     </div>
@@ -177,7 +183,7 @@ export default function Header() {
                             icon={
                               <Icon
                                 size={20}
-                                className="text-white"
+                                className="text-brand-text"
                                 aria-hidden
                               />
                             }
@@ -187,10 +193,10 @@ export default function Header() {
                     </ul>
 
                     {/* optionaler Footer-Link */}
-                    <div className="px-4 py-3 border-t border-white/20 bg-white/10">
+                    <div className="px-4 py-3 border-t border-border bg-muted">
                       <Link
                         href="/leistungen"
-                        className="text-sm font-medium hover:underline text-white"
+                        className="text-sm font-medium hover:underline text-brand-text"
                       >
                         Alle Leistungen ansehen
                       </Link>
@@ -245,7 +251,7 @@ export default function Header() {
                 >
                   <Link
                     href={link.href ?? "#"}
-                    className="block py-4 text-2xl font-semibold text-center text-foreground hover:text-brand-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/70 rounded"
+                    className="block py-4 text-2xl font-semibold text-center text-foreground hover:text-brand-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.label}
@@ -267,7 +273,7 @@ export default function Header() {
                   <Phone size={28} />
                 </a>
                 <a
-                  href="mailto:aergart@gmail.com"
+                  href="mailto:info@ergart.de"
                   aria-label="E-Mail schreiben"
                   className="text-muted-foreground hover:text-foreground"
                 >
@@ -322,11 +328,14 @@ const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
             className={cn(
               "group flex items-start gap-3 rounded-lg px-4 py-3",
               // Fundament: klarer Kontrast auf beiden Themes
-              "bg-transparent text-white",
-              // Hover: spürbar, aber nicht „brüllend“
-              "hover:bg-white/10 focus:bg-white/10",
+              "bg-transparent text-popover-foreground",
+              // Hover: spürbar, aber nicht „brüllend“.
+              // Die Textfarbe bleibt bewusst stehen — vorher sprang sie
+              // durch das ererbte hover:text-accent-foreground um (Befund M1).
+              "hover:bg-accent hover:text-popover-foreground",
+              "focus:bg-accent focus:text-popover-foreground",
               // Zusätzliche visuelle Führung
-              "ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
+              "ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               // feine Trennung bei dichtem Inhalt
               "transition-colors",
               className
@@ -341,7 +350,7 @@ const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
               <span className="block text-sm font-semibold leading-tight">
                 {title}
               </span>
-              <span className="mt-1 block text-sm leading-relaxed text-white/80">
+              <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">
                 {description}
               </span>
             </span>
@@ -359,10 +368,10 @@ ListItem.displayName = "ListItem";
 const navigationMenuTriggerStyle = cva(
   [
     "group inline-flex h-10 w-max items-center justify-center rounded-md",
-    "bg-background px-4 py-2 text-sm font-medium",
+    "bg-transparent px-4 py-2 text-sm font-medium",
     "transition-colors",
     "hover:bg-muted hover:text-foreground",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/70",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
     "disabled:pointer-events-none disabled:opacity-50",
     "data-[active]:bg-muted data-[state=open]:bg-muted",
     "relative after:content-[''] after:absolute after:bottom-0 after:left-3 after:right-3 after:h-[2px]",

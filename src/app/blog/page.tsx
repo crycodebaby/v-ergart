@@ -74,15 +74,15 @@ export default async function BlogPage() {
               Alexander Ergart
             </Link>
             . Hier teilen wir unser Fachwissen rund um{" "}
-            <Link href="/leistungen/hausmeisterservice" className="text-brand-blue hover:underline">
+            <Link href="/leistungen/hausmeister" className="text-brand-blue hover:underline">
               Hausmeisterservice
             </Link>
             ,{" "}
-            <Link href="/leistungen/fensterreinigung" className="text-brand-blue hover:underline">
+            <Link href="/leistungen/reinigung" className="text-brand-blue hover:underline">
               Fensterreinigung
             </Link>
             ,{" "}
-            <Link href="/leistungen/winterdienst" className="text-brand-blue hover:underline">
+            <Link href="/leistungen/hausmeister" className="text-brand-blue hover:underline">
               Winterdienst
             </Link>
             {" "}und{" "}

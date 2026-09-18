@@ -7,12 +7,17 @@ interface HandwerkskammerCardProps {
 
 export function HandwerkskammerCard({ className }: HandwerkskammerCardProps) {
     return (
-        <div className={cn("w-full max-w-4xl mx-auto my-8", className)}>
+        // Welle 2D.1 (Befund M1): `my-8` entfernt — der vertikale Abstand zum
+        // Geschwister-Block gehoert dem Container, nicht der Karte.
+        // `max-w-4xl mx-auto` bleibt: das ist die fachliche Breite DIESER
+        // Karte (sie soll bewusst schmaler sein als die Sektion), keine
+        // Seitenbreite.
+        <div className={cn("w-full max-w-4xl mx-auto", className)}>
             <div className="overflow-hidden rounded-xl border border-orange-500/20 bg-gradient-to-br from-white to-orange-50/30 dark:from-zinc-900 dark:to-zinc-800/50 shadow-lg">
                 <div className="p-0">
                     <div className="flex flex-col md:flex-row items-center">
                         {/* Logo Section */}
-                        <div className="p-6 md:p-8 flex items-center justify-center bg-white dark:bg-zinc-950/50 md:min-w-[200px]">
+                        <div className="p-6 md:p-8 flex items-center justify-center bg-muted md:min-w-[200px]">
                             <div className="relative w-32 h-32 md:w-40 md:h-40">
                                 {/* Light Mode Logo */}
                                 <Image
@@ -39,7 +44,7 @@ export function HandwerkskammerCard({ className }: HandwerkskammerCardProps) {
                                 <h3 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">
                                     Offizielles Mitglied der Handwerkskammer Düsseldorf
                                 </h3>
-                                <p className="text-orange-600 dark:text-orange-400 font-medium">
+                                <p className="text-orange-700 dark:text-orange-300 font-medium">
                                     Mitglied seit März 2018
                                 </p>
                             </div>

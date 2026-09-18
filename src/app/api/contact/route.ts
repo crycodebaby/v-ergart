@@ -16,7 +16,7 @@ function isEmail(v: string) {
 
 export async function POST(req: Request) {
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
-  const TO = process.env.CONTACT_TO_EMAIL || "besius@gmx.de";
+  const TO = process.env.CONTACT_TO_EMAIL || "info@ergart.de";
   const FROM = process.env.CONTACT_FROM_EMAIL || "onboarding@resend.dev";
 
   if (!RESEND_API_KEY) {

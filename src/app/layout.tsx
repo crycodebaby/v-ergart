@@ -133,7 +133,7 @@ export default async function RootLayout({
           {/* Skip-Link für A11y */}
           <a
             href="#main"
-            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] rounded bg-brand-blue px-3 py-2 text-white"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] rounded bg-primary px-3 py-2 text-primary-foreground"
           >
             Zum Inhalt springen
           </a>

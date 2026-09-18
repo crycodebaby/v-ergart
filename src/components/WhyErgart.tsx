@@ -26,7 +26,7 @@ const reasons = [
 
 const WhyErgart = () => {
   return (
-    <section id="why-ergart" className="py-20 bg-slate-50 dark:bg-zinc-900">
+    <section id="why-ergart" className="py-20 bg-muted">
       <div className="container max-w-6xl mx-auto px-4 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Warum Alexander Ergart?</h2>
         <p className="text-lg text-muted-foreground mb-16">Ihre Zufriedenheit ist unser Antrieb.</p>
@@ -37,7 +37,7 @@ const WhyErgart = () => {
             return (
               <motion.div
                 key={reason.title}
-                className="card bg-background p-8 rounded-xl shadow-lg border border-border/20"
+                className="card bg-card p-8 rounded-xl shadow-lg border border-border/20"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.5 }}

@@ -19,20 +19,15 @@ type FormValues = {
 };
 
 const SERVICES = [
-  "Hausmeisterservice",
-  "Fensterservice / Glasreinigung",
-  "Reparaturen & Wartung",
-  "Grundstückspflege",
-  "Verwaltung von Mietimmobilien",
-  "Verwaltung von Eigentumswohnungen",
-  "Verwaltung von Apartmentkomplexen",
-  "Hotelmanagement (technischer Service)",
-  "Verwaltung gewerblicher Immobilien",
-  "Verwaltung von Immobilienanlagen",
-  "Verwaltung von Immobilien auf Inseln",
-  "Eigenheimverwaltung",
-  "Hausverwaltung für Ferienunterkünfte",
-  "Immobilienmanagement (allgemein)",
+  "Hausmeisterdienste",
+  "Fensterservice",
+  "Fenster & Türen",
+  "Innenausbau & Renovierung",
+  "Gebäudereinigung",
+  "Garten- & Landschaftspflege",
+  "Winterdienst",
+  "Sicherheitstechnik",
+  "Sonstiges",
 ];
 
 type ContactFormProps = {
@@ -176,7 +171,7 @@ export default function ContactForm({
 
       {/* Headline/Badge */}
       <div className="flex items-center gap-2">
-        <span className="inline-flex items-center gap-1 rounded-full border border-brand-blue/30 bg-brand-blue/10 px-2 py-1 text-xs font-medium text-brand-blue">
+        <span className="inline-flex items-center gap-1 rounded-full border border-brand-blue/30 bg-brand-blue/10 px-2 py-1 text-xs font-medium text-brand-text">
           <Sparkles size={14} />
           Schnellanfrage
         </span>
@@ -190,7 +185,7 @@ export default function ContactForm({
           <label className="block text-sm font-medium mb-1">Name *</label>
           <input
             {...register("name", { required: "Bitte Namen angeben." })}
-            className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none ring-0 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/40 transition"
+            className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none ring-0 focus:border-brand-blue focus:ring-2 focus:ring-ring transition"
             placeholder="Max Mustermann"
           />
           {errors.name && (
@@ -209,7 +204,7 @@ export default function ContactForm({
                 message: "Ungültige E-Mail.",
               },
             })}
-            className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none ring-0 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/40 transition"
+            className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none ring-0 focus:border-brand-blue focus:ring-2 focus:ring-ring transition"
             placeholder="beispiel@mail.de"
           />
           {errors.email && (
@@ -224,18 +219,18 @@ export default function ContactForm({
           <input
             type="tel"
             {...register("phone")}
-            className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none ring-0 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/40 transition"
+            className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none ring-0 focus:border-brand-blue focus:ring-2 focus:ring-ring transition"
             placeholder="+49 …"
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium mb-1">
-            Anliegen / Leistung
+            Anliegen
           </label>
           <select
             {...register("service")}
-            className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none ring-0 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/40 transition"
+            className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none ring-0 focus:border-brand-blue focus:ring-2 focus:ring-ring transition"
             defaultValue=""
           >
             <option value="" disabled>
@@ -257,7 +252,7 @@ export default function ContactForm({
           {...register("message", {
             required: "Bitte eine Nachricht schreiben.",
           })}
-          className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none ring-0 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/40 transition"
+          className="w-full rounded-md border border-input bg-background px-3 py-2 outline-none ring-0 focus:border-brand-blue focus:ring-2 focus:ring-ring transition"
           placeholder="Beschreiben Sie kurz Ihr Anliegen, Objektart/Lage, gewünschte Leistung und ggf. Zeitfenster …"
         />
         {errors.message && (
@@ -272,7 +267,7 @@ export default function ContactForm({
           {...register("consent", {
             required: "Bitte Zustimmung zur Datenverarbeitung geben.",
           })}
-          className="mt-1 h-4 w-4 rounded border-input bg-background text-brand-blue focus:ring-brand-blue/50"
+          className="mt-1 h-4 w-4 rounded border-input bg-background text-brand-text focus:ring-ring"
         />
         <span className="text-muted-foreground">
           Ich akzeptiere die Verarbeitung meiner Angaben zur Beantwortung meiner
@@ -291,7 +286,7 @@ export default function ContactForm({
         <Button
           type="submit"
           disabled={status === "loading"}
-          className="bg-gradient-to-r from-brand-blue to-brand-blue/80 hover:from-brand-blue/90 hover:to-brand-blue/70 text-white"
+          className="bg-primary text-primary-foreground hover:bg-brand-solid-hover"
         >
           {status === "loading" ? "Wird gesendet…" : "Nachricht senden"}
         </Button>
@@ -306,27 +301,39 @@ export default function ContactForm({
       </div>
 
       {/* reCAPTCHA-Pflichthinweis (ersetzt das ausgeblendete Badge) */}
-      <p className="flex items-center gap-1.5 text-[11px] text-muted-foreground/70 pt-1">
-        <ShieldCheck size={12} className="shrink-0 text-muted-foreground/50" />
-        Geschützt durch reCAPTCHA –{" "}
-        <a
-          href="https://policies.google.com/privacy"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:text-muted-foreground transition-colors"
+      <div className="mt-2 flex items-center gap-3 border-t border-border/60 pt-4">
+        <span
+          aria-hidden="true"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600 ring-1 ring-emerald-500/25 dark:text-emerald-400"
         >
-          Datenschutz
-        </a>
-        {" · "}
-        <a
-          href="https://policies.google.com/terms"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:text-muted-foreground transition-colors"
-        >
-          Nutzungsbedingungen
-        </a>
-      </p>
+          <ShieldCheck size={22} strokeWidth={2} />
+        </span>
+        <div className="leading-tight">
+          <p className="text-sm font-medium text-foreground">
+            Geschützt durch reCAPTCHA
+          </p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Google{" "}
+            <a
+              href="https://policies.google.com/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 transition-colors hover:text-foreground"
+            >
+              Datenschutz
+            </a>
+            {" · "}
+            <a
+              href="https://policies.google.com/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 transition-colors hover:text-foreground"
+            >
+              Nutzungsbedingungen
+            </a>
+          </p>
+        </div>
+      </div>
     </form>
   );
 }

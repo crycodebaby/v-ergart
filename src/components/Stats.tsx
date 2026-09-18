@@ -3,12 +3,13 @@
 
 import { motion } from 'framer-motion';
 import { Smile, CheckCircle, Star, Award } from 'lucide-react';
+import { GOOGLE_RATING_DISPLAY } from '@/lib/reviews';
 
 const stats = [
   { icon: Smile, number: "300+", text: "Zufriedene Kunden" },
   { icon: CheckCircle, number: "1.5k+", text: "Abgeschlossene Projekte" },
-  { icon: Star, number: "4.9", text: "Google-Bewertung" },
-  { icon: Award, number: "7+", text: "Jahre Erfahrung" },
+  { icon: Star, number: GOOGLE_RATING_DISPLAY, text: "Google-Bewertung" },
+  { icon: Award, number: "13+", text: "Jahre Erfahrung" },
 ];
 
 // Animationsvarianten für Framer Motion
@@ -29,7 +30,7 @@ const itemVariants = {
 
 const Stats = () => {
   return (
-    <section id="stats" className="py-20 bg-slate-50 dark:bg-zinc-900/80">
+    <section id="stats" className="py-20 bg-muted">
       <div className="container max-w-6xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12">
           Unsere Erfolge in Neuss: Zufriedene Kunden & Mehr
@@ -46,7 +47,7 @@ const Stats = () => {
             return (
               <motion.div
                 key={index}
-                className="stat-item bg-background p-6 rounded-xl shadow-lg border border-border/20 flex flex-col items-center justify-center"
+                className="stat-item bg-card p-6 rounded-xl shadow-lg border border-border/20 flex flex-col items-center justify-center"
                 variants={itemVariants}
               >
                 <Icon className="text-brand-blue mb-4" size={48} />

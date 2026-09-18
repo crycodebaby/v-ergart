@@ -48,7 +48,7 @@ const ProfileCard = () => {
               Ihr zuverlässiger Hausmeister und Allround-Handwerker
             </p>
             <p className="description text-base leading-relaxed mb-5">
-              Mit über <strong>12 Jahren Erfahrung</strong> in Gebäudemanagement und Handwerk stehe ich für Qualität, Zuverlässigkeit und persönlichen Service.
+              Mit über <strong>13 Jahren Erfahrung</strong> in Gebäudemanagement und Handwerk stehe ich für Qualität, Zuverlässigkeit und persönlichen Service.
             </p>
             <div className="zertifikate">
               <h3 className="text-2xl font-semibold mb-4 text-brand-blue">Zertifikate</h3>
@@ -73,7 +73,7 @@ const ProfileCard = () => {
                     </DialogTrigger>
                   ))}
                 </div>
-                <DialogContent className="bg-background p-0 border-none max-w-3xl">
+                <DialogContent className="bg-popover p-0 border-none max-w-3xl">
                   <DialogHeader className="p-4 border-b">
                     <DialogTitle>Zertifikat Ansicht</DialogTitle>
                   </DialogHeader>

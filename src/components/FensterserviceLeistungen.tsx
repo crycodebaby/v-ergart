@@ -76,15 +76,14 @@ const itemVariants = {
 
 export default function FensterserviceLeistungen() {
     return (
-        <section className="py-20 md:py-28 bg-slate-50 dark:bg-zinc-900">
-            <div className="container mx-auto px-4">
+        <>
                 {/* Header */}
                 <div className="text-center mb-16">
                     <motion.span
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-block mb-4 px-4 py-1.5 rounded-full bg-brand-blue/10 text-brand-blue text-sm font-medium"
+                        className="inline-block mb-4 px-4 py-1.5 rounded-full bg-brand-blue/10 text-brand-text text-sm font-medium"
                     >
                         Unser Leistungsspektrum
                     </motion.span>
@@ -122,13 +121,13 @@ export default function FensterserviceLeistungen() {
                             <motion.div
                                 key={leistung.title}
                                 variants={itemVariants}
-                                className="group p-6 md:p-8 rounded-2xl bg-white dark:bg-zinc-800 border border-border hover:border-brand-blue/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-blue/5 h-full"
+                                className="group p-6 md:p-8 rounded-2xl bg-card border border-border hover:border-brand-blue/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-blue/5 h-full"
                             >
                                 {/* Icon */}
-                                <div className="w-14 h-14 mb-5 rounded-xl bg-brand-blue/10 flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-all duration-300">
+                                <div className="w-14 h-14 mb-5 rounded-xl bg-brand-blue/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
                                     <leistung.icon
                                         size={28}
-                                        className="text-brand-blue group-hover:text-white transition-colors"
+                                        className="text-brand-text group-hover:text-white transition-colors"
                                     />
                                 </div>
 
@@ -137,7 +136,7 @@ export default function FensterserviceLeistungen() {
                                     {leistung.title}
                                     {/* Optional Arrow for links */}
                                     {(leistung as any).link && (
-                                        <span className="opacity-0 group-hover:opacity-100 transition-opacity text-brand-blue text-sm">
+                                        <span className="opacity-0 group-hover:opacity-100 transition-opacity text-brand-text text-sm">
                                             ↗
                                         </span>
                                     )}
@@ -167,12 +166,11 @@ export default function FensterserviceLeistungen() {
                 >
                     <a
                         href="#kontakt-formular"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue text-white font-semibold rounded-lg hover:bg-blue-600 transition-all duration-300 hover:scale-[1.02]"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-brand-solid-hover transition-all duration-300 hover:scale-[1.02]"
                     >
                         Kostenlose Beratung anfragen
                     </a>
                 </motion.div>
-            </div>
-        </section>
+        </>
     );
 }

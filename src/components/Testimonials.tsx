@@ -30,7 +30,7 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section id="testimonials" className="py-20 bg-slate-50 dark:bg-zinc-900">
+    <section id="testimonials" className="py-20 bg-muted">
       <div className="container max-w-6xl mx-auto px-4 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
           Das sagen unsere Kunden
@@ -43,7 +43,7 @@ const Testimonials = () => {
           {testimonials.map((t, index) => (
             <motion.figure
               key={index}
-              className="bg-background p-8 rounded-xl shadow-lg border border-border/20 flex flex-col items-center text-center"
+              className="bg-card p-8 rounded-xl shadow-lg border border-border/20 flex flex-col items-center text-center"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}

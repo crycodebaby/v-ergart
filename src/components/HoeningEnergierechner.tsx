@@ -17,11 +17,9 @@ import { Button } from "@/components/ui/button";
 
 export default function HoeningEnergierechner() {
     return (
-        <section className="py-16 md:py-24 bg-gradient-to-br from-emerald-50/50 via-blue-50/30 to-background dark:from-emerald-950/20 dark:via-blue-950/10 dark:to-background relative overflow-hidden">
-            {/* Decorative Background Pattern */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
+        <div className="relative">
 
-            <div className="container mx-auto px-4 relative z-10">
+            <div className="relative z-10">
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
                     {/* Left: Content */}
@@ -32,14 +30,14 @@ export default function HoeningEnergierechner() {
                         transition={{ duration: 0.6 }}
                     >
                         {/* Badge */}
-                        <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                        <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-brand-blue/10 text-brand-text border border-brand-blue/20">
                             <Leaf size={18} />
                             <span className="text-sm font-medium">Nachhaltig & Wirtschaftlich</span>
                         </div>
 
                         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
                             Energieeinspar-Rechner von{" "}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600 dark:from-emerald-400 dark:to-blue-400">
+                            <span className="text-brand-text">
                                 HÖNING
                             </span>
                         </h2>
@@ -52,8 +50,8 @@ export default function HoeningEnergierechner() {
 
                         {/* Benefits Grid */}
                         <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                            <div className="flex items-start gap-3 p-4 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-border/50">
-                                <div className="p-2 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">
+                            <div className="flex items-start gap-3 p-4 rounded-xl bg-card border border-border">
+                                <div className="p-2 rounded-lg bg-brand-blue/10 text-brand-text">
                                     <TrendingDown size={20} />
                                 </div>
                                 <div>
@@ -62,8 +60,8 @@ export default function HoeningEnergierechner() {
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-3 p-4 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-border/50">
-                                <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+                            <div className="flex items-start gap-3 p-4 rounded-xl bg-card border border-border">
+                                <div className="p-2 rounded-lg bg-brand-blue/10 text-brand-text">
                                     <Leaf size={20} />
                                 </div>
                                 <div>
@@ -72,8 +70,8 @@ export default function HoeningEnergierechner() {
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-3 p-4 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-border/50">
-                                <div className="p-2 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">
+                            <div className="flex items-start gap-3 p-4 rounded-xl bg-card border border-border">
+                                <div className="p-2 rounded-lg bg-brand-blue/10 text-brand-text">
                                     <Euro size={20} />
                                 </div>
                                 <div>
@@ -82,8 +80,8 @@ export default function HoeningEnergierechner() {
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-3 p-4 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-border/50">
-                                <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+                            <div className="flex items-start gap-3 p-4 rounded-xl bg-card border border-border">
+                                <div className="p-2 rounded-lg bg-brand-blue/10 text-brand-text">
                                     <Zap size={20} />
                                 </div>
                                 <div>
@@ -103,7 +101,7 @@ export default function HoeningEnergierechner() {
                             >
                                 <Button
                                     size="lg"
-                                    className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto group"
+                                    className="bg-primary text-primary-foreground hover:bg-brand-solid-hover shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto group"
                                 >
                                     <Calculator className="mr-2" size={20} />
                                     Jetzt Einsparung berechnen
@@ -135,8 +133,10 @@ export default function HoeningEnergierechner() {
                                 sizes="(max-width: 768px) 100vw, 50vw"
                             />
 
-                            {/* HÖNING Logo Overlay */}
-                            <div className="absolute top-4 right-4 bg-white/95 dark:bg-slate-900/95 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                            {/* HÖNING Logo Overlay – bewusst festes Weiß statt Theme-Token:
+                                das Logo ist dunkel auf transparent und braucht in Light UND
+                                Dark Mode einen hellen Grund (wie die Partner-Plaketten). */}
+                            <div className="absolute top-4 right-4 bg-white/95 p-3 rounded-xl shadow-lg ring-1 ring-black/5 backdrop-blur-sm">
                                 <Image
                                     src="/bilder_ordner/coop/hoening.png"
                                     alt="HÖNING Logo - Offizieller Partner"
@@ -147,7 +147,7 @@ export default function HoeningEnergierechner() {
                             </div>
 
                             {/* Info Badge */}
-                            <div className="absolute bottom-4 left-4 right-4 bg-gradient-to-r from-emerald-600/95 to-blue-600/95 backdrop-blur-md text-white p-4 rounded-xl shadow-lg">
+                            <div className="absolute bottom-4 left-4 right-4 bg-primary/95 backdrop-blur-md text-white p-4 rounded-xl shadow-lg">
                                 <p className="text-sm font-medium flex items-center gap-2">
                                     <Calculator size={18} />
                                     HÖNING Qualität: 10 Jahre Garantie bei regelmäßiger Wartung
@@ -156,12 +156,10 @@ export default function HoeningEnergierechner() {
                         </div>
 
                         {/* Decorative Elements */}
-                        <div className="absolute -top-6 -right-6 w-24 h-24 bg-emerald-200/30 dark:bg-emerald-800/30 rounded-full blur-2xl"></div>
-                        <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-blue-200/30 dark:bg-blue-800/30 rounded-full blur-2xl"></div>
                     </motion.div>
 
                 </div>
             </div>
-        </section>
+        </div>
     );
 }
