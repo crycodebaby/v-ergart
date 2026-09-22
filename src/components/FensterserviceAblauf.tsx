@@ -17,14 +17,14 @@ const schritte = [
         nummer: "01",
         title: "Anfrage",
         description:
-            "Kontaktieren Sie uns per Telefon oder Formular. Schildern Sie kurz Ihr Anliegen.",
+            "Kontaktieren Sie uns per Telefon oder Formular. Schildern Sie kurz, was am Fenster nicht stimmt.",
     },
     {
         icon: ClipboardCheck,
         nummer: "02",
-        title: "Vor-Ort-Beratung",
+        title: "Vor-Ort-Termin",
         description:
-            "Wir besichtigen die Situation vor Ort und analysieren Ihren Bedarf.",
+            "Wir sehen uns das Fenster an und stellen fest, woran es tatsächlich liegt.",
     },
     {
         icon: FileText,
@@ -36,9 +36,9 @@ const schritte = [
     {
         icon: Hammer,
         nummer: "04",
-        title: "Ausführung",
+        title: "Instandsetzung",
         description:
-            "Professionelle Umsetzung zum vereinbarten Termin – sauber und termingerecht.",
+            "Reparatur oder Wartung zum vereinbarten Termin – sauber und termingerecht.",
     },
 ];
 
@@ -71,8 +71,8 @@ export default function FensterserviceAblauf() {
                         transition={{ delay: 0.2 }}
                         className="text-lg text-muted-foreground max-w-2xl mx-auto"
                     >
-                        Von der ersten Anfrage bis zur fertigen Montage – wir begleiten Sie
-                        durch jeden Schritt.
+                        Von der ersten Anfrage bis zum wieder funktionierenden Fenster –
+                        wir begleiten Sie durch jeden Schritt.
                     </motion.p>
                 </div>
 

@@ -101,7 +101,11 @@ export function generateSEOMetadata({
   };
 
   return {
-    title,
+    // `absolute`: das Root-Layout definiert `title.template` = "%s | Alexander
+    // Ergart". Alle Seiten hier tragen den Markennamen bereits selbst im Titel
+    // – ohne `absolute` haengt Next.js den Suffix ein zweites Mal an
+    // ("... | Alexander Ergart | Alexander Ergart").
+    title: { absolute: title },
     description,
     alternates: {
       canonical: canonicalUrl,

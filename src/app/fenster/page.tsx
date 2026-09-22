@@ -1,45 +1,155 @@
 // src/app/fenster/page.tsx
-import Script from "next/script";
-import { generateSEOMetadata } from "@/lib/seo-utils";
+/**
+ * /fenster – primäre VERKAUFSSEITE für neue Fenster und Fensteraustausch.
+ *
+ * Rollenverteilung seit Batch 2 (Intent-Trennung Fenster):
+ *   /fenster        Ich will neue Fenster kaufen / meine alten austauschen.
+ *   /fensterservice Mein vorhandenes Fenster klemmt, zieht, ist defekt.
+ *
+ * Vorher hatten beide URLs nahezu denselben Wortschatz (Montage, Service,
+ * Reparatur, Austausch, HÖNING) und konkurrierten damit gegeneinander.
+ *
+ * Aufbau der Seite folgt bewusst einem Verkaufsablauf:
+ *   Hero (Versprechen + CTA)
+ *     -> Bedarf: Wann lohnt sich ein Austausch?
+ *     -> Produktqualität: Design / Energie / Sicherheit
+ *     -> Warum HÖNING + konkrete Vorteile
+ *     -> Wirtschaftlichkeit: Energierechner + Garantie
+ *     -> Preisorientierung + echte Google-Bewertungen
+ *     -> Beweis: der Montageprozess in 8 Schritten
+ *     -> Fragen vor dem Kauf
+ *     -> Beratung & Angebot (Formular)
+ */
+import { generateSEOMetadata, BASE_URL, SITE_NAME } from "@/lib/seo-utils";
 import { FeatureGallery } from "@/components/FeatureGallery";
 import FensterHero from "@/components/FensterHero";
-import CTA from "@/components/CTA";
+import FensterAustauschCheck from "@/components/FensterAustauschCheck";
+import FensterBeratung from "@/components/FensterBeratung";
+import FaqAccordion from "@/components/FaqAccordion";
+import PreisUndBewertungen from "@/components/PreisUndBewertungen";
 import { ProcessStepper } from "@/components/ProcessStepper";
 import { Section } from "@/components/ui/section";
 import PartnerBrandSpotlight from "@/components/PartnerBrandSpotlight";
 import PartnerBenefitsSplit from "@/components/PartnerBenefitsSplit";
+import StickyMobileCTA from "@/components/StickyMobileCTA";
 import { fensterFeatures } from "@/lib/fenster-data";
 import HoeningEnergierechner from "@/components/HoeningEnergierechner";
 import HoeningGarantieCard from "@/components/HoeningGarantieCard";
+import { FENSTER_KAUF_FAQS, buildFaqJsonLd } from "@/lib/fenster-faq-data";
+import { GOOGLE_AGGREGATE_RATING } from "@/lib/reviews";
 
 export const metadata = generateSEOMetadata({
-  title: "Fensterservice & Fenstermontage in Neuss | Alexander Ergart",
+  title: "Neue Fenster in Neuss kaufen & austauschen | Alexander Ergart",
   description:
-    "Professioneller Fensterservice in Neuss: Montage, Wartung und Pflege hochwertiger Fenster für Wohn- und Gewerbeobjekte. Partner von HÖNING – Qualität made in Germany.",
+    "Neue Fenster für Neuss & Umgebung: HÖNING Fensterelemente, Fensteraustausch und fachgerechte Montage vom Handwerksbetrieb aus Neuss. Beratung und Aufmaß kostenlos. ☎ 0176 668 25 889",
   path: "/fenster",
   image: {
     url: "/bilder_ordner/hoening/fenster/hoening-zentrale-besuch/fenster-ausstellung7.webp",
-    alt: "Hochwertige Fenster von HÖNING in Neuss",
+    alt: "Neue HÖNING Fensterelemente – Fensterbau Alexander Ergart in Neuss",
   },
 });
 
 /**
- * HowTo Schema.org JSON-LD
- * Beschreibt den 8-Schritte-Montageprozess für Google Rich Snippets.
- * Kann als nummerierte Liste direkt in den Google-Suchergebnissen erscheinen.
+ * Service-JSON-LD für den Verkaufs-Intent.
+ *
+ * Eigene @id (#fenster-verkauf), damit sich das Schema nicht mit dem
+ * LocalBusiness-Knoten der Startseite oder dem Reparatur-Knoten auf
+ * /fensterservice überschreibt. Die angebotenen Leistungen spiegeln exakt
+ * das, was auf dieser Seite sichtbar beworben wird – Verkauf, Aufmaß,
+ * Montage. Reparatur/Wartung stehen hier bewusst NICHT mehr drin.
+ */
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": `${BASE_URL}/fenster#fenster-verkauf`,
+  name: "Neue Fenster & Fensteraustausch",
+  serviceType: "Fensterbau, Fensteraustausch und Fenstermontage",
+  description:
+    "Verkauf, Aufmaß und fachgerechte Montage neuer HÖNING Fensterelemente in Neuss und Umgebung – für Neubau, Sanierung und den Austausch alter Fenster.",
+  url: `${BASE_URL}/fenster`,
+  provider: {
+    "@type": "HomeAndConstructionBusiness",
+    "@id": `${BASE_URL}/#organization`,
+    name: SITE_NAME,
+    telephone: "+49 176 668 25 889",
+    email: "info@ergart.de",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Neuss",
+      addressRegion: "Nordrhein-Westfalen",
+      addressCountry: "DE",
+    },
+    aggregateRating: GOOGLE_AGGREGATE_RATING,
+  },
+  areaServed: [
+    { "@type": "City", name: "Neuss" },
+    { "@type": "City", name: "Düsseldorf" },
+    { "@type": "City", name: "Kaarst" },
+    { "@type": "City", name: "Dormagen" },
+    { "@type": "City", name: "Meerbusch" },
+    { "@type": "City", name: "Korschenbroich" },
+    { "@type": "City", name: "Grevenbroich" },
+  ],
+  brand: { "@type": "Brand", name: "HÖNING" },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Fenster kaufen & austauschen",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Neue Fensterelemente",
+          description:
+            "Maßgefertigte HÖNING Fenster für Neubau und Sanierung – Beratung zu Verglasung, Sicherheit und Optik.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Fensteraustausch",
+          description:
+            "Austausch alter Fenster gegen moderne, energieeffiziente Elemente inklusive Ausbau der Altelemente.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Aufmaß & Beratung",
+          description:
+            "Kostenloses Aufmaß vor Ort und unverbindliches Angebot für neue Fenster.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Fenstermontage",
+          description:
+            "Fachgerechter Einbau neuer Fensterelemente mit präziser Ausrichtung und Abdichtung.",
+        },
+      },
+    ],
+  },
+};
+
+/**
+ * HowTo zum sichtbaren 8-Schritte-Montageprozess (ProcessStepper).
+ *
+ * `estimatedCost` wurde in Batch 2 entfernt: Der Wert (400 €) war im
+ * Repository durch nichts belegt und hätte als Rich Snippet einen Festpreis
+ * für die Montage suggeriert. Die Preisorientierung steht sichtbar und mit
+ * Vorbehalt weiter oben auf der Seite.
  */
 const howToJsonLd = {
   "@context": "https://schema.org",
   "@type": "HowTo",
   name: "Fenstermontage – Transparenz von Anfang bis Ende",
   description:
-    "Unser bewährter 8-Schritte-Montageprozess für professionellen Fenstereinbau in Neuss und Umgebung – meisterhaft ausgeführt von Alexander Ergart.",
+    "Unser bewährter 8-Schritte-Montageprozess für professionellen Fenstereinbau in Neuss und Umgebung – fachgerecht ausgeführt von Alexander Ergart.",
   totalTime: "PT4H",
-  estimatedCost: {
-    "@type": "MonetaryAmount",
-    currency: "EUR",
-    value: "400",
-  },
   tool: [
     { "@type": "HowToTool", name: "Saugkraft-Hebelift" },
     { "@type": "HowToTool", name: "Montagekran" },
@@ -105,71 +215,133 @@ const howToJsonLd = {
   ],
 };
 
+/** FAQ-Schema aus genau der Liste, die unten auch sichtbar gerendert wird. */
+const faqJsonLd = buildFaqJsonLd(FENSTER_KAUF_FAQS);
+
 export default function FensterPage() {
   return (
     <>
-      {/* HowTo Structured Data – Google Rich Snippets */}
-      <Script
+      {/* Structured Data bewusst als normales <script>, NICHT via
+          next/script. Befund Batch 2 am gerendertem Output: <Script>
+          rendert mit der Default-Strategie "afterInteractive"
+          clientseitig – im ausgelieferten HTML stand kein einziges
+          <script type="application/ld+json">, die Daten lagen nur in
+          der RSC-Payload. Ein einfaches <script>-Element wird
+          server-seitig mitgerendert. */}
+      <script
+        id="fenster-service-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+    />
+      <script
         id="fenster-howto-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
-      />
+    />
+      <script
+        id="fenster-faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+    />
 
       <FensterHero />
 
-      {/* Die 3 Feature-Galerien bleiben erhalten, sie liefern wertvolle Details.
-          Der Flaechenwechsel trennt die drei Themen voneinander. */}
+      {/* Bedarf: Der Besucher kommt mit einem Symptom, nicht mit einer
+          Bestellabsicht. Erst einordnen, dann verkaufen. */}
+      <Section surface="base">
+        <FensterAustauschCheck />
+      </Section>
+
+      {/* Produktqualität – drei Themen, drei Flächen, echte Projektfotos. */}
       {fensterFeatures.map((feature, i) => (
-        <Section key={feature.title} surface={i % 2 === 0 ? "base" : "muted"}>
+        <Section key={feature.title} surface={i % 2 === 0 ? "muted" : "base"}>
           <FeatureGallery {...feature} />
         </Section>
       ))}
 
-      {/* Der Spotlight stellt die Partnerschaft als zentrales Qualitätsmerkmal vor. */}
+      {/* Warum HÖNING */}
       <Section surface="muted">
         <PartnerBrandSpotlight
-        title="Qualität bis ins Detail: Unsere Partnerschaft mit HÖNING"
-        subtitle="Deutsche Ingenieurskunst für Ihr Zuhause"
-        description="Wir überlassen nichts dem Zufall. Deshalb setzen wir bei Fenstern auf die kompromisslose Qualität von HÖNING. Jedes Element wird nach höchsten Standards gefertigt und von uns meisterhaft montiert."
-        ctaText="Beratungstermin vereinbaren"
-        ctaHref="/kontakt"
-        imageSrc="/bilder_ordner/hoening/fenster/hoening-zentrale-besuch/fenster-ausstellung7.webp"
+          title="Warum wir auf HÖNING Fenster setzen"
+          subtitle="Deutsche Fertigung, maßgefertigt für Ihre Öffnungen"
+          description="Wir überlassen nichts dem Zufall. Deshalb setzen wir bei Fenstern auf die kompromisslose Qualität von HÖNING. Jedes Element wird nach höchsten Standards gefertigt und von uns fachgerecht montiert."
+          ctaText="Kostenlose Fenster-Beratung anfragen"
+          ctaHref="#fenster-beratung"
+          imageSrc="/bilder_ordner/hoening/fenster/hoening-zentrale-besuch/fenster-ausstellung7.webp"
         />
       </Section>
 
-      {/* HÖNING-Block: Rechner und Garantie gehoeren inhaltlich zusammen
-          und teilen sich deshalb eine Flaeche (wie auf /fensterservice). */}
+      {/* Die konkreten Kaufargumente */}
       <Section surface="base">
+        <PartnerBenefitsSplit
+          title="Was Sie mit neuen Fenstern gewinnen"
+          subtitle="Energie, Sicherheit, Ruhe und Optik – in einem Zug"
+          features={[
+            "Maximale Energieeffizienz senkt Ihre Heizkosten nachhaltig.",
+            "Zertifizierter Einbruchschutz für ein sicheres Gefühl.",
+            "Überlegener Schallschutz für mehr Ruhe und Entspannung.",
+            "Langlebige Materialien und präzise Verarbeitung für jahrzehntelange Freude.",
+            "Enorme Designvielfalt, die perfekt zu Ihrer Architektur passt.",
+          ]}
+          ctaText="Angebot für neue Fenster anfragen"
+          ctaHref="#fenster-beratung"
+          imageSrc="/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterelement-kran.webp"
+        />
+      </Section>
+
+      {/* Wirtschaftlichkeit: Rechner und Garantie gehoeren inhaltlich
+          zusammen und teilen sich deshalb eine Flaeche. */}
+      <Section surface="muted">
         <HoeningEnergierechner />
         <div className="mt-16 md:mt-20">
           <HoeningGarantieCard />
         </div>
       </Section>
 
-      {/* Montageprozess – 8 Schritte */}
+      {/* Preisorientierung + Bewertungen: die Preisfrage ist auf einer
+          Kaufseite die erste echte Hürde. Sie steht deshalb VOR dem
+          Formular, nicht danach. */}
+      <Section surface="base">
+        <PreisUndBewertungen
+          title="Was kosten neue Fenster?"
+          description="Ein transparenter Richtwert für das Fensterelement – und Kunden aus Neuss und Umgebung, die uns auf Google bewerten."
+          price={{
+            label: "Fensterelement (Richtwert, ohne Montage)",
+            value: "ca. 400–600 €",
+            note: "Gilt für ein durchschnittliches PVC-Fensterelement in Standardgröße – reiner Elementpreis, ohne Einbau.",
+            hint: "Montage, Ausbau der alten Fenster, Anschlussarbeiten und Zusatzleistungen sind nicht enthalten und werden nach dem Aufmaß individuell kalkuliert. Beratung und Aufmaß sind kostenlos. Lieferzeit für Fensterelemente aktuell bis zu 9 Wochen.",
+          }}
+          ctaHref="#fenster-beratung"
+          ctaLabel="Unverbindliches Angebot anfragen"
+        />
+      </Section>
+
+      {/* Beweis: so läuft die Montage tatsächlich ab – echte Baustellenfotos */}
       <Section surface="muted" aria-label="Unser Montageprozess – 8 Schritte">
         <ProcessStepper />
       </Section>
 
-      {/* Der Benefits-Split liefert die konkreten Argumente, warum HÖNING die richtige Wahl ist. */}
-      <Section surface="base">
-        <PartnerBenefitsSplit
-          title="Ihre Vorteile auf einen Blick"
-        subtitle="Warum sich die Investition in HÖNING Fenster lohnt"
-        features={[
-          "Maximale Energieeffizienz senkt Ihre Heizkosten nachhaltig.",
-          "Zertifizierter Einbruchschutz für ein sicheres Gefühl.",
-          "Überlegener Schallschutz für mehr Ruhe und Entspannung.",
-          "Langlebige Materialien und präzise Verarbeitung für jahrzehntelange Freude.",
-          "Enorme Designvielfalt, die perfekt zu Ihrer Architektur passt.",
-        ]}
-        ctaText="Mehr technische Details"
-        ctaHref="https://www.hoening.de/produkte/kunststofffenster/systemuebersicht-pvc-fenster/"
-          imageSrc="/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterelement-kran.webp"
+      {/* Fragen, die vor einem Kauf tatsächlich gestellt werden */}
+      <Section surface="base" width="prose">
+        <FaqAccordion
+          items={FENSTER_KAUF_FAQS}
+          eyebrow="Vor dem Kauf"
+          title="Häufige Fragen zu neuen Fenstern"
+          description="Kosten, Ablauf, Dauer und die Frage Austausch oder Reparatur."
         />
       </Section>
 
-      <CTA />
+      {/* Conversion-Abschluss */}
+      <Section
+        id="fenster-beratung"
+        surface="muted"
+        spacing="spacious"
+        className="relative overflow-hidden"
+      >
+        <FensterBeratung />
+      </Section>
+
+      <StickyMobileCTA />
     </>
   );
 }

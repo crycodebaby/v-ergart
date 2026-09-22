@@ -44,7 +44,7 @@ export default function FensterserviceBildergalerie() {
                         transition={{ delay: 0.1 }}
                         className="text-3xl md:text-4xl font-bold text-foreground"
                     >
-                        Qualität, die man sieht
+                        Saubere Arbeit am Fenster
                     </motion.h2>
                 </div>
 

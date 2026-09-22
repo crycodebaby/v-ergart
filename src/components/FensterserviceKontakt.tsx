@@ -7,7 +7,13 @@ import ContactForm from "@/components/ContactForm";
 import WhatsAppButton from "@/components/contact/WhatsAppButton";
 
 /**
- * Kontakt-Sektion für die Fensterservice Landing Page
+ * Kontakt-Sektion der SERVICE-Seite /fensterservice.
+ *
+ * Batch 2: Ueberschrift lautete "Bereit für neue Fenster?" – das war der
+ * Verkaufs-Intent auf der Reparaturseite und damit genau die Vermischung,
+ * die dieser Batch aufloest. Auch die Auswahlliste im Formular fragt jetzt
+ * nach dem Defekt, nicht nach dem Wunschprodukt.
+ *
  * 
  * Enthält direktes Kontaktformular (statt Link zu /kontakt)
  * für maximale Conversion-Rate.
@@ -28,15 +34,16 @@ export default function FensterserviceKontakt() {
                     >
                         <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-brand-blue/10 text-brand-text border border-brand-blue/20">
                             <MessageCircle size={18} />
-                            <span className="text-sm font-medium">Kostenlose Beratung</span>
+                            <span className="text-sm font-medium">Reparatur &amp; Wartung anfragen</span>
                         </div>
 
                         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                            Bereit für neue Fenster?
+                            Fenster klemmt, zieht oder schließt nicht?
                         </h2>
 
                         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-                            Unverbindlich anfragen – wir melden uns zeitnah.
+                            Schildern Sie kurz, was nicht stimmt – wir melden uns zeitnah
+                            mit einem Termin.
                         </p>
                     </motion.div>
 
@@ -50,9 +57,11 @@ export default function FensterserviceKontakt() {
                     >
                         <ContactForm
                             customServices={[
-                                "Fensterelemente",
-                                "Fensterreparatur & Wartung",
-                                "Haustür / Nebeneingangstür"
+                                "Fensterreparatur",
+                                "Fenster einstellen / Wartung",
+                                "Dichtungen erneuern",
+                                "Beschlag defekt",
+                                "Türservice",
                             ]}
                             source="Fensterservice Landingpage"
                         />

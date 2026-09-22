@@ -25,14 +25,14 @@ export function ServicePromoCard() {
 
                 <Button asChild className="w-full shadow-md hover:shadow-lg transition-all" size="sm">
                     <Link href="/fenster">
-                        Zu den Fenstern
+                        Neue Fenster &amp; Fensteraustausch
                         <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </Button>
 
                 <div className="mt-3 text-center">
                     <Link href="/fensterservice" className="text-xs text-muted-foreground hover:text-brand-blue underline underline-offset-2">
-                        Oder direkt zum Fensterservice
+                        Oder: vorhandene Fenster reparieren lassen
                     </Link>
                 </div>
             </div>

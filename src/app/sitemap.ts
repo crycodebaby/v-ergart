@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-import { LOCATIONS } from "@/lib/locations";
-import { fetchPostSlugs } from "@/lib/blog-queries";
+import { fetchPostSitemapEntries } from "@/lib/blog-queries";
 import { LEISTUNGEN_DETAILS } from "@/lib/leistungen-data";
 
 /**
@@ -12,7 +11,31 @@ const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
   "https://alexander-ergart.de";
 
-/** Statisch bekannte Routen aus deiner Struktur */
+/**
+ * Grundregeln dieser Sitemap
+ *
+ * Aufgenommen wird eine URL nur, wenn sie
+ * - HTTP 200 liefert,
+ * - indexierbar ist (kein noindex),
+ * - ihre eigene kanonische URL ist (kein Redirect, kein fremdes Canonical),
+ * - keine reine Utility-Seite ist (z. B. /danke),
+ * - tatsaechlich als Google-Suchergebnis gewuenscht ist.
+ *
+ * Bewusst NICHT enthalten:
+ * - /danke              -> Utility-Seite nach Formularabsendung
+ * - /einsatzgebiet/*    -> aktuell "noindex, follow" (siehe
+ *                          src/app/einsatzgebiet/[slug]/page.tsx).
+ *                          Widerspruechliche Signale (Sitemap sagt "wichtig",
+ *                          Seite sagt "nicht indexieren") werden vermieden.
+ *
+ * Kein `priority`, kein `changeFrequency`: Google wertet beides nicht aus.
+ * Eine Pseudo-Priorisierung wuerde hier nur Pflegeaufwand erzeugen.
+ *
+ * `lastModified` wird ausschliesslich gesetzt, wenn ein echtes Aenderungsdatum
+ * bekannt ist (Sanity `_updatedAt`). Fuer statische Seiten gibt es kein
+ * belastbares Datum -> Feld wird weggelassen statt erfunden. Insbesondere darf
+ * ein Deployment nicht jede URL als "gerade geaendert" melden.
+ */
 const STATIC_ROUTES = [
   "/", // Home
   "/fenster",
@@ -20,112 +43,39 @@ const STATIC_ROUTES = [
   "/fenster-tueren",
   "/tueren",
   "/referenzen",
-  "/leistungen", // Übersichtsseite
+  "/leistungen", // Uebersichtsseite
+  "/blog", // Blog-Uebersicht
   "/karriere",
   "/kontakt",
   "/ueber-uns",
-  // "/danke" ENTFERNT - ist Utility-Seite, kein SEO-Ziel
   "/impressum",
   "/datenschutz",
 ] as const;
 
-/** 
- * Priorisierung nach Business-Relevanz
- * 
- * Fokus: Fensterservice Neuss, Fenster/Türen von HÖNING, Hausmeisterservice
- * 
- * HÖCHSTE PRIORITÄT (1.0):
- * - Homepage
- * 
- * SEHR HOCH (0.9):
- * - Fensterservice Landing Page (Google Ads)
- * - Hauptproduktseiten (Fenster, Türen, Fenster & Türen)
- * 
- * HOCH (0.8):
- * - Service-Übersichten (Leistungen, Kontakt)
- * - Vertrauensbildende Seiten (Referenzen)
- * 
- * MITTEL (0.6-0.7):
- * - Service-Details, Blog-Artikel, Karriere
- * 
- * NIEDRIG (0.3-0.5):
- * - Standort-Seiten (außer Neuss), Rechtliches
- */
-function priorityFor(path: string): number {
-  // Homepage - höchste Priorität
-  if (path === "/") return 1.0;
-
-  // Fensterservice & Hauptprodukte - sehr hoch (Business-Fokus)
-  if (["/fensterservice", "/fenster", "/fenster-tueren", "/tueren"].includes(path))
-    return 0.9;
-
-  // Service-Übersichten & Vertrauensbildung - hoch
-  if (["/leistungen", "/kontakt", "/referenzen"].includes(path))
-    return 0.8;
-
-  // Blog & Service-Details - mittel-hoch
-  if (path.startsWith("/blog/")) return 0.7;
-  if (path.startsWith("/leistungen/")) return 0.7;
-
-  // Karriere & Über Uns - mittel
-  if (["/ueber-uns", "/karriere"].includes(path)) return 0.6;
-  if (path.startsWith("/karriere/")) return 0.6;
-
-  // Haupt-Standort Neuss - mittel
-  if (path === "/einsatzgebiet/neuss") return 0.5;
-
-  // Andere Standorte - niedrig
-  if (path.startsWith("/einsatzgebiet/")) return 0.3;
-
-  // Rechtliches - sehr niedrig
-  if (["/impressum", "/datenschutz"].includes(path)) return 0.3;
-
-  return 0.5; // Default
-}
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date();
+  // Statische Seiten - ohne lastModified (kein verlaessliches Aenderungsdatum)
+  const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((path) => ({
+    url: `${BASE_URL}${path}`,
+  }));
 
   // Dynamische /leistungen/[slug]
-  // Quelle: src/lib/leistungen-data.ts (Single Source of Truth)
-  const dynamicLeistungen = LEISTUNGEN_DETAILS.map<MetadataRoute.Sitemap[number]>(
+  // Quelle: src/lib/leistungen-data.ts (Single Source of Truth, im Repo
+  // gepflegt -> ebenfalls kein verlaessliches Aenderungsdatum zur Laufzeit)
+  const leistungenEntries: MetadataRoute.Sitemap = LEISTUNGEN_DETAILS.map(
     (service) => ({
       url: `${BASE_URL}/leistungen/${service.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: priorityFor(`/leistungen/${service.slug}`),
     })
   );
 
-  // Dynamische /einsatzgebiet/[slug]
-  const locationEntries = LOCATIONS.map<MetadataRoute.Sitemap[number]>((loc) => ({
-    url: `${BASE_URL}/einsatzgebiet/${loc.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: 0.8,
-  }));
+  // Dynamische /blog/[slug] - hier gibt es mit _updatedAt ein echtes Datum
+  const posts = await fetchPostSitemapEntries();
+  const blogEntries: MetadataRoute.Sitemap = posts.map((post) => {
+    const updatedAt = post._updatedAt ?? post.publishedAt;
+    return {
+      url: `${BASE_URL}/blog/${post.slug}`,
+      ...(updatedAt ? { lastModified: new Date(updatedAt) } : {}),
+    };
+  });
 
-  // Statische Seiten
-  const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((path) => ({
-    url: `${BASE_URL}${path}`,
-    lastModified: now,
-    changeFrequency: path === "/" ? "weekly" : "monthly",
-    priority: priorityFor(path),
-  }));
-
-  // Dynamische /blog/[slug]
-  const blogSlugs = await fetchPostSlugs();
-  const blogEntries = blogSlugs.map<MetadataRoute.Sitemap[number]>((item) => ({
-    url: `${BASE_URL}/blog/${item.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.7,
-  }));
-
-  return [
-    ...staticEntries,
-    ...dynamicLeistungen,
-    ...locationEntries,
-    ...blogEntries,
-  ];
+  return [...staticEntries, ...leistungenEntries, ...blogEntries];
 }

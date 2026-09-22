@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { cva } from "class-variance-authority";
-import { Menu, X, Mail, Phone, Building, DoorOpen } from "lucide-react";
+import { Menu, X, Mail, Phone, Building, DoorOpen, Wrench } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggleButton } from "./ThemeToggleButton";
 import { SITE_LINKS } from "@/lib/site-links";
@@ -31,9 +31,11 @@ const navLinks = [
 
 const dropdownLinks = [
   {
+    // Batch 2: Die Beschreibung war intent-neutral ("Fensterlösungen") und
+    // damit von /fensterservice nicht zu unterscheiden. Jetzt eindeutig Kauf.
     href: "/fenster",
-    label: "Fenster",
-    description: "Moderne und energieeffiziente Fensterlösungen.",
+    label: "Neue Fenster",
+    description: "Neue Fenster kaufen, alte austauschen – inkl. Aufmaß und Montage.",
     icon: Building,
   },
   {
@@ -41,6 +43,12 @@ const dropdownLinks = [
     label: "Türen",
     description: "Sichere und stilvolle Eingangs- und Innentüren.",
     icon: DoorOpen,
+  },
+  {
+    href: "/fensterservice",
+    label: "Fensterservice",
+    description: "Vorhandene Fenster reparieren, einstellen und warten.",
+    icon: Wrench,
   },
 ];
 

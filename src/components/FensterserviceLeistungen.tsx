@@ -2,60 +2,70 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
     Wrench,
-    RefreshCw,
     Settings,
     Shield,
     Thermometer,
-    Ruler,
+    ClipboardCheck,
+    PanelTop,
+    ArrowRight,
 } from "lucide-react";
 
 /**
- * Leistungsübersicht für die Fensterservice Landing Page
- * 
- * Zeigt die Kernleistungen im Bereich Fensterservice/Fensterbau
- * mit Icons und kurzen Beschreibungen.
+ * Leistungsuebersicht der SERVICE-Seite /fensterservice.
+ *
+ * Batch 2: Die Liste stand vorher mit "Fenstermontage & Einbau" und
+ * "Fensteraustausch" an Position 1 und 2 – also mit zwei Verkaufsleistungen
+ * an der Spitze einer Reparaturseite. Genau das hat /fensterservice und
+ * /fenster gegeneinander laufen lassen.
+ *
+ * Jetzt beschreiben alle sechs Karten Arbeiten am BESTEHENDEN Fenster. Der
+ * Austausch ist nicht verschwunden, sondern steht als bewusster Abzweig
+ * unter dem Raster – dort, wo er im Kundengespraech auch faellt: wenn sich
+ * eine Reparatur nicht mehr rechnet.
+ *
+ * Inhaltliche Grenze: Es werden keine neuen Leistungen erfunden. Alle
+ * Punkte waren bereits vorher als Leistung der Firma dokumentiert.
  */
 
 const leistungen = [
     {
-        icon: Ruler,
-        title: "Fenstermontage & Einbau",
-        description:
-            "Professioneller Einbau neuer Fenster mit präziser Ausrichtung und fachgerechter Abdichtung.",
-        link: "/fenster", // Internal Link
-    },
-    {
-        icon: RefreshCw,
-        title: "Fensteraustausch",
-        description:
-            "Austausch alter Fenster gegen moderne, energieeffiziente Modelle für bessere Wärmedämmung.",
-    },
-    {
-        icon: Wrench,
-        title: "Reparatur & Instandhaltung",
-        description:
-            "Schnelle Reparatur bei Beschädigungen, klemmenden Rahmen oder defekten Beschlägen.",
-    },
-    {
         icon: Settings,
-        title: "Fenstereinstellen & Wartung",
+        title: "Fenster einstellen & justieren",
         description:
-            "Regelmäßige Wartung und präzises Einstellen für dauerhaft leichtgängige Bedienung.",
+            "Abgesackte Flügel, schwergängige Griffe, falscher Anpressdruck: Wir stellen den Beschlag präzise neu ein.",
     },
     {
         icon: Thermometer,
-        title: "Dichtungen & Isolierung",
+        title: "Dichtungen erneuern",
         description:
-            "Erneuerung von Dichtungen zur Vermeidung von Zugluft und Energieverlusten.",
+            "Poröse oder zusammengedrückte Dichtungen lassen Zugluft und Wärme durch. Wir tauschen sie fachgerecht aus.",
+    },
+    {
+        icon: Wrench,
+        title: "Beschläge reparieren & ersetzen",
+        description:
+            "Defekte Griffe, Scheren und Verriegelungen ersetzen wir – meist deutlich günstiger als ein neues Element.",
+    },
+    {
+        icon: PanelTop,
+        title: "Klemmende Fenster gangbar machen",
+        description:
+            "Wenn sich der Flügel nicht mehr sauber schließen lässt, finden wir die Ursache und bringen ihn wieder in Position.",
+    },
+    {
+        icon: ClipboardCheck,
+        title: "Wartung & Funktionscheck",
+        description:
+            "Jährlicher Check: Beschläge prüfen und fetten, Dichtungen kontrollieren, Flügel nachjustieren.",
     },
     {
         icon: Shield,
-        title: "Sicherheit & Einbruchschutz",
+        title: "Sicherheit nachrüsten",
         description:
-            "Nachrüstung von Sicherheitsbeschlägen und einbruchhemmenden Elementen.",
-        link: "/tueren", // Internal Link to Doors/Security
+            "Nachrüstung von Sicherheitsbeschlägen und einbruchhemmenden Bauteilen an vorhandenen Fenstern.",
     },
 ];
 
@@ -85,7 +95,7 @@ export default function FensterserviceLeistungen() {
                         viewport={{ once: true }}
                         className="inline-block mb-4 px-4 py-1.5 rounded-full bg-brand-blue/10 text-brand-text text-sm font-medium"
                     >
-                        Unser Leistungsspektrum
+                        Reparatur · Wartung · Einstellung
                     </motion.span>
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
@@ -94,7 +104,7 @@ export default function FensterserviceLeistungen() {
                         transition={{ delay: 0.1 }}
                         className="text-3xl md:text-4xl font-bold text-foreground mb-4"
                     >
-                        Fensterservice aus einer Hand
+                        Was wir an Ihrem Fenster machen
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -103,8 +113,8 @@ export default function FensterserviceLeistungen() {
                         transition={{ delay: 0.2 }}
                         className="text-lg text-muted-foreground max-w-2xl mx-auto"
                     >
-                        Von der Montage bis zur Wartung – wir kümmern uns um alle Aspekte
-                        rund um Ihre Fenster in Neuss und Umgebung.
+                        Instandsetzung und Wartung bestehender Fenster in Neuss und
+                        Umgebung – schnell, sauber und ohne dass gleich alles raus muss.
                     </motion.p>
                 </div>
 
@@ -116,48 +126,63 @@ export default function FensterserviceLeistungen() {
                     viewport={{ once: true, amount: 0.2 }}
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 >
-                    {leistungen.map((leistung) => {
-                        const CardContent = (
-                            <motion.div
-                                key={leistung.title}
-                                variants={itemVariants}
-                                className="group p-6 md:p-8 rounded-2xl bg-card border border-border hover:border-brand-blue/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-blue/5 h-full"
-                            >
-                                {/* Icon */}
-                                <div className="w-14 h-14 mb-5 rounded-xl bg-brand-blue/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                                    <leistung.icon
-                                        size={28}
-                                        className="text-brand-text group-hover:text-white transition-colors"
-                                    />
-                                </div>
+                    {leistungen.map((leistung) => (
+                        <motion.div
+                            key={leistung.title}
+                            variants={itemVariants}
+                            className="group p-6 md:p-8 rounded-2xl bg-card border border-border hover:border-brand-blue/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-blue/5 h-full"
+                        >
+                            {/* Icon */}
+                            <div className="w-14 h-14 mb-5 rounded-xl bg-brand-blue/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                                <leistung.icon
+                                    size={28}
+                                    className="text-brand-text group-hover:text-white transition-colors"
+                                    aria-hidden="true"
+                                />
+                            </div>
 
-                                {/* Text */}
-                                <h3 className="text-xl font-bold text-foreground mb-3 flex items-center gap-2">
-                                    {leistung.title}
-                                    {/* Optional Arrow for links */}
-                                    {(leistung as any).link && (
-                                        <span className="opacity-0 group-hover:opacity-100 transition-opacity text-brand-text text-sm">
-                                            ↗
-                                        </span>
-                                    )}
-                                </h3>
-                                <p className="text-muted-foreground leading-relaxed">
-                                    {leistung.description}
-                                </p>
-                            </motion.div>
-                        );
-
-                        return (leistung as any).link ? (
-                            <a href={(leistung as any).link} key={leistung.title} className="block h-full">
-                                {CardContent}
-                            </a>
-                        ) : (
-                            CardContent
-                        );
-                    })}
+                            {/* Text */}
+                            <h3 className="text-xl font-bold text-foreground mb-3">
+                                {leistung.title}
+                            </h3>
+                            <p className="text-muted-foreground leading-relaxed">
+                                {leistung.description}
+                            </p>
+                        </motion.div>
+                    ))}
                 </motion.div>
 
-                {/* CTA */}
+                {/* Abzweig zum Verkaufs-Intent: Wenn sich Reparieren nicht mehr
+                    rechnet, gehoert der Besucher auf /fenster – nicht in ein
+                    zweites Angebot auf dieser Seite. */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mt-12 rounded-2xl border border-brand-blue/30 bg-brand-blue/5 p-6 md:p-8"
+                >
+                    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                        <div>
+                            <h3 className="text-xl font-bold text-foreground mb-2">
+                                Wenn sich die Reparatur nicht mehr lohnt
+                            </h3>
+                            <p className="text-muted-foreground leading-relaxed max-w-2xl">
+                                Ist der Rahmen selbst am Ende, beschlägt die Scheibe von
+                                innen oder steckt noch Einfachverglasung im Haus, beraten
+                                wir Sie zum Austausch – mit Aufmaß und Angebot.
+                            </p>
+                        </div>
+                        <Link
+                            href="/fenster"
+                            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition-all duration-300 hover:scale-[1.02] hover:bg-brand-solid-hover"
+                        >
+                            Neue Fenster &amp; Fensteraustausch
+                            <ArrowRight size={18} aria-hidden="true" />
+                        </Link>
+                    </div>
+                </motion.div>
+
+                {/* CTA in den Reparatur-Intent */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -168,7 +193,7 @@ export default function FensterserviceLeistungen() {
                         href="#kontakt-formular"
                         className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-brand-solid-hover transition-all duration-300 hover:scale-[1.02]"
                     >
-                        Kostenlose Beratung anfragen
+                        Reparatur-Termin anfragen
                     </a>
                 </motion.div>
         </>

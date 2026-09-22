@@ -70,8 +70,8 @@ export const ShowroomDashboard = () => {
         <ShowroomPanel
           href="/fenster"
           image="/bilder_ordner/hoening/fenster/fenster1.webp"
-          title="Fenster"
-          subtitle="Mehr Licht, Wärme und Sicherheit."
+          title="Neue Fenster"
+          subtitle="Fensteraustausch, Aufmaß und Montage."
         />
         <ShowroomPanel
           href="/tueren"

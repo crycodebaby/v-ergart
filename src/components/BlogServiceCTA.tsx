@@ -15,6 +15,13 @@ const categoryToService: Record<string, { title: string; href: string; descripti
     href: "/fensterservice",
     description: "Professionelle Reinigung für streifenfreien Durchblick",
   },
+  // Batch 2: eigener Einstieg fuer Fenster-Artikel. Vorher landeten
+  // Fenster-Ratgeber ueber "reparatur" beim Hausmeisterservice.
+  "fenster": {
+    title: "Neue Fenster & Fensteraustausch",
+    href: "/fenster",
+    description: "HÖNING Fensterelemente – Beratung, Aufmaß und Montage aus einer Hand",
+  },
   "winterdienst": {
     title: "Winterdienst",
     href: "/leistungen/hausmeister",

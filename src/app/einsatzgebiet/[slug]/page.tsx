@@ -16,10 +16,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const location = LOCATIONS.find((l) => l.slug === params.slug);
   if (!location) return { title: "Einsatzgebiet nicht gefunden" };
 
-  // Nur Haupt-Standorte indexieren (Neuss ist Hauptstandort)
-  // TODO [SEO Review]: Review whether sub-locations like neuss-hoisten 
-  // should remain noindex or be opened up for indexation strategically.
-  const shouldIndex = ['neuss'].includes(location.slug);
+  // Stadtteilseiten sind derzeit BEWUSST "noindex, follow".
+  //
+  // Hintergrund: Die Seiten sind aktuell nahezu identische Templates mit
+  // ausgetauschtem Ortsnamen. Sie sind fuer Nutzer erreichbar und werden
+  // verlinkt (Footer), aber Google nicht als Indexierungsziel angeboten.
+  // Entsprechend tauchen sie auch NICHT in der XML-Sitemap auf
+  // (siehe src/app/sitemap.ts) - sonst entstuenden widerspruechliche Signale.
+  //
+  // Frueher stand hier `['neuss'].includes(location.slug)`. Der Slug "neuss"
+  // existiert in src/lib/locations.ts gar nicht, die Bedingung war also
+  // konstant false und nur scheinbar eine Whitelist.
+  //
+  // TODO [SEO]: Erst freigeben, wenn die Seiten echten, standortspezifischen
+  // Inhalt haben. Dann hier auf eine echte Slug-Whitelist umstellen UND die
+  // freigegebenen Slugs in der Sitemap ergaenzen.
+  const shouldIndex = false;
 
   return {
     title: `Hausmeister ${location.name} | Alexander Ergart`,

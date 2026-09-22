@@ -28,7 +28,7 @@ export default function ReferenzenPage() {
         title="Qualität, die man sieht: Unsere Partnerschaft mit HÖNING"
         subtitle="Exzellente Ergebnisse beginnen mit erstklassigen Materialien."
         description="Jedes unserer Referenzprojekte basiert auf dem Versprechen, nur das Beste zu verwenden. Als Partner von HÖNING garantieren wir den Einsatz von Produkten, die in Sachen Langlebigkeit, Ästhetik und Funktionalität Maßstäbe setzen."
-        ctaText="Mehr über unsere Fenster"
+        ctaText="Neue Fenster & Fensteraustausch"
         ctaHref="/fenster"
         imageSrc="/bilder_ordner/ueberuns/fensterbau-werkstatt.webp"
         />

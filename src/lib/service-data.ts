@@ -2,11 +2,14 @@ import { DoorOpen, Paintbrush, Leaf, Wrench, Home, Shield } from "lucide-react";
 
 export const CORE_SERVICES = [
     {
-        title: "Fenster- & Türmontage",
+        // Batch 2: Diese Karte beschreibt den Einbau NEUER Elemente und zeigte
+        // trotzdem auf /fensterservice (Reparaturseite). Sie zeigt jetzt auf
+        // die Verkaufsseite. Der Reparatur-Einstieg steht separat unten.
+        title: "Neue Fenster & Türen",
         description:
-            "Hochwertige HÖNING Fenster und Türen. Effizient, sauber und fachgerecht für ein spürbar besseres Zuhause.",
+            "Hochwertige HÖNING Fenster und Türen – Beratung, Aufmaß und fachgerechte Montage aus einer Hand.",
         icon: DoorOpen,
-        link: "/fensterservice",
+        link: "/fenster",
         image: "/bilder_ordner/hoening/fenster/fenstersanierung/fertige-terassen-fensterwand.webp",
     },
     {

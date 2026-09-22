@@ -57,7 +57,7 @@ const UeberUnsHero = () => {
           </h1>
           <p className="mt-4 text-lg md:text-xl text-slate-100">
             Die Geschichte hinter dem Namen Ergart – eine Reise von der Vision
-            zur Meisterschaft.
+            zum eigenen Handwerksbetrieb.
           </p>
         </div>
       </motion.div>

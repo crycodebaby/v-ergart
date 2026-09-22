@@ -22,7 +22,7 @@
  * - Große Schritt-Nummerierung (01–08) mit Bauhaus-Typographie
  * - Progress-Indicator oben
  * - Schritt 8 ("Abschluss") mit Termin-Buchungs-CTA
- * - Header-Badges: "13+ Jahre Erfahrung" + "Meisterbetrieb"
+ * - Header-Badges: "13+ Jahre Erfahrung" + "Mitglied der HWK Düsseldorf"
  */
 "use client";
 
@@ -53,7 +53,7 @@ const processSteps = [
       "Nach dem Ausbau der alten Elemente wird der Arbeitsplatz sauber vorbereitet und geschützt. Sauberkeit und Schutz Ihrer Räume sind für uns selbstverständlich.",
     image:
       "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/vorherige-alte-fenster-ausgebaut-vorbereiteter-arbeitsplatz.webp",
-    alt: "Vorbereiteter Arbeitsplatz nach Ausbau alter Fenster – Meisterbetrieb Neuss",
+    alt: "Vorbereiteter Arbeitsplatz nach Ausbau alter Fenster – Fenstermontage Neuss",
   },
   {
     // War Schritt 4 (Logistik) – jetzt Schritt 3
@@ -87,7 +87,7 @@ const processSteps = [
       "Das neue Fensterelement wird passgenau in die Öffnung eingesetzt und professionell verankert. Jeder Handgriff sitzt – das Ergebnis hält Jahrzehnte.",
     image:
       "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/montageprozess-der-neuen-scheibe-via-sauglift.webp",
-    alt: "Professionelle Fenstermontage via Sauglift – Fenstereinbau Meisterbetrieb Neuss",
+    alt: "Professionelle Fenstermontage via Sauglift – Fenstereinbau Neuss",
   },
   {
     title: "Finale Justierung",
@@ -193,7 +193,7 @@ export const ProcessStepper = () => {
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 px-3 py-1 text-xs font-semibold text-orange-600 dark:text-orange-400 uppercase tracking-wide">
               <CheckCircle2 className="w-3.5 h-3.5" aria-hidden="true" />
-              Meisterbetrieb HWK Düsseldorf
+              Mitglied der HWK Düsseldorf
             </span>
           </div>
 
@@ -207,380 +207,207 @@ export const ProcessStepper = () => {
         </div>
 
         {/* ══════════════════════════════════════════════════════════════
-            📱 MOBILE LAYOUT  (< 768px)
-            Vertikales Accordion: Bild + Beschreibung klappen inline auf.
-            Kein separates Bild-Panel – alles im Flow.
+            EIN LAYOUT FÜR ALLE BREITEN  (Batch 2, Phase 7)
+            ─────────────────────────────────────────────────────────────
+            Vorher gab es drei getrennte DOM-Bäume (md:hidden /
+            hidden md:flex lg:hidden / hidden lg:block). Jeder davon
+            rendert alle acht Schritt-Titel und -Beschreibungen – der
+            komplette Prozesstext stand also DREIMAL im ausgelieferten
+            HTML, zwei Kopien nur per CSS versteckt. Auf zwei Seiten
+            (/fenster, /fensterservice) waren das sechs Kopien desselben
+            Textes.
+
+            Jetzt eine gemeinsame Struktur, die per Breakpoint umsortiert:
+              < 768px  Accordion, Bild klappt inline im Schritt auf
+              768–1023 Bild-Panel oben, Schritte zweispaltig darunter
+              ≥ 1024px Sticky-Split: Schritte links, Bild-Panel rechts
+
+            Die Show/Hide-Logik bleibt wie gehabt CSS-basiert (max-h /
+            opacity), damit alle acht Beschreibungen im DOM stehen.
         ══════════════════════════════════════════════════════════════ */}
-        <div className="flex flex-col gap-3 md:hidden">
-          {processSteps.map((step, index) => {
-            const isActive = activeStep === index;
-            const isLast = index === total - 1;
 
-            return (
-              <div
-                key={step.title}
-                className={cn(
-                  "rounded-xl border-2 transition-all duration-300 overflow-hidden",
-                  isActive
-                    ? "border-brand-blue bg-card shadow-lg"
-                    : "border-border bg-card/60"
-                )}
-              >
-                {/* Step Header – immer sichtbar, klickbar */}
-                <button
-                  onClick={() => handleStep(index)}
-                  aria-expanded={isActive}
-                  aria-controls={`step-content-${index}`}
-                  className="w-full flex items-center gap-4 p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset rounded-xl"
-                >
-                  {/* Schrittnummer */}
-                  <span
-                    className={cn(
-                      "shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-black transition-colors duration-300",
-                      isActive
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted text-muted-foreground"
-                    )}
-                    aria-hidden="true"
-                  >
-                    {stepNum(index)}
-                  </span>
-
-                  <span className="flex-1 font-bold text-base text-foreground">
-                    {step.title}
-                  </span>
-
-                  {/* Abgeschlossen-Checkmark für vorherige Schritte */}
-                  {index < activeStep ? (
-                    <CheckCircle2
-                      className="w-5 h-5 text-green-500 shrink-0"
-                      aria-label="Abgeschlossen"
-                    />
-                  ) : (
-                    <ChevronDown
-                      className={cn(
-                        "w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-300",
-                        isActive && "rotate-180"
-                      )}
-                      aria-hidden="true"
-                    />
-                  )}
-                </button>
-
-                {/* ── Expandierbarer Inhalt (immer im DOM – SEO-safe!) ── */}
-                {/* WICHTIG: max-h-Transition statt conditional rendering.
-                    Google und andere Crawler sehen alle 8 Beschreibungen. */}
-                <div
-                  id={`step-content-${index}`}
-                  className={cn(
-                    "transition-all duration-500 ease-in-out overflow-hidden",
-                    isActive ? "max-h-[700px] opacity-100" : "max-h-0 opacity-0"
-                  )}
-                  aria-hidden={!isActive}
-                >
-                  <div className="px-4 pb-5">
-                    {/* Bild inline (aspect-video) */}
-                    <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-4 shadow-sm">
-                      <Image
-                        src={step.image}
-                        alt={step.alt}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 1px"
-                        loading={index === 0 ? "eager" : "lazy"}
-                      />
-                      {/* Step-Label Overlay */}
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-3 py-2">
-                        <span className="text-white text-xs font-semibold">
-                          Schritt {index + 1} von {total}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Beschreibung */}
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {step.description}
-                    </p>
-
-                    {/* CTA im letzten Schritt */}
-                    {isLast && <BookingCTA />}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        {/* Fortschrittsleiste: ab Tablet. Auf Mobile traegt das Accordion
+            den Fortschritt selbst (aufgeklappter Schritt + Haken). */}
+        <div className="hidden md:block">
+          <ProgressBar active={activeStep} total={total} />
         </div>
 
-        {/* ══════════════════════════════════════════════════════════════
-            📐 TABLET LAYOUT  (768px – 1023px)
-            Bild-Preview oben, Schritt-Liste darunter.
-            Kein sticky nötig – Bild ist im normalen Flow.
-        ══════════════════════════════════════════════════════════════ */}
-        <div className="hidden md:flex lg:hidden flex-col gap-8">
-          {/* Fortschrittsleiste */}
-          <ProgressBar active={activeStep} total={total} />
+        <div className="flex flex-col gap-8 lg:grid lg:grid-cols-[1fr_1.1fr] lg:items-start lg:gap-12 xl:gap-16">
+          {/* ── Bild-Panel ───────────────────────────────────────────
+              Mobile: ausgeblendet, das Bild steckt im offenen Schritt.
+              Tablet: oben im Fluss. Desktop: rechte Spalte, sticky. */}
+          <div className="hidden md:block lg:sticky lg:top-24 lg:order-2">
+            <div className="relative aspect-video overflow-hidden rounded-2xl shadow-xl lg:aspect-[4/3] lg:shadow-2xl">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeStep}
+                  initial={prefersReduced ? undefined : { opacity: 0, scale: 1.03 }}
+                  animate={prefersReduced ? undefined : { opacity: 1, scale: 1 }}
+                  exit={prefersReduced ? undefined : { opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={processSteps[activeStep].image}
+                    alt={processSteps[activeStep].alt}
+                    fill
+                    className="object-cover"
+                    sizes="(min-width: 1024px) 55vw, (min-width: 768px) 100vw, 1px"
+                    priority={activeStep === 0}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
-          {/* Bild-Preview oben */}
-          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-xl">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeStep}
-                initial={prefersReduced ? undefined : { opacity: 0, scale: 1.03 }}
-                animate={prefersReduced ? undefined : { opacity: 1, scale: 1 }}
-                exit={prefersReduced ? undefined : { opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="absolute inset-0"
-              >
-                <Image
-                  src={processSteps[activeStep].image}
-                  alt={processSteps[activeStep].alt}
-                  fill
-                  className="object-cover"
-                  sizes="(min-width: 768px) and (max-width: 1023px) 100vw, 1px"
-                  priority={activeStep === 0}
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div className="flex items-end justify-between">
+                      <div>
+                        <p className="mb-1 text-sm font-medium text-white/70">
+                          Schritt {activeStep + 1} von {total}
+                        </p>
+                        <h3 className="text-xl font-bold text-white lg:text-2xl">
+                          {processSteps[activeStep].title}
+                        </h3>
+                      </div>
+                      {/* Rein dekorativ: "Schritt X von Y" steht daneben. */}
+                      <span
+                        aria-hidden="true"
+                        className="hidden select-none text-6xl font-black leading-none tabular-nums text-white/20 lg:inline"
+                      >
+                        {stepNum(activeStep)}
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Navigation Dots – ab Desktop */}
+            <div
+              className="mt-4 hidden justify-center gap-2 lg:flex"
+              role="tablist"
+              aria-label="Schritt-Navigation"
+            >
+              {processSteps.map((step, i) => (
+                <button
+                  key={step.title}
+                  role="tab"
+                  aria-selected={activeStep === i}
+                  aria-label={`Schritt ${i + 1}: ${step.title}`}
+                  onClick={() => handleStep(i)}
+                  className={cn(
+                    "rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                    // brand-solid: der aktive Punkt ist Statusindikator,
+                    // nicht Dekoration. Siehe ProgressBar.
+                    activeStep === i
+                      ? "h-2 w-6 bg-brand-solid"
+                      : "h-2 w-2 bg-border hover:bg-brand-blue/50"
+                  )}
                 />
-                {/* Overlay mit Step-Info */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-6">
-                  <p className="text-white/70 text-sm font-medium mb-1">
-                    Schritt {activeStep + 1} von {total}
-                  </p>
-                  <h3 className="text-white text-xl font-bold">
-                    {processSteps[activeStep].title}
-                  </h3>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+              ))}
+            </div>
           </div>
 
-          {/* Schritt-Grid (2-spaltig auf Tablet) */}
-          <div className="grid grid-cols-2 gap-3">
+          {/* ── Schritt-Liste ────────────────────────────────────────
+              Mobile einspaltig (Accordion), Tablet zweispaltig,
+              Desktop wieder einspaltig in der linken Spalte. */}
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:order-1 lg:grid-cols-1">
             {processSteps.map((step, index) => {
               const isActive = activeStep === index;
+              const isDone = index < activeStep;
               const isLast = index === total - 1;
+
               return (
-                <div key={step.title}>
+                <div
+                  key={step.title}
+                  className={cn(
+                    "overflow-hidden rounded-xl border-2 transition-all duration-300",
+                    isActive
+                      ? "border-brand-blue bg-card shadow-lg lg:bg-brand-blue/5"
+                      : "border-border bg-card/60 lg:border-transparent lg:bg-transparent lg:hover:border-brand-blue/30 lg:hover:bg-muted/50"
+                  )}
+                >
                   <button
                     onClick={() => handleStep(index)}
-                    aria-pressed={isActive}
-                    className={cn(
-                      "w-full text-left p-4 rounded-xl border-2 transition-all duration-300",
-                      isActive
-                        ? "border-brand-blue bg-brand-blue/5 shadow-md"
-                        : "border-border hover:border-brand-blue/40 hover:bg-muted/50"
-                    )}
+                    aria-expanded={isActive}
+                    aria-controls={`step-content-${index}`}
+                    className="group flex w-full items-center gap-4 rounded-xl p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring lg:p-5"
                   >
-                    <div className="flex items-center gap-3 mb-2">
-                      <span
-                        className={cn(
-                          "shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-xs font-black",
-                          isActive
-                            ? "bg-primary text-primary-foreground"
-                            : index < activeStep
-                            ? "bg-green-100 dark:bg-green-900/40 text-green-600"
-                            : "bg-muted text-muted-foreground"
-                        )}
-                      >
-                        {index < activeStep ? (
-                          <CheckCircle2 className="w-4 h-4" />
-                        ) : (
-                          stepNum(index)
-                        )}
-                      </span>
-                      <span className="font-bold text-sm text-foreground">
-                        {step.title}
-                      </span>
-                    </div>
-                    {/* Beschreibung – immer im DOM (SEO!), visuell nur bei aktiv sichtbar */}
-                    <p
+                    {/* Schrittnummer: Badge bis Tablet, grosse Ziffer ab Desktop */}
+                    <span
+                      aria-hidden="true"
                       className={cn(
-                        "text-xs text-muted-foreground leading-relaxed transition-all duration-300 overflow-hidden",
-                        isActive ? "max-h-32 opacity-100" : "max-h-0 opacity-0"
+                        "flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-black tabular-nums transition-colors duration-300",
+                        "lg:h-auto lg:w-auto lg:rounded-none lg:bg-transparent lg:text-2xl lg:leading-none",
+                        isActive
+                          ? "bg-primary text-primary-foreground lg:text-brand-text"
+                          : isDone
+                          ? "bg-muted text-muted-foreground lg:text-green-500"
+                          : "bg-muted text-muted-foreground lg:text-muted-foreground/40"
                       )}
-                      aria-hidden={!isActive}
                     >
-                      {step.description}
-                    </p>
+                      {stepNum(index)}
+                    </span>
+
+                    <span className="flex-1 text-base font-bold text-foreground">
+                      {step.title}
+                    </span>
+
+                    {isDone ? (
+                      <CheckCircle2
+                        className="h-5 w-5 shrink-0 text-green-500"
+                        aria-label="Abgeschlossen"
+                      />
+                    ) : (
+                      <ChevronDown
+                        className={cn(
+                          "h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-300",
+                          isActive
+                            ? "rotate-180 lg:text-brand-text"
+                            : "lg:group-hover:text-brand-text"
+                        )}
+                        aria-hidden="true"
+                      />
+                    )}
                   </button>
 
-                  {/* Booking CTA nach letztem Schritt auf Tablet */}
-                  {isLast && isActive && (
-                    <div className="mt-3 px-1">
-                      <BookingCTA />
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* ══════════════════════════════════════════════════════════════
-            🖥️ DESKTOP LAYOUT  (≥ 1024px)
-            Sticky-Split: Links Schritt-Liste, rechts sticky Bild-Panel.
-        ══════════════════════════════════════════════════════════════ */}
-        <div className="hidden lg:block">
-          {/* Fortschrittsleiste */}
-          <ProgressBar active={activeStep} total={total} />
-
-          <div className="grid grid-cols-[1fr_1.1fr] gap-12 xl:gap-16 items-start">
-            {/* ── Linke Spalte: Schritt-Liste ──────────────────────── */}
-            <div className="flex flex-col gap-3">
-              {processSteps.map((step, index) => {
-                const isActive = activeStep === index;
-                const isLast = index === total - 1;
-
-                return (
-                  <div key={step.title}>
-                    <button
-                      onClick={() => handleStep(index)}
-                      aria-pressed={isActive}
-                      className={cn(
-                        "w-full text-left p-5 rounded-xl border-2 transition-all duration-300 group",
-                        isActive
-                          ? "border-brand-blue bg-brand-blue/5 shadow-lg"
-                          : "border-transparent hover:border-brand-blue/30 hover:bg-muted/50"
-                      )}
-                    >
-                      <div className="flex items-center gap-4">
-                        {/* Große Schrittnummer – Bauhaus-Stil */}
-                        <span
-                          className={cn(
-                            "shrink-0 font-black text-2xl leading-none tabular-nums transition-colors duration-300",
-                            isActive
-                              ? "text-brand-text"
-                              : index < activeStep
-                              ? "text-green-500"
-                              : "text-muted-foreground/40"
-                          )}
-                          aria-hidden="true"
-                        >
-                          {stepNum(index)}
-                        </span>
-
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <h3 className="font-bold text-base text-foreground">
-                              {step.title}
-                            </h3>
-                            {index < activeStep && (
-                              <CheckCircle2
-                                className="w-4 h-4 text-green-500 shrink-0"
-                                aria-label="Abgeschlossen"
-                              />
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Chevron-Indikator */}
-                        <ChevronDown
-                          className={cn(
-                            "w-4 h-4 text-muted-foreground transition-transform duration-300 shrink-0",
-                            isActive ? "rotate-180 text-brand-text" : "group-hover:text-brand-text"
-                          )}
-                          aria-hidden="true"
+                  {/* ── Inhalt: IMMER im DOM, Show/Hide per CSS ──────
+                      max-h-Transition statt conditional rendering, damit
+                      Crawler alle acht Beschreibungen sehen. */}
+                  <div
+                    id={`step-content-${index}`}
+                    className={cn(
+                      "overflow-hidden transition-all duration-500 ease-in-out",
+                      isActive ? "max-h-[700px] opacity-100" : "max-h-0 opacity-0"
+                    )}
+                    aria-hidden={!isActive}
+                  >
+                    <div className="px-4 pb-5 lg:pl-[3.75rem] lg:pr-5">
+                      {/* Bild inline – nur Mobile, sonst uebernimmt das Panel */}
+                      <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-lg shadow-sm md:hidden">
+                        <Image
+                          src={step.image}
+                          alt={step.alt}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 767px) 100vw, 1px"
+                          loading={index === 0 ? "eager" : "lazy"}
                         />
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-3 py-2">
+                          <span className="text-xs font-semibold text-white">
+                            Schritt {index + 1} von {total}
+                          </span>
+                        </div>
                       </div>
 
-                      {/* Beschreibung – IMMER im DOM (SEO!), CSS-Show/Hide */}
-                      <p
-                        className={cn(
-                          "text-sm text-muted-foreground leading-relaxed pl-10 transition-all duration-400 overflow-hidden",
-                          isActive ? "max-h-32 opacity-100 mt-2" : "max-h-0 opacity-0"
-                        )}
-                        aria-hidden={!isActive}
-                      >
+                      <p className="text-sm leading-relaxed text-muted-foreground">
                         {step.description}
                       </p>
 
-                      {/* Terminbuchungs-CTA im letzten Schritt */}
-                      {isLast && (
-                        <div
-                          className={cn(
-                            "pl-10 overflow-hidden transition-all duration-400",
-                            isActive ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
-                          )}
-                          aria-hidden={!isActive}
-                        >
-                          <BookingCTA />
-                        </div>
-                      )}
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* ── Rechte Spalte: Sticky Bild-Panel ─────────────────── */}
-            <div className="sticky top-24">
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeStep}
-                    initial={prefersReduced ? undefined : { opacity: 0, x: 30 }}
-                    animate={prefersReduced ? undefined : { opacity: 1, x: 0 }}
-                    exit={prefersReduced ? undefined : { opacity: 0, x: -30 }}
-                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute inset-0"
-                  >
-                    <Image
-                      src={processSteps[activeStep].image}
-                      alt={processSteps[activeStep].alt}
-                      fill
-                      className="object-cover"
-                      sizes="(min-width: 1024px) 55vw, 1px"
-                      priority={activeStep === 0}
-                    />
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-
-                    {/* Step-Info Overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <div className="flex items-end justify-between">
-                        <div>
-                          <p className="text-white/70 text-sm font-medium mb-1">
-                            Schritt {activeStep + 1} von {total}
-                          </p>
-                          <h3 className="text-white text-2xl font-bold">
-                            {processSteps[activeStep].title}
-                          </h3>
-                        </div>
-                        {/* Großes Schrittnummer-Badge — rein dekorativ:
-                            "Schritt X von Y" steht direkt daneben als Text.
-                            aria-hidden macht die WCAG-1.4.3-Ausnahme fuer
-                            dekorativen Text explizit. */}
-                        <span
-                          aria-hidden="true"
-                          className="text-white/20 font-black text-6xl leading-none tabular-nums select-none"
-                        >
-                          {stepNum(activeStep)}
-                        </span>
-                      </div>
+                      {isLast && <BookingCTA />}
                     </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Navigation Dots */}
-              <div className="flex justify-center gap-2 mt-4" role="tablist" aria-label="Schritt-Navigation">
-                {processSteps.map((step, i) => (
-                  <button
-                    key={i}
-                    role="tab"
-                    aria-selected={activeStep === i}
-                    aria-label={`Schritt ${i + 1}: ${step.title}`}
-                    onClick={() => handleStep(i)}
-                    className={cn(
-                      "rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                      // brand-solid: der aktive Punkt ist Statusindikator,
-                      // nicht Dekoration. Siehe ProgressBar.
-                      activeStep === i
-                        ? "w-6 h-2 bg-brand-solid"
-                        : "w-2 h-2 bg-border hover:bg-brand-blue/50"
-                    )}
-                  />
-                ))}
-              </div>
-            </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
     </div>

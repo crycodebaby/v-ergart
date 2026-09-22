@@ -1,12 +1,16 @@
 // src/components/ContactForm.tsx
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Sparkles, ShieldCheck } from "lucide-react";
 import { trackEvent, trackLeadForm } from "@/lib/analytics";
 import { useRecaptcha } from "@/hooks/useRecaptcha";
+import {
+  CONTACT_RECAPTCHA_ACTION,
+  type ContactResponse,
+} from "@/lib/contact-lead";
 
 type FormValues = {
   name: string;
@@ -43,6 +47,15 @@ export default function ContactForm({
 }: ContactFormProps = {}) {
   const [hasStarted, setHasStarted] = useState(false);
   const { executeRecaptcha } = useRecaptcha();
+
+  /**
+   * Synchrone Doppel-Absende-Sperre: `status` und das `disabled` am Button
+   * greifen erst nach dem naechsten Render, ein schneller Doppelklick feuert
+   * vorher bereits den zweiten Submit ab.
+   */
+  const inFlight = useRef(false);
+  /** Bleibt ueber Retries gleich -> serverseitige Idempotenz. */
+  const submissionId = useRef<string>("");
 
   const {
     register,
@@ -83,8 +96,14 @@ export default function ContactForm({
   const services = customServices || SERVICES;
 
   const onSubmit = async (values: FormValues) => {
+    // Doppelklick / Enter-Spam laeuft ins Leere, solange ein Request laeuft.
+    if (inFlight.current) return;
+    inFlight.current = true;
+
     // simple bot-stop: if honeypot filled, silently succeed
     if (values.website) {
+      // Vor dem try-Block, das finally greift hier nicht.
+      inFlight.current = false;
       setStatus("success");
       reset();
       return;
@@ -93,16 +112,27 @@ export default function ContactForm({
     setStatus("loading");
     setErrorMsg("");
 
+    if (!submissionId.current) {
+      submissionId.current =
+        typeof crypto !== "undefined" && "randomUUID" in crypto
+          ? crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    }
+
     try {
-      // reCAPTCHA v3: Token vor dem Absenden holen
-      const recaptchaToken = await executeRecaptcha("contact_form");
+      // reCAPTCHA v3: Token vor dem Absenden holen. Die Action ist die
+      // zentrale Konstante, die der Server exakt gegenpruft.
+      const recaptchaToken = await executeRecaptcha(CONTACT_RECAPTCHA_ACTION);
       if (!recaptchaToken) {
         setStatus("error");
         setErrorMsg("Sicherheitscheck fehlgeschlagen. Bitte Seite neu laden.");
         return;
       }
 
-      const res = await fetch("https://formcarry.com/s/tUPZr1Mwu_1", {
+      // Batch 3.2: nicht mehr direkt zu Formcarry, sondern ueber den eigenen
+      // Server. Dort wird das Token verifiziert (fail-closed) und erst danach
+      // zugestellt. Das Token selbst geht NICHT an Formcarry weiter.
+      const res = await fetch("/api/leads/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -114,25 +144,30 @@ export default function ContactForm({
           phone: values.phone ?? "",
           service: values.service ?? "",
           message: values.message,
-          // Zusatzinfos, hilfreich im Posteingang:
+          consent: values.consent === true,
           source: source,
-          project: "Alexander Ergart – Hausmeister- & Fensterservice",
-          // reCAPTCHA v3 Token – wird von Formcarry serverseitig verifiziert
-          "g-recaptcha-response": recaptchaToken,
+          recaptchaToken,
+          submissionId: submissionId.current,
           // Honeypot wird nicht gesendet (bereits abgefangen)
         }),
       });
 
-      // Formcarry liefert i. d. R. 200/OK mit JSON
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text || "Unbekannter Fehler beim Senden.");
+      const data = (await res.json().catch(() => null)) as ContactResponse | null;
+
+      if (!res.ok || !data || data.ok !== true) {
+        setStatus("error");
+        setErrorMsg(
+          (data && data.ok === false && data.error) ||
+            "Senden fehlgeschlagen. Bitte später erneut versuchen."
+        );
+        return;
       }
 
       setStatus("success");
       reset();
 
-      // Primary Conversion Google Ads & Plausible
+      // Primary Conversion Google Ads & Plausible – unveraendert gegenueber
+      // Batch 3.1, damit keine bestehende GTM-Conversion ausfaellt.
       if (typeof window !== "undefined") {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ 
@@ -142,11 +177,11 @@ export default function ContactForm({
         });
         trackLeadForm('submit', 'contact_form', source);
       }
-    } catch (e: any) {
+    } catch {
       setStatus("error");
-      setErrorMsg(
-        e?.message || "Senden fehlgeschlagen. Bitte später erneut versuchen."
-      );
+      setErrorMsg("Senden fehlgeschlagen. Bitte später erneut versuchen.");
+    } finally {
+      inFlight.current = false;
     }
   };
 

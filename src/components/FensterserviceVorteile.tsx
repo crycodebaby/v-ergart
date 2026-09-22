@@ -24,7 +24,7 @@ const vorteile = [
     {
         icon: Award,
         title: "13+ Jahre Erfahrung",
-        description: "Langjährige Expertise im Fenster- und Hausmeisterservice.",
+        description: "Langjährige Praxis an Fenstern jeden Alters und Fabrikats.",
     },
     {
         icon: MapPin,
@@ -132,7 +132,7 @@ export default function FensterserviceVorteile() {
                             transition={{ delay: 0.1 }}
                             className="text-3xl md:text-4xl font-bold text-foreground mb-6"
                         >
-                            Ihr Vertrauenspartner für Fensterservice
+                            Ihr Ansprechpartner für Fensterreparatur & Wartung
                         </motion.h2>
 
                         <motion.p
@@ -143,8 +143,8 @@ export default function FensterserviceVorteile() {
                             className="text-lg text-muted-foreground mb-10"
                         >
                             Alexander Ergart steht für Qualität, Zuverlässigkeit und
-                            persönlichen Service. Als Ihr lokaler Experte verbinden wir
-                            handwerkliches Können mit Premium-Produkten.
+                            persönlichen Service. Als lokaler Handwerksbetrieb kommen wir
+                            schnell vorbei – und reparieren, wo sich reparieren lohnt.
                         </motion.p>
 
                         {/* Vorteile Grid */}

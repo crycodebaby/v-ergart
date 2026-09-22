@@ -8,6 +8,26 @@ import {
   GOOGLE_REVIEWS,
 } from "@/lib/reviews";
 
+/**
+ * Preisorientierung + Google-Bewertungen.
+ *
+ * Nachfolger von `FensterservicePreisBewertungen`. Die Komponente hatte den
+ * Richtwert "ca. 400–600 € für ein Standard-Kunststofffenster" fest
+ * eingebaut – also einen KAUFPREIS auf der Reparaturseite. Genau diese
+ * Vermischung raeumt Batch 2 auf:
+ *
+ *   /fenster        -> Preiskarte sichtbar (Kaufentscheidung braucht sie)
+ *   /fensterservice -> `price` weglassen; fuer Reparaturen existiert im
+ *                      Projekt keine belastbare Preisspanne, und eine zu
+ *                      erfinden waere schlicht falsch.
+ *
+ * Der Richtwert bezeichnet ausschliesslich das Fensterelement. Montage,
+ * Ausbau und Anschlussarbeiten sind NICHT enthalten; `note` und `hint`
+ * muessen diese Trennung deshalb immer explizit benennen.
+ *
+ * Die Bewertungsdaten kommen unveraendert aus `src/lib/reviews.ts`.
+ */
+
 function Stars({ size = 18 }: { size?: number }) {
   return (
     <div
@@ -34,7 +54,31 @@ function GoogleMark({ size = 20 }: { size?: number }) {
   );
 }
 
-export default function FensterservicePreisBewertungen() {
+type PreisUndBewertungenProps = {
+  title: string;
+  description: string;
+  /**
+   * Preiskarte. Weglassen, wenn fuer den Seitenintent keine belastbare
+   * Preisspanne existiert – dann nimmt der Bewertungsblock die volle Breite.
+   */
+  price?: {
+    label: string;
+    value: string;
+    note: string;
+    /** Kleingedruckter Hinweis unter dem Block (Einschraenkungen, Lieferzeit). */
+    hint: string;
+  };
+  ctaHref: string;
+  ctaLabel: string;
+};
+
+export default function PreisUndBewertungen({
+  title,
+  description,
+  price,
+  ctaHref,
+  ctaLabel,
+}: PreisUndBewertungenProps) {
   return (
     <div className="mx-auto max-w-5xl">
       <div className="mb-10 text-center">
@@ -44,7 +88,7 @@ export default function FensterservicePreisBewertungen() {
           viewport={{ once: true }}
           className="mb-4 text-3xl font-bold text-foreground md:text-4xl"
         >
-          Preisorientierung & Bewertungen
+          {title}
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -53,29 +97,29 @@ export default function FensterservicePreisBewertungen() {
           viewport={{ once: true }}
           className="text-lg text-muted-foreground"
         >
-          Transparente Richtwerte – und {GOOGLE_RATING.count} Kunden, die uns
-          auf Google mit {GOOGLE_RATING_DISPLAY} Sternen bewerten.
+          {description}
         </motion.p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-5">
-        {/* Preis */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-col rounded-2xl border border-border bg-card p-6 shadow-sm md:col-span-2"
-        >
-          <div className="mb-4 flex items-center gap-2 text-brand-text">
-            <Euro size={18} />
-            <span className="text-sm font-semibold">Preisvorschau (Richtwert)</span>
-          </div>
-          <p className="text-3xl font-bold text-foreground">ca. 400–600 €</p>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Standard-Kunststofffenster (PVC/uPVC) in Standardgröße – zzgl.
-            professioneller Montage.
-          </p>
-        </motion.div>
+        {/* Preis – nur wo ein belegter Richtwert existiert */}
+        {price && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col rounded-2xl border border-border bg-card p-6 shadow-sm md:col-span-2"
+          >
+            <div className="mb-4 flex items-center gap-2 text-brand-text">
+              <Euro size={18} aria-hidden="true" />
+              <span className="text-sm font-semibold">{price.label}</span>
+            </div>
+            <p className="text-3xl font-bold text-foreground">{price.value}</p>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              {price.note}
+            </p>
+          </motion.div>
+        )}
 
         {/* Google-Gesamtbewertung */}
         <motion.a
@@ -87,7 +131,11 @@ export default function FensterservicePreisBewertungen() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${GOOGLE_RATING_DISPLAY} von 5 Sternen aus ${GOOGLE_RATING.count} Google-Bewertungen – auf Google ansehen (neuer Tab)`}
-          className="group flex flex-col justify-between gap-5 rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-blue/40 hover:shadow-lg md:col-span-3"
+          className={
+            price
+              ? "group flex flex-col justify-between gap-5 rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-blue/40 hover:shadow-lg md:col-span-3"
+              : "group flex flex-col justify-between gap-5 rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-blue/40 hover:shadow-lg md:col-span-5"
+          }
         >
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
@@ -172,20 +220,18 @@ export default function FensterservicePreisBewertungen() {
         </ul>
       ) : null}
 
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        viewport={{ once: true }}
-        className="mt-5 flex items-start gap-2 text-sm text-muted-foreground"
-      >
-        <Info size={16} className="mt-0.5 shrink-0" />
-        <span>
-          Der genaue Preis hängt von Maß, Ausführung und Einbausituation ab –
-          unverbindliche Orientierung. Lieferzeit für Fensterelemente aktuell
-          bis zu 9 Wochen.
-        </span>
-      </motion.p>
+      {price && (
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          viewport={{ once: true }}
+          className="mt-5 flex items-start gap-2 text-sm text-muted-foreground"
+        >
+          <Info size={16} className="mt-0.5 shrink-0" aria-hidden="true" />
+          <span>{price.hint}</span>
+        </motion.p>
+      )}
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -195,10 +241,10 @@ export default function FensterservicePreisBewertungen() {
         className="mt-8 text-center"
       >
         <a
-          href="#kontakt-formular"
+          href={ctaHref}
           className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition-all duration-300 hover:scale-[1.02] hover:bg-brand-solid-hover"
         >
-          Unverbindliche Anfrage starten
+          {ctaLabel}
         </a>
       </motion.div>
     </div>

@@ -148,6 +148,19 @@ const SLUGS_QUERY = groq`
 }
 `;
 
+/**
+ * Sitemap-Query: zusaetzlich zum Slug das ECHTE Aenderungsdatum.
+ * `_updatedAt` wird von Sanity gepflegt und ist damit das einzige
+ * belastbare lastModified-Signal, das wir haben.
+ */
+const SITEMAP_POSTS_QUERY = groq`
+*[_type == "post" && isPublished == true && defined(slug.current)] {
+  "slug": slug.current,
+  _updatedAt,
+  publishedAt
+}
+`;
+
 // Cache Tags
 export const BLOG_TAG = "blog";
 
@@ -191,6 +204,26 @@ export async function fetchCategories(): Promise<BlogCategory[]> {
 export async function fetchPostSlugs(): Promise<Array<{ slug: string }>> {
   if (!isSanityConfigured) return [];
   return client.fetch(SLUGS_QUERY, {}, { cache: "force-cache" });
+}
+
+export type BlogSitemapEntry = {
+  slug: string;
+  _updatedAt?: string;
+  publishedAt?: string;
+};
+
+/**
+ * Liefert alle veroeffentlichten Blog-Slugs inkl. echtem Aenderungsdatum
+ * fuer die XML-Sitemap. Bewusst mit revalidate (statt force-cache), damit
+ * redaktionelle Aenderungen auch ohne Redeploy im lastModified landen.
+ */
+export async function fetchPostSitemapEntries(): Promise<BlogSitemapEntry[]> {
+  if (!isSanityConfigured) return [];
+  return client.fetch(
+    SITEMAP_POSTS_QUERY,
+    {},
+    { next: { revalidate: 3600, tags: [BLOG_TAG] } }
+  );
 }
 
 // Helper: Get related posts (by category)

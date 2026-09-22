@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { CONSENT_EVENT } from "@/lib/attribution";
 
 export default function CookieBanner() {
   const [show, setShow] = useState(false);
@@ -14,9 +15,21 @@ export default function CookieBanner() {
     }
   }, []);
 
+  /**
+   * Meldet die Entscheidung an alles, was im Projekt consent-abhaengig
+   * speichert (aktuell: die Kampagnen-Attribution in @/lib/attribution).
+   * Bewusst ein CustomEvent statt eines Context-Providers, damit der
+   * Banner nichts ueber seine Abnehmer wissen muss.
+   */
+  const broadcastConsent = (state: "granted" | "denied") => {
+    if (typeof window === "undefined") return;
+    window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: { state } }));
+  };
+
   const handleAccept = () => {
     localStorage.setItem("cookie_consent", "granted");
     setShow(false);
+    broadcastConsent("granted");
     
     // Update Google Consent Mode v2
     if (typeof window !== "undefined" && window.gtag) {
@@ -36,6 +49,8 @@ export default function CookieBanner() {
     localStorage.setItem("cookie_consent", "denied");
     setShow(false);
     // Keep default 'denied' state (set in layout.tsx script)
+    // Loescht zusaetzlich eine evtl. frueher persistierte Attribution.
+    broadcastConsent("denied");
   };
 
   return (

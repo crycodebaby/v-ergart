@@ -86,11 +86,23 @@ const Footer = () => {
                 Entdecken
               </h3>
               <ul className="space-y-3">
+                {/* Batch 2: Die beiden Fenster-Intents stehen hier bewusst
+                    getrennt und mit sprechendem Anchor – der Footer ist auf
+                    jeder Seite die letzte Orientierungshilfe. */}
+                <li>
+                  <Link
+                    href="/fenster"
+                    className="text-brand-text font-bold hover:underline transition-colors uppercase tracking-wide text-sm"
+                    aria-label="Neue Fenster und Fensteraustausch"
+                  >
+                    Neue Fenster
+                  </Link>
+                </li>
                 <li>
                   <Link
                     href="/fensterservice"
                     className="text-brand-text font-bold hover:underline transition-colors uppercase tracking-wide text-sm"
-                    aria-label="Zum Fensterservice (Landingpage)"
+                    aria-label="Fensterservice: Reparatur und Wartung"
                   >
                     Fensterservice
                   </Link>

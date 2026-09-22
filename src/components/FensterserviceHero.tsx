@@ -8,8 +8,13 @@ import { Phone, MessageCircle, MapPin, Clock } from "lucide-react";
 import { GOOGLE_RATING, GOOGLE_RATING_DISPLAY } from "@/lib/reviews";
 
 /**
- * Hero-Sektion für die Fensterservice Landing Page
- * 
+ * Hero-Sektion der SERVICE-Seite /fensterservice.
+ *
+ * Intent dieser Seite seit Batch 2: ein VORHANDENES Fenster wieder in
+ * Ordnung bringen (Reparatur, Wartung, Einstellung, Dichtungen, Beschläge).
+ * Der Verkauf neuer Fenster liegt auf /fenster; von hier führt nur ein
+ * bewusster Abzweig dorthin.
+ *
  * Optimiert für Google Ads Conversion:
  * - Klare H1 mit lokalen Keywords
  * - Prominente Telefonnummer (tel:-Link)
@@ -22,7 +27,7 @@ import { GOOGLE_RATING, GOOGLE_RATING_DISPLAY } from "@/lib/reviews";
  */
 export default function FensterserviceHero() {
   return (
-    <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+    <section className="relative flex min-h-[38rem] items-center overflow-hidden md:min-h-[85vh]">
       {/* Hintergrundbild mit Aspect-Ratio für CLS-Optimierung */}
       <div className="absolute inset-0 z-0">
         <div className="relative w-full h-full">
@@ -40,7 +45,7 @@ export default function FensterserviceHero() {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 relative z-10 py-16 md:py-24">
+      <div className="container mx-auto px-4 relative z-10 py-10 md:py-24">
         <div className="max-w-3xl">
           {/* Badge.
               text-brand statt text-brand-text: diese Flaeche ist ein Foto mit
@@ -51,7 +56,7 @@ export default function FensterserviceHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-brand-blue/20 border border-brand-blue/40 text-brand"
+            className="inline-flex items-center gap-2 mb-4 md:mb-6 px-4 py-2 rounded-full bg-brand-blue/20 border border-brand-blue/40 text-brand"
           >
             <MapPin size={16} />
             <span className="text-sm font-medium">Neuss & Umgebung</span>
@@ -62,17 +67,28 @@ export default function FensterserviceHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight"
           >
             Fensterservice in Neuss & Umgebung – <span className="text-brand">Reparatur, Wartung, Einstellung</span>
           </motion.h1>
 
-          {/* Subtext */}
+          {/* Subheadline: sagt in einem Satz, welches Problem hier geloest wird */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="text-base md:text-xl text-slate-100 mb-4 md:mb-6 max-w-2xl"
+          >
+            Klemmender Flügel, Zugluft, poröse Dichtung, defekter Beschlag? Wir
+            setzen Ihre vorhandenen Fenster instand – statt sie auszutauschen.
+          </motion.p>
+
+          {/* Trust-Zeile */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg md:text-xl text-yellow-400 font-semibold mb-8 max-w-2xl bg-black/40 inline-block p-2 rounded-lg backdrop-blur-sm"
+            className="text-sm md:text-lg text-yellow-400 font-semibold mb-4 md:mb-8 max-w-2xl bg-black/40 inline-block p-2 rounded-lg backdrop-blur-sm"
           >
             ⭐ {GOOGLE_RATING_DISPLAY}/5 Sterne bei {GOOGLE_RATING.count} Google-Bewertungen | Über 13 Jahre Erfahrung | Schnelle Termine vor Ort
           </motion.p>
@@ -82,11 +98,11 @@ export default function FensterserviceHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-wrap gap-3 mb-10"
+            className="flex flex-wrap gap-2 md:gap-3 mb-6 md:mb-10"
           >
             {[
               "13+ Jahre Erfahrung",
-              "Kostenlose Beratung",
+              "Reparatur statt Austausch",
               "Faire Preise",
               "Schnelle Termine",
             ].map((usp) => (
@@ -134,7 +150,7 @@ export default function FensterserviceHero() {
               className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold text-lg rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-[1.02]"
             >
               <MessageCircle size={22} />
-              Unverbindlich anfragen
+              Reparatur anfragen
             </Link>
           </motion.div>
 
@@ -148,6 +164,23 @@ export default function FensterserviceHero() {
             <Clock size={16} />
             <span>Mo–Fr 08:00–12:00 & 13:00–16:00 Uhr</span>
           </motion.div>
+
+          {/* Abzweig fuer den Kauf-Intent: wer neue Fenster will, soll nicht
+              erst die halbe Reparaturseite lesen muessen. */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+            className="mt-4 text-sm text-white/75"
+          >
+            Sie möchten komplett neue Fenster?{" "}
+            <Link
+              href="/fenster"
+              className="font-semibold text-brand underline underline-offset-4 hover:text-white"
+            >
+              Neue Fenster &amp; Fensteraustausch
+            </Link>
+          </motion.p>
         </div>
       </div>
 

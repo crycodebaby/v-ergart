@@ -13,6 +13,7 @@
  * 5. Main Content
  * 6. Footer
  */
+import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
@@ -28,6 +29,7 @@ import { ChristmasProvider, getChristmasMode } from "@/components/christmas";
 import PlausibleProvider from "next-plausible";
 import { GoogleTagManager } from '@next/third-parties/google';
 import CookieBanner from "@/components/CookieBanner";
+import AttributionTracker from "@/components/AttributionTracker";
 
 const roboto = Roboto({
   weight: ["400", "700"],
@@ -166,6 +168,14 @@ export default async function RootLayout({
           
           {/* Global Cookie Banner for DSGVO/Consent Mode Updates */}
           <CookieBanner />
+
+          {/* Kampagnen-Attribution (First-/Last-Touch), consent-aware.
+              Rendert nichts. Die Suspense-Boundary ist Pflicht: die
+              Komponente nutzt useSearchParams(), das ohne Boundary jede
+              Seite aus dem statischen Rendering kippen wuerde. */}
+          <Suspense fallback={null}>
+            <AttributionTracker />
+          </Suspense>
         </body>
       </html>
     </PlausibleProvider>
