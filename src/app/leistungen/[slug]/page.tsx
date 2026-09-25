@@ -5,7 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { LEISTUNGEN_DETAILS } from "@/lib/leistungen-data";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, ArrowLeft, Phone, Mail, ChevronRight, Home } from "lucide-react";
+import { CheckCircle, ArrowLeft, Phone, Mail, ChevronRight } from "lucide-react";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { LeistungGallery } from "@/components/LeistungGallery";
 import { ServiceAreaBadges } from "@/components/ServiceAreaBadges";
 import CTA from "@/components/CTA";
@@ -111,30 +112,7 @@ function ServiceJsonLd({ item }: { item: typeof LEISTUNGEN_DETAILS[0] }) {
     },
   };
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: BASE_URL,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Leistungen",
-        item: `${BASE_URL}/leistungen`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: item.title,
-        item: `${BASE_URL}/leistungen/${item.slug}`,
-      },
-    ],
-  };
+  // BreadcrumbList-JSON-LD rendert die <Breadcrumbs>-Komponente selbst.
 
   const faqSchema = item.faq ? {
     "@context": "https://schema.org",
@@ -154,10 +132,6 @@ function ServiceJsonLd({ item }: { item: typeof LEISTUNGEN_DETAILS[0] }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       {faqSchema && (
         <script
@@ -181,21 +155,13 @@ export default function LeistungDetailPage({ params }: Props) {
       <section className="relative bg-gradient-to-b from-slate-50 to-background dark:from-zinc-900 dark:to-background pt-24 pb-16 lg:pt-32 lg:pb-20">
         <div className="container mx-auto px-4">
 
-          {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
-            <Link href="/" className="hover:text-brand-blue transition-colors flex items-center gap-1">
-              <Home size={14} />
-              Home
-            </Link>
-            <ChevronRight size={14} />
-            <Link href="/leistungen" className="hover:text-brand-blue transition-colors">
-              Leistungen
-            </Link>
-            <ChevronRight size={14} />
-            <span className="text-foreground font-medium truncate max-w-[200px] md:max-w-none">
-              {item.title}
-            </span>
-          </nav>
+          <Breadcrumbs
+            className="mb-8"
+            items={[
+              { label: "Leistungen", href: "/leistungen" },
+              { label: item.title, href: `/leistungen/${item.slug}` },
+            ]}
+          />
 
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* Left: Text */}

@@ -18,3 +18,23 @@ export const SITE_LINKS = {
 } as const;
 
 export type SiteLinks = typeof SITE_LINKS;
+
+/**
+ * Kontaktdaten des Betriebs – eine Quelle für Header, Mobile-Menü und Footer.
+ * (Weitere Seiten tragen die Werte noch selbst; sie können nach und nach
+ * hierauf umgestellt werden.)
+ */
+export const CONTACT = {
+  phoneDisplay: "+49 176 668 25 889",
+  phoneHref: "tel:+4917666825889",
+  email: "info@ergart.de",
+  emailHref: "mailto:info@ergart.de",
+  /** Kurzform für Leisten und Menüs. */
+  hoursShort: "Mo–Fr 8–12 & 13–16 Uhr",
+  address: {
+    street: "Further Str. 89B",
+    city: "41462 Neuss",
+    mapsUrl:
+      "https://www.google.com/maps/search/?api=1&query=Further+Str.+89B+41462+Neuss",
+  },
+} as const;

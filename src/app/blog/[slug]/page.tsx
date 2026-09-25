@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Calendar, User, Tag, Share2 } from "lucide-react";
+import { Calendar, User, Tag, Share2 } from "lucide-react";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PortableText } from "@portabletext/react";
 import {
   fetchPostBySlug,
@@ -172,17 +172,13 @@ export default async function BlogPostPage({ params }: Props) {
       <ArticleJsonLd post={post} />
       <div className="bg-background">
         <article className="container mx-auto max-w-4xl px-4 py-12 lg:py-16">
-          {/* Back Link */}
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8 group"
-          >
-            <ArrowLeft
-              size={16}
-              className="transition-transform group-hover:-translate-x-1"
-            />
-            Zurück zum Blog
-          </Link>
+          <Breadcrumbs
+            className="mb-8"
+            items={[
+              { label: "Ratgeber & Blog", href: "/blog" },
+              { label: post.title, href: `/blog/${params.slug}` },
+            ]}
+          />
 
           {/* Header */}
           <header className="mb-8">

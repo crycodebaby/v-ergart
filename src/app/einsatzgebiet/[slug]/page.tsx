@@ -6,6 +6,7 @@ import { LOCATIONS, type LocationSlug } from "@/lib/locations";
 import CTA from "@/components/CTA";
 import MapSection from "@/components/MapSection";
 import KontaktHero from "@/components/KontaktHero"; // Reusing hero style or creating a specific one
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { BASE_URL } from "@/lib/seo-utils";
 
 type Props = {
@@ -68,6 +69,14 @@ export default function LocationPage({ params }: Props) {
           style={{ backgroundImage: "url('/bilder_ordner/hero/hero-bg.webp')" }}
         />
         <div className="container relative z-20 mx-auto px-4 text-center">
+          <Breadcrumbs
+            tone="inverse"
+            className="mb-8 [&>ol]:justify-center"
+            items={[
+              { label: "Einsatzgebiet", href: "/kontakt" },
+              { label: location.name, href: `/einsatzgebiet/${location.slug}` },
+            ]}
+          />
           <span className="inline-block py-1 px-3 rounded-full bg-brand-blue/20 border border-brand-blue/50 text-brand-blue text-sm font-medium mb-6">
             Vor Ort in {location.name}
           </span>

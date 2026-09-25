@@ -2,7 +2,6 @@
 import { notFound } from "next/navigation";
 import {
   ArrowDown,
-  ArrowLeft,
   Briefcase,
   CalendarClock,
   Check,
@@ -15,7 +14,6 @@ import {
   UserCheck,
   type LucideIcon,
 } from "lucide-react";
-import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -35,6 +33,7 @@ import { BewerbungsAblauf } from "@/components/BewerbungsAblauf";
 import { BewerbungsCTA } from "@/components/BewerbungsCTA";
 import { DynamicIcon } from "@/components/DynamicIcon";
 import { Section } from "@/components/ui/section";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { BASE_URL } from "@/lib/seo-utils";
 
 type Props = { params: { slug: string } };
@@ -195,17 +194,13 @@ export default async function JobDetailPage({ params }: Props) {
           className="absolute inset-0 -z-10 bg-[radial-gradient(70%_90%_at_15%_0%,hsl(var(--brand)/0.35),transparent_65%)]"
         />
         <div className="container mx-auto max-w-7xl px-4 pb-10 pt-12 lg:pb-14 lg:pt-16">
-          <Link
-            href="/karriere"
-            className="group inline-flex items-center gap-2 text-sm text-slate-300 transition-colors hover:text-white"
-          >
-            <ArrowLeft
-              size={16}
-              className="transition-transform group-hover:-translate-x-1"
-              aria-hidden="true"
-            />
-            Alle offenen Stellen
-          </Link>
+          <Breadcrumbs
+            tone="inverse"
+            items={[
+              { label: "Karriere", href: "/karriere" },
+              { label: job.title, href: `/karriere/${params.slug}` },
+            ]}
+          />
 
           <div className="mt-8 max-w-4xl">
             <p className="text-sm font-semibold uppercase tracking-widest text-brand-blue">

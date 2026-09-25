@@ -1,15 +1,39 @@
 // src/components/Header.tsx
 "use client";
 
+/**
+ * Header – Topbar (nur ab md) + Hauptleiste, als Einheit sticky.
+ *
+ * Besucherführung:
+ *  - Desktop (ab nav-desktop / 1100px): 5 Menüpunkte aus src/lib/navigation.ts,
+ *    zwei davon als Dropdown mit Absichts-Klärung, rechts Telefon + Primär-CTA.
+ *    Der aktive Bereich ist markiert (Unterstrich + Brandfarbe + aria-current),
+ *    auch auf Unterseiten wie /leistungen/reinigung oder /fensterservice.
+ *  - Mobil: Logo, Anruf-Button (die häufigste Conversion eines Handwerks-
+ *    betriebs) und Hamburger. Das Menü selbst ist ein Sheet (MobileMenu.tsx).
+ *  - Die Topbar mit WhatsApp/E-Mail/Öffnungszeiten ist auf Mobile ausgeblendet:
+ *    dort zeigte sie nur drei Icons auf 48px Höhe, die dauerhaft am oberen
+ *    Rand klebten. Ihre Inhalte stehen mobil im Fuß des Sheets.
+ */
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { cva } from "class-variance-authority";
-import { Menu, X, Mail, Phone, Building, DoorOpen, Wrench } from "lucide-react";
+import { usePathname } from "next/navigation";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { ArrowRight, Clock, Mail, Menu, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  NAV_CTA,
+  NAV_ITEMS,
+  isNavItemActive,
+  pathMatches,
+  type NavGroup,
+} from "@/lib/navigation";
+import { CONTACT, SITE_LINKS } from "@/lib/site-links";
+import { trackCTAClick } from "@/lib/analytics";
 import { ThemeToggleButton } from "./ThemeToggleButton";
-import { SITE_LINKS } from "@/lib/site-links";
+import { MobileMenu } from "./MobileMenu";
+import { NavIcon } from "./NavIcon";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -19,371 +43,290 @@ import {
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
 
-const navLinks = [
-  { href: "/", label: "Startseite" },
-  { href: "/leistungen", label: "Leistungen" },
-  { href: "/fensterservice", label: "Fensterservice", highlight: true },
-  { href: "/referenzen", label: "Referenzen" },
-  { href: "/ueber-uns", label: "Über Uns" },
-  { href: "/karriere", label: "Karriere" },
-  { href: "/kontakt", label: "Kontakt" },
-];
-
-const dropdownLinks = [
-  {
-    // Batch 2: Die Beschreibung war intent-neutral ("Fensterlösungen") und
-    // damit von /fensterservice nicht zu unterscheiden. Jetzt eindeutig Kauf.
-    href: "/fenster",
-    label: "Neue Fenster",
-    description: "Neue Fenster kaufen, alte austauschen – inkl. Aufmaß und Montage.",
-    icon: Building,
-  },
-  {
-    href: "/tueren",
-    label: "Türen",
-    description: "Sichere und stilvolle Eingangs- und Innentüren.",
-    icon: DoorOpen,
-  },
-  {
-    href: "/fensterservice",
-    label: "Fensterservice",
-    description: "Vorhandene Fenster reparieren, einstellen und warten.",
-    icon: Wrench,
-  },
-];
-
 export default function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const pathname = usePathname() ?? "/";
+  const [menuOpen, setMenuOpen] = React.useState(false);
 
+  // Nach jeder Navigation schließen – auch wenn der Klick nicht aus dem
+  // Sheet kam (Browser-Zurück, Link in einem Banner).
   React.useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "auto";
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isMobileMenuOpen]);
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
-    <>
-      {/* Sticky-Einheit: Topbar + Header bleiben beim Scrollen immer sichtbar
-          – auf Mobile, Tablet (iPad) und Desktop. */}
+    // Dialog-Root rendert kein DOM. Er umschließt Header UND Sheet, damit der
+    // Hamburger ein echter DialogPrimitive.Trigger sein kann (Fokus-Rückgabe,
+    // aria-expanded/aria-controls kommen dann von Radix).
+    <DialogPrimitive.Root open={menuOpen} onOpenChange={setMenuOpen}>
       <div className="sticky top-0 z-50">
-        {/* Topbar */}
-        <div className="bg-muted text-sm border-b border-black/5 dark:border-white/5">
-          <div className="container max-w-7xl mx-auto flex items-center justify-between h-12 px-4">
-            <div className="flex gap-6">
+        {/* Topbar – Service-Kontakte, nur ab Tablet */}
+        <div className="hidden border-b border-black/5 bg-muted text-sm dark:border-white/5 md:block">
+          <div className="container mx-auto flex h-10 max-w-7xl items-center justify-between px-4">
+            <div className="flex items-center gap-5">
               <a
                 href={SITE_LINKS.external.whatsappChat}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Per WhatsApp schreiben"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+                className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
               >
                 <Image
                   src="/bilder_ordner/icons/whatsapp.svg"
                   alt=""
                   aria-hidden="true"
-                  width={18}
-                  height={18}
+                  width={16}
+                  height={16}
                   className="shrink-0 rounded-[22%]"
                   unoptimized
                 />
-                <span className="hidden sm:inline">+49 176 668 25 889</span>
+                <span>{CONTACT.phoneDisplay}</span>
               </a>
               <a
-                href="mailto:info@ergart.de"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+                href={CONTACT.emailHref}
+                onClick={() => trackCTAClick("email", "header")}
+                className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
               >
-                <Mail size={16} />
-                <span className="hidden sm:inline">info@ergart.de</span>
+                <Mail size={15} aria-hidden="true" />
+                <span>{CONTACT.email}</span>
               </a>
             </div>
             <div className="flex items-center gap-4">
+              <span className="hidden items-center gap-1.5 text-muted-foreground lg:inline-flex">
+                <Clock size={14} aria-hidden="true" />
+                {CONTACT.hoursShort}
+              </span>
               <ThemeToggleButton />
             </div>
           </div>
         </div>
 
-        {/* Main header */}
+        {/* Hauptleiste */}
         <header className="w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 safe-top">
-        <div className="container flex h-24 max-w-7xl mx-auto items-center justify-between px-4">
-          <Link href="/" className="flex items-center gap-4">
-            <Image
-              src="/bilder_ordner/AE_logo.svg"
-              alt="Logo"
-              width={135}
-              height={100}
-              className="w-16 md:w-20 lg:w-24 h-auto transition-all"
-              priority
-              unoptimized
-            />
-            <div className="hidden lg:block">
-              <span className="font-bold text-xl">Alexander Ergart</span>
-              <p className="text-sm text-muted-foreground">
-                Ihr Profi in Neuss
-              </p>
-            </div>
-          </Link>
+          <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 nav-desktop:h-24">
+            <Link
+              href="/"
+              aria-label="Alexander Ergart – zur Startseite"
+              className="flex shrink-0 items-center gap-3 rounded"
+            >
+              <Image
+                src="/bilder_ordner/AE_logo.svg"
+                alt=""
+                aria-hidden="true"
+                width={135}
+                height={100}
+                className="h-auto w-14 transition-all md:w-20 nav-desktop:w-24"
+                priority
+                unoptimized
+              />
+              <span className="hidden lg:block">
+                <span className="block text-xl font-bold leading-tight">Alexander Ergart</span>
+                <span className="block text-sm text-muted-foreground">Ihr Profi in Neuss</span>
+              </span>
+            </Link>
 
-          {/* Desktop nav */}
-          <div className="hidden nav-desktop:flex">
-            <NavigationMenu>
-              <NavigationMenuList>
-                {navLinks.map((link) => (
-                  <NavigationMenuItem key={link.href}>
-                    <Link href={link.href} legacyBehavior passHref>
-                      <NavigationMenuLink
-                        className={cn(
-                          navigationMenuTriggerStyle(),
-                          // brand-solid im Light Mode: das helle --brand
-                          // erreicht auf hellem Headergrund nur 2.94:1.
-                          link.highlight &&
-                            "text-brand-text font-semibold"
-                        )}
-                      >
-                        {link.label}
-                      </NavigationMenuLink>
-                    </Link>
-                  </NavigationMenuItem>
-                ))}
+            {/* Desktop-Navigation */}
+            <nav aria-label="Hauptnavigation" className="hidden nav-desktop:flex">
+              <NavigationMenu>
+                <NavigationMenuList>
+                  {NAV_ITEMS.map((item) => {
+                    const active = isNavItemActive(item, pathname);
 
-                {/* Dropdown: Fenster & Türen */}
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger
-                    className={cn(
-                      "relative font-medium",
-                      "hover:bg-muted hover:text-foreground",
-                      "data-[state=open]:bg-muted data-[state=open]:text-foreground",
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                    )}
-                  >
-                    Fenster &amp; Türen
-                  </NavigationMenuTrigger>
+                    if (item.kind === "group") {
+                      return (
+                        <NavigationMenuItem key={item.href}>
+                          <NavigationMenuTrigger
+                            className={desktopItemStyle}
+                            data-active={active ? "true" : undefined}
+                          >
+                            {item.label}
+                          </NavigationMenuTrigger>
+                          <DesktopDropdown group={item} pathname={pathname} />
+                        </NavigationMenuItem>
+                      );
+                    }
 
-                  {/* --- POPUP: neutrale Popover-Flaeche, Brand nur als Akzent ---
-                      Vorher vollflaechig bg-brand-blue mit weisser Schrift:
-                      2.94:1 und damit unter WCAG AA. Die Popover-Flaeche
-                      erreicht 20.0:1 (light) bzw. 13.4:1 (dark). */}
-                  <NavigationMenuContent
-                    className={cn(
-                      "relative isolate z-50 rounded-xl p-0",
-                      // Solider Grundhintergrund => garantiert lesbar
-                      "bg-popover text-popover-foreground",
-                      // Tiefe/Kanten
-                      "ring-1 ring-border shadow-2xl drop-shadow-xl overflow-hidden"
-                    )}
-                  >
-                    {/* optionaler Kopf für Klarheit */}
-                    <div className="px-4 py-3 border-b border-border bg-muted">
-                      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                        Kategorien
-                      </p>
-                    </div>
-
-                    <ul className="grid w-[420px] gap-1 p-2 md:w-[560px] md:grid-cols-2 lg:w-[660px]">
-                      {dropdownLinks.map((item) => {
-                        const Icon = item.icon;
-                        return (
-                          <ListItem
-                            key={item.href}
+                    return (
+                      <NavigationMenuItem key={item.href}>
+                        <NavigationMenuLink asChild active={active}>
+                          <Link
                             href={item.href}
-                            title={item.label}
-                            description={item.description}
-                            icon={
-                              <Icon
-                                size={20}
-                                className="text-brand-text"
-                                aria-hidden
-                              />
-                            }
-                          />
-                        );
-                      })}
-                    </ul>
+                            className={desktopItemStyle}
+                            data-active={active ? "true" : undefined}
+                          >
+                            {item.label}
+                          </Link>
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
+                    );
+                  })}
+                </NavigationMenuList>
+              </NavigationMenu>
+            </nav>
 
-                    {/* optionaler Footer-Link */}
-                    <div className="px-4 py-3 border-t border-border bg-muted">
-                      <Link
-                        href="/leistungen"
-                        className="text-sm font-medium hover:underline text-brand-text"
-                      >
-                        Alle Leistungen ansehen
-                      </Link>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
+            {/* Desktop: Telefon + Primär-CTA */}
+            <div className="hidden items-center gap-2 nav-desktop:flex xl:gap-3">
+              <a
+                href={CONTACT.phoneHref}
+                onClick={() => trackCTAClick("phone", "header")}
+                className={cn(
+                  "hidden items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold xl:inline-flex",
+                  "text-foreground transition-colors hover:bg-muted",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                )}
+              >
+                <Phone size={16} aria-hidden="true" className="text-brand-text" />
+                {CONTACT.phoneDisplay}
+              </a>
+              <Link
+                href={NAV_CTA.href}
+                onClick={() => trackCTAClick("contact", "header")}
+                className={cn(
+                  "inline-flex h-10 items-center gap-2 rounded-md bg-primary px-5 text-sm font-bold text-primary-foreground",
+                  "shadow-sm transition-colors hover:bg-brand-solid-hover",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                )}
+              >
+                {NAV_CTA.label}
+              </Link>
+            </div>
+
+            {/* Mobil / Tablet: Anrufen + Menü */}
+            <div className="flex items-center gap-1 nav-desktop:hidden">
+              <a
+                href={CONTACT.phoneHref}
+                aria-label={`Jetzt anrufen: ${CONTACT.phoneDisplay}`}
+                onClick={() => trackCTAClick("phone", "header")}
+                className={cn(
+                  "inline-flex h-11 w-11 items-center justify-center rounded-md text-brand-text",
+                  "transition-colors hover:bg-muted",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                )}
+              >
+                <Phone size={22} aria-hidden="true" />
+              </a>
+              <DialogPrimitive.Trigger asChild>
+                <button
+                  type="button"
+                  aria-label="Menü öffnen"
+                  className={cn(
+                    "inline-flex h-11 w-11 items-center justify-center rounded-md text-foreground",
+                    "transition-colors hover:bg-muted",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  )}
+                >
+                  <Menu size={24} aria-hidden="true" />
+                </button>
+              </DialogPrimitive.Trigger>
+            </div>
           </div>
-
-          {/* Mobile menu button */}
-          <button
-            className="nav-desktop:hidden z-50"
-            onClick={() => setIsMobileMenuOpen((v) => !v)}
-            aria-label={isMobileMenuOpen ? "Menü schließen" : "Menü öffnen"}
-          >
-            {isMobileMenuOpen ? <X /> : <Menu />}
-          </button>
-        </div>
         </header>
       </div>
 
-      {/* Mobile overlay menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 nav-desktop:hidden bg-background/95 backdrop-blur-lg safe-top"
-          >
-            <motion.div
-              className="flex flex-col items-center justify-center h-full"
-              initial="initial"
-              animate="animate"
-              variants={{
-                initial: { opacity: 0 },
-                animate: {
-                  opacity: 1,
-                  transition: { staggerChildren: 0.08, delayChildren: 0.12 },
-                },
-              }}
-            >
-              {[...navLinks, ...dropdownLinks].map((link) => (
-                <motion.div
-                  key={link.href ?? link.label}
-                  variants={{
-                    initial: { opacity: 0, y: 12 },
-                    animate: { opacity: 1, y: 0 },
-                  }}
-                >
-                  <Link
-                    href={link.href ?? "#"}
-                    className="block py-4 text-2xl font-semibold text-center text-foreground hover:text-brand-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
-
-              <motion.div
-                className="absolute bottom-16 flex gap-8"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.45 }}
-              >
-                <a
-                  href="tel:+4917666825889"
-                  aria-label="Anrufen"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  <Phone size={28} />
-                </a>
-                <a
-                  href="mailto:info@ergart.de"
-                  aria-label="E-Mail schreiben"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  <Mail size={28} />
-                </a>
-                <a
-                  href={SITE_LINKS.external.whatsappChat}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Per WhatsApp schreiben"
-                  className="flex items-center justify-center shrink-0"
-                >
-                  <Image
-                    src="/bilder_ordner/icons/whatsapp.svg"
-                    alt=""
-                    aria-hidden="true"
-                    width={28}
-                    height={28}
-                    className="w-7 h-7 rounded-[22%]"
-                    unoptimized
-                  />
-                </a>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+      <MobileMenu onClose={() => setMenuOpen(false)} pathname={pathname} />
+    </DialogPrimitive.Root>
   );
 }
 
-/* =================================
-   Dropdown-ListItem: neu & kontraststark
-================================= */
-type ListItemProps = {
-  href: string;
-  title: string;
-  description: string;
-  icon?: React.ReactNode;
-  className?: string;
-};
+/* ======================================================================
+   Desktop-Dropdown
+   ====================================================================== */
 
-const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
-  ({ href, title, description, icon, className }, ref) => {
-    return (
-      <li>
-        <NavigationMenuLink asChild>
-          <Link
-            ref={ref}
-            href={href}
-            aria-label={title}
-            className={cn(
-              "group flex items-start gap-3 rounded-lg px-4 py-3",
-              // Fundament: klarer Kontrast auf beiden Themes
-              "bg-transparent text-popover-foreground",
-              // Hover: spürbar, aber nicht „brüllend“.
-              // Die Textfarbe bleibt bewusst stehen — vorher sprang sie
-              // durch das ererbte hover:text-accent-foreground um (Befund M1).
-              "hover:bg-accent hover:text-popover-foreground",
-              "focus:bg-accent focus:text-popover-foreground",
-              // Zusätzliche visuelle Führung
-              "ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              // feine Trennung bei dichtem Inhalt
-              "transition-colors",
-              className
-            )}
-          >
-            {icon && (
-              <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center">
-                {icon}
-              </span>
-            )}
-            <span className="flex-1">
-              <span className="block text-sm font-semibold leading-tight">
-                {title}
-              </span>
-              <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">
-                {description}
-              </span>
-            </span>
+function DesktopDropdown({ group, pathname }: { group: NavGroup; pathname: string }) {
+  const twoColumns = group.children.length > 3;
+
+  return (
+    // Neutrale Popover-Fläche, Brand nur als Akzent (20:1 light / 13.4:1 dark).
+    <NavigationMenuContent
+      className={cn(
+        "relative isolate z-50 overflow-hidden rounded-xl p-0",
+        "bg-popover text-popover-foreground",
+        "ring-1 ring-border shadow-2xl"
+      )}
+    >
+      <div className="border-b border-border bg-muted px-4 py-3">
+        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          {group.label}
+        </p>
+        <p className="mt-0.5 text-sm text-foreground">{group.intro}</p>
+      </div>
+
+      <ul className={cn("grid gap-1 p-2", twoColumns ? "w-[660px] grid-cols-2" : "w-[440px]")}>
+        {group.children.map((child) => {
+          const childActive = pathMatches(pathname, child.href);
+          return (
+            <li key={child.href}>
+              {/* Klassen gehören auf NavigationMenuLink, nicht auf das Kind:
+                  nur dort werden sie per twMerge gegen den Grundstil
+                  (flex-col, p-2) aufgelöst. Auf dem Kind würde Radix Slot
+                  beide Klassenlisten nur aneinanderhängen und flex-col gewänne. */}
+              <NavigationMenuLink
+                asChild
+                active={childActive}
+                className={cn(
+                  "group/item flex flex-row items-start gap-3 rounded-lg px-3 py-3 transition-colors",
+                  "text-popover-foreground hover:bg-accent hover:text-popover-foreground",
+                  "focus:bg-accent focus:text-popover-foreground",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  "[&_svg]:size-[18px]",
+                  childActive && "bg-brand/10"
+                )}
+              >
+                <Link href={child.href}>
+                  <span
+                    className={cn(
+                      "mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md",
+                      childActive ? "bg-brand/15 text-brand-text" : "bg-muted text-brand-text"
+                    )}
+                  >
+                    <NavIcon name={child.icon} size={18} />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span
+                      className={cn(
+                        "block text-sm font-semibold leading-tight",
+                        childActive && "text-brand-text"
+                      )}
+                    >
+                      {child.label}
+                    </span>
+                    <span className="mt-1 block text-sm leading-snug text-muted-foreground">
+                      {child.description}
+                    </span>
+                  </span>
+                </Link>
+              </NavigationMenuLink>
+            </li>
+          );
+        })}
+      </ul>
+
+      <div className="border-t border-border bg-muted px-4 py-3">
+        <NavigationMenuLink
+          asChild
+          className="inline-flex flex-row items-center gap-1.5 rounded p-0 text-sm font-semibold text-brand-text hover:bg-transparent hover:text-brand-text hover:underline focus:bg-transparent focus:text-brand-text"
+        >
+          <Link href={group.href}>
+            {group.overviewLabel}
+            <ArrowRight size={14} aria-hidden="true" />
           </Link>
         </NavigationMenuLink>
-      </li>
-    );
-  }
-);
-ListItem.displayName = "ListItem";
+      </div>
+    </NavigationMenuContent>
+  );
+}
 
-/* =================================
-   Trigger-Style (leicht angepasst)
-================================= */
-const navigationMenuTriggerStyle = cva(
-  [
-    "group inline-flex h-10 w-max items-center justify-center rounded-md",
-    "bg-transparent px-4 py-2 text-sm font-medium",
-    "transition-colors",
-    "hover:bg-muted hover:text-foreground",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-    "disabled:pointer-events-none disabled:opacity-50",
-    "data-[active]:bg-muted data-[state=open]:bg-muted",
-    "relative after:content-[''] after:absolute after:bottom-0 after:left-3 after:right-3 after:h-[2px]",
-    "after:bg-brand-blue after:scale-x-0 after:origin-left after:transition-transform after:duration-300",
-    "hover:after:scale-x-100 data-[state=open]:after:scale-x-100",
-  ].join(" ")
+/* ======================================================================
+   Stil der Desktop-Menüpunkte (Trigger und Link identisch)
+   ====================================================================== */
+
+const desktopItemStyle = cn(
+  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-sm font-medium xl:px-4",
+  "transition-colors hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+  "data-[state=open]:bg-muted data-[state=open]:text-foreground",
+  // Unterstrich: bei Hover/offen animiert, für den aktiven Bereich dauerhaft.
+  "relative after:absolute after:bottom-0 after:left-3 after:right-3 after:h-[2px] after:rounded-full after:bg-brand after:content-['']",
+  "after:origin-left after:scale-x-0 after:transition-transform after:duration-300",
+  "hover:after:scale-x-100 data-[state=open]:after:scale-x-100 data-[active=true]:after:scale-x-100",
+  "data-[active=true]:font-semibold data-[active=true]:text-brand-text"
 );
