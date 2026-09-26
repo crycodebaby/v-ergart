@@ -1,19 +1,15 @@
 // src/app/karriere/[slug]/page.tsx
+/**
+ * Stellenanzeige.
+ *
+ * Aufbau wie eine gut gesetzte Anzeige: Kopf mit Titel, Meta-Zeile und
+ * Faktenleiste auf heller Fläche; darunter eine Lesespalte mit den
+ * Abschnitten Aufgaben, Profil, Wir bieten, Details – rechts die
+ * Bewerbungskarte. Keine nummerierten Icon-Kacheln, keine Karten in Karten.
+ */
 import { notFound } from "next/navigation";
-import {
-  ArrowDown,
-  Briefcase,
-  CalendarClock,
-  Check,
-  ClipboardList,
-  Gift,
-  MapPin,
-  Plus,
-  ScrollText,
-  Send,
-  UserCheck,
-  type LucideIcon,
-} from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, Check, Phone, Plus } from "lucide-react";
 import { PortableText } from "@portabletext/react";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -26,11 +22,13 @@ import {
   schemaEmploymentType,
   type JobPosting,
 } from "@/lib/jobs-queries";
+import { CONTACT } from "@/lib/site-links";
 import { StickySidebarApply } from "@/components/StickySidebarApply";
 import { JobDetailTracking } from "@/components/JobDetailTracking";
 import { JobApplyButton } from "@/components/JobApplyButton";
+import { JobMobileApplyBar } from "@/components/JobMobileApplyBar";
 import { BewerbungsAblauf } from "@/components/BewerbungsAblauf";
-import { BewerbungsCTA } from "@/components/BewerbungsCTA";
+import { KarriereAnsprechpartner } from "@/components/KarriereAnsprechpartner";
 import { DynamicIcon } from "@/components/DynamicIcon";
 import { Section } from "@/components/ui/section";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -119,42 +117,47 @@ function JobJsonLd({ job }: { job: JobPosting }) {
   );
 }
 
-/** Einheitlicher Abschnittskopf: Nummer · Icon · Titel · Unterzeile */
-function BlockHeader({
-  index,
-  icon: Icon,
+/** Abschnitt der Anzeige: Haarlinie oben, Überschrift, Inhalt. */
+function Block({
+  id,
   title,
-  subtitle,
+  children,
 }: {
-  index: string;
-  icon: LucideIcon;
+  id: string;
   title: string;
-  subtitle?: string;
+  children: ReactNode;
 }) {
+  // scroll-mt: Sprungziele liegen sonst unter dem Sticky-Header
   return (
-    <div className="mb-6 flex items-center gap-4">
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-blue/10">
-        <Icon className="h-6 w-6 text-brand-text" aria-hidden="true" />
-      </div>
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-widest text-brand-text">
-          {index}
-        </p>
-        <h2 className="text-2xl font-bold text-foreground md:text-3xl">{title}</h2>
-        {subtitle ? (
-          <p className="mt-0.5 text-sm text-muted-foreground">{subtitle}</p>
-        ) : null}
-      </div>
-    </div>
+    <section id={id} className="scroll-mt-40 border-t border-border pt-8">
+      <h2 className="text-xl font-bold tracking-tight text-foreground md:text-2xl">{title}</h2>
+      <div className="mt-5">{children}</div>
+    </section>
   );
 }
 
-function Block({ id, children }: { id: string; children: ReactNode }) {
-  // scroll-mt: Sprungziele liegen sonst unter dem Sticky-Header
+function CheckList({
+  items,
+  icon: Icon = Check,
+  muted = false,
+}: {
+  items: string[];
+  icon?: typeof Check;
+  muted?: boolean;
+}) {
   return (
-    <section id={id} className="scroll-mt-40">
-      {children}
-    </section>
+    <ul className="space-y-3">
+      {items.map((item) => (
+        <li key={item} className="flex items-start gap-3 leading-relaxed text-foreground">
+          <Icon
+            size={18}
+            aria-hidden="true"
+            className={muted ? "mt-1 shrink-0 text-muted-foreground" : "mt-1 shrink-0 text-brand-text"}
+          />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -171,220 +174,166 @@ export default async function JobDetailPage({ params }: Props) {
   const longText = job.description ?? job.excerpt;
   const hasProfile = requirements.length > 0 || niceToHave.length > 0;
 
+  const meta = [employmentType, job.location, "Start nächstmöglich"].filter(Boolean);
+
   const facts = [
-    { icon: Briefcase, label: "Anstellung", value: employmentType },
-    { icon: MapPin, label: "Einsatzort", value: job.location },
-    { icon: CalendarClock, label: "Start", value: "Nächstmöglich" },
-    { icon: Send, label: "Bewerbung", value: "Per E-Mail" },
+    { label: "Anstellung", value: employmentType },
+    { label: "Einsatzort", value: job.location },
+    { label: "Beginn", value: "Nächstmöglich" },
+    { label: "Bewerbung", value: "Per E-Mail, Lebenslauf genügt" },
   ].filter((fact) => fact.value);
 
-  // Fortlaufende Nummerierung nur über tatsächlich vorhandene Abschnitte
-  let counter = 0;
-  const next = () => String(++counter).padStart(2, "0");
-
   return (
-    <div className="bg-background">
+    <>
       <JobJsonLd job={job} />
       <JobDetailTracking jobTitle={job.title} />
 
-      {/* Hero – dauerhaft dunkle Bühne, unabhängig vom Theme */}
-      <header className="relative isolate overflow-hidden bg-slate-950 text-white">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[radial-gradient(70%_90%_at_15%_0%,hsl(var(--brand)/0.35),transparent_65%)]"
+      {/* Kopf der Anzeige */}
+      <Section surface="base" spacing="compact" className="border-b border-border">
+        <Breadcrumbs
+          items={[
+            { label: "Karriere", href: "/karriere" },
+            { label: job.title, href: `/karriere/${params.slug}` },
+          ]}
         />
-        <div className="container mx-auto max-w-7xl px-4 pb-10 pt-12 lg:pb-14 lg:pt-16">
-          <Breadcrumbs
-            tone="inverse"
-            items={[
-              { label: "Karriere", href: "/karriere" },
-              { label: job.title, href: `/karriere/${params.slug}` },
-            ]}
-          />
 
-          <div className="mt-8 max-w-4xl">
-            <p className="text-sm font-semibold uppercase tracking-widest text-brand-blue">
-              Stellenangebot
+        <div id="stellenkopf" className="mt-8 max-w-3xl">
+          <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+            {meta.join("  ·  ")}
+          </p>
+          <h1 className="mt-3 text-4xl font-bold leading-[1.1] tracking-tight text-foreground md:text-5xl">
+            {job.title}
+          </h1>
+          {job.metaDescription ? (
+            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+              {job.metaDescription}
             </p>
-            <h1 className="mt-3 text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
-              {job.title}
-            </h1>
-            {job.metaDescription ? (
-              <p className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-200 md:text-xl">
-                {job.metaDescription}
-              </p>
-            ) : null}
+          ) : null}
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <JobApplyButton jobTitle={job.title} tone="inverse" />
-              <a
-                href="#aufgaben"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-white/30 px-6 text-base font-semibold text-white transition-colors duration-300 hover:bg-white/10"
-              >
-                Stelle im Überblick
-                <ArrowDown size={18} aria-hidden="true" />
-              </a>
-            </div>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <JobApplyButton jobTitle={job.title} />
+            <a
+              href={CONTACT.phoneHref}
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-input px-6 text-base font-semibold text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              <Phone size={18} aria-hidden="true" />
+              Fragen zur Stelle? Anrufen
+            </a>
           </div>
-
-          {/* Faktenleiste: die Eckdaten EINMAL, gut sichtbar */}
-          <ul className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/15 bg-white/15 lg:grid-cols-4">
-            {facts.map((fact) => (
-              <li key={fact.label} className="flex items-center gap-3 bg-slate-950/80 p-4 lg:p-5">
-                <fact.icon className="h-5 w-5 shrink-0 text-brand-blue" aria-hidden="true" />
-                <div className="min-w-0">
-                  <p className="text-xs uppercase tracking-wider text-slate-400">
-                    {fact.label}
-                  </p>
-                  <p className="truncate font-semibold">{fact.value}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
         </div>
-      </header>
+
+        {/* Faktenleiste: die Eckdaten einmal, gut sichtbar */}
+        <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-border pt-6 md:grid-cols-4">
+          {facts.map((fact) => (
+            <div key={fact.label} className="min-w-0">
+              <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                {fact.label}
+              </dt>
+              <dd className="mt-1 font-medium leading-snug text-foreground">{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </Section>
 
       {/* Inhalt */}
-      <div className="container mx-auto max-w-7xl px-4 py-14 lg:py-20">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_360px]">
-          <div className="space-y-16">
-            {/* Aufgaben */}
+      <Section surface="base">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
+          <article className="max-w-3xl space-y-12">
             {responsibilities.length > 0 ? (
-              <Block id="aufgaben">
-                <BlockHeader
-                  index={next()}
-                  icon={ClipboardList}
-                  title="Ihre Aufgaben"
-                  subtitle="Das machen Sie bei uns"
-                />
-                <ul className="grid gap-3 sm:grid-cols-2">
-                  {responsibilities.map((task) => (
-                    <li
-                      key={task}
-                      className="flex items-start gap-3 rounded-xl border border-border bg-card p-4"
-                    >
-                      <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-blue/10">
-                        <Check className="h-4 w-4 text-brand-text" aria-hidden="true" />
-                      </span>
-                      <span className="text-foreground">{task}</span>
-                    </li>
-                  ))}
-                </ul>
+              <Block id="aufgaben" title="Ihre Aufgaben">
+                <CheckList items={responsibilities} />
               </Block>
             ) : null}
 
-            {/* Profil: Muss & Plus nebeneinander */}
             {hasProfile ? (
-              <Block id="profil">
-                <BlockHeader
-                  index={next()}
-                  icon={UserCheck}
-                  title="Ihr Profil"
-                  subtitle="Was Sie mitbringen sollten – und was ein Plus ist"
-                />
-                <div className="grid gap-4 md:grid-cols-2">
+              <Block id="profil" title="Ihr Profil">
+                <div className="space-y-8">
                   {requirements.length > 0 ? (
-                    <div className="rounded-2xl border border-brand-blue/30 bg-brand-blue/5 p-6">
-                      <h3 className="text-sm font-semibold uppercase tracking-wider text-brand-text">
+                    <div>
+                      <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                         Das bringen Sie mit
                       </h3>
-                      <ul className="mt-4 space-y-3">
-                        {requirements.map((req) => (
-                          <li key={req} className="flex items-start gap-3">
-                            <Check
-                              className="mt-0.5 h-5 w-5 shrink-0 text-brand-text"
-                              aria-hidden="true"
-                            />
-                            <span className="text-foreground">{req}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <div className="mt-3">
+                        <CheckList items={requirements} />
+                      </div>
                     </div>
                   ) : null}
                   {niceToHave.length > 0 ? (
-                    <div className="rounded-2xl border border-border bg-card p-6">
+                    <div>
                       <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                        Von Vorteil – kein Muss
+                        Von Vorteil, kein Muss
                       </h3>
-                      <ul className="mt-4 space-y-3">
-                        {niceToHave.map((item) => (
-                          <li key={item} className="flex items-start gap-3">
-                            <Plus
-                              className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground"
-                              aria-hidden="true"
-                            />
-                            <span className="text-foreground">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <div className="mt-3">
+                        <CheckList items={niceToHave} icon={Plus} muted />
+                      </div>
                     </div>
                   ) : null}
                 </div>
               </Block>
             ) : null}
 
-            {/* Benefits */}
             {benefits.length > 0 ? (
-              <Block id="benefits">
-                <BlockHeader
-                  index={next()}
-                  icon={Gift}
-                  title="Das bieten wir"
-                  subtitle="Ihre Vorteile in dieser Position"
-                />
-                <ul className="grid gap-4 md:grid-cols-2">
+              <Block id="wir-bieten" title="Das bieten wir">
+                <ul className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
                   {benefits.map((benefit) => (
-                    <li
-                      key={benefit.title}
-                      className="rounded-2xl border border-border bg-card p-6 shadow-sm"
-                    >
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-blue/10">
-                        <DynamicIcon
-                          name={benefit.icon}
-                          className="h-5 w-5 text-brand-text"
-                        />
+                    <li key={benefit.title} className="flex gap-3">
+                      <DynamicIcon
+                        name={benefit.icon}
+                        size={20}
+                        className="mt-0.5 shrink-0 text-brand-text"
+                      />
+                      <div>
+                        {/* text-base explizit: globals.css skaliert h3 sonst per clamp hoch */}
+                        <h3 className="text-base font-semibold text-foreground">
+                          {benefit.title.trim()}
+                        </h3>
+                        {benefit.description?.trim() ? (
+                          <p className="mt-1 whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
+                            {benefit.description.trim()}
+                          </p>
+                        ) : null}
                       </div>
-                      <h3 className="mt-4 text-lg font-bold text-foreground">
-                        {benefit.title.trim()}
-                      </h3>
-                      {benefit.description?.trim() ? (
-                        <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
-                          {benefit.description.trim()}
-                        </p>
-                      ) : null}
                     </li>
                   ))}
                 </ul>
               </Block>
             ) : null}
 
-            {/* Langtext aus dem CMS – bewusst NACH den strukturierten Fakten */}
             {longText ? (
-              <Block id="details">
-                <BlockHeader
-                  index={next()}
-                  icon={ScrollText}
-                  title="Die Stelle im Detail"
-                />
-                <div className="prose prose-lg max-w-none rounded-2xl border border-border bg-card p-6 dark:prose-invert md:p-8">
+              <Block id="details" title="Die Stelle im Detail">
+                <div className="prose prose-neutral max-w-none dark:prose-invert prose-headings:text-base prose-headings:font-semibold prose-headings:tracking-tight prose-p:leading-relaxed">
                   <PortableText value={longText} />
                 </div>
               </Block>
             ) : null}
-          </div>
+
+            <div className="border-t border-border pt-8">
+              <Link
+                href="/karriere"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-brand-text hover:underline"
+              >
+                <ArrowLeft size={16} aria-hidden="true" />
+                Alle offenen Stellen
+              </Link>
+            </div>
+          </article>
 
           <aside>
             <StickySidebarApply title={job.title} quickFacts={quickFacts} />
           </aside>
         </div>
-      </div>
+      </Section>
 
       <Section surface="muted">
         <BewerbungsAblauf />
       </Section>
 
-      <BewerbungsCTA jobTitle={job.title} />
-    </div>
+      <Section surface="base" className="border-t border-border">
+        <KarriereAnsprechpartner jobTitle={job.title} />
+      </Section>
+
+      <JobMobileApplyBar jobTitle={job.title} sentinelId="stellenkopf" />
+    </>
   );
 }
 

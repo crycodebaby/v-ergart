@@ -59,7 +59,17 @@ const DETAIL_QUERY = groq`
 // Tags für Next.js Cache (On-demand Revalidate)
 export const JOBS_TAG = "jobs";
 
+/**
+ * Lokale Beispieldaten statt CMS – nur mit `JOBS_FIXTURE=1` (serverseitig,
+ * nie in Production gesetzt). Erlaubt Layout-Arbeit ohne Sanity-Zugang.
+ */
+const useFixture = process.env.JOBS_FIXTURE === "1";
+
 export async function fetchJobs(): Promise<JobPosting[]> {
+  if (useFixture) {
+    const { FIXTURE_JOBS } = await import("./jobs-fixture");
+    return FIXTURE_JOBS;
+  }
   if (!isSanityConfigured) return [];
   return client.fetch(
     LIST_QUERY,
@@ -69,6 +79,10 @@ export async function fetchJobs(): Promise<JobPosting[]> {
 }
 
 export async function fetchJobBySlug(slug: string): Promise<JobPosting | null> {
+  if (useFixture) {
+    const { FIXTURE_JOBS } = await import("./jobs-fixture");
+    return FIXTURE_JOBS.find((job) => job.slug.current === slug) ?? null;
+  }
   if (!isSanityConfigured) return null;
   return client.fetch(
     DETAIL_QUERY,

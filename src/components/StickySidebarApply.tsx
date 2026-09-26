@@ -1,6 +1,13 @@
 // src/components/StickySidebarApply.tsx
-import { CheckCircle2, Phone } from "lucide-react";
-import { JobApplyButton } from "@/components/JobApplyButton";
+/**
+ * Bewerbungs-Karte der Stellenanzeige. Bleibt auf dem Desktop beim Scrollen
+ * stehen. Eine ruhige Karte: Kurzfakten, ein Primär-Button, Telefon, und
+ * darunter die Person, die die Bewerbung liest.
+ */
+import Image from "next/image";
+import { Check, Phone } from "lucide-react";
+import { KARRIERE_CONTACT } from "@/lib/karriere-data";
+import { JobApplyButton } from "./JobApplyButton";
 
 type Props = {
   title: string;
@@ -11,62 +18,59 @@ type Props = {
 // Fallback, wenn im CMS keine Kurzfakten gepflegt sind
 const DEFAULT_QUICK_FACTS = [
   "Unbefristeter Vertrag",
-  "Faire Bezahlung",
-  "Modernes Equipment",
-  "Teamgeist & Support",
+  "Faire, pünktliche Bezahlung",
+  "Einsatzgebiet Neuss und Rhein-Kreis",
 ];
 
-/**
- * Bewerbungs-Karte der Stellenanzeige. Bleibt auf dem Desktop beim Scrollen
- * stehen; die Eckdaten (Anstellung, Ort, Start) stehen bewusst NICHT mehr
- * hier, sondern einmalig in der Faktenleiste des Heroes.
- */
 export const StickySidebarApply = ({ title, quickFacts }: Props) => {
   const facts = quickFacts.length > 0 ? quickFacts : DEFAULT_QUICK_FACTS;
+  const c = KARRIERE_CONTACT;
 
   return (
     <div className="lg:sticky lg:top-40">
-      <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-lg">
-        <div className="bg-brand-blue/10 px-6 py-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-brand-text">
-            Ihre Bewerbung
-          </p>
-          <h2 className="mt-1 text-xl font-bold text-foreground">{title}</h2>
+      <div className="rounded-xl border border-border bg-card p-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          Auf einen Blick
+        </p>
+        <ul className="mt-4 space-y-2.5">
+          {facts.map((fact) => (
+            <li key={fact} className="flex items-start gap-2.5 text-sm text-foreground">
+              <Check size={16} className="mt-0.5 shrink-0 text-brand-text" aria-hidden="true" />
+              <span>{fact}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-6 space-y-2.5">
+          <JobApplyButton jobTitle={title} label="Jetzt bewerben" className="w-full" />
+          <a
+            href={c.phoneHref}
+            className="flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-input text-sm font-semibold text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <Phone size={16} aria-hidden="true" />
+            {c.phoneDisplay}
+          </a>
         </div>
 
-        <div className="p-6">
-          <h3 className="text-sm font-semibold text-foreground">Auf einen Blick</h3>
-          <ul className="mt-3 space-y-2.5">
-            {facts.map((fact) => (
-              <li key={fact} className="flex items-start gap-2.5 text-sm">
-                <CheckCircle2
-                  className="mt-0.5 h-4 w-4 shrink-0 text-brand-text"
-                  aria-hidden="true"
-                />
-                <span className="text-foreground">{fact}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-6 space-y-3">
-            <JobApplyButton
-              jobTitle={title}
-              label="Per E-Mail bewerben"
-              className="w-full"
+        <div className="mt-6 flex items-center gap-3 border-t border-border pt-5">
+          <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full bg-muted">
+            <Image
+              src={c.image.src}
+              alt=""
+              fill
+              sizes="44px"
+              className="object-cover object-top"
             />
-            <a
-              href="tel:+4917666825889"
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-border text-sm font-semibold text-foreground transition-colors hover:border-brand-blue hover:bg-brand-blue/5"
-            >
-              <Phone className="h-4 w-4" aria-hidden="true" />
-              Fragen? 0176 668 25 889
-            </a>
           </div>
-
-          <p className="mt-5 text-center text-xs leading-relaxed text-muted-foreground">
-            Lebenslauf, Zeugnisse und ein kurzes Anschreiben genügen.
-          </p>
+          <div className="min-w-0 text-sm">
+            <p className="font-semibold text-foreground">{c.name}</p>
+            <p className="text-muted-foreground">{c.role}</p>
+          </div>
         </div>
+        <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+          Lebenslauf per E-Mail genügt. Sie erhalten innerhalb weniger Tage eine
+          Antwort.
+        </p>
       </div>
     </div>
   );

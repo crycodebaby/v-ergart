@@ -1,59 +1,34 @@
 // src/components/BewerbungsAblauf.tsx
-import { FileText, Handshake, Rocket } from "lucide-react";
-
-const steps = [
-  {
-    icon: FileText,
-    title: "Bewerbung senden",
-    text: "Lebenslauf, Zeugnisse und ein kurzes Anschreiben per E-Mail – mehr braucht es nicht.",
-  },
-  {
-    icon: Handshake,
-    title: "Persönlich kennenlernen",
-    text: "Wir melden uns zeitnah und lernen uns im Gespräch in Neuss kennen.",
-  },
-  {
-    icon: Rocket,
-    title: "Einarbeitung & Start",
-    text: "Strukturierte Einarbeitung mit festem Ansprechpartner – Sie starten nicht allein.",
-  },
-];
-
 /**
  * Bewerbungsablauf in drei Schritten – auf /karriere und in jeder
- * Stellenanzeige. Rendert nur Inhalt; die Fläche kommt von aussen.
+ * Stellenanzeige. Nummer in Mono, Haarlinie als Zeitachse, kein Kartenraster.
+ * Rendert nur Inhalt; die Fläche kommt von aussen.
  */
+import { KARRIERE_STEPS } from "@/lib/karriere-data";
+
 export function BewerbungsAblauf({ title = "So läuft Ihre Bewerbung" }: { title?: string }) {
   return (
     <div>
-      <div className="mx-auto mb-10 max-w-3xl text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest text-brand-text">
-          In 3 Schritten
+      <div className="max-w-2xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          Ablauf
         </p>
-        <h2 className="mt-2 text-3xl font-bold text-foreground md:text-4xl">
+        <h2 className="mt-4 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
           {title}
         </h2>
+        <p className="mt-4 leading-relaxed text-muted-foreground">
+          Drei Schritte, keine Formulare, keine Wartezeiten von Wochen.
+        </p>
       </div>
 
-      <ol className="grid gap-6 md:grid-cols-3">
-        {steps.map((step, index) => (
-          <li
-            key={step.title}
-            className="relative rounded-2xl border border-border bg-card p-6 shadow-sm lg:p-8"
-          >
-            <span
-              aria-hidden="true"
-              className="absolute right-6 top-4 text-6xl font-bold leading-none text-brand-blue/15"
-            >
-              {index + 1}
-            </span>
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-blue/10">
-              <step.icon className="h-6 w-6 text-brand-text" aria-hidden="true" />
-            </div>
-            <h3 className="mt-5 text-lg font-bold text-foreground">{step.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              {step.text}
+      <ol className="mt-10 grid gap-8 md:grid-cols-3 md:gap-10">
+        {KARRIERE_STEPS.map((step, index) => (
+          <li key={step.title} className="border-t border-border pt-5">
+            <p className="font-mono text-xs uppercase tracking-wider text-brand-text">
+              Schritt {String(index + 1).padStart(2, "0")}
             </p>
+            <h3 className="mt-3 text-lg font-semibold text-foreground">{step.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.text}</p>
           </li>
         ))}
       </ol>

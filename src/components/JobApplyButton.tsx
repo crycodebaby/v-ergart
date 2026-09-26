@@ -3,6 +3,7 @@
 
 import { Mail } from "lucide-react";
 import { trackKarriereAction } from "@/lib/analytics";
+import { CONTACT } from "@/lib/site-links";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -11,8 +12,9 @@ type Props = {
   /** Eigener Mail-Betreff, z. B. "Initiativbewerbung". Default: "Bewerbung als <Titel>". */
   subject?: string;
   label?: string;
-  /** "inverse": für dauerhaft dunkle Flächen (Hero, Abschlussblock). */
+  /** "inverse": für dauerhaft dunkle Flächen. */
   tone?: "default" | "inverse";
+  size?: "default" | "sm";
   className?: string;
 };
 
@@ -25,9 +27,10 @@ export function JobApplyButton({
   subject,
   label = "Jetzt bewerben",
   tone = "default",
+  size = "default",
   className,
 }: Props) {
-  const href = `mailto:info@ergart.de?subject=${encodeURIComponent(
+  const href = `${CONTACT.emailHref}?subject=${encodeURIComponent(
     subject ?? `Bewerbung als ${jobTitle}`
   )}`;
 
@@ -36,14 +39,16 @@ export function JobApplyButton({
       href={href}
       onClick={() => trackKarriereAction("apply_click", jobTitle)}
       className={cn(
-        "inline-flex h-12 items-center justify-center gap-2 rounded-lg px-6 text-base font-semibold shadow-lg transition-all duration-300 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        "inline-flex items-center justify-center gap-2 rounded-lg font-semibold shadow-sm transition-colors",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        size === "sm" ? "h-10 px-4 text-sm" : "h-12 px-6 text-base",
         tone === "inverse"
           ? "bg-white text-slate-900 hover:bg-slate-100"
           : "bg-primary text-primary-foreground hover:bg-brand-solid-hover",
         className
       )}
     >
-      <Mail size={18} aria-hidden="true" />
+      <Mail size={size === "sm" ? 16 : 18} aria-hidden="true" />
       {label}
     </a>
   );

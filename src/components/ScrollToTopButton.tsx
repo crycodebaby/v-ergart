@@ -43,7 +43,9 @@ export const ScrollToTopButton = () => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="fixed bottom-8 right-8 z-50"
+          // Weicht der mobilen Bewerbungsleiste (JobMobileApplyBar) aus,
+          // sobald diese sichtbar ist; ab lg gibt es die Leiste nicht.
+          className="fixed bottom-8 right-8 z-50 transition-[bottom] duration-300 [body[data-apply-bar='1']_&]:bottom-24 lg:[body[data-apply-bar='1']_&]:bottom-8"
         >
           <button
             onClick={scrollToTop}
