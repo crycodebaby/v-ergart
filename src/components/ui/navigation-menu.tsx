@@ -91,7 +91,9 @@ function NavigationMenuContent({
       data-slot="navigation-menu-content"
       className={cn(
         // Animation/Position unverändert
-        "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 top-0 left-0 w-full p-2 pr-2.5 md:absolute md:w-auto",
+        // Wechsel zwischen zwei Panels: ruhiges Gleiten um wenige Pixel statt
+        // 208px (slide-*-52) – der Inhalt soll nachrücken, nicht vorbeifliegen.
+        "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-6 data-[motion=from-start]:slide-in-from-left-6 data-[motion=to-end]:slide-out-to-right-6 data-[motion=to-start]:slide-out-to-left-6 data-[motion]:duration-300 data-[motion]:ease-out top-0 left-0 w-full p-2 pr-2.5 md:absolute md:w-auto",
         // ❗ Wenn KEIN Viewport verwendet wird (fallback), setze SOLIDES Panel
         "group-data-[viewport=false]/navigation-menu:bg-background group-data-[viewport=false]/navigation-menu:text-foreground group-data-[viewport=false]/navigation-menu:rounded-md group-data-[viewport=false]/navigation-menu:border group-data-[viewport=false]/navigation-menu:ring-1 group-data-[viewport=false]/navigation-menu:ring-border/70 group-data-[viewport=false]/navigation-menu:shadow-2xl group-data-[viewport=false]/navigation-menu:mt-1.5 group-data-[viewport=false]/navigation-menu:overflow-hidden group-data-[viewport=false]/navigation-menu:duration-200 group-data-[viewport=false]/navigation-menu:data-[state=open]:animate-in group-data-[viewport=false]/navigation-menu:data-[state=closed]:animate-out group-data-[viewport=false]/navigation-menu:data-[state=closed]:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-[state=open]:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-[state=open]:fade-in-0 group-data-[viewport=false]/navigation-menu:data-[state=closed]:fade-out-0",
         // Fokus auf Links im Panel
@@ -122,10 +124,12 @@ function NavigationMenuViewport({
           "bg-background text-foreground ring-1 ring-border/70 shadow-2xl",
           // **KEIN Blur/Durchscheinen erzwingen**
           "backdrop-blur-0 supports-[backdrop-filter]:backdrop-blur-0",
-          // Größe auf Desktop per Radix-Var
+          // Größe auf Desktop per Radix-Var. Breite und Höhe gleiten beim
+          // Wechsel zwischen zwei Panels, statt zu springen.
           "md:w-[var(--radix-navigation-menu-viewport-width)]",
-          // Animationen beibehalten
-          "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90",
+          "transition-[width,height] duration-300 ease-soft motion-reduce:transition-none",
+          // Öffnen/Schließen: kurzer Fade mit minimalem Zoom, ohne Sprung.
+          "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-[0.98] data-[state=open]:zoom-in-[0.98] data-[state=open]:slide-in-from-top-1 duration-200",
           className
         )}
         {...props}

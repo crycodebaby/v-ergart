@@ -20,26 +20,19 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { ArrowRight, Clock, Mail, Menu, Phone } from "lucide-react";
+import { Clock, Mail, Menu, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  NAV_CTA,
-  NAV_ITEMS,
-  isNavItemActive,
-  pathMatches,
-  type NavGroup,
-} from "@/lib/navigation";
+import { NAV_CTA, NAV_ITEMS, isNavItemActive } from "@/lib/navigation";
 import { CONTACT, SITE_LINKS } from "@/lib/site-links";
 import { trackCTAClick } from "@/lib/analytics";
 import { ThemeToggleButton } from "./ThemeToggleButton";
 import { MobileMenu } from "./MobileMenu";
-import { NavIcon } from "./NavIcon";
+import { DesktopDropdown, NavImagePrefetch } from "./DesktopDropdown";
 import {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuTrigger,
-  NavigationMenuContent,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
 
@@ -223,95 +216,15 @@ export default function Header() {
       </div>
 
       <MobileMenu onClose={() => setMenuOpen(false)} pathname={pathname} />
+
+      {/* Die beiden Übersichtsbilder der Dropdowns vorladen (2 kleine
+          Requests), damit das Panel beim ersten Öffnen nicht grau startet.
+          Die Bilder der einzelnen Einträge lädt das Panel selbst, sobald es
+          offen ist. */}
+      <NavImagePrefetch
+        srcs={NAV_ITEMS.flatMap((item) => (item.kind === "group" ? [item.image] : []))}
+      />
     </DialogPrimitive.Root>
-  );
-}
-
-/* ======================================================================
-   Desktop-Dropdown
-   ====================================================================== */
-
-function DesktopDropdown({ group, pathname }: { group: NavGroup; pathname: string }) {
-  const twoColumns = group.children.length > 3;
-
-  return (
-    // Neutrale Popover-Fläche, Brand nur als Akzent (20:1 light / 13.4:1 dark).
-    <NavigationMenuContent
-      className={cn(
-        "relative isolate z-50 overflow-hidden rounded-xl p-0",
-        "bg-popover text-popover-foreground",
-        "ring-1 ring-border shadow-2xl"
-      )}
-    >
-      <div className="border-b border-border bg-muted px-4 py-3">
-        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          {group.label}
-        </p>
-        <p className="mt-0.5 text-sm text-foreground">{group.intro}</p>
-      </div>
-
-      <ul className={cn("grid gap-1 p-2", twoColumns ? "w-[660px] grid-cols-2" : "w-[440px]")}>
-        {group.children.map((child) => {
-          const childActive = pathMatches(pathname, child.href);
-          return (
-            <li key={child.href}>
-              {/* Klassen gehören auf NavigationMenuLink, nicht auf das Kind:
-                  nur dort werden sie per twMerge gegen den Grundstil
-                  (flex-col, p-2) aufgelöst. Auf dem Kind würde Radix Slot
-                  beide Klassenlisten nur aneinanderhängen und flex-col gewänne. */}
-              <NavigationMenuLink
-                asChild
-                active={childActive}
-                className={cn(
-                  "group/item flex flex-row items-start gap-3 rounded-lg px-3 py-3 transition-colors",
-                  "text-popover-foreground hover:bg-accent hover:text-popover-foreground",
-                  "focus:bg-accent focus:text-popover-foreground",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                  "[&_svg]:size-[18px]",
-                  childActive && "bg-brand/10"
-                )}
-              >
-                <Link href={child.href}>
-                  <span
-                    className={cn(
-                      "mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md",
-                      childActive ? "bg-brand/15 text-brand-text" : "bg-muted text-brand-text"
-                    )}
-                  >
-                    <NavIcon name={child.icon} size={18} />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span
-                      className={cn(
-                        "block text-sm font-semibold leading-tight",
-                        childActive && "text-brand-text"
-                      )}
-                    >
-                      {child.label}
-                    </span>
-                    <span className="mt-1 block text-sm leading-snug text-muted-foreground">
-                      {child.description}
-                    </span>
-                  </span>
-                </Link>
-              </NavigationMenuLink>
-            </li>
-          );
-        })}
-      </ul>
-
-      <div className="border-t border-border bg-muted px-4 py-3">
-        <NavigationMenuLink
-          asChild
-          className="inline-flex flex-row items-center gap-1.5 rounded p-0 text-sm font-semibold text-brand-text hover:bg-transparent hover:text-brand-text hover:underline focus:bg-transparent focus:text-brand-text"
-        >
-          <Link href={group.href}>
-            {group.overviewLabel}
-            <ArrowRight size={14} aria-hidden="true" />
-          </Link>
-        </NavigationMenuLink>
-      </div>
-    </NavigationMenuContent>
   );
 }
 

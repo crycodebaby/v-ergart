@@ -44,6 +44,8 @@ export type NavChild = {
   /** Eine Zeile, die die Absicht klärt (kaufen vs. reparieren). */
   description: string;
   icon?: NavIconName;
+  /** Vorschaubild im Desktop-Dropdown (wird beim Hover eingeblendet). */
+  image: string;
 };
 
 export type NavGroup = {
@@ -53,6 +55,8 @@ export type NavGroup = {
   label: string;
   /** Kurzer Zusatz für den Dropdown-Kopf. */
   intro: string;
+  /** Vorschaubild, solange kein Eintrag gehovert ist. */
+  image: string;
   children: readonly NavChild[];
   /** Link am Fuß des Dropdowns, z. B. "Alle Leistungen ansehen". */
   overviewLabel: string;
@@ -88,6 +92,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
     href: "/leistungen",
     label: "Leistungen",
     intro: "Hausmeisterservice, Reinigung, Garten & mehr in Neuss",
+    image: "/bilder_ordner/leistungen/hausmeisterarbeit.webp",
     overviewLabel: "Alle Leistungen ansehen",
     activePrefixes: ["/leistungen"],
     children: LEISTUNGEN_DETAILS.map((item) => ({
@@ -95,6 +100,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
       label: item.title,
       description: item.shortDesc,
       icon: LEISTUNG_ICONS[item.slug] ?? "layout-grid",
+      image: item.heroImage,
     })),
   },
   {
@@ -102,6 +108,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
     href: "/fenster-tueren",
     label: "Fenster & Türen",
     intro: "HÖNING-Qualität – neu einbauen oder bestehende Fenster retten",
+    image: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterelement-kran.webp",
     overviewLabel: "Übersicht Fenster & Türen",
     activePrefixes: ["/fenster-tueren", "/fenster", "/tueren", "/fensterservice"],
     children: [
@@ -110,18 +117,21 @@ export const NAV_ITEMS: readonly NavItem[] = [
         label: "Neue Fenster",
         description: "Neue Fenster kaufen oder alte austauschen – inkl. Aufmaß und Montage.",
         icon: "building",
+        image: "/bilder_ordner/hoening/fenster/fenstersanierung/fertige-terassen-fensterwand.webp",
       },
       {
         href: "/tueren",
         label: "Haustüren & Türen",
         description: "Sichere, stilvolle Eingangs- und Nebeneingangstüren.",
         icon: "door",
+        image: "/bilder_ordner/hoening/tueren/tueren-hero.webp",
       },
       {
         href: "/fensterservice",
         label: "Fensterservice",
         description: "Vorhandene Fenster reparieren, einstellen und warten.",
         icon: "wrench",
+        image: "/bilder_ordner/galerie/fensterwartung-dichtungstausch.webp",
       },
     ],
   },

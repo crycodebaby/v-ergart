@@ -24,6 +24,7 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { AnimatePresence, motion, useReducedMotion, type Variants } from "framer-motion";
 import { ChevronDown, Mail, Phone, X, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -53,8 +54,34 @@ export const MOBILE_MENU_ID = "mobile-menu";
  * Header, damit Radix den Fokus beim Schließen zuverlässig auf den
  * Hamburger zurücksetzt und aria-expanded/aria-controls selbst verdrahtet.
  */
+/** "Apple-ish" ease-out: schneller Start, langes, weiches Ausrollen. */
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 export function MobileMenu({ onClose, pathname }: Props) {
   const close = onClose;
+  const reduce = useReducedMotion();
+
+  // Gestaffeltes Einblenden der Einträge, sobald das Sheet steht
+  // (delayChildren ≈ Dauer der Slide-in-Animation). Bei reduzierter
+  // Bewegung: ein gemeinsamer Fade, kein Versatz.
+  const listVariants: Variants = {
+    hidden: {},
+    show: {
+      transition: reduce
+        ? { duration: 0 }
+        : { staggerChildren: 0.04, delayChildren: 0.16 },
+    },
+  };
+  const itemVariants: Variants = reduce
+    ? { hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.2 } } }
+    : {
+        hidden: { opacity: 0, x: 18 },
+        show: {
+          opacity: 1,
+          x: 0,
+          transition: { type: "spring", stiffness: 420, damping: 34, mass: 0.9 },
+        },
+      };
 
   return (
     <>
@@ -109,37 +136,47 @@ export function MobileMenu({ onClose, pathname }: Props) {
 
           {/* 2. Navigation */}
           <nav aria-label="Mobile Hauptnavigation" className="flex-1 overflow-y-auto px-2 py-3">
-            <ul className="space-y-0.5">
-              <li>
+            <motion.ul
+              className="space-y-0.5"
+              variants={listVariants}
+              initial="hidden"
+              animate="show"
+            >
+              <motion.li variants={itemVariants}>
                 <MobileLink href="/" label="Startseite" active={pathname === "/"} onNavigate={close} />
-              </li>
+              </motion.li>
 
               {NAV_ITEMS.map((item) =>
                 item.kind === "group" ? (
-                  <li key={item.href}>
+                  <motion.li key={item.href} variants={itemVariants}>
                     <MobileGroup
                       group={item}
                       pathname={pathname}
                       active={isNavItemActive(item, pathname)}
                       onNavigate={close}
+                      reduce={!!reduce}
                     />
-                  </li>
+                  </motion.li>
                 ) : (
-                  <li key={item.href}>
+                  <motion.li key={item.href} variants={itemVariants}>
                     <MobileLink
                       href={item.href}
                       label={item.label}
                       active={isNavItemActive(item, pathname)}
                       onNavigate={close}
                     />
-                  </li>
+                  </motion.li>
                 )
               )}
 
-              <li aria-hidden="true" className="my-2 border-t border-border" />
+              <motion.li
+                aria-hidden="true"
+                className="my-2 border-t border-border"
+                variants={itemVariants}
+              />
 
               {NAV_SECONDARY.map((item) => (
-                <li key={item.href}>
+                <motion.li key={item.href} variants={itemVariants}>
                   <MobileLink
                     href={item.href}
                     label={item.label}
@@ -147,13 +184,18 @@ export function MobileMenu({ onClose, pathname }: Props) {
                     onNavigate={close}
                     muted
                   />
-                </li>
+                </motion.li>
               ))}
-            </ul>
+            </motion.ul>
           </nav>
 
-          {/* 3. Fuß: Aktion + Kontaktwege */}
-          <div className="shrink-0 space-y-3 border-t border-border bg-muted/40 px-4 pb-4 pt-4 safe-bottom">
+          {/* 3. Fuß: Aktion + Kontaktwege – kommt als Letztes, von unten */}
+          <motion.div
+            className="shrink-0 space-y-3 border-t border-border bg-muted/40 px-4 pb-4 pt-4 safe-bottom"
+            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.2 : 0.4, delay: reduce ? 0 : 0.3, ease: EASE }}
+          >
             <Link
               href={NAV_CTA.href}
               onClick={() => {
@@ -208,7 +250,7 @@ export function MobileMenu({ onClose, pathname }: Props) {
               </span>
               <ThemeToggleButton />
             </div>
-          </div>
+          </motion.div>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
     </>
@@ -236,7 +278,9 @@ function MobileLink({
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex min-h-12 items-center rounded-md px-3 py-2.5 text-base font-semibold transition-colors",
+        // Mobile-Äquivalent zum Hover: leichtes Einsinken beim Antippen.
+        "flex min-h-12 items-center rounded-md px-3 py-2.5 text-base font-semibold",
+        "transition-[background-color,transform] duration-200 active:scale-[0.985] active:bg-muted",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         active
           ? "bg-brand/10 text-brand-text"
@@ -255,11 +299,13 @@ function MobileGroup({
   pathname,
   active,
   onNavigate,
+  reduce,
 }: {
   group: NavGroup;
   pathname: string;
   active: boolean;
   onNavigate: () => void;
+  reduce: boolean;
 }) {
   // Aktive Gruppe startet aufgeklappt: wer auf /fenster ist, sieht sofort
   // die Nachbarn /tueren und /fensterservice.
@@ -280,6 +326,7 @@ function MobileGroup({
           aria-current={pathMatches(pathname, group.href) ? "page" : undefined}
           className={cn(
             "flex min-h-12 flex-1 items-center rounded-l-md px-3 py-2.5 text-base font-semibold",
+            "transition-transform duration-200 active:scale-[0.985]",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             active ? "text-brand-text" : "text-foreground"
           )}
@@ -306,21 +353,42 @@ function MobileGroup({
         </button>
       </div>
 
-      <ul
-        id={panelId}
-        hidden={!expanded}
-        className="ml-3 mt-0.5 space-y-0.5 border-l border-border pl-2"
-      >
-        {group.children.map((child) => {
+      {/* Sanftes Ausfahren: Höhe 0 → auto, Unterpunkte rücken leicht nach.
+          overflow-hidden während der Animation, damit nichts überlappt. */}
+      <AnimatePresence initial={false}>
+        {expanded && (
+          <motion.ul
+            id={panelId}
+            key="panel"
+            className="ml-3 mt-0.5 space-y-0.5 overflow-hidden border-l border-border pl-2"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={
+              reduce
+                ? { duration: 0.15 }
+                : {
+                    height: { duration: 0.34, ease: EASE },
+                    opacity: { duration: 0.22, ease: "easeOut" },
+                  }
+            }
+          >
+        {group.children.map((child, index) => {
           const childActive = pathMatches(pathname, child.href);
           return (
-            <li key={child.href}>
+            <motion.li
+              key={child.href}
+              initial={reduce ? false : { opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.26, delay: reduce ? 0 : 0.05 + index * 0.035, ease: EASE }}
+            >
               <Link
                 href={child.href}
                 onClick={onNavigate}
                 aria-current={childActive ? "page" : undefined}
                 className={cn(
-                  "flex min-h-12 items-start gap-3 rounded-md px-3 py-2 transition-colors",
+                  "flex min-h-12 items-start gap-3 rounded-md px-3 py-2",
+                  "transition-[background-color,transform] duration-200 active:scale-[0.985] active:bg-muted",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   childActive ? "bg-brand/10" : "hover:bg-muted"
                 )}
@@ -344,10 +412,12 @@ function MobileGroup({
                   </span>
                 </span>
               </Link>
-            </li>
+            </motion.li>
           );
         })}
-      </ul>
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

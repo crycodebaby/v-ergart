@@ -108,6 +108,12 @@ const config: Config = {
           "monospace",
         ],
       },
+      // Ruhige Ease-out-Kurve für Navigation und Micro-Interaktionen
+      // (schneller Start, langes Ausrollen). Als benannter Wert, weil die
+      // Arbitrary-Form `ease-[cubic-bezier(...)]` für Tailwind mehrdeutig ist.
+      transitionTimingFunction: {
+        soft: "cubic-bezier(0.22, 1, 0.36, 1)",
+      },
       // Verbesserte Spacing für Tablets
       spacing: {
         '18': '4.5rem',
