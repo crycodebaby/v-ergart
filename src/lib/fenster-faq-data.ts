@@ -35,7 +35,7 @@ export const FENSTER_KAUF_FAQS: FaqItem[] = [
   {
     frage: "Wann lohnt sich ein Fensteraustausch statt einer Reparatur?",
     antwort:
-      "Als Faustregel: Solange nur Dichtung, Beschlag oder Einstellung betroffen sind, ist die Reparatur der günstigere Weg. Sind dagegen Rahmen oder Verglasung selbst am Ende – etwa bei Einfachverglasung, beschlagenen Scheiben im Glaszwischenraum oder dauerhaft undichten Rahmen – rechnet sich der Austausch schneller. Wir sagen Ihnen bei der Besichtigung offen, welcher Weg in Ihrem Fall sinnvoll ist.",
+      "Als Faustregel: Solange nur Dichtung, Beschlag oder Einstellung betroffen sind, ist die Reparatur der preiswertere Weg. Sind dagegen Rahmen oder Verglasung selbst am Ende – etwa bei Einfachverglasung, beschlagenen Scheiben im Glaszwischenraum oder dauerhaft undichten Rahmen – rechnet sich der Austausch schneller. Wir sagen Ihnen bei der Besichtigung offen, welcher Weg in Ihrem Fall sinnvoll ist.",
   },
   {
     frage: "Wie lange dauert der Einbau eines Fensters?",
@@ -69,7 +69,7 @@ export const FENSTER_SERVICE_FAQS: FaqItem[] = [
   {
     frage: "Es zieht am Fenster. Was können Sie tun?",
     antwort:
-      "Zugluft kommt meist von porösen oder zusammengedrückten Dichtungen oder von einem zu geringen Anpressdruck. Wir erneuern die Dichtungen und stellen den Beschlag neu ein – das ist deutlich günstiger als ein neues Element.",
+      "Zugluft kommt meist von porösen oder zusammengedrückten Dichtungen oder von einem zu geringen Anpressdruck. Wir erneuern die Dichtungen und stellen den Beschlag neu ein – das ist deutlich preiswerter als ein neues Element.",
   },
   {
     frage: "Was kostet eine Fensterreparatur?",

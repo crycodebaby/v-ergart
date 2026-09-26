@@ -47,7 +47,7 @@ const leistungen = [
         icon: Wrench,
         title: "Beschläge reparieren & ersetzen",
         description:
-            "Defekte Griffe, Scheren und Verriegelungen ersetzen wir – meist deutlich günstiger als ein neues Element.",
+            "Defekte Griffe, Scheren und Verriegelungen ersetzen wir – meist deutlich preiswerter als ein neues Element.",
     },
     {
         icon: PanelTop,

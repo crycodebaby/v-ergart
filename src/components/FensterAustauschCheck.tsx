@@ -133,7 +133,7 @@ export default function FensterAustauschCheck() {
         className="mx-auto mt-10 max-w-2xl text-center text-muted-foreground"
       >
         Nicht jedes Problem braucht ein neues Fenster. Klemmende Flügel, poröse
-        Dichtungen und verstellte Beschläge lassen sich meist günstig instand
+        Dichtungen und verstellte Beschläge lassen sich meist preiswert instand
         setzen –{" "}
         <Link
           href="/fensterservice"
