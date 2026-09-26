@@ -46,7 +46,16 @@ export default function JobsList({ jobs }: { jobs: JobPosting[] }) {
             <Link
               href={`/karriere/${job.slug.current}`}
               aria-label={`${job.title} – Stellenanzeige ansehen`}
-              className="group -mx-3 grid gap-4 rounded-lg px-3 py-6 transition-colors hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-8 md:py-7"
+              className={[
+                "group relative -mx-3 grid gap-4 rounded-lg px-3 py-6 transition-colors hover:bg-muted/60",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                "md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-8 md:py-7",
+                // Detail 2: eine Markierung zeichnet sich beim Hover von oben
+                // nach unten am linken Rand – wie ein Haken am Aushang.
+                "before:absolute before:bottom-5 before:left-0 before:top-5 before:w-0.5 before:rounded-full before:bg-brand",
+                "before:origin-top before:scale-y-0 before:transition-transform before:duration-300 before:ease-soft",
+                "hover:before:scale-y-100 focus-visible:before:scale-y-100 motion-reduce:before:transition-none",
+              ].join(" ")}
             >
               <div className="min-w-0">
                 <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">

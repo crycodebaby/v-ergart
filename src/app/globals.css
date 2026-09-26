@@ -338,3 +338,55 @@
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+/* ==================== KARRIERE: WEICHE FLÄCHEN & HAARLINIEN ====================
+   Bewusst als eigene Utilities: die Section-Primitive bleibt hart-kantig
+   (Design-System v1). Diese Klassen werden nur dort gesetzt, wo eine Seite
+   den Übergang gezielt weich haben will. */
+@layer utilities {
+  /* Getönte Fläche, die oben und unten in den Seitengrund ausläuft. */
+  .surface-soft-muted {
+    background-image: linear-gradient(
+      to bottom,
+      hsl(var(--background)) 0,
+      hsl(var(--muted)) 7rem,
+      hsl(var(--muted)) calc(100% - 7rem),
+      hsl(var(--background)) 100%
+    );
+  }
+
+  /* Haarlinie, die zu den Rändern hin verschwindet. */
+  .hairline-t,
+  .hairline-b {
+    position: relative;
+  }
+  .hairline-t::before,
+  .hairline-b::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      hsl(var(--border)) 12%,
+      hsl(var(--border)) 88%,
+      transparent
+    );
+  }
+  .hairline-t::before {
+    top: 0;
+  }
+  .hairline-b::after {
+    bottom: 0;
+  }
+
+  /* Blaupausen-Raster (Motiv aus dem Footer), in currentColor. */
+  .blueprint-grid {
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 23px, currentColor 24px),
+      repeating-linear-gradient(90deg, transparent, transparent 23px, currentColor 24px);
+    background-size: 24px 24px;
+  }
+}

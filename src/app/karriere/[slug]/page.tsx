@@ -18,6 +18,7 @@ import {
   fetchJobBySlug,
   fetchJobs,
   formatEmploymentType,
+  formatPostedDate,
   portableTextToPlain,
   schemaEmploymentType,
   type JobPosting,
@@ -188,8 +189,8 @@ export default async function JobDetailPage({ params }: Props) {
       <JobJsonLd job={job} />
       <JobDetailTracking jobTitle={job.title} />
 
-      {/* Kopf der Anzeige */}
-      <Section surface="base" spacing="compact" className="border-b border-border">
+      {/* Kopf der Anzeige – Haarlinie darunter läuft zu den Rändern aus */}
+      <Section surface="base" spacing="compact" className="hairline-b">
         <Breadcrumbs
           items={[
             { label: "Karriere", href: "/karriere" },
@@ -307,7 +308,9 @@ export default async function JobDetailPage({ params }: Props) {
               </Block>
             ) : null}
 
-            <div className="border-t border-border pt-8">
+            {/* Detail 6: Impressum der Anzeige – wie der Fuß eines Aushangs.
+                Datum aus dem CMS, Kennung aus dem Slug. */}
+            <div className="flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
               <Link
                 href="/karriere"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-brand-text hover:underline"
@@ -315,6 +318,15 @@ export default async function JobDetailPage({ params }: Props) {
                 <ArrowLeft size={16} aria-hidden="true" />
                 Alle offenen Stellen
               </Link>
+              <p className="font-mono text-xs leading-relaxed text-muted-foreground">
+                {formatPostedDate(job._createdAt) ? (
+                  <>Ausgeschrieben am {formatPostedDate(job._createdAt)}</>
+                ) : (
+                  <>Ausgeschrieben</>
+                )}
+                <span className="mx-2 text-border" aria-hidden="true">|</span>
+                Kennung {job.slug.current}
+              </p>
             </div>
           </article>
 
@@ -324,11 +336,11 @@ export default async function JobDetailPage({ params }: Props) {
         </div>
       </Section>
 
-      <Section surface="muted">
+      <Section surface="muted" className="surface-soft-muted">
         <BewerbungsAblauf />
       </Section>
 
-      <Section surface="base" className="border-t border-border">
+      <Section surface="base" className="hairline-t">
         <KarriereAnsprechpartner jobTitle={job.title} />
       </Section>
 

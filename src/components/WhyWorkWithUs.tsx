@@ -4,6 +4,7 @@
  * Liste: kleines Icon, Titel, zwei Sätze. Keine Kacheln, keine Karten.
  * Rendert nur Inhalt – Fläche und Abstand kommen von der <Section>.
  */
+import Image from "next/image";
 import { KARRIERE_BENEFITS } from "@/lib/karriere-data";
 import { DynamicIcon } from "./DynamicIcon";
 
@@ -21,6 +22,24 @@ export function WhyWorkWithUs() {
           Wir sind ein Handwerksbetrieb aus Neuss, kein Konzern. Das hat
           Vorteile, die man im Arbeitsalltag merkt.
         </p>
+
+        {/* Detail 3: die Eintragung bei der Handwerkskammer – ein echter
+            Beleg statt einer weiteren Behauptung. */}
+        <div className="mt-8 flex items-center gap-4 border-t border-border pt-6">
+          <Image
+            src="/bilder_ordner/zertifikate/Handwerkskammer_HWK_Initialen_Transparente_buchstaben.png"
+            alt="HWK – Handwerkskammer"
+            width={48}
+            height={48}
+            className="h-12 w-12 shrink-0 object-contain"
+          />
+          <p className="text-sm leading-snug">
+            <span className="font-semibold text-foreground">Eingetragener Handwerksbetrieb</span>
+            <span className="block text-muted-foreground">
+              Handwerkskammer Düsseldorf, seit März 2018
+            </span>
+          </p>
+        </div>
       </div>
 
       <ul className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:col-span-8">

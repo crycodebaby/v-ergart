@@ -119,6 +119,14 @@ export function schemaEmploymentType(value?: string): string | undefined {
   return EMPLOYMENT_TYPES[employmentKey(value)]?.schema ?? "OTHER";
 }
 
+/** ISO-Datum → "12. August 2026". Ungültige Werte liefern undefined. */
+export function formatPostedDate(iso?: string): string | undefined {
+  if (!iso) return undefined;
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return undefined;
+  return date.toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+}
+
 /** Entfernt leere/nur-Leerzeichen-Einträge, die im Studio leicht entstehen. */
 export function cleanList(items?: string[]): string[] {
   return (items ?? []).map((item) => item?.trim()).filter(Boolean) as string[];

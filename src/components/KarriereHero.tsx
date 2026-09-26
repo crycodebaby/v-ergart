@@ -63,7 +63,14 @@ export function KarriereHero({ jobCount }: Props) {
       </div>
 
       <figure className="lg:col-span-5">
-        <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-border bg-muted lg:aspect-[4/5]">
+        {/* Detail 1: ein Blaupausen-Blatt liegt versetzt hinter dem Foto –
+            das Raster-Motiv des Footers, hier als "Planungsunterlage". */}
+        <div className="relative">
+          <div
+            aria-hidden="true"
+            className="blueprint-grid absolute -bottom-3 -right-3 h-full w-full rounded-xl border border-border bg-muted/50 text-border md:-bottom-4 md:-right-4"
+          />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-border bg-muted">
           <Image
             src={KARRIERE_HERO.image.src}
             alt={KARRIERE_HERO.image.alt}
@@ -72,9 +79,10 @@ export function KarriereHero({ jobCount }: Props) {
             sizes="(min-width: 1024px) 40vw, 100vw"
             className="object-cover object-center"
           />
+          </div>
         </div>
-        <figcaption className="mt-3 text-xs text-muted-foreground">
-          Das Team vor der Zentrale an der Further Straße in Neuss.
+        <figcaption className="mt-6 font-mono text-xs text-muted-foreground md:mt-7">
+          Das Team vor der Zentrale · Further Str. 89B, Neuss
         </figcaption>
       </figure>
     </div>

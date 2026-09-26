@@ -8,7 +8,7 @@
  */
 import { Mail } from "lucide-react";
 import { generateSEOMetadata } from "@/lib/seo-utils";
-import { fetchJobs } from "@/lib/jobs-queries";
+import { fetchJobs, formatPostedDate } from "@/lib/jobs-queries";
 import { CONTACT } from "@/lib/site-links";
 import JobsList from "@/components/JobsList";
 import { KarriereHero } from "@/components/KarriereHero";
@@ -27,6 +27,11 @@ export const metadata = generateSEOMetadata({
 export default async function KarrierePage() {
   const jobs = await fetchJobs();
 
+  // Jüngste Ausschreibung = Stand des Boards (Sanity liefert nach Datum sortiert).
+  const latest = formatPostedDate(
+    jobs.map((j) => j._createdAt).filter(Boolean).sort().at(-1)
+  );
+
   return (
     <>
       <Section surface="base" spacing="default">
@@ -34,17 +39,20 @@ export default async function KarrierePage() {
       </Section>
 
       {/* scroll-mt: Sprungziel des Hero-CTA, Platz für den Sticky-Header */}
-      <Section id="offene-stellen" surface="base" spacing="compact" className="scroll-mt-32 border-t border-border">
+      <Section id="offene-stellen" surface="base" spacing="compact" className="scroll-mt-32 hairline-t">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-16">
           <div>
             <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
               <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">
                 Offene Stellen
               </h2>
-              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground sm:text-right">
                 {jobs.length > 0
                   ? `${jobs.length} ${jobs.length === 1 ? "Position" : "Positionen"} · Neuss & Umgebung`
                   : "Derzeit keine Ausschreibung"}
+                {latest ? (
+                  <span className="mt-1 block normal-case tracking-normal">Stand {latest}</span>
+                ) : null}
               </p>
             </div>
             <JobsList jobs={jobs} />
@@ -69,7 +77,8 @@ export default async function KarrierePage() {
         </div>
       </Section>
 
-      <Section surface="muted">
+      {/* Getönte Flächen laufen oben und unten weich in den Seitengrund aus. */}
+      <Section surface="muted" className="surface-soft-muted">
         <WhyWorkWithUs />
       </Section>
 
@@ -77,7 +86,7 @@ export default async function KarrierePage() {
         <BewerbungsAblauf />
       </Section>
 
-      <Section surface="muted" className="border-t border-border">
+      <Section surface="muted" className="surface-soft-muted">
         <KarriereAnsprechpartner />
       </Section>
     </>

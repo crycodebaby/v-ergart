@@ -39,7 +39,15 @@ export function KarriereAnsprechpartner({ jobTitle }: Props) {
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">{c.role}</p>
 
-        <blockquote className="mt-6 border-l-2 border-brand pl-5 text-lg leading-relaxed text-foreground">
+        {/* Detail 5: ein großes, sehr helles Anführungszeichen hinter dem
+            Zitat – gibt der Aussage Gewicht, ohne laut zu werden. */}
+        <blockquote className="relative mt-8 border-l-2 border-brand pl-5 text-lg leading-relaxed text-foreground">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -left-1 -top-9 select-none font-serif text-8xl leading-none text-brand/15"
+          >
+            „
+          </span>
           {c.statement}
         </blockquote>
 
