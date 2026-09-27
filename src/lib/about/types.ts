@@ -1,14 +1,21 @@
+// src/lib/about/types.ts
+/**
+ * Datentypen der Über-uns-Seite.
+ *
+ * Bewusst React-frei (Icons als lucide-Namen, aufgelöst über DynamicIcon) —
+ * dieselbe Trennung wie in karriere-data.ts: Inhalt hier, Darstellung in den
+ * Komponenten. Die Seite erzählt acht Jahre Betrieb in Neuss, deshalb sind die
+ * Textfelder eng geschnitten: ein Satz Aussage, höchstens zwei Sätze Beleg.
+ */
+
 export type AboutSectionId =
   | "hero"
-  | "origin"
+  | "timeline"
   | "leadership"
-  | "milestones"
-  | "regionScope"
-  | "quality"
-  | "partnerships"
-  | "future"
-  | "socialEngagement"
-  | "values"
+  | "principles"
+  | "region"
+  | "partners"
+  | "engagement"
   | "finalCta";
 
 export type AboutLinkKind = "internal" | "external";
@@ -43,72 +50,121 @@ export interface AboutCtaGroupData {
   note?: string;
 }
 
-export interface AboutSection {
+/** Kopf einer Sektion. `lede` ist optional — nicht jede Sektion braucht einen. */
+export interface AboutSectionMeta {
   id: AboutSectionId;
-  eyebrow?: string;
-  title?: string;
-  intro?: string;
+  eyebrow: string;
+  title: string;
+  lede?: string;
 }
 
-export interface AboutMilestone {
+/** Ein Beleg im Faktenband unter dem Hero. Keine Marketingzahlen. */
+export interface AboutFact {
+  value: string;
+  label: string;
+}
+
+/**
+ * Eine Station der Zeitachse. `period` steht in Mono links an der Achse,
+ * `badge` nimmt einen zusätzlichen Beleg auf (Kammer, Norm, Partner).
+ */
+export interface AboutStation {
   id: string;
-  year: string;
+  period: string;
   title: string;
-  body: string;
-  badges?: string[];
+  text: string;
+  badge?: string;
+  /**
+   * Partner, der an dieser Station dazugekommen ist. Wird als Logo plus Name
+   * unter dem Text gezeigt — ein Beleg, den man wiedererkennt, statt einer
+   * weiteren Zeile Text.
+   */
+  partner?: {
+    image: AboutImageData;
+    label: string;
+  };
+  /**
+   * Markiert eine Station, die noch nicht eingetreten ist. Die Zeitachse
+   * zeichnet sie offen (hohler Punkt, gestrichelte Achse) statt ausgefüllt —
+   * ein Vorhaben darf optisch nicht wie ein Beleg aussehen.
+   */
+  outlook?: boolean;
 }
 
-export interface AboutQualityPrinciple {
+export interface AboutPerson {
+  name: string;
+  role: string;
+  focus: string;
+}
+
+/**
+ * Eine Zone des Einsatzgebiets. Die Reihenfolge im Array ist die Reihenfolge
+ * der Ringe im Visual: Index 0 liegt innen.
+ */
+export interface AboutRegionZone {
   id: string;
-  title: string;
-  body: string;
+  label: string;
+  places: string[];
 }
 
-export interface AboutSocialEngagement {
+/** Leistungsbündel für eine Zielgruppe. */
+export interface AboutServiceScope {
+  id: string;
+  label: string;
+  items: string[];
+}
+
+export interface AboutPrinciple {
+  id: string;
+  /** lucide-react Icon-Name, aufgelöst über DynamicIcon. */
+  icon: string;
   title: string;
-  body: string;
-  figure?: AboutFigureData;
-  legalNote?: string;
-  imageTodo?: string;
+  text: string;
 }
 
 export interface AboutPageData {
-  hero: AboutSection & {
-    title: string;
-    intro: string;
-    figure: AboutImageData;
+  hero: AboutSectionMeta & {
+    figure: AboutFigureData;
     ctas: AboutCtaGroupData;
+    facts: AboutFact[];
+    /** Nachweis-Zeile im Faktenband (Handwerkskammer). */
+    credential: {
+      image: AboutImageData;
+      title: string;
+      detail: string;
+    };
   };
-  origin: AboutSection & {
-    paragraphs: string[];
+  timeline: AboutSectionMeta & {
+    /** Beschriftung der Achse, z. B. "2018 — 2026". */
+    span: string;
+    stations: AboutStation[];
+    note: string;
+  };
+  leadership: AboutSectionMeta & {
+    people: AboutPerson[];
     figure: AboutFigureData;
   };
-  leadership: AboutSection & {
-    paragraphs: string[];
-    figure: AboutFigureData;
+  principles: AboutSectionMeta & {
+    items: AboutPrinciple[];
   };
-  milestones: AboutSection & {
-    items: AboutMilestone[];
+  region: AboutSectionMeta & {
+    /** Mittelpunkt des Visuals. */
+    center: string;
+    zones: AboutRegionZone[];
+    scopes: AboutServiceScope[];
   };
-  regionScope: AboutSection & {
-    regions: string[];
-    b2cServices: string[];
-    b2bServices: string[];
+  partners: AboutSectionMeta;
+  engagement: AboutSectionMeta & {
+    body: string;
+    figure?: AboutFigureData;
+    note: string;
   };
-  quality: AboutSection & {
-    principles: AboutQualityPrinciple[];
-    toolsNote?: string;
-  };
-  partnerships: AboutSection;
-  future: AboutSection & {
-    paragraphs: string[];
-    disclaimer: string;
-  };
-  socialEngagement: AboutSection & AboutSocialEngagement;
-  values: AboutSection & {
-    principles: AboutQualityPrinciple[];
-  };
-  finalCta: AboutSection & {
+  finalCta: AboutSectionMeta & {
+    person: {
+      name: string;
+      role: string;
+      image: AboutImageData;
+    };
     ctas: AboutCtaGroupData;
   };
 }

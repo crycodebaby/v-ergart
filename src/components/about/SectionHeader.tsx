@@ -1,71 +1,90 @@
-import { cn } from "@/lib/utils";
+// src/components/about/SectionHeader.tsx
+/**
+ * Sektionskopf der Über-uns-Seite.
+ *
+ * Vorher stand unter jeder Überschrift eine handgezeichnete Wellenlinie in
+ * Brandblau. Sie war das einzige Ornament der Seite, wiederholte sich zehnmal
+ * und wirkte dabei jedes Mal beliebiger — an den Enden lief sie aus, im Dark
+ * Mode franste sie sichtbar aus.
+ *
+ * Der Ersatz ist kein zweites Ornament, sondern die Markierung, die der Rest
+ * des Designsystems schon benutzt (Footer, Karriere): eine kurze gerade
+ * Haarlinie in Brandfarbe VOR dem Eyebrow. Sie sitzt dort, wo der Blick die
+ * Sektion ohnehin beginnt, trägt die Markenfarbe mit einer einzigen geraden
+ * Kante und lässt die Überschrift von unten frei.
+ *
+ * `meta` nimmt eine rechtsbündige Mono-Angabe auf (z. B. die Spanne der
+ * Zeitachse) — dieselbe Rolle wie der Board-Stand auf /karriere.
+ */
 import type { ReactNode } from "react";
 
+import { cn } from "@/lib/utils";
+
 type SectionHeaderProps = {
-  eyebrow?: string;
+  eyebrow: string;
   title: string;
-  intro?: string;
-  align?: "left" | "center";
-  icon?: ReactNode;
-  compact?: boolean;
+  lede?: string;
+  /** Rechtsbündige Zusatzangabe in Mono, nur ab sm sichtbar nebeneinander. */
+  meta?: ReactNode;
+  /** h1 nur im Hero, sonst h2. */
+  as?: "h1" | "h2";
+  /** Zeilenlänge des Ledes. Default: 2xl (ca. 65 Zeichen). */
+  ledeWidth?: "md" | "xl" | "2xl";
   className?: string;
 };
+
+const ledeWidthClasses = {
+  md: "max-w-md",
+  xl: "max-w-xl",
+  "2xl": "max-w-2xl",
+} as const;
 
 export default function SectionHeader({
   eyebrow,
   title,
-  intro,
-  align = "left",
-  icon,
-  compact = false,
+  lede,
+  meta,
+  as = "h2",
+  ledeWidth = "2xl",
   className,
 }: SectionHeaderProps) {
+  const Heading = as;
+
   return (
-    <header className={cn(align === "center" && "text-center", className)}>
-      {icon ? (
-        <div
-          className={cn(
-            "mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand-blue/20 bg-brand-blue/10 text-brand-blue",
-            align === "center" && "mx-auto"
-          )}
-        >
-          {icon}
-        </div>
-      ) : null}
-      {eyebrow ? (
-        <p className="inline-flex rounded-full border border-brand-blue/20 bg-brand-blue/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-blue">
+    <header className={cn("max-w-3xl", className)}>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8">
+        <p className="flex items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-brand-text">
+          {/* Die Haarlinie ist Dekoration und gehört nicht in den Lesefluss. */}
+          <span aria-hidden="true" className="h-px w-6 shrink-0 bg-brand" />
           {eyebrow}
         </p>
-      ) : null}
-      <h2
+        {meta ? (
+          <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground sm:shrink-0">
+            {meta}
+          </p>
+        ) : null}
+      </div>
+
+      <Heading
         className={cn(
-          "mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl",
-          compact && "md:text-3xl"
+          "mt-4 font-bold tracking-tight text-foreground",
+          as === "h1"
+            ? "text-4xl leading-[1.1] md:text-5xl"
+            : "text-2xl leading-tight md:text-3xl"
         )}
       >
         {title}
-      </h2>
-      <svg
-        viewBox="0 0 120 8"
-        aria-hidden="true"
-        className={cn("mt-4 h-2 w-28 text-brand-blue/70", align === "center" && "mx-auto")}
-      >
-        <path
-          d="M2 6C18 1 34 1 50 6C66 11 82 11 98 6C106 3.5 112 2.5 118 3"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-        />
-      </svg>
-      {intro ? (
+      </Heading>
+
+      {lede ? (
         <p
           className={cn(
-            "mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg",
-            align === "center" && "mx-auto"
+            "mt-4 leading-relaxed text-muted-foreground",
+            as === "h1" ? "text-lg" : "text-base",
+            ledeWidthClasses[ledeWidth]
           )}
         >
-          {intro}
+          {lede}
         </p>
       ) : null}
     </header>
