@@ -113,6 +113,25 @@ export const PARTNERS: Partner[] = [
     },
   },
   {
+    id: "smairys",
+    name: "Smairys Netz-Manufaktur",
+    role: "Webdesign & Webentwicklung",
+    description:
+      "Gestaltung und technische Umsetzung unseres Webauftritts — von der Struktur über das Design bis zur Entwicklung.",
+    href: SITE_LINKS.external.smairys,
+    hrefLabel: "smairys-netz-manufaktur.de",
+    logo: {
+      // Schwarzes Logo auf Transparenz. Die helle Plakette ist in beiden
+      // Themes weiss, deshalb braucht es hier kein `dark:invert` wie im
+      // Footer — der Untergrund wechselt nicht mit.
+      src: "/bilder_ordner/logo/smairys-logo.png",
+      alt: "Smairys Netz-Manufaktur Logo",
+      width: 500,
+      height: 500,
+      plaque: "light",
+    },
+  },
+  {
     id: "immobilienverwaltung",
     name: "Ergart Immobilienverwaltung",
     role: "Unternehmensgruppe",
