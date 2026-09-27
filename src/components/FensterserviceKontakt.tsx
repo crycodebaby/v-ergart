@@ -42,7 +42,7 @@ export default function FensterserviceKontakt() {
                         </h2>
 
                         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-                            Schildern Sie kurz, was nicht stimmt – wir melden uns zeitnah
+                            Schildern Sie kurz, was nicht stimmt. Wir melden uns zeitnah
                             mit einem Termin.
                         </p>
                     </motion.div>

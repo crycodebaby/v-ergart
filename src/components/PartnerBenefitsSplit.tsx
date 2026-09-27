@@ -130,7 +130,7 @@ export const PartnerBenefitsSplit: React.FC<PartnerBenefitsSplitProps> = ({
         <div className="relative min-h-[260px] lg:min-h-full">
           <Image
             src={imageSrc}
-            alt="HÖNING Kunststofffenster – Detailansicht"
+            alt="HÖNING Kunststofffenster in der Detailansicht"
             fill
             className="object-cover"
             sizes="(max-width: 1024px) 100vw, 50vw"

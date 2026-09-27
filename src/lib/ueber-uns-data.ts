@@ -15,7 +15,7 @@ export const ueberUnsMilestones: readonly Milestone[] = [
   {
     year: "2018",
     title: "Startschuss & Handwerkskammer-Eintragung",
-    text: "Mit bereits über 13 Jahren Erfahrung in der Hausmeister-, Logistik- und Handwerksbranche gründete Alexander Ergart sein Unternehmen. Im März 2018 erfolgte die offizielle Eintragung bei der Handwerkskammer Düsseldorf – das Fundament für geprüfte Qualität und Vertrauen.",
+    text: "Mit bereits über 13 Jahren Erfahrung in der Hausmeister-, Logistik- und Handwerksbranche gründete Alexander Ergart sein Unternehmen. Im März 2018 folgte die Eintragung bei der Handwerkskammer Düsseldorf. Seitdem steht der Betrieb für geprüfte Qualität.",
     image: "/bilder_ordner/ueberuns/kran.webp",
     badge: "/bilder_ordner/zertifikate/Handwerkskammer_Icon.jpeg",
     align: "left" as const,
@@ -57,7 +57,7 @@ export const ueberUnsValues = [
   {
     icon: "Recycle",
     title: "Nachhaltigkeit",
-    text: "Ressourcenschonend arbeiten – für Sie und für die Umwelt.",
+    text: "Sparsam mit Material und Energie umgehen, für Sie und für die Umwelt.",
   },
   {
     icon: "Scale",

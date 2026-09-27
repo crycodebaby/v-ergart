@@ -34,12 +34,12 @@ const vorteile = [
     {
         icon: BadgeCheck,
         title: "Premium-Partner",
-        description: "Offizieller Partner von HÖNING – Deutsche Qualität.",
+        description: "Offizieller Partner von HÖNING. Qualität aus Deutschland.",
     },
     {
         icon: Star,
         title: `${GOOGLE_RATING_DISPLAY} ★ auf Google`,
-        description: `${GOOGLE_RATING.count} Bewertungen – alle mit 5 Sternen.`,
+        description: `${GOOGLE_RATING.count} Bewertungen, alle mit 5 Sternen.`,
     },
     {
         icon: Clock,
@@ -144,7 +144,7 @@ export default function FensterserviceVorteile() {
                         >
                             Alexander Ergart steht für Qualität, Zuverlässigkeit und
                             persönlichen Service. Als lokaler Handwerksbetrieb kommen wir
-                            schnell vorbei – und reparieren, wo sich reparieren lohnt.
+                            schnell vorbei und reparieren, wo sich reparieren lohnt.
                         </motion.p>
 
                         {/* Vorteile Grid */}

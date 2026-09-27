@@ -28,7 +28,7 @@ export function WhyWorkWithUs() {
         <div className="mt-8 flex items-center gap-4 border-t border-border pt-6">
           <Image
             src="/bilder_ordner/zertifikate/Handwerkskammer_HWK_Initialen_Transparente_buchstaben.png"
-            alt="HWK – Handwerkskammer"
+            alt="HWK, Handwerkskammer"
             width={48}
             height={48}
             className="h-12 w-12 shrink-0 object-contain"

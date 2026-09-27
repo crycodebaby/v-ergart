@@ -107,7 +107,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
     kind: "group",
     href: "/fenster-tueren",
     label: "Fenster & Türen",
-    intro: "HÖNING-Qualität – neu einbauen oder bestehende Fenster retten",
+    intro: "Neue Fenster einbauen oder vorhandene Fenster retten",
     image: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterelement-kran.webp",
     overviewLabel: "Übersicht Fenster & Türen",
     activePrefixes: ["/fenster-tueren", "/fenster", "/tueren", "/fensterservice"],
@@ -115,7 +115,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
       {
         href: "/fenster",
         label: "Neue Fenster",
-        description: "Neue Fenster kaufen oder alte austauschen – inkl. Aufmaß und Montage.",
+        description: "Neue Fenster kaufen oder alte austauschen, mit Aufmaß und Montage.",
         icon: "building",
         image: "/bilder_ordner/hoening/fenster/fenstersanierung/fertige-terassen-fensterwand.webp",
       },

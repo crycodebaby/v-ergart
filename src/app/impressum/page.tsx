@@ -27,7 +27,7 @@ export default function ImpressumPage() {
       <h2>Kontakt</h2>
       <p>
         Telefon:{" "}
-        <a href="tel:+4917666825889">0176&nbsp;–&nbsp;668&nbsp;25&nbsp;889</a>
+        <a href="tel:+4917666825889">0176&nbsp;668&nbsp;25&nbsp;889</a>
         <br />
         E-Mail: <a href="mailto:info@ergart.de">info@ergart.de</a>
       </p>

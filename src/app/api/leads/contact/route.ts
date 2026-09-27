@@ -154,7 +154,7 @@ async function deliver(
     // --- Kontext wie bisher (unveränderte Feldnamen für den Posteingang) ---
     service: contact.service,
     source: contact.source,
-    project: "Alexander Ergart – Hausmeister- & Fensterservice",
+    project: "Alexander Ergart Hausmeister- & Fensterservice",
 
     // --- Technische Referenz nur zur Zuordnung im Support ---
     contact_id: reference,
@@ -163,7 +163,7 @@ async function deliver(
     // Kein "g-recaptcha-response": das Token wurde bereits serverseitig
     // eingelöst und ist einmalig.
 
-    _subject: `Kontaktanfrage${contact.service ? ` – ${contact.service}` : ""} (${reference.slice(0, 8)})`,
+    _subject: `Kontaktanfrage${contact.service ? `: ${contact.service}` : ""} (${reference.slice(0, 8)})`,
   };
 
   // Referer-Pfad nur für Formcarrys Domain-Prüfung; der echte Seitenkontext

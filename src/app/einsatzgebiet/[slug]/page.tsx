@@ -114,7 +114,7 @@ export default function LocationPage({ params }: Props) {
               </h2>
               <p className="text-muted-foreground mb-6 text-lg leading-relaxed">
                 Als lokaler Dienstleister kennen wir {location.name} und die Bedürfnisse unserer Kunden vor Ort.
-                Egal ob private Immobilie, Mehrfamilienhaus oder Gewerbeobjekt – wir sorgen für Ordnung, Sauberkeit und Werterhalt.
+                Ob Wohnhaus, Mehrfamilienhaus oder Gewerbeobjekt: Wir sorgen für Ordnung, Sauberkeit und Werterhalt.
               </p>
               <ul className="space-y-4">
                 {[

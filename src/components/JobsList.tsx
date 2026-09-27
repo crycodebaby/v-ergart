@@ -18,7 +18,7 @@ export default function JobsList({ jobs }: { jobs: JobPosting[] }) {
         </h3>
         <p className="mt-2 max-w-prose leading-relaxed text-muted-foreground">
           Gute Leute nehmen wir trotzdem gern in unsere Planung auf. Schicken
-          Sie uns eine kurze Initiativbewerbung mit Lebenslauf – wir melden
+          Sie uns eine kurze Initiativbewerbung mit Lebenslauf. Wir melden
           uns, sobald eine passende Stelle frei wird.
         </p>
         <a
@@ -45,7 +45,7 @@ export default function JobsList({ jobs }: { jobs: JobPosting[] }) {
           <li key={job._id} className="border-b border-border">
             <Link
               href={`/karriere/${job.slug.current}`}
-              aria-label={`${job.title} – Stellenanzeige ansehen`}
+              aria-label={`${job.title}: Stellenanzeige ansehen`}
               className={[
                 "group relative -mx-3 grid gap-4 rounded-lg px-3 py-6 transition-colors hover:bg-muted/60",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",

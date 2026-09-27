@@ -20,7 +20,7 @@ const categoryToService: Record<string, { title: string; href: string; descripti
   "fenster": {
     title: "Neue Fenster & Fensteraustausch",
     href: "/fenster",
-    description: "HÖNING Fensterelemente – Beratung, Aufmaß und Montage aus einer Hand",
+    description: "HÖNING Fenster: Beratung, Aufmaß und Montage aus einer Hand",
   },
   "winterdienst": {
     title: "Winterdienst",

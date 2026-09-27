@@ -9,7 +9,7 @@ const reasons = [
   {
     icon: HeartHandshake,
     title: "Erstklassiger Service",
-    text: "Wir garantieren höchste Qualität und zuverlässigen Support – seit über 7 Jahren."
+    text: "Hohe Qualität und verlässliche Betreuung, seit über 7 Jahren."
   },
   {
     icon: Diamond,

@@ -157,7 +157,7 @@ export function StoryTimeline() {
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-balance text-base leading-relaxed text-muted-foreground sm:text-lg">
             Wer wir sind, was uns antreibt und welche Schritte uns hierher
-            geführt haben – kompakt und klar, vom Start bis heute.
+            geführt haben. Kurz und klar, vom Start bis heute.
           </p>
         </motion.header>
 
@@ -214,7 +214,7 @@ export function StoryTimeline() {
           transition={prefersReducedMotion ? undefined : { duration: 0.8 }}
         >
           <h3 className="text-2xl font-bold text-foreground sm:text-3xl">
-            Die Zukunft im Blick – für Neuss und die Region
+            Die Zukunft im Blick, für Neuss und die Region
           </h3>
           <p className="mx-auto mt-4 max-w-2xl text-balance text-base leading-relaxed text-muted-foreground sm:text-lg">
             Unsere Geschichte ist ein Fundament, auf dem wir weiter bauen. Mit

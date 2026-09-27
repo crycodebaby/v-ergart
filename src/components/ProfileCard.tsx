@@ -36,7 +36,7 @@ const ProfileCard = () => {
           <div className="profil-image flex-shrink-0">
             <Image
               src="/bilder_ordner/fensterbauer-neuss-profi.webp"
-              alt="Alexander Ergart – Geschäftsführer Hausmeister- und Fensterservice Neuss"
+              alt="Alexander Ergart, Geschäftsführer des Hausmeister- und Fensterservice in Neuss"
               width={300}
               height={300}
               className="rounded-xl object-cover shadow-md transition-transform duration-300 hover:scale-105"
@@ -81,7 +81,7 @@ const ProfileCard = () => {
                     {selectedCertificate && (
                       <Image
                         src={`/bilder_ordner/zertifikate/${selectedCertificate}`}
-                        alt="Zertifikat von Alexander Ergart – TÜV und Sicherheitsbeauftragter"
+                        alt="Zertifikat von Alexander Ergart: TÜV und Sicherheitsbeauftragter"
                         width={800}
                         height={1120}
                         className="w-full h-auto rounded-md"

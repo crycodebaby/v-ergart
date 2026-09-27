@@ -34,7 +34,7 @@ export default function DatenschutzPage() {
           Deutschland
         </p>
         <p>
-          Telefon: <a href="tel:+4917666825889">0176 – 668 25 889</a><br />
+          Telefon: <a href="tel:+4917666825889">0176 668 25 889</a><br />
           E-Mail: <a href="mailto:info@ergart.de">info@ergart.de</a>
         </p>
       </section>
@@ -53,7 +53,7 @@ export default function DatenschutzPage() {
           <strong>Rechtsgrundlage:</strong> Die Nutzung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren, effizienten und schnellen Bereitstellung des Online-Angebots).
         </p>
         <p>
-          <strong>US-Datentransfer:</strong> Soweit Daten in die USA übertragen werden, stützen wir uns auf die Standardvertragsklauseln (Standard Contractual Clauses – SCCs) der EU-Kommission, die ein angemessenes Datenschutzniveau gewährleisten. Weitere Details finden Sie in der{" "}
+          <strong>US-Datentransfer:</strong> Soweit Daten in die USA übertragen werden, stützen wir uns auf die Standardvertragsklauseln (Standard Contractual Clauses, kurz SCCs) der EU-Kommission, die ein angemessenes Datenschutzniveau gewährleisten. Weitere Details finden Sie in der{" "}
           <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">
             Datenschutzerklärung von Vercel
           </a>.

@@ -79,8 +79,8 @@ export default function FensterHero() {
             transition={{ duration: 0.5, delay: 0.15 }}
             className="mb-5 max-w-2xl text-base text-slate-100 md:mb-7 md:text-lg lg:text-xl"
           >
-            Hochwertige HÖNING Fensterelemente – Beratung, Aufmaß und
-            fachgerechte Montage aus einer Hand. Für Neubau, Sanierung und den
+            Hochwertige HÖNING Fenster mit Beratung, Aufmaß und
+            fachgerechter Montage aus einer Hand. Für Neubau, Sanierung und den
             Austausch alter Fenster.
           </motion.p>
 

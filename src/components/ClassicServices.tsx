@@ -21,7 +21,7 @@ const services = [
     icon: Wrench,
     title: "Kleinreparaturen & Instandhaltung",
     description:
-      "Von der tropfenden Armatur bis zur klemmenden Tür – wir lösen die kleinen Probleme des Alltags schnell und zuverlässig, damit Sie sich um nichts sorgen müssen.",
+      "Tropfender Wasserhahn, klemmende Tür, lose Steckdose: Wir lösen die kleinen Probleme im Haus schnell und zuverlässig.",
     image: "/bilder_ordner/leistungen/kleinstreparaturen.webp",
   },
   {

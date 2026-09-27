@@ -69,7 +69,7 @@ export default function FensterserviceHero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight"
           >
-            Fensterservice in Neuss & Umgebung – <span className="text-brand">Reparatur, Wartung, Einstellung</span>
+            Fensterservice in Neuss & Umgebung: <span className="text-brand">Reparatur, Wartung, Einstellung</span>
           </motion.h1>
 
           {/* Subheadline: sagt in einem Satz, welches Problem hier geloest wird */}
@@ -80,7 +80,7 @@ export default function FensterserviceHero() {
             className="text-base md:text-xl text-slate-100 mb-4 md:mb-6 max-w-2xl"
           >
             Klemmender Flügel, Zugluft, poröse Dichtung, defekter Beschlag? Wir
-            setzen Ihre vorhandenen Fenster instand – statt sie auszutauschen.
+            setzen Ihre vorhandenen Fenster instand, statt sie auszutauschen.
           </motion.p>
 
           {/* Trust-Zeile */}

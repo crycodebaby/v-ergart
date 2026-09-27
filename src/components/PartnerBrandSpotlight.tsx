@@ -129,7 +129,7 @@ export const PartnerBrandSpotlight: React.FC<PartnerBrandSpotlightProps> = ({
         <div className="relative min-h-[260px]">
           <Image
             src={imageSrc}
-            alt="HÖNING Fenster – Produktansicht"
+            alt="HÖNING Fenster in der Produktansicht"
             fill
             className="object-cover"
             sizes="(max-width: 1024px) 100vw, 40vw"

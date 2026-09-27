@@ -27,13 +27,13 @@ import { TrustAndPartnerSection } from "@/components/TrustAndPartnerSection";
 import { generateSEOMetadata } from "@/lib/seo-utils";
 
 export const metadata = generateSEOMetadata({
-  title: "Fenster & Türen – Übersicht | Alexander Ergart Neuss",
+  title: "Fenster & Türen im Überblick | Alexander Ergart Neuss",
   description:
     "Übersicht unserer Fenster- und Türenbereiche: neue Fenster und Fensteraustausch, Haustüren sowie Reparatur und Wartung bestehender Fenster in Neuss und Umgebung.",
   path: "/fenster-tueren",
   image: {
     url: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterelement-kran.webp",
-    alt: "HÖNING Fenster und Türen – Alexander Ergart Neuss",
+    alt: "HÖNING Fenster und Türen bei Alexander Ergart in Neuss",
   },
 });
 

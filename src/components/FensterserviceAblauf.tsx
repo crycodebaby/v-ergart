@@ -38,7 +38,7 @@ const schritte = [
         nummer: "04",
         title: "Instandsetzung",
         description:
-            "Reparatur oder Wartung zum vereinbarten Termin – sauber und termingerecht.",
+            "Reparatur oder Wartung zum vereinbarten Termin, sauber und pünktlich.",
     },
 ];
 
@@ -71,8 +71,8 @@ export default function FensterserviceAblauf() {
                         transition={{ delay: 0.2 }}
                         className="text-lg text-muted-foreground max-w-2xl mx-auto"
                     >
-                        Von der ersten Anfrage bis zum wieder funktionierenden Fenster –
-                        wir begleiten Sie durch jeden Schritt.
+                        Von der ersten Anfrage bis zum Fenster, das wieder funktioniert:
+                        Wir begleiten Sie durch jeden Schritt.
                     </motion.p>
                 </div>
 

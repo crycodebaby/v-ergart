@@ -47,7 +47,7 @@ const leistungen = [
         icon: Wrench,
         title: "Beschläge reparieren & ersetzen",
         description:
-            "Defekte Griffe, Scheren und Verriegelungen ersetzen wir – meist deutlich preiswerter als ein neues Element.",
+            "Defekte Griffe, Scheren und Verriegelungen ersetzen wir. Das ist meist deutlich preiswerter als ein neues Fenster.",
     },
     {
         icon: PanelTop,
@@ -114,7 +114,7 @@ export default function FensterserviceLeistungen() {
                         className="text-lg text-muted-foreground max-w-2xl mx-auto"
                     >
                         Instandsetzung und Wartung bestehender Fenster in Neuss und
-                        Umgebung – schnell, sauber und ohne dass gleich alles raus muss.
+                        Umgebung. Schnell, sauber und ohne dass gleich alles raus muss.
                     </motion.p>
                 </div>
 
@@ -169,7 +169,7 @@ export default function FensterserviceLeistungen() {
                             <p className="text-muted-foreground leading-relaxed max-w-2xl">
                                 Ist der Rahmen selbst am Ende, beschlägt die Scheibe von
                                 innen oder steckt noch Einfachverglasung im Haus, beraten
-                                wir Sie zum Austausch – mit Aufmaß und Angebot.
+                                wir Sie zum Austausch, mit Aufmaß und Angebot.
                             </p>
                         </div>
                         <Link

@@ -32,9 +32,9 @@ export const LEISTUNGEN_DETAILS: readonly LeistungDetail[] = [
     title: "Innenausbau & Renovierung",
     shortDesc: "Professionelle Renovierung und Innenausbau in Neuss und Umgebung",
     description:
-      "Von der durchdachten Planung bis zum letzten Feinschliff realisieren wir Ihren kompletten Innenausbau in Neuss und der Region. Ob Bodenverlegung, Trockenbau oder Malerarbeiten – wir garantieren saubere Abläufe, verlässliche Termine und den Einsatz hochwertiger Materialien für ein Ergebnis, das begeistert.",
+      "Von der durchdachten Planung bis zum letzten Feinschliff realisieren wir Ihren kompletten Innenausbau in Neuss und der Region. Ob Boden, Trockenbau oder Malerarbeiten: Wir arbeiten sauber, halten Termine ein und verwenden gutes Material. Das sieht man am Ergebnis.",
     detailedDescription:
-      "Unser erfahrenes Team übernimmt Ihre Renovierungs- und Innenausbauprojekte im gesamten Rhein-Kreis Neuss. Mit über 13 Jahren Erfahrung kennen wir die Anforderungen moderner Wohn- und Gewerberäume. Von Altbauten in Neuss-Innenstadt bis zu Neubauten in Kaarst – wir setzen auf Qualität, Präzision und Kundenzufriedenheit.",
+      "Unser erfahrenes Team übernimmt Ihre Renovierungs- und Innenausbauprojekte im gesamten Rhein-Kreis Neuss. Mit über 13 Jahren Erfahrung kennen wir die Anforderungen moderner Wohn- und Gewerberäume. Vom Altbau in der Neusser Innenstadt bis zum Neubau in Kaarst: Wir arbeiten genau, sauber und so, dass Sie zufrieden sind.",
     heroImage: "/bilder_ordner/leistungen/hausmeisterreparaturen.webp",
     seoTitle: "Innenausbau & Renovierung Neuss | Trockenbau, Böden, Malerarbeiten",
     seoDescription:
@@ -54,7 +54,7 @@ export const LEISTUNGEN_DETAILS: readonly LeistungDetail[] = [
       "Termintreue und klare Kommunikation durch eine feste Bauleitung",
       "Professionelle Materialberatung passend zu Ihrer Nutzung und Ihrem Budget",
       "Ein fester Ansprechpartner für alle Gewerke im Rhein-Kreis Neuss",
-      "Kurze Anfahrtswege – schnelle Reaktionszeiten in Neuss und Umgebung",
+      "Kurze Anfahrt, schnelle Reaktion in Neuss und Umgebung",
     ],
     galleryImages: [
       "/bilder_ordner/leistungen/arbeitsschutz.webp",
@@ -67,7 +67,7 @@ export const LEISTUNGEN_DETAILS: readonly LeistungDetail[] = [
       },
       {
         q: "Führen Sie auch nur einzelne Gewerke aus?",
-        a: "Selbstverständlich. Wir übernehmen auf Wunsch auch nur die Bodenverlegung, Malerarbeiten oder den Trockenbau – ganz nach Ihrem Bedarf.",
+        a: "Selbstverständlich. Wir übernehmen auf Wunsch auch nur die Bodenverlegung, Malerarbeiten oder den Trockenbau, ganz nach Ihrem Bedarf.",
       },
       {
         q: "Bedienen Sie auch Düsseldorf und Meerbusch?",
@@ -78,11 +78,11 @@ export const LEISTUNGEN_DETAILS: readonly LeistungDetail[] = [
   {
     slug: "gartenpflege",
     title: "Garten- & Landschaftspflege",
-    shortDesc: "Professionelle Gartenpflege in Neuss und Umgebung – Ihr grüner Partner",
+    shortDesc: "Gartenpflege in Neuss und Umgebung, das ganze Jahr",
     description:
-      "Wir übernehmen die professionelle Pflege, Neu- und Umgestaltung Ihrer Grünflächen in Neuss und dem Rhein-Kreis. Von Rasenschnitt über Hecken- und Baumpflege bis zur Konzeption von Beeten und Bewässerungssystemen – für private Gärten und gewerbliche Außenanlagen.",
+      "Wir übernehmen die professionelle Pflege, Neu- und Umgestaltung Ihrer Grünflächen in Neuss und dem Rhein-Kreis. Von Rasenschnitt über Hecken- und Baumpflege bis zur Planung von Beeten und Bewässerung. Für private Gärten und gewerbliche Außenanlagen.",
     detailedDescription:
-      "Ob Privatgarten in Kaarst oder Gewerbeimmobilie in Dormagen – unser Team sorgt für gepflegte Außenanlagen das ganze Jahr über. Mit lokalem Know-how über Böden und Klima im Rhein-Kreis Neuss garantieren wir optimale Pflege für Ihren Garten.",
+      "Ob Privatgarten in Kaarst oder Firmengelände in Dormagen: Unser Team hält Ihre Außenanlagen das ganze Jahr in Schuss. Wir kennen Böden und Wetter im Rhein-Kreis Neuss und pflegen Ihren Garten so, wie er es braucht.",
     heroImage: "/bilder_ordner/leistungen/gartenpflege.webp",
     seoTitle: "Gartenpflege Neuss | Rasen, Hecken, Landschaftspflege Rhein-Kreis",
     seoDescription:
@@ -118,11 +118,11 @@ export const LEISTUNGEN_DETAILS: readonly LeistungDetail[] = [
   {
     slug: "hausmeister",
     title: "Hausmeisterdienste",
-    shortDesc: "Zuverlässiger Hausmeisterservice in Neuss – Ihr Rundum-Sorglos-Paket",
+    shortDesc: "Zuverlässiger Hausmeisterservice in Neuss, alles aus einer Hand",
     description:
       "Verlassen Sie sich auf einen Partner, der sich kümmert, als wäre es sein eigenes Objekt. Wir führen regelmäßige Kontrollen durch, erledigen Kleinreparaturen, übernehmen den Winterdienst und koordinieren bei Bedarf weitere Handwerker im Rhein-Kreis Neuss.",
     detailedDescription:
-      "Ob Wohnanlage in Neuss, Gewerbeimmobilie in Kaarst oder Bürogebäude in Düsseldorf – wir bieten umfassende Hausmeisterdienste mit kurzen Reaktionszeiten. Unser Team ist vertraut mit den Anforderungen verschiedenster Objekttypen im Rhein-Kreis Neuss.",
+      "Ob Wohnanlage in Neuss, Gewerbeobjekt in Kaarst oder Bürogebäude in Düsseldorf: Wir kümmern uns um Ihr Objekt und sind schnell vor Ort. Unser Team kennt die Anforderungen der unterschiedlichsten Gebäude im Rhein-Kreis Neuss.",
     heroImage: "/bilder_ordner/leistungen/hausmeisterarbeit.webp",
     seoTitle: "Hausmeisterservice Neuss | Winterdienst, Kontrollen, Reparaturen",
     seoDescription:
@@ -142,7 +142,7 @@ export const LEISTUNGEN_DETAILS: readonly LeistungDetail[] = [
       "Proaktive Erkennung von Mängeln zur Vermeidung größerer Schäden",
       "Lückenlose Dokumentation und schnelle Reaktionszeiten im Bedarfsfall",
       "Zuverlässiger Winterdienst für sichere Wege und Zufahrten",
-      "Kurze Anfahrtswege – wir sind schnell vor Ort in Neuss und Umgebung",
+      "Kurze Anfahrt, wir sind schnell vor Ort in Neuss und Umgebung",
     ],
     galleryImages: [
       "/bilder_ordner/leistungen/winterdienst.webp",
@@ -162,11 +162,11 @@ export const LEISTUNGEN_DETAILS: readonly LeistungDetail[] = [
   {
     slug: "reinigung",
     title: "Gebäudereinigung",
-    shortDesc: "Professionelle Gebäudereinigung in Neuss – Sauberkeit, die überzeugt",
+    shortDesc: "Gebäudereinigung in Neuss, auf die Sie sich verlassen können",
     description:
       "Wir sorgen für repräsentative Sauberkeit in privaten und gewerblichen Objekten im Rhein-Kreis Neuss. Unser geschultes Personal führt Unterhalts-, Glas- und Grundreinigungen nach höchsten Standards und mit professionellen Reinigungsmitteln durch.",
     detailedDescription:
-      "Von Bürogebäuden in Düsseldorf über Arztpraxen in Kaarst bis zu Privathaushalten in Neuss – wir bieten maßgeschneiderte Reinigungslösungen. Transparent, zuverlässig und mit nachweisbarer Qualität.",
+      "Bürogebäude in Düsseldorf, Arztpraxen in Kaarst, Privathaushalte in Neuss: Wir reinigen so, wie es Ihr Objekt braucht. Nachvollziehbar, zuverlässig und in geprüfter Qualität.",
     heroImage: "/bilder_ordner/leistungen/objektreinigung.webp",
     seoTitle: "Gebäudereinigung Neuss | Büroreinigung, Glasreinigung Rhein-Kreis",
     seoDescription:
@@ -199,18 +199,18 @@ export const LEISTUNGEN_DETAILS: readonly LeistungDetail[] = [
       },
       {
         q: "Welche Reinigungsintervalle sind möglich?",
-        a: "Wir bieten flexible Intervalle – von täglich über wöchentlich bis monatlich. Auch Sonderreinigungen nach Bedarf sind jederzeit möglich.",
+        a: "Sie bestimmen den Rhythmus: täglich, wöchentlich oder monatlich. Auch Sonderreinigungen nach Bedarf sind jederzeit möglich.",
       },
     ],
   },
   {
     slug: "sicherheit",
     title: "Sicherheitstechnik",
-    shortDesc: "Moderne Sicherheitstechnik in Neuss – Schutz für Ihr Zuhause",
+    shortDesc: "Moderne Sicherheitstechnik in Neuss, Schutz für Ihr Zuhause",
     description:
       "Schützen Sie, was Ihnen wichtig ist. Wir beraten Sie zu moderner Sicherheitstechnik im Rhein-Kreis Neuss, beschaffen die passenden Komponenten und übernehmen die fachgerechte Montage von Schließsystemen, Schutzbeschlägen und smarten Sicherheitslösungen.",
     detailedDescription:
-      "Ob Einfamilienhaus in Kaarst, Gewerbeobjekt in Dormagen oder Mehrfamilienhaus in Neuss – wir entwickeln individuelle Sicherheitskonzepte. Mit hochwertigen Produkten und fachgerechter Installation sorgen wir für Ihren Schutz.",
+      "Ob Einfamilienhaus in Kaarst, Gewerbeobjekt in Dormagen oder Mehrfamilienhaus in Neuss: Wir planen den Schutz, der zu Ihrem Gebäude passt. Mit guten Produkten und fachgerechtem Einbau.",
     heroImage: "/bilder_ordner/leistungen/arbeitsschutz.webp",
     seoTitle: "Sicherheitstechnik Neuss | Einbruchschutz, Schließsysteme Rhein-Kreis",
     seoDescription:

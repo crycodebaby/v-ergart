@@ -7,7 +7,7 @@ import { Section } from "@/components/ui/section";
 import { generateSEOMetadata } from "@/lib/seo-utils";
 
 export const metadata = generateSEOMetadata({
-  title: "Referenzen – Unsere Projekte | Alexander Ergart",
+  title: "Referenzen und Projekte | Alexander Ergart",
   description: "Einblicke in unsere hochwertigen Fenster-, Türen- und Hausmeisterprojekte in Neuss und Umgebung. Qualität made in Germany mit HÖNING-Produkten.",
   path: "/referenzen",
   image: {

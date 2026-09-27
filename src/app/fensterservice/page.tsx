@@ -50,7 +50,7 @@ export const metadata = generateSEOMetadata({
     path: "/fensterservice",
     image: {
         url: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fertig-installierte-scheibe-neue-saubere-fensterfront.webp",
-        alt: "Fensterservice in Neuss – Reparatur und Wartung bestehender Fenster",
+        alt: "Fensterservice in Neuss: Reparatur und Wartung vorhandener Fenster",
     },
 });
 
@@ -228,7 +228,7 @@ export default function FensterservicePage() {
                 <BlogTeaser
                     eyebrow="Ratgeber Fenster"
                     title="Fenster-Wissen aus der Praxis"
-                    description="Zugluft, schwergängige Flügel, poröse Dichtungen: So erkennen Sie Probleme früh – und wann sich der Profi lohnt."
+                    description="Zugluft, schwergängige Flügel, poröse Dichtungen: So erkennen Sie Probleme früh und wissen, wann sich der Fachmann lohnt."
                     topic="fenster"
                 />
             </Section>

@@ -14,7 +14,7 @@ type BlogWhatsAppCTAProps = {
 export default function BlogWhatsAppCTA({
   className,
   title = "Noch Fragen? Schreiben Sie uns direkt",
-  description = "Schildern Sie uns Ihr Anliegen oder senden Sie ein Foto – wir antworten in der Regel kurzfristig per WhatsApp.",
+  description = "Schildern Sie uns Ihr Anliegen oder schicken Sie ein Foto. Wir antworten meist kurzfristig per WhatsApp.",
 }: BlogWhatsAppCTAProps) {
   return (
     <div

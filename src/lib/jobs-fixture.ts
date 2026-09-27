@@ -29,7 +29,7 @@ export const FIXTURE_JOBS: JobPosting[] = [
     slug: { current: "hausmeister" },
     metaTitle: "Hausmeister (m/w/d) in Neuss | Alexander Ergart",
     metaDescription:
-      "Sie betreuen Wohn- und Gewerbeobjekte in Neuss und Umgebung eigenverantwortlich – von der Objektkontrolle über Kleinreparaturen bis zur Koordination von Handwerkern.",
+      "Sie betreuen Wohn- und Gewerbeobjekte in Neuss und Umgebung eigenverantwortlich: Objektkontrolle, Kleinreparaturen und die Abstimmung mit Handwerkern.",
     excerpt: [
       block(
         "Als Hausmeister sind Sie das Gesicht unseres Betriebs vor Ort. Sie kennen Ihre Objekte, Ihre Mieter und Ihre Auftraggeber und sorgen dafür, dass alles läuft.",
@@ -72,7 +72,7 @@ export const FIXTURE_JOBS: JobPosting[] = [
     ],
     benefits: [
       { icon: "FileCheck", title: "Unbefristeter Vertrag", description: "Vollzeit mit fester Stundenzahl und geregelter Vergütung." },
-      { icon: "Car", title: "Eigenes Servicefahrzeug", description: "Für Ihre Touren – gepflegt und vollständig ausgestattet." },
+      { icon: "Car", title: "Eigenes Servicefahrzeug", description: "Für Ihre Touren, gepflegt und vollständig ausgestattet." },
       { icon: "Wrench", title: "Hochwertiges Werkzeug", description: "Profi-Ausstattung von Würth und Hilti, keine Improvisation." },
       { icon: "CalendarClock", title: "Geregelte Arbeitszeiten", description: "Feste Touren, Zeitausgleich für Winterdienst-Einsätze." },
       { icon: "GraduationCap", title: "Weiterbildung", description: "Schulungen zu Aufzugsanlagen, Sicherheit und neuen Systemen." },
@@ -91,7 +91,7 @@ export const FIXTURE_JOBS: JobPosting[] = [
       "Treppenhaus- und Büroreinigung in festen Objekten in Neuss. Teilzeit mit planbaren Zeiten, fairer Bezahlung und einem Team, das Sie einarbeitet.",
     excerpt: [
       block(
-        "Sie reinigen Treppenhäuser, Büros und Gemeinschaftsflächen in festen Objekten – zuverlässig, gründlich und mit Blick fürs Detail.",
+        "Sie reinigen Treppenhäuser, Büros und Gemeinschaftsflächen in festen Objekten. Zuverlässig, gründlich und mit Blick fürs Detail.",
         "e1"
       ),
     ],
@@ -108,7 +108,7 @@ export const FIXTURE_JOBS: JobPosting[] = [
     ],
     niceToHave: ["Führerschein Klasse B"],
     benefits: [
-      { icon: "Clock", title: "Planbare Zeiten", description: "Feste Objekte, feste Tage – Sie wissen, wann Sie arbeiten." },
+      { icon: "Clock", title: "Planbare Zeiten", description: "Feste Objekte, feste Tage. Sie wissen, wann Sie arbeiten." },
       { icon: "Euro", title: "Faire Bezahlung", description: "Übertariflich, pünktlich, mit Zuschlägen." },
       { icon: "Users", title: "Einarbeitung", description: "Wir zeigen Ihnen jedes Objekt persönlich." },
     ],

@@ -534,7 +534,7 @@ export default function FensterAnfrageForm({
             <p className={ERROR_CLASS}>{errors.email.message}</p>
           ) : (
             <p className="mt-1 text-xs text-muted-foreground">
-              Telefon oder E-Mail genügt – eines von beiden brauchen wir.
+              Telefon oder E-Mail genügt. Eines von beiden brauchen wir.
             </p>
           )}
         </div>

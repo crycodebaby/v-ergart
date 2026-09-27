@@ -14,14 +14,14 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title:
-    "Kontakt – Alexander Ergart | Hausmeister- & Fensterservice in Neuss & Umgebung",
+    "Kontakt | Alexander Ergart Hausmeister- & Fensterservice in Neuss",
   description:
     "Schnellanfrage an Alexander Ergart: Hausmeisterservice, Fensterservice, Reparaturen & Wartung, Grundstückspflege u. v. m. Öffnungszeiten Mo–Fr 08–12 & 13–16 Uhr. Jetzt Termin sichern.",
   robots: { index: true, follow: true },
   alternates: { canonical: `${BASE_URL}/kontakt` },
   openGraph: {
     title:
-      "Kontakt – Alexander Ergart | Hausmeister- & Fensterservice in Neuss",
+      "Kontakt | Alexander Ergart Hausmeister- & Fensterservice in Neuss",
     description:
       "Schnellanfrage, Terminwahl, Telefon & E-Mail. Leistungen: Hausmeisterservice, Fensterservice, Reparaturen & Wartung, Grundstückspflege, Verwaltung von Immobilien.",
     type: "website",

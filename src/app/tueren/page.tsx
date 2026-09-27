@@ -14,7 +14,7 @@ export const metadata = generateSEOMetadata({
   path: "/tueren",
   image: {
     url: "/bilder_ordner/hoening/tueren/vorschau-aluminium-tuer.webp",
-    alt: "HÖNING Premium Haustüren in Neuss – Alexander Ergart",
+    alt: "HÖNING Haustüren in Neuss bei Alexander Ergart",
   },
 });
 

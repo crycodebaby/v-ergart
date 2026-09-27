@@ -130,7 +130,7 @@ export default function PreisUndBewertungen({
           href={GOOGLE_RATING.url}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`${GOOGLE_RATING_DISPLAY} von 5 Sternen aus ${GOOGLE_RATING.count} Google-Bewertungen – auf Google ansehen (neuer Tab)`}
+          aria-label={`${GOOGLE_RATING_DISPLAY} von 5 Sternen aus ${GOOGLE_RATING.count} Google-Bewertungen, auf Google ansehen (neuer Tab)`}
           className={
             price
               ? "group flex flex-col justify-between gap-5 rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-blue/40 hover:shadow-lg md:col-span-3"

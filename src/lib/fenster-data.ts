@@ -19,7 +19,7 @@ export const fensterFeatures: FeatureGalleryProps[] = [
     ],
     title: "Design & Licht: Fenster als Stilelement",
     description:
-      "Moderne Fenster sind mehr als nur Glas – sie sind entscheidende Architekturelemente. Unsere Systeme mit schmalen Rahmen maximieren die Glasfläche, fluten Ihre Räume mit Tageslicht und verleihen Ihrer Fassade eine zeitlose Eleganz.",
+      "Moderne Fenster sind mehr als Glas. Sie prägen das Gesicht eines Hauses. Schmale Rahmen schaffen viel Glasfläche, holen Tageslicht in die Räume und geben der Fassade ein ruhiges, zeitloses Bild.",
     features: [
       {
         icon: "Lightbulb",

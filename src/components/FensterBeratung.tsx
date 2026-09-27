@@ -30,7 +30,7 @@ const ablauf = [
   {
     icon: Phone,
     title: "1. Anfrage",
-    text: "Kurz schildern, worum es geht – Formular, Telefon oder WhatsApp.",
+    text: "Kurz schildern, worum es geht. Per Formular, Telefon oder WhatsApp.",
   },
   {
     icon: Ruler,
@@ -70,7 +70,7 @@ export default function FensterBeratung() {
         </h2>
 
         <p className="mx-auto max-w-2xl text-lg text-muted-foreground md:text-xl">
-          Sagen Sie uns, wie viele Fenster es sind und wo sie sitzen – den Rest
+          Sagen Sie uns, wie viele Fenster es sind und wo sie sitzen. Den Rest
           klären wir beim Aufmaß vor Ort.
         </p>
       </motion.div>

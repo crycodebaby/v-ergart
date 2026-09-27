@@ -69,7 +69,7 @@ const DashboardHero = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Die Visitenkarte Ihres Hauses – stilvoll und sicher.
+            Die Visitenkarte Ihres Hauses. Stilvoll und sicher.
           </motion.p>
           <motion.div
             className="mt-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"

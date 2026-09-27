@@ -29,7 +29,7 @@ export const KARRIERE_BENEFITS = [
   {
     icon: "FileCheck",
     title: "Unbefristete Anstellung",
-    text: "Feste Verträge, geregelte Vergütung und pünktliche Zahlung. Wir planen langfristig – mit Ihnen.",
+    text: "Feste Verträge, geregelte Vergütung und pünktliche Zahlung. Wir planen langfristig, mit Ihnen.",
   },
   {
     icon: "Wrench",
@@ -49,7 +49,7 @@ export const KARRIERE_BENEFITS = [
   {
     icon: "GraduationCap",
     title: "Weiterbildung",
-    text: "Schulungen bei Herstellern und Verbänden – etwa zu Aufzugsanlagen, Sicherheit oder Fenstertechnik.",
+    text: "Schulungen bei Herstellern und Verbänden, etwa zu Aufzugsanlagen, Sicherheit oder Fenstertechnik.",
   },
   {
     icon: "Users",

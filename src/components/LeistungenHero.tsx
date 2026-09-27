@@ -16,8 +16,8 @@ export function LeistungenHero() {
             Unsere Leistungen
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Entdecken Sie die Vielfalt unserer Dienstleistungen – von der Beratung bis zur perfekten Umsetzung. 
-            Maßgeschneidert für Ihre Anforderungen.
+            Alle Leistungen im Überblick, von der Beratung bis zur fertigen Arbeit. 
+            Abgestimmt auf das, was Sie brauchen.
           </p>
         </motion.div>
     </>

@@ -11,7 +11,7 @@ import { Section } from "@/components/ui/section";
 import HoeningGarantieCard from "@/components/HoeningGarantieCard";
 
 export const metadata = generateSEOMetadata({
-  title: "Leistungen | Hausmeisterservice & Objektpflege in Neuss – Alexander Ergart",
+  title: "Leistungen | Hausmeisterservice & Objektpflege in Neuss | Alexander Ergart",
   description:
     "Übersicht aller Leistungen von Alexander Ergart: Hausmeisterservice, Objektpflege, Gebäudereinigung, Fenster- und Türservice in Neuss und Umgebung. Zuverlässig, regional und persönlich.",
   path: "/leistungen",

@@ -26,8 +26,8 @@ export default function KontaktHero() {
           </h1>
 
           <p className="text-lg text-muted-foreground max-w-lg">
-            Ob für eine Beratung, ein Angebot oder einen dringenden Termin –
-            wir kümmern uns schnell und verbindlich um Ihr Anliegen.
+            Beratung, Angebot oder ein dringender Termin:
+            Wir kümmern uns schnell und verbindlich um Ihr Anliegen.
           </p>
 
           <div className="mt-8 flex gap-4 items-center">
@@ -48,7 +48,7 @@ export default function KontaktHero() {
             <div className="relative overflow-hidden rounded-2xl border border-border shadow-2xl">
               <Image
                 src="/bilder_ordner/kontakt/team_ergart.webp"
-                alt="Team Ergart – persönlich für Sie da"
+                alt="Das Team von Ergart, persönlich für Sie da"
                 width={800}
                 height={1200}
                 className="object-cover w-full h-auto"

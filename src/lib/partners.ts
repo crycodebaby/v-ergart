@@ -67,7 +67,7 @@ export const PARTNERS: Partner[] = [
     name: "GERMAN WINDOWS",
     role: "Lieferant · Fenster & Türen",
     description:
-      "Unser zweiter Lieferant für Fensterelemente und Türen: familiengeführter Hersteller mit über 40 Jahren Erfahrung – maßgefertigt aus Kunststoff, Holz und Aluminium.",
+      "Unser zweiter Lieferant für Fensterelemente und Türen: familiengeführter Hersteller mit über 40 Jahren Erfahrung. Maßgefertigt aus Kunststoff, Holz und Aluminium.",
     href: "https://www.germanwindows.de/",
     hrefLabel: "germanwindows.de",
     logo: {
@@ -133,7 +133,7 @@ export const PARTNERS: Partner[] = [
     name: "Verkehrswacht Rhein-Kreis Neuss e. V.",
     role: "Engagement",
     description:
-      "Gemeinsam für mehr Verkehrssicherheit – wir unterstützen das Projekt „Kinder sicher im Straßenverkehr“.",
+      "Gemeinsam für mehr Sicherheit im Verkehr: Wir unterstützen das Projekt „Kinder sicher im Straßenverkehr“.",
     href: "https://vrkn.de/",
     hrefLabel: "vrkn.de",
     logo: {

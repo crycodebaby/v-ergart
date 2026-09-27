@@ -11,7 +11,7 @@ const DoorCarousel = () => {
             <div className="container mx-auto px-4 text-center">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Eine Vielfalt an Designs</h2>
                 <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto">
-                    Entdecken Sie eine Auswahl unserer hochwertigen Türen – für jeden Stil und jedes Sicherheitsbedürfnis.
+                    Eine Auswahl unserer Türen. Für jeden Stil und jeden Anspruch an Sicherheit.
                 </p>
                 
                 <div

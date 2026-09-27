@@ -42,10 +42,10 @@ const processSteps = [
   {
     title: "Bestandsaufnahme",
     description:
-      "Jedes Projekt beginnt mit der Analyse. Wir begutachten die alten Fenster und die Bausubstanz – so entstehen keine Überraschungen beim Einbau.",
+      "Jedes Projekt beginnt mit dem Blick auf den Bestand. Wir prüfen die alten Fenster und das Mauerwerk, damit es beim Einbau keine Überraschungen gibt.",
     image:
       "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/vorherige-alte-fenster.webp",
-    alt: "Bestandsaufnahme alter Fenster vor der Montage – Fensterservice Neuss Alexander Ergart",
+    alt: "Bestandsaufnahme alter Fenster vor der Montage durch Alexander Ergart in Neuss",
   },
   {
     title: "Vorbereitung",
@@ -53,16 +53,16 @@ const processSteps = [
       "Nach dem Ausbau der alten Elemente wird der Arbeitsplatz sauber vorbereitet und geschützt. Sauberkeit und Schutz Ihrer Räume sind für uns selbstverständlich.",
     image:
       "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/vorherige-alte-fenster-ausgebaut-vorbereiteter-arbeitsplatz.webp",
-    alt: "Vorbereiteter Arbeitsplatz nach Ausbau alter Fenster – Fenstermontage Neuss",
+    alt: "Vorbereiteter Arbeitsplatz nach dem Ausbau alter Fenster in Neuss",
   },
   {
     // War Schritt 4 (Logistik) – jetzt Schritt 3
     title: "Logistik",
     description:
-      "Mit schwerem Gerät wie Kränen und Spezialfahrzeugen positionieren wir auch große Fensterelemente millimetergenau – sicher und schadensfrei.",
+      "Mit Kran und Spezialfahrzeug setzen wir auch große Fensterelemente millimetergenau an ihren Platz. Sicher und ohne Schäden.",
     image:
       "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterelement-kran.webp",
-    alt: "Kranmontage großer Fensterelemente – Fensterbau Profi Neuss",
+    alt: "Kranmontage großer Fensterelemente in Neuss",
   },
   {
     // War Schritt 3 (Anlieferung) – jetzt Schritt 4
@@ -71,7 +71,7 @@ const processSteps = [
       "Die neuen, maßgefertigten HÖNING-Fensterelemente werden sicher auf Spezialgestellen angeliefert. Jedes Element wird auf Transportschäden geprüft.",
     image:
       "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterscheiben-auf-gestell-für-fensterelemente.webp",
-    alt: "Anlieferung maßgefertigter HÖNING Fensterscheiben auf Gestell – Fenstereinbau Neuss",
+    alt: "Anlieferung maßgefertigter HÖNING Fensterscheiben auf dem Gestell",
   },
   {
     title: "Präzisionsarbeit",
@@ -79,15 +79,15 @@ const processSteps = [
       "Der spezielle Saugkraft-Hebelift ermöglicht eine sichere und beschädigungsfreie Handhabung der Scheiben. Modernste Technik für maximale Qualität.",
     image:
       "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterscheibe-hochgehoben-durch-saugkraft-lift.webp",
-    alt: "Saugkraft-Hebelift für sichere Fensterscheiben-Handhabung – Fensterprofi Neuss",
+    alt: "Sauglift für den sicheren Transport der Fensterscheiben",
   },
   {
     title: "Montage",
     description:
-      "Das neue Fensterelement wird passgenau in die Öffnung eingesetzt und professionell verankert. Jeder Handgriff sitzt – das Ergebnis hält Jahrzehnte.",
+      "Das neue Fenster wird passgenau in die Öffnung gesetzt und fest verankert. Jeder Handgriff sitzt, und das Ergebnis hält Jahrzehnte.",
     image:
       "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/montageprozess-der-neuen-scheibe-via-sauglift.webp",
-    alt: "Professionelle Fenstermontage via Sauglift – Fenstereinbau Neuss",
+    alt: "Fenstermontage mit dem Sauglift in Neuss",
   },
   {
     title: "Finale Justierung",
@@ -95,15 +95,15 @@ const processSteps = [
       "Nach dem Einbau wird alles absolut präzise justiert: Dichtigkeit, Öffnungswinkel, Beschläge. Erst wenn alles perfekt sitzt, ist der Schritt abgeschlossen.",
     image:
       "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/finale-fensterelement-abdichtung.webp",
-    alt: "Finale Abdichtung und Justierung des Fensterelements – Qualitätskontrolle Fensterbau Neuss",
+    alt: "Abdichtung und Einstellung des neuen Fensters zum Abschluss",
   },
   {
     title: "Abschluss & Übergabe",
     description:
-      "Das Endergebnis: Eine neue, saubere und energieeffiziente Fensterfront. Wir erklären Ihnen die Pflege und Funktionen – und hinterlassen eine makellos saubere Baustelle.",
+      "Am Ende steht eine neue, dichte Fensterfront, die Heizkosten spart. Wir erklären Ihnen Pflege und Bedienung und hinterlassen eine saubere Baustelle.",
     image:
       "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fertig-installierte-scheibe-neue-saubere-fensterfront.webp",
-    alt: "Fertig montierte neue Fensterfront – professioneller Fenstereinbau Ergebnis Neuss",
+    alt: "Fertig eingebaute neue Fensterfront in Neuss",
   },
 ] as const;
 

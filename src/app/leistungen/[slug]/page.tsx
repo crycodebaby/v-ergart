@@ -188,7 +188,7 @@ export default function LeistungDetailPage({ params }: Props) {
                 <Button asChild variant="outline" size="lg" className="hover:bg-accent/50">
                   <a href="tel:+4917666825889">
                     <Phone className="w-5 h-5 mr-2" />
-                    0176 – 668 25 889
+                    0176 668 25 889
                   </a>
                 </Button>
               </div>
@@ -302,7 +302,7 @@ export default function LeistungDetailPage({ params }: Props) {
                       className="flex items-center justify-center gap-2 w-full h-10 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors text-sm font-medium"
                     >
                       <Phone className="w-4 h-4" />
-                      0176 – 668 25 889
+                      0176 668 25 889
                     </a>
                   </div>
                 </div>

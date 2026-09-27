@@ -146,7 +146,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
         href={partner.href}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={`${partner.name} – Website öffnen (neuer Tab)`}
+        aria-label={`${partner.name}: Website öffnen (neuer Tab)`}
         className="absolute inset-0 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       />
     </li>

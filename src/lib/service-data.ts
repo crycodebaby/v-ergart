@@ -7,7 +7,7 @@ export const CORE_SERVICES = [
         // die Verkaufsseite. Der Reparatur-Einstieg steht separat unten.
         title: "Neue Fenster & Türen",
         description:
-            "Hochwertige HÖNING Fenster und Türen – Beratung, Aufmaß und fachgerechte Montage aus einer Hand.",
+            "Hochwertige HÖNING Fenster und Türen. Beratung, Aufmaß und Montage aus einer Hand.",
         icon: DoorOpen,
         link: "/fenster",
         image: "/bilder_ordner/hoening/fenster/fenstersanierung/fertige-terassen-fensterwand.webp",
@@ -15,7 +15,7 @@ export const CORE_SERVICES = [
     {
         title: "Innenausbau & Renovierung",
         description:
-            "Böden, Wände, Decken – wir realisieren Trockenbau und frische Anstriche. Von der Idee bis zum bezugsfertigen Raum.",
+            "Böden, Wände, Decken: Trockenbau und frische Anstriche, von der Idee bis zum fertigen Raum.",
         icon: Paintbrush,
         link: "/leistungen/innenausbau",
         image: "/bilder_ordner/leistungen/hausmeisterreparaturen.webp",

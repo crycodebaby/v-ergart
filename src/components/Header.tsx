@@ -98,7 +98,7 @@ export default function Header() {
           <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 nav-desktop:h-24">
             <Link
               href="/"
-              aria-label="Alexander Ergart – zur Startseite"
+              aria-label="Alexander Ergart, zur Startseite"
               className="flex shrink-0 items-center gap-3 rounded"
             >
               <Image

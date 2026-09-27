@@ -36,7 +36,7 @@ export function TrustAndPartnerSection({
       <PartnersSection
         eyebrow="Partner, Lieferanten & Kooperationen"
         title="Starke Partner für belastbare Qualität"
-        description="Zwei Fensterhersteller, Profi-Montagetechnik, lokaler Fachhandel und regionales Engagement – gemeinsam sichern wir Qualität und Werterhalt."
+        description="Zwei Fensterhersteller, Profi-Montagetechnik, Fachhandel vor Ort und Engagement in der Region. Gemeinsam sichern wir Qualität und Werterhalt."
       />
     </section>
   );

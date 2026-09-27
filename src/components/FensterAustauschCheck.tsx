@@ -35,7 +35,7 @@ const anzeichen = [
   {
     icon: Wind,
     title: "Es zieht spürbar",
-    text: "Kalte Luft am geschlossenen Fenster – wenn neue Dichtungen und eine Neueinstellung das nicht beheben, ist der Rahmen am Ende.",
+    text: "Kalte Luft am geschlossenen Fenster. Wenn neue Dichtungen und eine Einstellung nicht helfen, ist der Rahmen am Ende.",
   },
   {
     icon: PanelsTopLeft,
@@ -134,7 +134,7 @@ export default function FensterAustauschCheck() {
       >
         Nicht jedes Problem braucht ein neues Fenster. Klemmende Flügel, poröse
         Dichtungen und verstellte Beschläge lassen sich meist preiswert instand
-        setzen –{" "}
+        setzen. Mehr dazu unter{" "}
         <Link
           href="/fensterservice"
           className="font-semibold text-brand-text underline underline-offset-4"

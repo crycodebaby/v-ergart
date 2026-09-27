@@ -45,7 +45,7 @@ export const metadata = generateSEOMetadata({
   path: "/fenster",
   image: {
     url: "/bilder_ordner/hoening/fenster/hoening-zentrale-besuch/fenster-ausstellung7.webp",
-    alt: "Neue HÖNING Fensterelemente – Fensterbau Alexander Ergart in Neuss",
+    alt: "Neue HÖNING Fensterelemente, eingebaut von Alexander Ergart in Neuss",
   },
 });
 
@@ -65,7 +65,7 @@ const serviceJsonLd = {
   name: "Neue Fenster & Fensteraustausch",
   serviceType: "Fensterbau, Fensteraustausch und Fenstermontage",
   description:
-    "Verkauf, Aufmaß und fachgerechte Montage neuer HÖNING Fensterelemente in Neuss und Umgebung – für Neubau, Sanierung und den Austausch alter Fenster.",
+    "Verkauf, Aufmaß und fachgerechte Montage neuer HÖNING Fenster in Neuss und Umgebung. Für Neubau, Sanierung und den Austausch alter Fenster.",
   url: `${BASE_URL}/fenster`,
   provider: {
     "@type": "HomeAndConstructionBusiness",
@@ -101,7 +101,7 @@ const serviceJsonLd = {
           "@type": "Service",
           name: "Neue Fensterelemente",
           description:
-            "Maßgefertigte HÖNING Fenster für Neubau und Sanierung – Beratung zu Verglasung, Sicherheit und Optik.",
+            "Maßgefertigte HÖNING Fenster für Neubau und Sanierung. Wir beraten Sie zu Verglasung, Sicherheit und Optik.",
         },
       },
       {
@@ -146,9 +146,9 @@ const serviceJsonLd = {
 const howToJsonLd = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: "Fenstermontage – Transparenz von Anfang bis Ende",
+  name: "Fenstermontage in acht Schritten",
   description:
-    "Unser bewährter 8-Schritte-Montageprozess für professionellen Fenstereinbau in Neuss und Umgebung – fachgerecht ausgeführt von Alexander Ergart.",
+    "So bauen wir neue Fenster in Neuss und Umgebung ein: acht Schritte, fachgerecht ausgeführt von Alexander Ergart.",
   totalTime: "PT4H",
   tool: [
     { "@type": "HowToTool", name: "Saugkraft-Hebelift" },
@@ -160,7 +160,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 1,
       name: "Bestandsaufnahme",
-      text: "Jedes Projekt beginnt mit der Analyse. Wir begutachten die alten Fenster und die Bausubstanz – so entstehen keine Überraschungen beim Einbau.",
+      text: "Jedes Projekt beginnt mit dem Blick auf den Bestand. Wir prüfen die alten Fenster und das Mauerwerk, damit es beim Einbau keine Überraschungen gibt.",
       image: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/vorherige-alte-fenster.webp",
     },
     {
@@ -174,7 +174,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 3,
       name: "Logistik",
-      text: "Mit schwerem Gerät wie Kränen und Spezialfahrzeugen positionieren wir auch große Fensterelemente millimetergenau – sicher und schadensfrei.",
+      text: "Mit Kran und Spezialfahrzeug setzen wir auch große Fensterelemente millimetergenau an ihren Platz. Sicher und ohne Schäden.",
       image: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterelement-kran.webp",
     },
     {
@@ -195,7 +195,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 6,
       name: "Montage",
-      text: "Das neue Fensterelement wird passgenau in die Öffnung eingesetzt und professionell verankert. Jeder Handgriff sitzt – das Ergebnis hält Jahrzehnte.",
+      text: "Das neue Fenster wird passgenau in die Öffnung gesetzt und fest verankert. Jeder Handgriff sitzt, und das Ergebnis hält Jahrzehnte.",
       image: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/montageprozess-der-neuen-scheibe-via-sauglift.webp",
     },
     {
@@ -209,7 +209,7 @@ const howToJsonLd = {
       "@type": "HowToStep",
       position: 8,
       name: "Abschluss & Übergabe",
-      text: "Das Endergebnis: Eine neue, saubere und energieeffiziente Fensterfront. Wir erklären Ihnen die Pflege und Funktionen – und hinterlassen eine makellos saubere Baustelle.",
+      text: "Am Ende steht eine neue, dichte Fensterfront, die Heizkosten spart. Wir erklären Ihnen Pflege und Bedienung und hinterlassen eine saubere Baustelle.",
       image: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fertig-installierte-scheibe-neue-saubere-fensterfront.webp",
     },
   ],
@@ -275,7 +275,7 @@ export default function FensterPage() {
       <Section surface="base">
         <PartnerBenefitsSplit
           title="Was Sie mit neuen Fenstern gewinnen"
-          subtitle="Energie, Sicherheit, Ruhe und Optik – in einem Zug"
+          subtitle="Energie, Sicherheit, Ruhe und Optik in einem Zug"
           features={[
             "Maximale Energieeffizienz senkt Ihre Heizkosten nachhaltig.",
             "Zertifizierter Einbruchschutz für ein sicheres Gefühl.",
@@ -304,11 +304,11 @@ export default function FensterPage() {
       <Section surface="base">
         <PreisUndBewertungen
           title="Was kosten neue Fenster?"
-          description="Ein transparenter Richtwert für das Fensterelement – und Kunden aus Neuss und Umgebung, die uns auf Google bewerten."
+          description="Ein ehrlicher Richtwert für das Fensterelement. Dazu Kunden aus Neuss und Umgebung, die uns auf Google bewerten."
           price={{
             label: "Fensterelement (Richtwert, ohne Montage)",
             value: "ca. 400–600 €",
-            note: "Gilt für ein durchschnittliches PVC-Fensterelement in Standardgröße – reiner Elementpreis, ohne Einbau.",
+            note: "Gilt für ein PVC-Fenster in Standardgröße. Nur das Element, ohne Einbau.",
             hint: "Montage, Ausbau der alten Fenster, Anschlussarbeiten und Zusatzleistungen sind nicht enthalten und werden nach dem Aufmaß individuell kalkuliert. Beratung und Aufmaß sind kostenlos. Lieferzeit für Fensterelemente aktuell bis zu 9 Wochen.",
           }}
           ctaHref="#fenster-beratung"
@@ -317,7 +317,7 @@ export default function FensterPage() {
       </Section>
 
       {/* Beweis: so läuft die Montage tatsächlich ab – echte Baustellenfotos */}
-      <Section surface="muted" aria-label="Unser Montageprozess – 8 Schritte">
+      <Section surface="muted" aria-label="Unser Montageprozess in acht Schritten">
         <ProcessStepper />
       </Section>
 

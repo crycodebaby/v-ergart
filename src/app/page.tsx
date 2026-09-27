@@ -21,7 +21,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "")
  * Homepage Metadata – SEO-optimiert
  */
 export const metadata: Metadata = {
-  title: "Hausmeisterservice Neuss | Alexander Ergart – Ihr Profi vor Ort",
+  title: "Hausmeisterservice Neuss | Alexander Ergart, Ihr Profi vor Ort",
   description:
     "Ihr zuverlässiger Hausmeisterservice in Neuss und Umgebung: Gebäudereinigung, Objektpflege, Fenster- & Türenservice, Reparaturen und Winterdienst. Über 13 Jahre Erfahrung.",
   keywords: [
@@ -186,7 +186,7 @@ export default function HomePage() {
       <Section surface="muted">
         <BlogTeaser
           title="Aus unserem Ratgeber"
-          description="Praktische Tipps rund um Fenster, Gebäudepflege und Winterdienst – direkt aus der Praxis in Neuss."
+          description="Praktische Tipps zu Fenstern, Gebäudepflege und Winterdienst, direkt aus der Arbeit in Neuss."
         />
       </Section>
       <CTA />

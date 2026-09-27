@@ -304,7 +304,7 @@ async function deliver(
 
     // --- Kontext wie bisher ---
     source: "Fenster Verkaufsseite",
-    project: "Alexander Ergart – Hausmeister- & Fensterservice",
+    project: "Alexander Ergart Hausmeister- & Fensterservice",
 
     // Kein "g-recaptcha-response": das Token wurde oben bereits gegen Google
     // eingelöst und ist einmalig. Eine zweite Prüfung durch Formcarry würde
@@ -313,7 +313,7 @@ async function deliver(
     // --- Attribution ---
     ...flat,
 
-    _subject: `Fensteranfrage ${lead.postalCode} – ${WINDOW_COUNT_LABELS[lead.windowCount]} (${leadId.slice(0, 8)})`,
+    _subject: `Fensteranfrage ${lead.postalCode}, ${WINDOW_COUNT_LABELS[lead.windowCount]} (${leadId.slice(0, 8)})`,
     zusammenfassung: summary,
   };
 

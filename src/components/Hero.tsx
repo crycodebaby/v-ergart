@@ -63,7 +63,7 @@ const Hero = () => {
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-wide" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}>
           Ihr Profi in Neuss
           <span className="block text-xl md:text-2xl font-normal normal-case mt-4 max-w-3xl mx-auto text-slate-200">
-            Von Hausmeisterdienstleistungen über Fensteraustausch bis hin zur Gebäudereinigung – wir stehen Ihnen zuverlässig zur Seite.
+            Hausmeisterdienst, Fensteraustausch und Gebäudereinigung. Wir stehen Ihnen zuverlässig zur Seite.
           </span>
         </h1>
       </div>

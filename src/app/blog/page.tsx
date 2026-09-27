@@ -6,7 +6,7 @@ import BlogWhatsAppCTA from "@/components/blog/BlogWhatsAppCTA";
 import { Newspaper } from "lucide-react";
 
 export const metadata = generateSEOMetadata({
-  title: "Blog | Tipps rund um Hausmeisterservice & Objektpflege – Alexander Ergart",
+  title: "Blog | Tipps rund um Hausmeisterservice & Objektpflege | Alexander Ergart",
   description:
     "Aktuelle Beiträge, Tipps und Einblicke rund um Hausmeisterservice, Objektpflege, Gebäudereinigung und Fensterservice in Neuss. Der Blog von Alexander Ergart.",
   path: "/blog",

@@ -14,12 +14,12 @@ import { motion } from "framer-motion";
 const bilder = [
     {
         src: "/bilder_ordner/hoening/fenster/hoening-zentrale-besuch/fenster-ausstellung7.webp",
-        alt: "Moderne Fensterausstellung bei HÖNING – Premium-Qualität für Ihr Zuhause",
+        alt: "Fensterausstellung bei HÖNING in Neuss",
         caption: "Premium-Fenster in der HÖNING Ausstellung",
     },
     {
         src: "/bilder_ordner/hoening/fenster/fenster-baustellenprozess/fensterelement-kran.webp",
-        alt: "Professionelle Fenstermontage mit Kran – Präzision bei großen Elementen",
+        alt: "Fenstermontage mit Kran bei einem großen Element",
         caption: "Professionelle Montage großer Fensterelemente",
     },
 ];

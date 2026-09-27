@@ -18,7 +18,7 @@ const IntroSection = () => {
           Handwerkskunst im Detail
         </h2>
         <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-16">
-          Jedes Projekt ist mehr als nur eine Aufgabe – es ist unser Versprechen
+          Jedes Projekt ist mehr als eine Aufgabe. Es ist unser Versprechen
           an Sie für höchste Qualität, Präzision und Langlebigkeit. Wir
           kombinieren bewährte Techniken mit modernsten Materialien, um
           Ergebnisse zu schaffen, die nicht nur heute überzeugen, sondern auch
