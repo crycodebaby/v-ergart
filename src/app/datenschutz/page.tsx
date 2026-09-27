@@ -2,6 +2,7 @@
 import { ContentPage } from "@/components/ContentPage";
 import Link from "next/link";
 import { generateSEOMetadata } from "@/lib/seo-utils";
+import { PARTNER_LINK_REL, SITE_LINKS } from "@/lib/site-links";
 
 export const metadata = generateSEOMetadata({
   title: "Datenschutzerklärung | Alexander Ergart",
@@ -64,18 +65,18 @@ export default function DatenschutzPage() {
 
         <h3>Server-Logfiles</h3>
         <p>
-          Bei jedem Aufruf unserer Website erfasst das System automatisch Daten und Informationen vom Computersystem des aufrufenden Rechners. Diese Daten werden in sogenannten Server-Logfiles gespeichert:
+          Bei jedem Besuch unserer Website hält unser Server automatisch einige technische Angaben zu Ihrem Zugriff fest. Diese Protokolle enthalten:
         </p>
         <ul className="list-disc pl-5 space-y-1">
-          <li>IP-Adresse (ggf. anonymisiert)</li>
-          <li>Datum und Uhrzeit des Zugriffs</li>
-          <li>Browsertyp und Browserversion</li>
-          <li>Verwendetes Betriebssystem</li>
-          <li>Referrer URL (die zuvor besuchte Seite)</li>
-          <li>Hostname des zugreifenden Rechners</li>
+          <li>Ihre IP-Adresse, also die Nummer, unter der Ihr Gerät im Internet erreichbar ist (soweit möglich gekürzt)</li>
+          <li>Datum und Uhrzeit Ihres Besuchs</li>
+          <li>Welchen Browser Sie verwenden und in welcher Version</li>
+          <li>Welches Betriebssystem auf Ihrem Gerät läuft</li>
+          <li>Die Website, von der aus Sie zu uns gekommen sind</li>
+          <li>Den Namen, unter dem Ihr Internetzugang im Netz erscheint</li>
         </ul>
         <p>
-          Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen. Die Erfassung erfolgt gemäß Art. 6 Abs. 1 lit. f DSGVO zur Gewährleistung der technischen Sicherheit und Fehlerbehebung.
+          Wir führen diese Angaben nicht mit anderen Daten zusammen und nutzen sie nicht, um herauszufinden, wer Sie sind. Sie dienen allein dazu, die Website sicher zu betreiben und Fehler zu finden. Rechtsgrundlage ist unser berechtigtes Interesse daran (Art. 6 Abs. 1 lit. f DSGVO).
         </p>
       </section>
 
@@ -112,23 +113,23 @@ export default function DatenschutzPage() {
 
         <h3>Was wird erfasst?</h3>
         <p>
-          Plausible erfasst aggregierte Informationen wie:
+          Plausible erfasst nur zusammengefasste Zahlen, nie einzelne Personen. Dazu gehören:
         </p>
         <ul className="list-disc pl-5 space-y-1">
           <li>Seitenaufrufe und Verweildauer</li>
           <li>Ungefährer Standort (Land/Region) basierend auf der anonymisierten IP</li>
           <li>Gerätetyp (Desktop/Mobil), Browser und Betriebssystem</li>
-          <li>Herkunftsquelle (über welche Website oder Kampagne Sie zu uns kamen)</li>
+          <li>Über welche Website oder Werbemaßnahme Sie zu uns gefunden haben</li>
         </ul>
 
-        <h3>Event-Tracking & Offline-Kampagnen</h3>
+        <h3>Klicks und Werbeaktionen</h3>
         <p>
-          Zusätzlich messen wir anonyme Interaktionen (&quot;Events&quot;), um den Erfolg unserer Marketingmaßnahmen zu bewerten. Dazu gehören:
+          Zusätzlich zählen wir, welche Bereiche der Website genutzt werden, um zu sehen, ob unsere Werbung wirkt. Auch das geschieht anonym. Gezählt wird:
         </p>
         <ul className="list-disc pl-5 space-y-1">
           <li>Klicks auf Kontakt-Buttons (Telefon, E-Mail, Formular)</li>
           <li>Nutzung von Formularen (Start und Absenden)</li>
-          <li>Besuche über QR-Codes oder Flyer (z. B. über Parameter wie utm_source=flyer)</li>
+          <li>Besuche, die über einen QR-Code oder einen Flyer zu uns führen &ndash; dafür trägt die aufgerufene Adresse eine Kennzeichnung wie &bdquo;Flyer&ldquo;</li>
         </ul>
         <p>
           Diese Daten helfen uns zu erkennen, ob unsere Offline-Werbung (z. B. Flyer) funktioniert, ohne dass wir Sie persönlich identifizieren können.
@@ -165,30 +166,61 @@ export default function DatenschutzPage() {
           </a>.
         </p>
 
-        <h3>Externe Links (Partner & Social Media)</h3>
+        <h3>Externe Links (Partner &amp; Social Media)</h3>
         <p>
           Unsere Website enthält Verlinkungen zu externen Webseiten Dritter. Hierzu gehören:
         </p>
         <ul className="list-disc pl-5 space-y-1">
           <li>
-            <strong>Partnerseiten:</strong> HÖNING ({" "}
-            <a href="https://www.hoening.de" target="_blank" rel="noopener noreferrer">
+            <strong>Partner, Lieferanten und Kooperationen:</strong> HÖNING ({" "}
+            <a href="https://www.hoening.de" target="_blank" rel={PARTNER_LINK_REL}>
               www.hoening.de
             </a>, {" "}
-            <a href="https://haustuerkonfigurator.hoening.de" target="_blank" rel="noopener noreferrer">
+            <a href="https://haustuerkonfigurator.hoening.de" target="_blank" rel={PARTNER_LINK_REL}>
               haustuerkonfigurator.hoening.de
             </a>), GERMAN WINDOWS ({" "}
-            <a href="https://www.germanwindows.de" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.germanwindows.de" target="_blank" rel={PARTNER_LINK_REL}>
               www.germanwindows.de
             </a>), WÜRTH ({" "}
-            <a href="https://www.wuerth.de" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.wuerth.de" target="_blank" rel={PARTNER_LINK_REL}>
               www.wuerth.de
-            </a>)
+            </a>), Kilbinger Fachhandel &amp; Service ({" "}
+            <a href="https://www.kilbinger.de" target="_blank" rel={PARTNER_LINK_REL}>
+              www.kilbinger.de
+            </a>), Smairys Netz-Manufaktur ({" "}
+            <a href="https://smairys.de" target="_blank" rel={PARTNER_LINK_REL}>
+              smairys.de
+            </a>), Ergart Immobilienverwaltung ({" "}
+            <a href={SITE_LINKS.external.immobilienverwaltung} target="_blank" rel={PARTNER_LINK_REL}>
+              ergart-immobilienverwaltung.de
+            </a>), Verkehrswacht Rhein-Kreis Neuss e. V. ({" "}
+            <a href="https://vrkn.de" target="_blank" rel={PARTNER_LINK_REL}>
+              vrkn.de
+            </a>) sowie unser Eintrag im CYLEX Branchenbuch
           </li>
-          <li><strong>Social Media:</strong> Profile auf Plattformen wie TikTok oder Instagram</li>
+          <li>
+            <strong>Social Media:</strong> unsere Profile auf Facebook und TikTok
+          </li>
         </ul>
         <p>
           Dies sind einfache Links, keine eingebetteten Plugins. Erst wenn Sie auf den Link klicken, werden Sie zum jeweiligen Anbieter weitergeleitet. Ab diesem Zeitpunkt unterliegt die Datenverarbeitung den Datenschutzerklärungen des Ziel-Anbieters. Wir haben keinen Einfluss auf die dortige Verarbeitung.
+        </p>
+
+        <h4>Wenn Sie auf einen Partner-Link klicken</h4>
+        <p>
+          Klicken Sie auf einen Link zu einer der oben genannten Partner-, Lieferanten- oder Kooperationsseiten, erfährt der Partner, dass Sie von unserer Website gekommen sind. Weitergegeben wird dabei nur die Adresse unserer Website, also <strong>alexander-ergart.de</strong>. Welche einzelne Seite Sie sich bei uns vorher angesehen haben, erfährt der Partner nicht.
+        </p>
+        <p>
+          Zusätzlich enthalten diese Links eine kurze Angabe dazu, an welcher Stelle unserer Website Sie den Link angeklickt haben &ndash; zum Beispiel in der Fußzeile oder auf der Seite &bdquo;Über uns&ldquo;. Diese Angabe ist für alle Besucherinnen und Besucher gleich. Sie enthält nichts, woran Sie persönlich erkannt oder auf anderen Websites wiedererkannt werden könnten.
+        </p>
+        <p>
+          Der Grund dafür ist einfach: Unsere Partner sollen sehen können, dass wir ihnen Besucherinnen und Besucher vermitteln. Rechtsgrundlage ist unser berechtigtes Interesse an einer nachvollziehbaren Zusammenarbeit mit unseren Partnern (Art. 6 Abs. 1 lit. f DSGVO). Was der Partner mit dieser Angabe macht, liegt allein bei ihm und steht in seiner eigenen Datenschutzerklärung.
+        </p>
+        <p>
+          Bei allen anderen Links &ndash; etwa zu unseren Profilen bei Facebook und TikTok, zu Kartendiensten, zur Terminbuchung, zu Bewertungsportalen oder zu WhatsApp &ndash; geben wir nicht weiter, dass Sie von unserer Website kommen.
+        </p>
+        <p>
+          Möchten Sie das nicht, geben Sie die Adresse des Partners einfach direkt in Ihrem Browser ein, statt den Link anzuklicken. Dann wird nichts übermittelt.
         </p>
 
         <h3>WhatsApp-Kontaktlink</h3>
@@ -254,7 +286,7 @@ export default function DatenschutzPage() {
       <section>
         <h2>8. Aktualität und Änderung</h2>
         <p>
-          Diese Datenschutzerklärung ist aktuell gültig und hat den Stand Oktober 2025.
+          Diese Datenschutzerklärung ist aktuell gültig und hat den Stand September 2026.
         </p>
         <p>
           Durch die Weiterentwicklung unserer Website und Angebote darüber oder aufgrund geänderter gesetzlicher beziehungsweise behördlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung zu ändern.
