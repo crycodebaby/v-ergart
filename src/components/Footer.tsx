@@ -114,6 +114,11 @@ const Footer = () => {
                     HÖNING Fenster &amp; Türen
                   </FooterLink>
                 </li>
+                <li>
+                  <FooterLink href={SITE_LINKS.external.smairysShort} external>
+                    Smairys Netz-Manufaktur
+                  </FooterLink>
+                </li>
               </ul>
             </div>
 
@@ -246,7 +251,7 @@ const Footer = () => {
               Datenschutz
             </Link>
             <Link
-              href="https://www.smairys-netz-manufaktur.de/"
+              href={SITE_LINKS.external.smairys}
               className="transition-colors hover:text-foreground"
             >
               Web-Design &amp; Entwicklung: Smairys

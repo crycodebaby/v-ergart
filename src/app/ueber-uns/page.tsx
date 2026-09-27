@@ -47,6 +47,7 @@ const ABOUT_PARTNER_IDS = [
   "german-windows",
   "wuerth",
   "kilbinger",
+  "smairys",
   "verkehrswacht",
   "cylex",
 ];

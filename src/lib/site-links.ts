@@ -14,6 +14,15 @@ export const SITE_LINKS = {
     whatsappShareBase: "https://wa.me/",
     immobilienverwaltung: "https://ergart-immobilienverwaltung.de/",
     hoeningCompany: "https://www.hoening.de/unternehmen/ueber-uns/",
+    /**
+     * Zwei Adressen fuer denselben Betrieb, bewusst getrennt gehalten:
+     * `smairys` ist die Adresse, die seit jeher im Credit der Fussleiste und
+     * auf der Partnerkarte steht, `smairysShort` die Kurzdomain fuer den
+     * Partner-Eintrag in der Fussleiste. Sobald geklaert ist, ob beide auf
+     * dieselbe Seite zeigen, gehoert hier nur noch eine Konstante hin.
+     */
+    smairys: "https://www.smairys-netz-manufaktur.de/",
+    smairysShort: "https://smairys.de/",
   },
 } as const;
 

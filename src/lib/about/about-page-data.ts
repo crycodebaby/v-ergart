@@ -72,12 +72,12 @@ const TIMELINE_STATIONS: AboutStation[] = [
   {
     id: "s-2024",
     period: "2024",
-    title: "Abläufe digitalisiert",
+    title: "Der Webauftritt entsteht neu",
     text:
-      "Mit der Smairys Netz-Manufaktur als IT- und Digitalisierungspartner modernisieren wir die internen Prozesse — für klare Kommunikation im Team und mit Kunden. Ein langer Weg, der bis heute weitergeht.",
+      "Die Smairys Netz-Manufaktur übernimmt Webdesign und Webentwicklung — damit Leistungen, Referenzen und Kontaktwege an einer Stelle zu finden sind. Ein langer Weg, der bis heute weitergeht.",
     partner: {
       image: ABOUT_ASSETS.smairys,
-      label: "Smairys Netz-Manufaktur",
+      label: "Smairys · Webdesign & Webentwicklung",
     },
   },
   {
@@ -269,7 +269,7 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
     eyebrow: "Partner",
     title: "Wer hinter der Ausführung steht",
     lede:
-      "Produktion, Fachhandel und Prüfstellen, mit denen wir dauerhaft zusammenarbeiten.",
+      "Hersteller, Fachhandel, Montagetechnik und der Webauftritt — die Partner, mit denen wir dauerhaft zusammenarbeiten.",
   },
 
   engagement: {
