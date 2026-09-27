@@ -1,37 +1,65 @@
 // src/app/ueber-uns/page.tsx
-import Image from "next/image";
-import SectionShell from "@/components/about/SectionShell";
-import SectionHeader from "@/components/about/SectionHeader";
-import MediaTextBlock from "@/components/about/MediaTextBlock";
-import FeatureGrid from "@/components/about/FeatureGrid";
-import FeatureCard from "@/components/about/FeatureCard";
+/**
+ * Über uns.
+ *
+ * Auftrag der Seite: in acht Jahren Betrieb in Neuss Vertrauen aufbauen und
+ * zum Gespräch führen — mit so viel Text wie nötig und so wenig wie möglich.
+ * Vorher standen hier elf Sektionen, darunter zwei inhaltlich gleiche
+ * Wertekataloge und ein Fließtext-Ausblick. Jetzt sind es acht, und die
+ * Reihenfolge folgt dem Lesebedürfnis:
+ *
+ *   1 Hero        Wer ist das, und warum glaubwürdig (Faktenband)
+ *   2 Zeitachse   Wie lange schon, und was ist passiert
+ *   3 Führung     Mit wem habe ich es zu tun
+ *   4 Arbeitsweise Wonach wird gearbeitet
+ *   5 Einsatzgebiet Kommen die zu mir, und wie schnell
+ *   6 Partner     Wer steht hinter der Ausführung
+ *   7 Engagement  Was macht der Betrieb ausserhalb der Rechnung
+ *   8 Kontakt     Nächster Schritt, mit Gesicht und Telefonnummer
+ *
+ * Flächenführung: base und muted wechseln sich ab, die getönten laufen über
+ * `surface-soft-muted` oben und unten weich in den Seitengrund aus. Dadurch
+ * gibt es auf der ganzen Seite keine harte Sektionskante — dasselbe Verfahren
+ * wie auf /karriere. Die Seite entscheidet über die Fläche, nicht die
+ * Inhaltskomponente (Design-System v1, Welle 2A).
+ */
 import PartnersSection from "@/components/PartnersSection";
-import CTAGroup from "@/components/about/CTAGroup";
-import ResponsiveImageFigure from "@/components/about/ResponsiveImageFigure";
-import { ABOUT_PAGE_DATA } from "@/lib/about/about-page-data";
+import AboutEngagement from "@/components/about/AboutEngagement";
+import AboutFinalCta from "@/components/about/AboutFinalCta";
+import AboutHero from "@/components/about/AboutHero";
+import AboutLeadership from "@/components/about/AboutLeadership";
+import AboutPrinciples from "@/components/about/AboutPrinciples";
+import AboutRegionScope from "@/components/about/AboutRegionScope";
+import AboutTimeline from "@/components/about/AboutTimeline";
+import SectionHeader from "@/components/about/SectionHeader";
+import { Section } from "@/components/ui/section";
 import { ABOUT_ASSETS } from "@/lib/about/about-assets";
+import { ABOUT_PAGE_DATA } from "@/lib/about/about-page-data";
 import { generateSEOMetadata } from "@/lib/seo-utils";
-import {
-  Building2,
-  Compass,
-  Handshake,
-  HeartHandshake,
-  MapPin,
-  ShieldCheck,
-  Sparkles,
-  Workflow,
-  Wrench,
-} from "lucide-react";
+
+/**
+ * Partner, die auf dieser Seite gezeigt werden — Produktion, Fachhandel,
+ * Engagement und Verzeichnis. Bewusst ohne "immobilienverwaltung", siehe
+ * Kommentar an der Sektion.
+ */
+const ABOUT_PARTNER_IDS = [
+  "hoening",
+  "german-windows",
+  "wuerth",
+  "kilbinger",
+  "verkehrswacht",
+  "cylex",
+];
 
 export const metadata = generateSEOMetadata({
   title:
-    "Über uns | Alexander Ergart - Hausmeisterservice, Fensterservice & Immobilienverwaltung",
+    "Über uns | Alexander Ergart – Hausmeisterservice & Fensterservice in Neuss",
   description:
-    "Lernen Sie Alexander Ergart kennen: strukturierter Hausmeister- und Fensterservice mit klaren Prozessen, starken Partnern und Fokus auf langfristigen Werterhalt in Neuss und der Region.",
+    "Seit 2018 in Neuss: Hausmeisterservice und Fenster- und Türenservice aus einem Betrieb. Eingetragen bei der Handwerkskammer Düsseldorf, mit festen Ansprechpartnern und kurzen Wegen.",
   path: "/ueber-uns",
   image: {
-    url: ABOUT_PAGE_DATA.hero.figure.src,
-    alt: ABOUT_PAGE_DATA.hero.figure.alt,
+    url: ABOUT_ASSETS.hero.src,
+    alt: ABOUT_ASSETS.hero.alt,
   },
 });
 
@@ -40,258 +68,50 @@ export default function UeberUnsPage() {
 
   return (
     <>
-      <SectionShell id={data.hero.id} spacing="lg" containerWidth="2xl" className="pt-10 md:pt-14">
-        <div className="relative overflow-hidden rounded-3xl border border-border/50 shadow-xl">
-          <Image
-            src={data.hero.figure.src}
-            alt={data.hero.figure.alt}
-            width={data.hero.figure.width ?? 1600}
-            height={data.hero.figure.height ?? 1000}
-            priority
-            sizes={data.hero.figure.sizes ?? "100vw"}
-            className="h-[56vh] min-h-[440px] max-h-[660px] w-full object-cover md:h-[62vh] lg:h-[66vh]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/45 to-black/20" />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/40 to-transparent"
-          />
-          <div className="absolute inset-0 flex items-end p-6 md:p-10">
-            <div className="max-w-2xl rounded-2xl border border-white/20 bg-black/35 p-5 backdrop-blur-md md:p-7">
-              <p className="inline-flex rounded-full border border-brand-blue/30 bg-brand-blue/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-                {data.hero.eyebrow}
-              </p>
-              <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-white md:text-5xl">
-                {data.hero.title}
-              </h1>
-              <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-200 md:text-lg">
-                {data.hero.intro}
-              </p>
-              <div className="mt-6">
-                <CTAGroup data={data.hero.ctas} inverted />
-              </div>
-            </div>
-          </div>
+      <Section id={data.hero.id} surface="base" spacing="default" className="scroll-mt-28">
+        <AboutHero />
+      </Section>
+
+      <Section id={data.timeline.id} surface="muted" className="scroll-mt-28 surface-soft-muted">
+        <AboutTimeline />
+      </Section>
+
+      <Section id={data.leadership.id} surface="base" className="scroll-mt-28">
+        <AboutLeadership />
+      </Section>
+
+      <Section id={data.principles.id} surface="muted" className="scroll-mt-28 surface-soft-muted">
+        <AboutPrinciples />
+      </Section>
+
+      <Section id={data.region.id} surface="base" className="scroll-mt-28">
+        <AboutRegionScope />
+      </Section>
+
+      <Section id={data.partners.id} surface="muted" className="scroll-mt-28 surface-soft-muted">
+        <SectionHeader
+          eyebrow={data.partners.eyebrow}
+          title={data.partners.title}
+          lede={data.partners.lede}
+        />
+        <div className="mt-10">
+          {/* Ohne `ids` zeigt die Sektion auch die Karte "Ergart
+              Immobilienverwaltung" mit der Rolle "Unternehmensgruppe". Die
+              Verwaltung ist eine eigenstaendige Firma und gehoert nicht zu
+              den zwei Bereichen, um die es auf dieser Seite geht — auf einer
+              Seite ueber "wer wir sind" liest sich eine Gruppenzugehoerigkeit
+              als Aussage ueber uns. Andere Seiten sind nicht betroffen. */}
+          <PartnersSection ids={ABOUT_PARTNER_IDS} />
         </div>
-      </SectionShell>
+      </Section>
 
-      <SectionShell id={data.origin.id} tone="muted">
-        <MediaTextBlock
-          eyebrow={data.origin.eyebrow}
-          title={data.origin.title ?? ""}
-          intro={data.origin.intro}
-          paragraphs={data.origin.paragraphs}
-          figure={data.origin.figure}
-          mediaPosition="right"
-          ratio="4/3"
-          objectFit="cover"
-          className="items-center"
-        />
-      </SectionShell>
+      <Section id={data.engagement.id} surface="base" spacing="compact" className="scroll-mt-28">
+        <AboutEngagement />
+      </Section>
 
-      <SectionShell id={data.leadership.id}>
-        <MediaTextBlock
-          eyebrow={data.leadership.eyebrow}
-          title={data.leadership.title ?? ""}
-          paragraphs={data.leadership.paragraphs}
-          figure={data.leadership.figure}
-          mediaPosition="left"
-          ratio="3/2"
-          objectFit="cover"
-          className="items-center"
-        />
-      </SectionShell>
-
-      <SectionShell id={data.milestones.id} tone="muted">
-        <SectionHeader
-          eyebrow={data.milestones.eyebrow}
-          title={data.milestones.title ?? ""}
-          intro="Kompakt, nachvollziehbar und auf langfristige Entwicklung ausgerichtet."
-          icon={<Compass size={18} />}
-          align="center"
-          className="mx-auto max-w-3xl"
-        />
-        <FeatureGrid columns={2} className="mt-10">
-          {data.milestones.items.map((item) => (
-            <FeatureCard
-              key={item.id}
-              title={item.title}
-              body={item.body}
-              badge={item.year}
-              icon={<Workflow size={14} />}
-            />
-          ))}
-        </FeatureGrid>
-      </SectionShell>
-
-      <SectionShell id={data.regionScope.id}>
-        <SectionHeader
-          eyebrow={data.regionScope.eyebrow}
-          title={data.regionScope.title ?? ""}
-          intro="Kurze Wege, klare Kommunikation und saubere Umsetzung vor Ort."
-          icon={<MapPin size={18} />}
-          align="center"
-          className="mx-auto max-w-3xl"
-        />
-        <FeatureGrid columns={3} className="mt-10">
-          <article className="rounded-xl border border-border/40 bg-card/90 p-6 shadow-sm">
-            <h3 className="text-lg font-semibold text-foreground">Einsatzgebiet</h3>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {data.regionScope.regions.map((region) => (
-                <span
-                  key={region}
-                  className="rounded-full border border-border/60 bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground"
-                >
-                  {region}
-                </span>
-              ))}
-            </div>
-          </article>
-          <FeatureCard
-            title="Leistungen für private Kunden"
-            body={data.regionScope.b2cServices.join(" • ")}
-            icon={<HeartHandshake size={14} />}
-          />
-          <FeatureCard
-            title="Leistungen für B2B & Verwaltung"
-            body={data.regionScope.b2bServices.join(" • ")}
-            icon={<Building2 size={14} />}
-          />
-        </FeatureGrid>
-      </SectionShell>
-
-      <SectionShell id={data.quality.id} tone="muted">
-        <SectionHeader
-          eyebrow={data.quality.eyebrow}
-          title={data.quality.title ?? ""}
-          intro={data.quality.intro}
-          icon={<ShieldCheck size={18} />}
-          align="center"
-          className="mx-auto max-w-3xl"
-        />
-        <FeatureGrid columns={3} className="mt-10">
-          {data.quality.principles.map((principle) => (
-            <FeatureCard
-              key={principle.id}
-              title={principle.title}
-              body={principle.body}
-              icon={<Sparkles size={14} />}
-            />
-          ))}
-        </FeatureGrid>
-        {data.quality.toolsNote ? (
-          <p className="mx-auto mt-8 max-w-4xl text-sm leading-relaxed text-muted-foreground">
-            {data.quality.toolsNote}
-          </p>
-        ) : null}
-      </SectionShell>
-
-      <SectionShell id={data.partnerships.id}>
-        <SectionHeader
-          eyebrow={data.partnerships.eyebrow}
-          title={data.partnerships.title ?? ""}
-          intro="Qualität entsteht in der Zusammenarbeit mit starken Partnern und kurzen Lieferwegen."
-          icon={<Handshake size={18} />}
-          align="center"
-          className="mx-auto max-w-3xl"
-        />
-        <div className="mt-4">
-          <PartnersSection />
-        </div>
-        <div className="mx-auto mt-10 max-w-4xl">
-          <ResponsiveImageFigure
-            figure={{
-              ...ABOUT_ASSETS.windowService,
-              caption:
-                "Fenster- und Türenservice mit Fokus auf Qualität, Funktion und langlebige Ergebnisse.",
-            }}
-          />
-        </div>
-      </SectionShell>
-
-      <SectionShell id={data.future.id} tone="muted">
-        <SectionHeader
-          eyebrow={data.future.eyebrow}
-          title={data.future.title ?? ""}
-          intro="Digitale Prozesse sollen Transparenz, Wartungssicherheit und Werterhalt weiter verbessern."
-          icon={<Wrench size={18} />}
-          align="center"
-          className="mx-auto max-w-3xl"
-        />
-        <div className="mx-auto mt-8 max-w-3xl space-y-3 text-base leading-relaxed text-muted-foreground">
-          {data.future.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
-        <p className="mx-auto mt-6 max-w-3xl rounded-xl border border-border/60 bg-card p-4 text-sm leading-relaxed text-muted-foreground">
-          {data.future.disclaimer}
-        </p>
-      </SectionShell>
-
-      <SectionShell id={data.socialEngagement.id}>
-        <SectionHeader
-          eyebrow={data.socialEngagement.eyebrow}
-          title={data.socialEngagement.title}
-          intro={data.socialEngagement.body}
-          icon={<HeartHandshake size={18} />}
-          align="center"
-          className="mx-auto max-w-3xl"
-        />
-        <div className="mx-auto mt-8 max-w-4xl">
-          {data.socialEngagement.figure ? (
-            <ResponsiveImageFigure figure={data.socialEngagement.figure} ratio="3/2" />
-          ) : (
-            <div className="rounded-xl border border-dashed border-border/70 bg-muted p-6 text-sm leading-relaxed text-muted-foreground">
-              <p>
-                Bild folgt nach Lieferung der optimierten Datei.
-              </p>
-              <p className="mt-2 font-medium">
-                TODO: {data.socialEngagement.imageTodo}
-              </p>
-              <p className="mt-2">Bildnachweis: K&amp;L Verlag</p>
-            </div>
-          )}
-        </div>
-        {data.socialEngagement.legalNote ? (
-          <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-            {data.socialEngagement.legalNote}
-          </p>
-        ) : null}
-      </SectionShell>
-
-      <SectionShell id={data.values.id} tone="muted">
-        <SectionHeader
-          eyebrow={data.values.eyebrow}
-          title={data.values.title ?? ""}
-          icon={<ShieldCheck size={18} />}
-          align="center"
-          className="mx-auto max-w-3xl"
-        />
-        <FeatureGrid columns={3} className="mt-10">
-          {data.values.principles.map((principle) => (
-            <FeatureCard
-              key={principle.id}
-              title={principle.title}
-              body={principle.body}
-              icon={<ShieldCheck size={14} />}
-            />
-          ))}
-        </FeatureGrid>
-      </SectionShell>
-
-      <SectionShell id={data.finalCta.id} tone="accent" className="border-y border-border/40">
-        <SectionHeader
-          eyebrow={data.finalCta.eyebrow}
-          title={data.finalCta.title ?? ""}
-          intro="Direkter Kontakt, klare Abstimmung und verbindliche nächste Schritte."
-          icon={<Handshake size={18} />}
-          align="center"
-          className="mx-auto max-w-3xl"
-        />
-        <div className="mt-4">
-          <CTAGroup data={data.finalCta.ctas} align="center" />
-        </div>
-      </SectionShell>
+      <Section id={data.finalCta.id} surface="muted" className="scroll-mt-28 surface-soft-muted">
+        <AboutFinalCta />
+      </Section>
     </>
   );
 }
