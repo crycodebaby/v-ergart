@@ -92,10 +92,7 @@ export function DesktopDropdown({
         {/* ── Liste ─────────────────────────────────────────────────── */}
         <div className="flex flex-col">
           <div className="border-b border-border px-4 py-3">
-            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              {group.label}
-            </p>
-            <p className="mt-0.5 text-sm text-foreground">{group.intro}</p>
+            <p className="text-sm text-muted-foreground">{group.intro}</p>
           </div>
 
           <ul className="flex-1 space-y-0.5 p-2">
