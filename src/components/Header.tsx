@@ -6,7 +6,7 @@
  *
  * Besucherführung:
  *  - Desktop (ab nav-desktop / 1100px): 5 Menüpunkte aus src/lib/navigation.ts,
- *    zwei davon als Dropdown mit Absichts-Klärung, rechts Telefon + Primär-CTA.
+ *    zwei davon als Dropdown mit Absichts-Klärung, rechts der Primär-CTA.
  *    Der aktive Bereich ist markiert (Unterstrich + Brandfarbe + aria-current),
  *    auch auf Unterseiten wie /leistungen/reinigung oder /fensterservice.
  *  - Mobil: Logo, Anruf-Button (die häufigste Conversion eines Handwerks-
@@ -156,20 +156,8 @@ export default function Header() {
               </NavigationMenu>
             </nav>
 
-            {/* Desktop: Telefon + Primär-CTA */}
+            {/* Desktop: Primär-CTA. Die Rufnummer steht in der Topbar. */}
             <div className="hidden items-center gap-2 nav-desktop:flex xl:gap-3">
-              <a
-                href={CONTACT.phoneHref}
-                onClick={() => trackCTAClick("phone", "header")}
-                className={cn(
-                  "hidden items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold xl:inline-flex",
-                  "text-foreground transition-colors hover:bg-muted",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                )}
-              >
-                <Phone size={16} aria-hidden="true" className="text-brand-text" />
-                {CONTACT.phoneDisplay}
-              </a>
               <Link
                 href={NAV_CTA.href}
                 onClick={() => trackCTAClick("contact", "header")}
