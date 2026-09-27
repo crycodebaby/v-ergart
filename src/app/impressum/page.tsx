@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { ContentPage } from "@/components/ContentPage";
 import { generateSEOMetadata } from "@/lib/seo-utils";
+import { PARTNER_LINK_REL } from "@/lib/site-links";
 
 export const metadata = generateSEOMetadata({
   title: "Impressum | Alexander Ergart",
@@ -81,7 +82,7 @@ export default function ImpressumPage() {
         <a
           href="https://www.hoening.de/unternehmen/ueber-uns/"
           target="_blank"
-          rel="noopener noreferrer"
+          rel={PARTNER_LINK_REL}
         >
           HÖNING
         </a>{" "}
@@ -89,7 +90,7 @@ export default function ImpressumPage() {
         <a
           href="https://haustuerkonfigurator.hoening.de/"
           target="_blank"
-          rel="noopener noreferrer"
+          rel={PARTNER_LINK_REL}
         >
           HÖNING-Haustürkonfigurator
         </a>
@@ -98,7 +99,7 @@ export default function ImpressumPage() {
         <a
           href="https://www.germanwindows.de/"
           target="_blank"
-          rel="noopener noreferrer"
+          rel={PARTNER_LINK_REL}
         >
           GERMAN WINDOWS
         </a>{" "}
@@ -106,7 +107,7 @@ export default function ImpressumPage() {
         <a
           href="https://www.wuerth.de/"
           target="_blank"
-          rel="noopener noreferrer"
+          rel={PARTNER_LINK_REL}
         >
           WÜRTH
         </a>

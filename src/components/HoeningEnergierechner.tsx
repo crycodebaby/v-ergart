@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Calculator, Leaf, Euro, Zap, TrendingDown, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PARTNER_LINK_REL, withPartnerUtm } from "@/lib/site-links";
 
 /**
  * Höning Energieeinspar-Rechner Component
@@ -94,9 +95,12 @@ export default function HoeningEnergierechner() {
                         {/* CTA */}
                         <div className="flex flex-col sm:flex-row gap-4">
                             <a
-                                href="https://www.hoening.de/service/konfiguratoren/energieeinsparrechner/"
+                                href={withPartnerUtm(
+                                    "https://www.hoening.de/service/konfiguratoren/energieeinsparrechner/",
+                                    "hoening-rechner"
+                                )}
                                 target="_blank"
-                                rel="noopener noreferrer"
+                                rel={PARTNER_LINK_REL}
                                 className="inline-flex"
                             >
                                 <Button

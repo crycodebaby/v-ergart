@@ -20,7 +20,7 @@ import Link from "next/link";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { trackCTAClick } from "@/lib/analytics";
 import { NAV_ITEMS, NAV_SECONDARY, type NavGroup } from "@/lib/navigation";
-import { CONTACT, SITE_LINKS } from "@/lib/site-links";
+import { CONTACT, PARTNER_LINK_REL, SITE_LINKS, withPartnerUtm } from "@/lib/site-links";
 
 const leistungen = NAV_ITEMS.find(
   (i): i is NavGroup => i.kind === "group" && i.href === "/leistungen"
@@ -105,17 +105,35 @@ const Footer = () => {
               <FooterHeading className="mt-8">Partner</FooterHeading>
               <ul className="space-y-2">
                 <li>
-                  <FooterLink href={SITE_LINKS.external.immobilienverwaltung} external>
+                  <FooterLink
+                    href={withPartnerUtm(
+                      SITE_LINKS.external.immobilienverwaltung,
+                      "footer-partner"
+                    )}
+                    external
+                  >
                     Ergart Immobilienverwaltung
                   </FooterLink>
                 </li>
                 <li>
-                  <FooterLink href={SITE_LINKS.external.hoeningCompany} external>
+                  <FooterLink
+                    href={withPartnerUtm(
+                      SITE_LINKS.external.hoeningCompany,
+                      "footer-partner"
+                    )}
+                    external
+                  >
                     HÖNING Fenster &amp; Türen
                   </FooterLink>
                 </li>
                 <li>
-                  <FooterLink href={SITE_LINKS.external.smairysShort} external>
+                  <FooterLink
+                    href={withPartnerUtm(
+                      SITE_LINKS.external.smairys,
+                      "footer-partner"
+                    )}
+                    external
+                  >
                     Smairys Netz-Manufaktur
                   </FooterLink>
                 </li>
@@ -250,8 +268,12 @@ const Footer = () => {
             <Link href="/datenschutz" className="transition-colors hover:text-foreground">
               Datenschutz
             </Link>
+            {/* Steht auf jeder Seite und ist damit der staerkste der drei
+                Wege zu Smairys — deshalb eigenes `utm_content`. Kein `rel`
+                noetig: der Link oeffnet im selben Tab, es gibt also kein
+                `window.opener`, und der Referrer geht ohnehin mit. */}
             <Link
-              href={SITE_LINKS.external.smairys}
+              href={withPartnerUtm(SITE_LINKS.external.smairys, "footer-credit")}
               className="transition-colors hover:text-foreground"
             >
               Web-Design &amp; Entwicklung: Smairys
@@ -293,6 +315,11 @@ function FooterLink({
   children: React.ReactNode;
   /** Hervorgehobener Übersichts-Link am Ende einer Liste. */
   accent?: boolean;
+  /**
+   * Externe Ziele sind in dieser Fussleiste ausnahmslos Partnerseiten —
+   * die Social-, Karten- und Kontaktlinks stehen als eigene `<a>` weiter
+   * oben. Deshalb gilt hier `PARTNER_LINK_REL`, ohne zweiten Schalter.
+   */
   external?: boolean;
 }) {
   const className = accent
@@ -301,7 +328,12 @@ function FooterLink({
 
   if (external) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+      <a
+        href={href}
+        target="_blank"
+        rel={PARTNER_LINK_REL}
+        className={className}
+      >
         {children}
       </a>
     );
