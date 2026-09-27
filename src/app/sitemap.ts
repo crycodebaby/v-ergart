@@ -23,10 +23,6 @@ const BASE_URL =
  *
  * Bewusst NICHT enthalten:
  * - /danke              -> Utility-Seite nach Formularabsendung
- * - /einsatzgebiet/*    -> aktuell "noindex, follow" (siehe
- *                          src/app/einsatzgebiet/[slug]/page.tsx).
- *                          Widerspruechliche Signale (Sitemap sagt "wichtig",
- *                          Seite sagt "nicht indexieren") werden vermieden.
  *
  * Kein `priority`, kein `changeFrequency`: Google wertet beides nicht aus.
  * Eine Pseudo-Priorisierung wuerde hier nur Pflegeaufwand erzeugen.

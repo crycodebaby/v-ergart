@@ -11,8 +11,8 @@
  * darunter. Der letzte Eintrag darf ein `href` haben – dann landet die
  * Seite auch im JSON-LD als vollständiger Knoten.
  *
- * `tone="inverse"` für Heroes mit dauerhaft dunkler Bühne (Karriere,
- * Einsatzgebiet), dort ist der Theme-Token text-muted-foreground unlesbar.
+ * `tone="inverse"` für Heroes mit dauerhaft dunkler Bühne (z. B. Karriere),
+ * dort ist der Theme-Token text-muted-foreground unlesbar.
  */
 import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";

@@ -12,13 +12,12 @@
  *   4  Marke, Social, Partner
  *   2  Leistungen
  *   2  Fenster & Türen + Unternehmen
- *   2  Einsatzgebiet (Local SEO)
+ *   2  Einsatzgebiet (reine Information, keine Ortsseiten)
  *   2  Direktkontakt (NAP + Öffnungszeiten)
  */
 import Image from "next/image";
 import Link from "next/link";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
-import { LOCATIONS } from "@/lib/locations";
 import { trackCTAClick } from "@/lib/analytics";
 import { NAV_ITEMS, NAV_SECONDARY, type NavGroup } from "@/lib/navigation";
 import { CONTACT, SITE_LINKS } from "@/lib/site-links";
@@ -163,22 +162,15 @@ const Footer = () => {
               </nav>
             </div>
 
-            {/* ─── Einsatzgebiet (Local SEO) ──────────────────────────── */}
-            <nav aria-label="Einsatzgebiet" className="lg:col-span-2">
+            {/* ─── Einsatzgebiet (Aussage, kein Linkblock) ────────────── */}
+            <div className="lg:col-span-2">
               <FooterHeading>Einsatzgebiet</FooterHeading>
-              <ul className="space-y-2">
-                {LOCATIONS.slice(0, 5).map((loc) => (
-                  <li key={loc.slug}>
-                    <FooterLink href={`/einsatzgebiet/${loc.slug}`}>{loc.name}</FooterLink>
-                  </li>
-                ))}
-                <li>
-                  <FooterLink href="/kontakt" accent>
-                    Alle Gebiete ansehen
-                  </FooterLink>
-                </li>
-              </ul>
-            </nav>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Neuss und Umgebung
+                <br />
+                Rhein-Kreis Neuss
+              </p>
+            </div>
 
             {/* ─── Direktkontakt (NAP) ────────────────────────────────── */}
             <div className="col-span-2 sm:col-span-1 lg:col-span-2">

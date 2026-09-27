@@ -7,7 +7,6 @@ import GoogleCalendarButton from "@/components/GoogleCalendarButton";
 import { ShieldCheck, Clock, MapPin, Phone, Mail, Star } from "lucide-react";
 import CTA from "@/components/CTA";
 import MapSection from "@/components/MapSection";
-import { LOCATIONS } from "@/lib/locations";
 import { BASE_URL } from "@/lib/seo-utils";
 import WhatsAppButton from "@/components/contact/WhatsAppButton";
 import Link from "next/link";
@@ -33,14 +32,10 @@ const orgJsonLd = {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
   name: "Alexander Ergart Hausmeister- & Fensterservice",
-  areaServed: [
-    "Neuss",
-    "Rhein-Kreis Neuss",
-    "Düsseldorf",
-    "Kaarst",
-    "Dormagen",
-    ...LOCATIONS.map((loc) => loc.name),
-  ],
+  // Gebietsangabe auf Stadt-/Kreisebene. Die frueher hier eingehaengten
+  // 21 Stadtteilnamen kamen aus src/lib/locations.ts, der Datenquelle der
+  // entfernten Stadtteilseiten, und sind mit ihr weggefallen.
+  areaServed: ["Neuss", "Rhein-Kreis Neuss", "Düsseldorf", "Kaarst", "Dormagen"],
   url: "https://alexander-ergart.de/kontakt", // ggf. anpassen
   email: "mailto:info@ergart.de",
   telephone: "+49 176 668 25 889",
