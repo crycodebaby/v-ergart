@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { PARTNER_LINK_REL, withPartnerUtm } from "@/lib/site-links";
 
 // Lokales, typ-sicheres Easing (kein String)
 type Bezier = [number, number, number, number];
@@ -115,9 +116,9 @@ export const PartnerBrandSpotlight: React.FC<PartnerBrandSpotlightProps> = ({
             </Link>
 
             <Link
-              href={externalInfoHref}
+              href={withPartnerUtm(externalInfoHref, "partner-spotlight")}
               target="_blank"
-              rel="noopener noreferrer"
+              rel={PARTNER_LINK_REL}
               className="inline-flex items-center justify-center rounded-md border border-border/60 bg-card px-4 py-2 text-sm font-medium text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               Mehr zu HÖNING

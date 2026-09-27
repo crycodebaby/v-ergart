@@ -119,7 +119,7 @@ export const PARTNERS: Partner[] = [
     description:
       "Gestaltung und technische Umsetzung unseres Webauftritts — von der Struktur über das Design bis zur Entwicklung.",
     href: SITE_LINKS.external.smairys,
-    hrefLabel: "smairys-netz-manufaktur.de",
+    hrefLabel: "smairys.de",
     logo: {
       // Schwarzes Logo auf Transparenz. Die helle Plakette ist in beiden
       // Themes weiss, deshalb braucht es hier kein `dark:invert` wie im

@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { getPartners, type Partner } from "@/lib/partners";
+import { PARTNER_LINK_REL, withPartnerUtm } from "@/lib/site-links";
 import { cn } from "@/lib/utils";
 
 type PartnersSectionProps = {
@@ -143,9 +144,12 @@ function PartnerCard({ partner }: { partner: Partner }) {
 
       {/* Stretched Link: gesamte Karte klickbar, dennoch barrierefrei beschriftet */}
       <a
-        href={partner.href}
+        // Kampagnen-Parameter zentral an dieser einen Stelle, nicht je
+        // Eintrag in partners.ts: so ist jede Karte automatisch getaggt,
+        // auch die naechste, die jemand ergaenzt.
+        href={withPartnerUtm(partner.href, "partnerkarte")}
         target="_blank"
-        rel="noopener noreferrer"
+        rel={PARTNER_LINK_REL}
         aria-label={`${partner.name}: Website öffnen (neuer Tab)`}
         className="absolute inset-0 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       />
