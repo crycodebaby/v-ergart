@@ -11,7 +11,6 @@ import {
   LayoutGrid,
   Leaf,
   Paintbrush,
-  Shield,
   Wrench,
   type LucideProps,
 } from "lucide-react";
@@ -24,7 +23,6 @@ const ICONS: Record<NavIconName, React.ComponentType<LucideProps>> = {
   paintbrush: Paintbrush,
   leaf: Leaf,
   home: Home,
-  shield: Shield,
   "layout-grid": LayoutGrid,
 };
 

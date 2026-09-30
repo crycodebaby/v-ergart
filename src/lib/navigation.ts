@@ -10,7 +10,7 @@
  *
  * Informationsarchitektur (5 Hauptpunkte + 1 Aktion):
  *
- *   Leistungen ▾        alle Hausmeister-/Gebäude-Leistungen (Übersicht + 5 Detailseiten)
+ *   Leistungen ▾        alle Hausmeister-/Gebäude-Leistungen (Übersicht + 4 Detailseiten)
  *   Fenster & Türen ▾   das Kernprodukt, mit klarer Absichts-Trennung:
  *                       kaufen (/fenster), Türen (/tueren), reparieren (/fensterservice)
  *   Referenzen
@@ -35,7 +35,6 @@ export type NavIconName =
   | "paintbrush"
   | "leaf"
   | "home"
-  | "shield"
   | "layout-grid";
 
 export type NavChild = {
@@ -82,7 +81,6 @@ const LEISTUNG_ICONS: Record<string, NavIconName> = {
   gartenpflege: "leaf",
   hausmeister: "wrench",
   reinigung: "home",
-  sicherheit: "shield",
 };
 
 /** Hauptnavigation, in Anzeigereihenfolge. */

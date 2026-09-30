@@ -24,8 +24,9 @@ export const metadata = generateSEOMetadata({
 export default function LeistungenPage() {
   return (
     <>
-      {/* Seiteneinstieg: Texthero, deshalb spacious statt Bildflaeche. */}
-      <Section surface="base" spacing="spacious">
+      {/* Seiteneinstieg mit Foto; die Einleitung steht nur hier, die
+          Bereichsuebersicht darunter kommt ohne zweites Intro aus. */}
+      <Section surface="base">
         <LeistungenHero />
       </Section>
 

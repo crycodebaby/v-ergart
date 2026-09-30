@@ -28,94 +28,6 @@ const SERVICE_AREAS = [
 
 export const LEISTUNGEN_DETAILS: readonly LeistungDetail[] = [
   {
-    slug: "innenausbau",
-    title: "Innenausbau & Renovierung",
-    shortDesc: "Professionelle Renovierung und Innenausbau in Neuss und Umgebung",
-    description:
-      "Von der durchdachten Planung bis zum letzten Feinschliff realisieren wir Ihren kompletten Innenausbau in Neuss und der Region. Ob Boden, Trockenbau oder Malerarbeiten: Wir arbeiten sauber, halten Termine ein und verwenden gutes Material. Das sieht man am Ergebnis.",
-    detailedDescription:
-      "Unser erfahrenes Team übernimmt Ihre Renovierungs- und Innenausbauprojekte im gesamten Rhein-Kreis Neuss. Mit über 13 Jahren Erfahrung kennen wir die Anforderungen moderner Wohn- und Gewerberäume. Vom Altbau in der Neusser Innenstadt bis zum Neubau in Kaarst: Wir arbeiten genau, sauber und so, dass Sie zufrieden sind.",
-    heroImage: "/bilder_ordner/leistungen/hausmeisterreparaturen.webp",
-    seoTitle: "Innenausbau & Renovierung Neuss | Trockenbau, Böden, Malerarbeiten",
-    seoDescription:
-      "Professioneller Innenausbau in Neuss, Kaarst & Dormagen. ✓ Bodenverlegung ✓ Trockenbau ✓ Malerarbeiten ✓ 13+ Jahre Erfahrung. Jetzt kostenlos beraten lassen!",
-    keywords: [
-      "Innenausbau Neuss",
-      "Renovierung Rhein-Kreis Neuss",
-      "Trockenbau Kaarst",
-      "Bodenverlegung Dormagen",
-      "Malerarbeiten Düsseldorf",
-      "Renovierung Meerbusch",
-      "Innenausbau Grevenbroich",
-    ],
-    serviceArea: SERVICE_AREAS,
-    benefits: [
-      "Staubarme Umsetzung und besenreine Übergabe der Baustelle",
-      "Termintreue und klare Kommunikation durch eine feste Bauleitung",
-      "Professionelle Materialberatung passend zu Ihrer Nutzung und Ihrem Budget",
-      "Ein fester Ansprechpartner für alle Gewerke im Rhein-Kreis Neuss",
-      "Kurze Anfahrt, schnelle Reaktion in Neuss und Umgebung",
-    ],
-    galleryImages: [
-      "/bilder_ordner/leistungen/arbeitsschutz.webp",
-      "/bilder_ordner/referenzen/neubau-wohnung-bodenverlegung-laminat-aus-deutscher-manufaktur-hochwertiger-laminatboden.webp",
-    ],
-    faq: [
-      {
-        q: "Wie schnell können die Arbeiten in Neuss beginnen?",
-        a: "Je nach Umfang planen wir mit 1–3 Wochen Vorlauf. Kleinere Renovierungen in Neuss und Kaarst sind oft auch kurzfristiger möglich. Kontaktieren Sie uns für eine individuelle Terminabsprache.",
-      },
-      {
-        q: "Führen Sie auch nur einzelne Gewerke aus?",
-        a: "Selbstverständlich. Wir übernehmen auf Wunsch auch nur die Bodenverlegung, Malerarbeiten oder den Trockenbau, ganz nach Ihrem Bedarf.",
-      },
-      {
-        q: "Bedienen Sie auch Düsseldorf und Meerbusch?",
-        a: "Ja, unser Einzugsgebiet umfasst den gesamten Rhein-Kreis Neuss sowie angrenzende Städte wie Düsseldorf, Meerbusch und Grevenbroich.",
-      },
-    ],
-  },
-  {
-    slug: "gartenpflege",
-    title: "Garten- & Landschaftspflege",
-    shortDesc: "Gartenpflege in Neuss und Umgebung, das ganze Jahr",
-    description:
-      "Wir übernehmen die professionelle Pflege, Neu- und Umgestaltung Ihrer Grünflächen in Neuss und dem Rhein-Kreis. Von Rasenschnitt über Hecken- und Baumpflege bis zur Planung von Beeten und Bewässerung. Für private Gärten und gewerbliche Außenanlagen.",
-    detailedDescription:
-      "Ob Privatgarten in Kaarst oder Firmengelände in Dormagen: Unser Team hält Ihre Außenanlagen das ganze Jahr in Schuss. Wir kennen Böden und Wetter im Rhein-Kreis Neuss und pflegen Ihren Garten so, wie er es braucht.",
-    heroImage: "/bilder_ordner/leistungen/gartenpflege.webp",
-    seoTitle: "Gartenpflege Neuss | Rasen, Hecken, Landschaftspflege Rhein-Kreis",
-    seoDescription:
-      "Professionelle Gartenpflege in Neuss, Kaarst & Dormagen. ✓ Rasenpflege ✓ Heckenschnitt ✓ Baumpflege ✓ Ganzjährig. Kostenlose Beratung vor Ort!",
-    keywords: [
-      "Gartenpflege Neuss",
-      "Landschaftspflege Rhein-Kreis Neuss",
-      "Rasenpflege Kaarst",
-      "Heckenschnitt Dormagen",
-      "Baumpflege Düsseldorf",
-      "Gartenpflege Meerbusch",
-      "Grünpflege Grevenbroich",
-    ],
-    serviceArea: SERVICE_AREAS,
-    benefits: [
-      "Planbare Pflegeintervalle für ein konstant gepflegtes Erscheinungsbild",
-      "Saisonale Konzepte, die Ihren Garten im Frühjahr und Herbst optimal vorbereiten",
-      "Nachhaltiger Werterhalt Ihrer Immobilie durch eine attraktive Außenanlage",
-      "Fachgerechter Schnitt für gesunde und formschöne Pflanzen",
-      "Lokale Expertise über Böden und Klima im Rhein-Kreis Neuss",
-    ],
-    faq: [
-      {
-        q: "Bieten Sie Gartenpflege auch in Dormagen und Grevenbroich an?",
-        a: "Ja, wir sind im gesamten Rhein-Kreis Neuss sowie in den angrenzenden Städten Dormagen, Grevenbroich, Düsseldorf und Meerbusch tätig.",
-      },
-      {
-        q: "Welche Leistungen umfasst die Gartenpflege?",
-        a: "Unser Service umfasst Rasenmähen, Heckenschnitt, Baumpflege, Unkrautentfernung, Laubbeseitigung, Beetpflege und auf Wunsch auch die Planung von Bewässerungssystemen.",
-      },
-    ],
-  },
-  {
     slug: "hausmeister",
     title: "Hausmeisterdienste",
     shortDesc: "Zuverlässiger Hausmeisterservice in Neuss, alles aus einer Hand",
@@ -204,42 +116,90 @@ export const LEISTUNGEN_DETAILS: readonly LeistungDetail[] = [
     ],
   },
   {
-    slug: "sicherheit",
-    title: "Sicherheitstechnik",
-    shortDesc: "Moderne Sicherheitstechnik in Neuss, Schutz für Ihr Zuhause",
+    slug: "gartenpflege",
+    title: "Garten- & Landschaftspflege",
+    shortDesc: "Gartenpflege in Neuss und Umgebung, das ganze Jahr",
     description:
-      "Schützen Sie, was Ihnen wichtig ist. Wir beraten Sie zu moderner Sicherheitstechnik im Rhein-Kreis Neuss, beschaffen die passenden Komponenten und übernehmen die fachgerechte Montage von Schließsystemen, Schutzbeschlägen und smarten Sicherheitslösungen.",
+      "Wir übernehmen die professionelle Pflege, Neu- und Umgestaltung Ihrer Grünflächen in Neuss und dem Rhein-Kreis. Von Rasenschnitt über Hecken- und Baumpflege bis zur Planung von Beeten und Bewässerung. Für private Gärten und gewerbliche Außenanlagen.",
     detailedDescription:
-      "Ob Einfamilienhaus in Kaarst, Gewerbeobjekt in Dormagen oder Mehrfamilienhaus in Neuss: Wir planen den Schutz, der zu Ihrem Gebäude passt. Mit guten Produkten und fachgerechtem Einbau.",
-    heroImage: "/bilder_ordner/leistungen/arbeitsschutz.webp",
-    seoTitle: "Sicherheitstechnik Neuss | Einbruchschutz, Schließsysteme Rhein-Kreis",
+      "Ob Privatgarten in Kaarst oder Firmengelände in Dormagen: Unser Team hält Ihre Außenanlagen das ganze Jahr in Schuss. Wir kennen Böden und Wetter im Rhein-Kreis Neuss und pflegen Ihren Garten so, wie er es braucht.",
+    heroImage: "/bilder_ordner/leistungen/gartenpflege.webp",
+    seoTitle: "Gartenpflege Neuss | Rasen, Hecken, Landschaftspflege Rhein-Kreis",
     seoDescription:
-      "Professionelle Sicherheitstechnik in Neuss, Kaarst & Dormagen. ✓ Einbruchschutz ✓ Moderne Schließsysteme ✓ Smart Locks ✓ Beratung vor Ort. Jetzt anfragen!",
+      "Professionelle Gartenpflege in Neuss, Kaarst & Dormagen. ✓ Rasenpflege ✓ Heckenschnitt ✓ Baumpflege ✓ Ganzjährig. Kostenlose Beratung vor Ort!",
     keywords: [
-      "Sicherheitstechnik Neuss",
-      "Einbruchschutz Rhein-Kreis Neuss",
-      "Schließsysteme Kaarst",
-      "Einbruchschutz Dormagen",
-      "Smart Lock Düsseldorf",
-      "Sicherheitstechnik Meerbusch",
-      "Alarmanlagen Grevenbroich",
+      "Gartenpflege Neuss",
+      "Landschaftspflege Rhein-Kreis Neuss",
+      "Rasenpflege Kaarst",
+      "Heckenschnitt Dormagen",
+      "Baumpflege Düsseldorf",
+      "Gartenpflege Meerbusch",
+      "Grünpflege Grevenbroich",
     ],
     serviceArea: SERVICE_AREAS,
     benefits: [
-      "Individuelle Sicherheitsanalyse direkt bei Ihnen vor Ort",
-      "Pragmatische und effektive Maßnahmen, die sich auch nachrüsten lassen",
-      "Professioneller Einbau und verständliche Einweisung aus einer Hand",
-      "Zugriff auf bewährte Produkte renommierter Hersteller",
-      "Persönliche Beratung mit Erfahrung aus über 13 Jahren im Rhein-Kreis Neuss",
+      "Planbare Pflegeintervalle für ein konstant gepflegtes Erscheinungsbild",
+      "Saisonale Konzepte, die Ihren Garten im Frühjahr und Herbst optimal vorbereiten",
+      "Nachhaltiger Werterhalt Ihrer Immobilie durch eine attraktive Außenanlage",
+      "Fachgerechter Schnitt für gesunde und formschöne Pflanzen",
+      "Lokale Expertise über Böden und Klima im Rhein-Kreis Neuss",
     ],
     faq: [
       {
-        q: "Welche Sicherheitslösungen empfehlen Sie für Einfamilienhäuser in Neuss?",
-        a: "Wir empfehlen eine Kombination aus mechanischem Einbruchschutz (Sicherheitsbeschläge, abschließbare Fenstergriffe) und smarten Lösungen (Alarmsystem, Videoüberwachung). Bei einer kostenlosen Vor-Ort-Beratung zeigen wir Ihnen die optimalen Maßnahmen.",
+        q: "Bieten Sie Gartenpflege auch in Dormagen und Grevenbroich an?",
+        a: "Ja, wir sind im gesamten Rhein-Kreis Neuss sowie in den angrenzenden Städten Dormagen, Grevenbroich, Düsseldorf und Meerbusch tätig.",
       },
       {
-        q: "Bedienen Sie auch Gewerbeobjekte in Düsseldorf?",
-        a: "Ja, wir bieten Sicherheitslösungen für Privat- und Gewerbeimmobilien in Neuss, Düsseldorf und dem gesamten Rhein-Kreis Neuss.",
+        q: "Welche Leistungen umfasst die Gartenpflege?",
+        a: "Unser Service umfasst Rasenmähen, Heckenschnitt, Baumpflege, Unkrautentfernung, Laubbeseitigung, Beetpflege und auf Wunsch auch die Planung von Bewässerungssystemen.",
+      },
+    ],
+  },
+  {
+    slug: "innenausbau",
+    title: "Innenausbau & Renovierung",
+    shortDesc: "Professionelle Renovierung und Innenausbau in Neuss und Umgebung",
+    description:
+      "Von der durchdachten Planung bis zum letzten Feinschliff realisieren wir Ihren kompletten Innenausbau in Neuss und der Region. Ob Boden, Trockenbau oder Malerarbeiten: Wir arbeiten sauber, halten Termine ein und verwenden gutes Material. Das sieht man am Ergebnis.",
+    detailedDescription:
+      "Unser erfahrenes Team übernimmt Ihre Renovierungs- und Innenausbauprojekte im gesamten Rhein-Kreis Neuss. Mit über 13 Jahren Erfahrung kennen wir die Anforderungen moderner Wohn- und Gewerberäume. Vom Altbau in der Neusser Innenstadt bis zum Neubau in Kaarst: Wir arbeiten genau, sauber und so, dass Sie zufrieden sind.",
+    heroImage: "/bilder_ordner/leistungen/hausmeisterreparaturen.webp",
+    seoTitle: "Innenausbau & Renovierung Neuss | Trockenbau, Böden, Malerarbeiten",
+    seoDescription:
+      "Professioneller Innenausbau in Neuss, Kaarst & Dormagen. ✓ Bodenverlegung ✓ Trockenbau ✓ Malerarbeiten ✓ 13+ Jahre Erfahrung. Jetzt kostenlos beraten lassen!",
+    keywords: [
+      "Innenausbau Neuss",
+      "Renovierung Rhein-Kreis Neuss",
+      "Trockenbau Kaarst",
+      "Bodenverlegung Dormagen",
+      "Malerarbeiten Düsseldorf",
+      "Renovierung Meerbusch",
+      "Innenausbau Grevenbroich",
+    ],
+    serviceArea: SERVICE_AREAS,
+    benefits: [
+      "Staubarme Umsetzung und besenreine Übergabe der Baustelle",
+      "Termintreue und klare Kommunikation durch eine feste Bauleitung",
+      "Professionelle Materialberatung passend zu Ihrer Nutzung und Ihrem Budget",
+      "Ein fester Ansprechpartner für alle Gewerke im Rhein-Kreis Neuss",
+      "Kurze Anfahrt, schnelle Reaktion in Neuss und Umgebung",
+    ],
+    galleryImages: [
+      "/bilder_ordner/leistungen/arbeitsschutz.webp",
+      "/bilder_ordner/referenzen/neubau-wohnung-bodenverlegung-laminat-aus-deutscher-manufaktur-hochwertiger-laminatboden.webp",
+    ],
+    faq: [
+      {
+        q: "Wie schnell können die Arbeiten in Neuss beginnen?",
+        a: "Je nach Umfang planen wir mit 1–3 Wochen Vorlauf. Kleinere Renovierungen in Neuss und Kaarst sind oft auch kurzfristiger möglich. Kontaktieren Sie uns für eine individuelle Terminabsprache.",
+      },
+      {
+        q: "Führen Sie auch nur einzelne Gewerke aus?",
+        a: "Selbstverständlich. Wir übernehmen auf Wunsch auch nur die Bodenverlegung, Malerarbeiten oder den Trockenbau, ganz nach Ihrem Bedarf.",
+      },
+      {
+        q: "Bedienen Sie auch Düsseldorf und Meerbusch?",
+        a: "Ja, unser Einzugsgebiet umfasst den gesamten Rhein-Kreis Neuss sowie angrenzende Städte wie Düsseldorf, Meerbusch und Grevenbroich.",
       },
     ],
   },

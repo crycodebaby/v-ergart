@@ -30,7 +30,6 @@ const SERVICES = [
   "Gebäudereinigung",
   "Garten- & Landschaftspflege",
   "Winterdienst",
-  "Sicherheitstechnik",
   "Sonstiges",
 ];
 

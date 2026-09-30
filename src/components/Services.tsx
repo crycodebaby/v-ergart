@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { CORE_SERVICES } from "@/lib/service-data";
+import { CORE_SERVICES, SUPPLEMENTARY_SERVICES } from "@/lib/service-data";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -40,7 +40,7 @@ const Services = () => {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -62,10 +62,10 @@ const Services = () => {
                     <div className="relative w-full aspect-[16/10] overflow-hidden bg-muted">
                       <Image
                         src={service.image}
-                        alt={service.title}
+                        alt={service.imageAlt}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
                       />
                       {/* Icon Overlay */}
                       <div className="absolute bottom-4 right-4 w-12 h-12 rounded-xl bg-white/90 backdrop-blur-sm shadow-sm flex items-center justify-center border border-white/50">
@@ -74,7 +74,7 @@ const Services = () => {
                     </div>
 
                     {/* Content */}
-                    <div className="p-6 md:p-8 flex flex-col flex-grow w-full">
+                    <div className="p-6 flex flex-col flex-grow w-full">
                       <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-brand-blue transition-colors">
                         {service.title}
                       </h3>
@@ -95,6 +95,22 @@ const Services = () => {
             );
           })}
         </motion.div>
+
+        {/* Zusatzleistungen bewusst eine Stufe leiser als die vier Hauptbereiche. */}
+        <p className="mt-10 text-muted-foreground">
+          Außerdem:{" "}
+          {SUPPLEMENTARY_SERVICES.map((service, index) => (
+            <span key={service.id}>
+              {index > 0 && ", "}
+              <Link
+                href={service.link}
+                className="font-semibold text-brand-text underline-offset-4 hover:underline"
+              >
+                {service.title}
+              </Link>
+            </span>
+          ))}
+        </p>
       </div>
     </section>
   );
