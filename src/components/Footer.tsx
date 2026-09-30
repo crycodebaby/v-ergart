@@ -9,15 +9,15 @@
  * Über uns, Karriere und Kontakt komplett.
  *
  * Spalten (ab lg, 12er-Raster):
- *   4  Marke, Social, Partner
- *   2  Leistungen
+ *   4  Marke, Social (Facebook, TikTok, WhatsApp)
+ *   2  Leistungen (Überschrift verlinkt auf die Übersicht)
  *   2  Fenster & Türen + Unternehmen
- *   2  Einsatzgebiet (reine Information, keine Ortsseiten)
+ *   2  Partner
  *   2  Direktkontakt (NAP + Öffnungszeiten)
  */
 import Image from "next/image";
 import Link from "next/link";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { ChevronRight, Clock, Mail, MapPin, Phone } from "lucide-react";
 import { trackCTAClick } from "@/lib/analytics";
 import { NAV_ITEMS, NAV_SECONDARY, type NavGroup } from "@/lib/navigation";
 import { CONTACT, PARTNER_LINK_REL, SITE_LINKS, withPartnerUtm } from "@/lib/site-links";
@@ -32,6 +32,43 @@ const unternehmen = [
   ...NAV_ITEMS.filter((i) => i.kind === "link"),
   ...NAV_SECONDARY,
 ];
+
+/**
+ * Social- und Messenger-Kanäle. WhatsApp zeigt auf denselben Business-Chat
+ * wie Header und Kontaktseite (SITE_LINKS), nicht auf eine eigene Nummer.
+ */
+const SOCIAL_LINKS = [
+  {
+    key: "facebook",
+    href: "https://www.facebook.com/profile.php?id=61588187158143",
+    label: "Ergart's Fensterservice auf Facebook",
+    icon: "/bilder_ordner/icons/facebook.svg",
+    alt: "Facebook",
+    iconClassName: "h-5 w-5",
+  },
+  {
+    key: "tiktok",
+    href: "https://www.tiktok.com/@alexanderergart",
+    label: "Alexander Ergart auf TikTok",
+    icon: "/bilder_ordner/icons/tiktok.webp",
+    alt: "TikTok",
+    iconClassName: "h-5 w-5 object-contain dark:invert",
+  },
+  {
+    key: "whatsapp",
+    href: SITE_LINKS.external.whatsappChat,
+    label: "Alexander Ergart per WhatsApp Business schreiben",
+    icon: "/bilder_ordner/icons/whatsapp.svg",
+    alt: "WhatsApp",
+    iconClassName: "h-5 w-5 rounded-[22%]",
+  },
+] as const;
+
+const PARTNER_LINKS = [
+  { href: SITE_LINKS.external.immobilienverwaltung, label: "Ergart Immobilienverwaltung" },
+  { href: SITE_LINKS.external.hoeningCompany, label: "HÖNING Fenster & Türen" },
+  { href: SITE_LINKS.external.smairys, label: "Smairys Netz-Manufaktur" },
+] as const;
 
 const Footer = () => {
   return (
@@ -49,7 +86,7 @@ const Footer = () => {
           }}
         >
           <div className="grid grid-cols-2 gap-10 lg:grid-cols-12 lg:gap-8">
-            {/* ─── Marke + Social + Partner ───────────────────────────── */}
+            {/* ─── Marke + Social ─────────────────────────────────────── */}
             <div className="col-span-2 lg:col-span-4">
               <Image
                 src="/bilder_ordner/AE_logo.svg"
@@ -66,95 +103,39 @@ const Footer = () => {
 
               <p className="mb-3 mt-8 text-sm font-semibold text-foreground">Folgen Sie uns</p>
               <div className="flex items-center gap-3">
-                <a
-                  href="https://www.facebook.com/profile.php?id=61588187158143"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Ergart's Fensterservice auf Facebook"
-                  onClick={() => trackCTAClick('facebook', 'footer')}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-border/60 bg-background/40 transition-colors hover:border-brand-blue hover:bg-brand-blue/5"
-                >
-                  <Image
-                    src="/bilder_ordner/icons/facebook.svg"
-                    alt="Facebook"
-                    width={22}
-                    height={22}
-                    className="h-5 w-5"
-                    unoptimized
-                  />
-                </a>
-                <a
-                  href="https://www.tiktok.com/@alexanderergart"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Alexander Ergart auf TikTok"
-                  onClick={() => trackCTAClick('tiktok', 'footer')}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-border/60 bg-background/40 transition-colors hover:border-brand-blue hover:bg-brand-blue/5"
-                >
-                  <Image
-                    src="/bilder_ordner/icons/tiktok.webp"
-                    alt="TikTok"
-                    width={22}
-                    height={22}
-                    className="h-5 w-5 object-contain dark:invert"
-                    unoptimized
-                  />
-                </a>
+                {SOCIAL_LINKS.map((social) => (
+                  <a
+                    key={social.key}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    onClick={() => trackCTAClick(social.key, 'footer')}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-border/60 bg-background/40 transition-colors hover:border-brand-blue hover:bg-brand-blue/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-secondary"
+                  >
+                    <Image
+                      src={social.icon}
+                      alt={social.alt}
+                      width={22}
+                      height={22}
+                      className={social.iconClassName}
+                      unoptimized
+                    />
+                  </a>
+                ))}
               </div>
-
-              <FooterHeading className="mt-8">Partner</FooterHeading>
-              <ul className="space-y-2">
-                <li>
-                  <FooterLink
-                    href={withPartnerUtm(
-                      SITE_LINKS.external.immobilienverwaltung,
-                      "footer-partner"
-                    )}
-                    external
-                  >
-                    Ergart Immobilienverwaltung
-                  </FooterLink>
-                </li>
-                <li>
-                  <FooterLink
-                    href={withPartnerUtm(
-                      SITE_LINKS.external.hoeningCompany,
-                      "footer-partner"
-                    )}
-                    external
-                  >
-                    HÖNING Fenster &amp; Türen
-                  </FooterLink>
-                </li>
-                <li>
-                  <FooterLink
-                    href={withPartnerUtm(
-                      SITE_LINKS.external.smairys,
-                      "footer-partner"
-                    )}
-                    external
-                  >
-                    Smairys Netz-Manufaktur
-                  </FooterLink>
-                </li>
-              </ul>
             </div>
 
             {/* ─── Leistungen ─────────────────────────────────────────── */}
             {leistungen && (
               <nav aria-label="Leistungen" className="lg:col-span-2">
-                <FooterHeading>{leistungen.label}</FooterHeading>
+                <FooterHeading href={leistungen.href}>{leistungen.label}</FooterHeading>
                 <ul className="space-y-2">
                   {leistungen.children.map((child) => (
                     <li key={child.href}>
                       <FooterLink href={child.href}>{child.label}</FooterLink>
                     </li>
                   ))}
-                  <li>
-                    <FooterLink href={leistungen.href} accent>
-                      {leistungen.overviewLabel}
-                    </FooterLink>
-                  </li>
                 </ul>
               </nav>
             )}
@@ -185,14 +166,18 @@ const Footer = () => {
               </nav>
             </div>
 
-            {/* ─── Einsatzgebiet (Aussage, kein Linkblock) ────────────── */}
-            <div className="lg:col-span-2">
-              <FooterHeading>Einsatzgebiet</FooterHeading>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                Neuss und Umgebung
-                <br />
-                Rhein-Kreis Neuss
-              </p>
+            {/* ─── Partner ───────────────────────────────────────────── */}
+            <div className="col-span-2 sm:col-span-1 lg:col-span-2">
+              <FooterHeading>Partner</FooterHeading>
+              <ul className="space-y-2">
+                {PARTNER_LINKS.map((partner) => (
+                  <li key={partner.href}>
+                    <FooterLink href={withPartnerUtm(partner.href, "footer-partner")} external>
+                      {partner.label}
+                    </FooterLink>
+                  </li>
+                ))}
+              </ul>
             </div>
 
             {/* ─── Direktkontakt (NAP) ────────────────────────────────── */}
@@ -291,16 +276,36 @@ export default Footer;
 
 function FooterHeading({
   children,
+  href,
   className = "",
 }: {
   children: React.ReactNode;
+  /**
+   * Macht die Überschrift selbst zum Link auf die Übersichtsseite der
+   * Spalte. Sie bleibt optisch Überschrift; nur der Chevron und der
+   * Hover-/Fokus-Zustand verraten das Ziel.
+   */
+  href?: string;
   className?: string;
 }) {
   return (
     <h3
       className={`mb-4 font-mono text-base font-bold uppercase tracking-wider text-foreground ${className}`}
     >
-      {children}
+      {href ? (
+        <Link
+          href={href}
+          className="group -mx-1 inline-flex items-center gap-1 rounded-sm px-1 transition-colors hover:text-brand-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-secondary"
+        >
+          {children}
+          <ChevronRight
+            className="h-4 w-4 text-brand-text transition-transform group-hover:translate-x-0.5"
+            aria-hidden="true"
+          />
+        </Link>
+      ) : (
+        children
+      )}
     </h3>
   );
 }
@@ -308,13 +313,10 @@ function FooterHeading({
 function FooterLink({
   href,
   children,
-  accent = false,
   external = false,
 }: {
   href: string;
   children: React.ReactNode;
-  /** Hervorgehobener Übersichts-Link am Ende einer Liste. */
-  accent?: boolean;
   /**
    * Externe Ziele sind in dieser Fussleiste ausnahmslos Partnerseiten —
    * die Social-, Karten- und Kontaktlinks stehen als eigene `<a>` weiter
@@ -322,9 +324,7 @@ function FooterLink({
    */
   external?: boolean;
 }) {
-  const className = accent
-    ? "text-sm font-semibold text-brand-text hover:underline"
-    : "text-sm text-muted-foreground transition-colors hover:text-brand-text";
+  const className = "text-sm text-muted-foreground transition-colors hover:text-brand-text";
 
   if (external) {
     return (

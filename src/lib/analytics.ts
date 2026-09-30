@@ -21,6 +21,7 @@ export type AnalyticsEvent =
   | 'cta_email_click'
   | 'cta_facebook_click'
   | 'cta_tiktok_click'
+  | 'cta_whatsapp_click'
   // Blog → Service Conversion
   | 'blog_to_service_click'
   // Lead-Generierung (Kontaktformular)
@@ -108,7 +109,7 @@ export function trackPageview(url?: string): void {
  * @param page - Aktuelle Seite (optional, wird automatisch ermittelt)
  */
 export function trackCTAClick(
-  type: 'contact' | 'phone' | 'email' | 'facebook' | 'tiktok',
+  type: 'contact' | 'phone' | 'email' | 'facebook' | 'tiktok' | 'whatsapp',
   position?: AnalyticsEventProps['position'],
   page?: string
 ): void {
@@ -118,6 +119,7 @@ export function trackCTAClick(
     email: 'cta_email_click' as const,
     facebook: 'cta_facebook_click' as const,
     tiktok: 'cta_tiktok_click' as const,
+    whatsapp: 'cta_whatsapp_click' as const,
   };
   
   const currentPage = page || (typeof window !== 'undefined' ? window.location.pathname : undefined);
