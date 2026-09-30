@@ -251,7 +251,6 @@ export default function KontaktPage() {
 
                   <ContactForm
                     customServices={[
-                      "Immobilienverwaltung (allgemein)",
                       "Fensterservice",
                       "Haustürelemente",
                       "Objektreinigung",
