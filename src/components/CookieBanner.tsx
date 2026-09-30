@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
 import { CONSENT_EVENT } from "@/lib/attribution";
 
 export default function CookieBanner() {
@@ -62,18 +63,29 @@ export default function CookieBanner() {
           exit={{ y: 50, opacity: 0 }}
           className="fixed bottom-0 sm:bottom-6 left-0 sm:left-6 z-[100] w-full sm:max-w-md bg-background/95 backdrop-blur-xl border-t sm:border border-border/50 shadow-[0_-10px_40px_rgba(0,0,0,0.15)] dark:shadow-[0_-10px_40px_rgba(0,0,0,0.5)] sm:rounded-2xl overflow-hidden"
         >
+          {/* Schließen = "Nur notwendige Cookies": derselbe Handler, dieselbe
+              Wirkung (denied speichern, Banner zu, Consent-Event senden). */}
+          <button
+            type="button"
+            onClick={handleDecline}
+            aria-label="Schließen und nur notwendige Cookies verwenden"
+            title="Nur notwendige Cookies"
+            className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <X aria-hidden="true" className="h-5 w-5" />
+          </button>
           <div className="p-6">
-            <h3 className="text-lg font-bold mb-3 flex items-center gap-2 text-foreground">
+            <h3 className="text-lg font-bold mb-3 pr-10 flex items-center gap-2 text-foreground">
               <span className="text-xl">🍪</span> Ihre Privatsphäre
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-              Wir nutzen Cookies, um unsere Webseite für Sie optimal zu gestalten. Mit Klick auf &quot;Alle akzeptieren&quot; stimmen Sie der Verwendung für Analyse- und Marketingzwecke zu.
+              Wir nutzen Cookies, um unsere Webseite für Sie optimal zu gestalten.
               <br />
-              <br />
-              Weitere Infos finden Sie in unserer{" "}
+              Mit Klick auf &quot;Alle akzeptieren&quot; stimmen Sie unserer{" "}
               <a href="/datenschutz" className="font-medium text-foreground underline decoration-brand-blue/30 hover:decoration-brand-blue transition-all">
                 Datenschutzerklärung
-              </a>.
+              </a>{" "}
+              zu.
             </p>
             <div className="flex flex-col gap-3">
               <button
@@ -82,12 +94,6 @@ export default function CookieBanner() {
                 id="cookie-accept-all"
               >
                 Alle akzeptieren
-              </button>
-              <button
-                onClick={handleDecline}
-                className="w-full px-4 py-3 rounded-xl border-2 border-border bg-transparent hover:bg-muted text-foreground font-medium transition-all duration-200"
-              >
-                Nur notwendige Cookies
               </button>
             </div>
           </div>
