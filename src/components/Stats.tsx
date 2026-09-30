@@ -33,8 +33,8 @@ type Metric = {
 };
 
 const metrics: Metric[] = [
-  { value: "300", suffix: "+", label: "Zufriedene Kunden" },
-  { value: "1.500", suffix: "+", label: "Abgeschlossene Projekte" },
+  { value: "422", suffix: "", label: "Zufriedene Kunden" },
+  { value: "1.569", suffix: "", label: "Abgeschlossene Projekte" },
   { value: GOOGLE_RATING_DISPLAY, suffix: "/5", label: "Google-Bewertung", rating: true },
   { value: "13", suffix: "+", label: "Jahre Erfahrung" },
 ];
@@ -58,6 +58,10 @@ const Stats = () => {
         eyebrow="Ergart in Zahlen"
         title="Unsere Erfolge in Neuss: Zufriedene Kunden & Mehr"
       />
+      {/* Kunden- und Projektzahl sind exakte Werte, deshalb mit Stichtag. */}
+      <p className="mt-3 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+        Stand <time dateTime="2026-09-30">30.09.26</time>
+      </p>
 
       <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border md:mt-12 lg:grid-cols-4">
         {metrics.map((metric) => (

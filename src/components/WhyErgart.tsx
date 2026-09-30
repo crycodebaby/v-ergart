@@ -20,7 +20,7 @@ const reasons = [
     // KORREKTUR: Hier ebenfalls den korrekten Icon-Namen verwenden.
     icon: BadgeCheck,
     title: "Vertrauen",
-    text: "Über 300 zufriedene Kunden in Neuss und Umgebung sind unser größtes Lob."
+    text: "422 zufriedene Kunden in Neuss und Umgebung sind unser größtes Lob."
   }
 ];
 

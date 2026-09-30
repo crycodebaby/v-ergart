@@ -10,7 +10,7 @@
  */
 import { ABOUT_ASSETS } from "./about-assets";
 import type { AboutPageData, AboutStation } from "./types";
-import { CONTACT, SITE_LINKS } from "@/lib/site-links";
+import { SITE_LINKS } from "@/lib/site-links";
 
 /** Eintragung bei der Handwerkskammer Düsseldorf, März 2018. */
 export const FOUNDING_YEAR = 2018;
@@ -104,10 +104,7 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
     title: "Seit 2018 in Neuss. Für Immobilien, die in Ordnung bleiben.",
     lede:
       "Hausmeisterservice und Fenster- und Türenservice aus einem Betrieb — mit festen Ansprechpartnern und Abläufen, die man nachvollziehen kann.",
-    figure: {
-      ...ABOUT_ASSETS.hero,
-      caption: "Zentrale · Further Str. 89B, Neuss",
-    },
+    figure: ABOUT_ASSETS.hero,
     ctas: {
       primary: {
         label: "Kontakt aufnehmen",
@@ -121,7 +118,6 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
         kind: "external",
         trackingId: "about-hero-calendar",
       },
-      note: `Rückmeldung in der Regel am selben Werktag · ${CONTACT.hoursShort}`,
     },
     facts: [
       { value: `${YEARS_ACTIVE} Jahre`, label: `im Einsatz, seit ${FOUNDING_YEAR}` },
@@ -142,7 +138,7 @@ export const ABOUT_PAGE_DATA: AboutPageData = {
     // Station stand sonst "in fünf Schritten" ueber sechs Punkten.
     title: `${YEARS_ACTIVE} Jahre Neuss, in ${countWord(TIMELINE_STATIONS.length)} Schritten`,
     lede:
-      "Gewachsen ist der Betrieb nicht in Sprüngen, sondern entlang dessen, was Kunden gebraucht haben.",
+      "Unser Betrieb ist entlang dessen gewachsen, was Kunden gebraucht haben.",
     span: `${FOUNDING_YEAR} — ${FOUNDING_YEAR + YEARS_ACTIVE}`,
     stations: TIMELINE_STATIONS,
     note:
