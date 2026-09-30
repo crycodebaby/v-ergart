@@ -166,6 +166,20 @@ export default function DatenschutzPage() {
           </a>.
         </p>
 
+        <h3>Trustpilot</h3>
+        <p>
+          Auf unserer Website binden wir ein Widget des Bewertungsdienstes Trustpilot ein, um Besuchern die Möglichkeit zu geben, unser Unternehmen auf Trustpilot zu bewerten. Anbieter ist Trustpilot A/S, Pilestræde 58, 5. Stock, DK-1112 Kopenhagen, Dänemark.
+        </p>
+        <p>
+          Beim Laden des Widgets kann eine Verbindung zu Servern von Trustpilot hergestellt werden, wobei insbesondere technische Daten wie die IP-Adresse und Browserinformationen verarbeitet werden können. Das Widget wird erst nach Ihrer Einwilligung geladen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO sowie, soweit eine Speicherung oder ein Zugriff auf Informationen auf Ihrem Endgerät erfolgt, § 25 Abs. 1 TDDDG. Die Einwilligung kann jederzeit über die Cookie-Einstellungen widerrufen werden.
+        </p>
+        <p>
+          Weitere Informationen zur Datenverarbeitung finden Sie in der{" "}
+          <a href="https://legal.trustpilot.com/for-reviewers/end-user-privacy-terms" target="_blank" rel="noopener noreferrer">
+            Datenschutzerklärung von Trustpilot
+          </a>.
+        </p>
+
         <h3>Externe Links (Partner &amp; Social Media)</h3>
         <p>
           Unsere Website enthält Verlinkungen zu externen Webseiten Dritter. Hierzu gehören:

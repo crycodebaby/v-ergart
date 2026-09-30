@@ -15,7 +15,32 @@ export const GOOGLE_RATING = {
   asOf: "September 2026",
   profileName: "Hausmeisterservice Alexander Ergart",
   url: "https://share.google/v5vIP9CD3DLynEpP1",
+  /** Öffnet direkt den Dialog "Bewertung schreiben" */
+  writeReviewUrl: "https://g.page/r/CVLFZ9DYBlwIEBM/review",
 } as const;
+
+/**
+ * Trustpilot "Review Collector" (TrustBox, 52 px hoch).
+ *
+ * Alle Werte stammen wörtlich aus dem Snippet, das Trustpilot im Business-
+ * Konto bereitstellt – nicht anpassen, sonst verweigert das Widget den Dienst.
+ * Solange businessUnitId oder token fehlen, wird das Widget nicht gerendert.
+ */
+export const TRUSTPILOT_REVIEW_COLLECTOR = {
+  templateId: "56278e9abfbbba0bdcd568bc",
+  businessUnitId: "6ab12dae678a2a7745a4554c",
+  token: "5328c706-912f-4091-b1b9-054bef54a5fa",
+  locale: "de-DE",
+  /** Profilziel aus dem <a href> des Snippets */
+  profileUrl: "https://de.trustpilot.com/review/alexander-ergart.de",
+} as const;
+
+export const TRUSTPILOT_CONFIGURED = Boolean(
+  TRUSTPILOT_REVIEW_COLLECTOR.templateId &&
+    TRUSTPILOT_REVIEW_COLLECTOR.businessUnitId &&
+    TRUSTPILOT_REVIEW_COLLECTOR.token &&
+    TRUSTPILOT_REVIEW_COLLECTOR.profileUrl
+);
 
 /** "5,0" – deutsche Schreibweise für sichtbare Texte */
 export const GOOGLE_RATING_DISPLAY = GOOGLE_RATING.value
