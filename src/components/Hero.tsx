@@ -22,13 +22,19 @@ const altTexts = [
 ];
 
 const Hero = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [{ currentIndex, previousIndex }, setSlide] = useState({
+    currentIndex: 0,
+    previousIndex: null as number | null,
+  });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setSlide(({ currentIndex }) => ({
+        previousIndex: currentIndex,
+        currentIndex: (currentIndex + 1) % images.length,
+      }));
     }, 6000);
 
     return () => clearInterval(interval);
@@ -40,7 +46,12 @@ const Hero = () => {
       <div className="absolute inset-0 z-0">
         <div className="relative w-full h-full">
           {images.map((src, index) => {
-            if (index > 0 && !mounted) return null;
+            // Keep the outgoing frame for the fade and preload only the next one.
+            // Before hydration, the first frame alone is present in the HTML.
+            const nextIndex = (currentIndex + 1) % images.length;
+            if (index !== currentIndex && index !== previousIndex && (!mounted || index !== nextIndex)) {
+              return null;
+            }
             return (
               <Image
                 key={src}
