@@ -61,7 +61,7 @@ const Hero = () => {
       {/* Der Text-Block als Vordergrund-Ebene, zentriert über dem Slider */}
       <div className="relative z-10 text-center text-white px-4">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-wide" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}>
-          Ihr Fenster Profi aus Neuss
+          Ihr Profi in Neuss
           <span className="block text-xl md:text-2xl font-normal normal-case mt-4 max-w-3xl mx-auto text-slate-200">
             Hausmeisterdienst, Fensteraustausch und Gebäudereinigung. Wir stehen Ihnen zuverlässig zur Seite.
           </span>

@@ -113,7 +113,7 @@ export default function Header() {
               />
               <span className="hidden lg:block">
                 <span className="block text-xl font-bold leading-tight">Alexander Ergart</span>
-                <span className="block text-sm text-muted-foreground">Ihr Fenster Profi aus Neuss</span>
+                <span className="block text-sm text-muted-foreground">Ihr Profi in Neuss</span>
               </span>
             </Link>
 
