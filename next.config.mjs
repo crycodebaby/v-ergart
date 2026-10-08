@@ -86,6 +86,24 @@ const nextConfig = {
         destination: '/?utm_source=flyer&utm_medium=offline&utm_campaign=FirstTriFoldFlyer',
         permanent: false, // 307 Temporary Redirect (Kampagne könnte sich ändern)
       },
+
+      // QR-Codes Firmenfahrzeug 1 (307 Temporary, Ziel bleibt ohne Neudruck änderbar)
+      // Kurzlinks sind auf dem Fahrzeug aufgedruckt und müssen stabil bleiben.
+      {
+        source: '/q/f1-links',
+        destination: '/?utm_source=firmenfahrzeug&utm_medium=qr&utm_campaign=firmenfahrzeug-01&utm_content=fahrerseite',
+        permanent: false,
+      },
+      {
+        source: '/q/f1-rechts',
+        destination: '/?utm_source=firmenfahrzeug&utm_medium=qr&utm_campaign=firmenfahrzeug-01&utm_content=beifahrerseite',
+        permanent: false,
+      },
+      {
+        source: '/q/f1-heck',
+        destination: '/?utm_source=firmenfahrzeug&utm_medium=qr&utm_campaign=firmenfahrzeug-01&utm_content=heck',
+        permanent: false,
+      },
     ];
   },
 };
