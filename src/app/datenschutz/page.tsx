@@ -110,7 +110,7 @@ export default function DatenschutzPage() {
           <a href="https://formspark.io/legal/subprocessors/" target="_blank" rel="noopener noreferrer">Liste der Unterauftragnehmer von Formspark</a>.
         </p>
         <p>
-          Für interne E-Mail-Benachrichtigungen über neue Anfragen können wir Brevo als Versanddienst einsetzen. Diese Benachrichtigungen enthalten unsere eigene Empfängeradresse, die Anfrageart und eine kurze Referenz. Ihre Kontaktdaten und der Inhalt Ihrer Anfrage verbleiben im Anfrageposteingang. Weitere Informationen zur Auftragsverarbeitung finden Sie bei{" "}
+          Für interne E-Mail-Benachrichtigungen über neue Anfragen können wir Brevo als Versanddienst einsetzen. Dazu übermitteln wir Brevo unsere Empfängeradresse, die Art und Referenz Ihrer Anfrage sowie Ihre angegebenen Kontaktdaten, Angaben zum Anliegen oder Vorhaben und Ihre Nachricht. Ihre E-Mail-Adresse wird, sofern angegeben, als Antwortadresse verwendet, damit wir Ihre Anfrage direkt aus unserem Postfach beantworten können. Weitere Informationen zur Auftragsverarbeitung finden Sie bei{" "}
           <a href="https://help.brevo.com/hc/en-us/articles/15403782599570-Where-can-I-find-the-Data-Processing-Agreement-DPA" target="_blank" rel="noopener noreferrer">Brevo</a>.
         </p>
 

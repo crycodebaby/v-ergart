@@ -14,7 +14,7 @@
  * Formulare sind verschieden und sollen es bleiben.
  */
 
-import { notificationLead, notificationProof } from "@/lib/lead-notification";
+import { notificationLead, notificationProofs } from "@/lib/lead-notification";
 
 // ---------------------------------------------------------------------------
 // Konfiguration
@@ -213,7 +213,7 @@ export async function deliverToFormspark(payload: Record<string, unknown>): Prom
   const proofKey = process.env.RECAPTCHA_SECRET_KEY?.trim();
   const lead = proofKey && process.env.FORMSPARK_WEBHOOK_SECRET ? notificationLead(payload) : null;
   const message = proofKey && lead
-    ? { ...payload, notification_proof: notificationProof(lead, proofKey) }
+    ? { ...payload, ...notificationProofs(lead, payload, proofKey) }
     : payload;
 
   const res = await fetch(config.endpoint, {
