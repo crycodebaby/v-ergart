@@ -14,6 +14,8 @@
  * Formulare sind verschieden und sollen es bleiben.
  */
 
+import { notificationLead, notificationProof } from "@/lib/lead-notification";
+
 // ---------------------------------------------------------------------------
 // Konfiguration
 // ---------------------------------------------------------------------------
@@ -25,7 +27,7 @@ const SITE_ORIGIN =
 
 export const UPSTREAM_TIMEOUT_MS = 10_000;
 
-/** Obergrenze für den rohen Request-Body in Zeichen. */
+/** Obergrenze für den rohen Formular-Request in Bytes. */
 export const MAX_RAW_BODY = 20_000;
 
 const IDEMPOTENCY_TTL_MS = 10 * 60 * 1000;
@@ -47,28 +49,54 @@ export type BodyResult =
   | { ok: true; body: Record<string, unknown> }
   | { ok: false; reason: "too_large" | "unreadable" | "invalid_json" };
 
-/** Liest und parst den Body, begrenzt vorher die Größe. */
-export async function readJsonBody(req: Request): Promise<BodyResult> {
-  const declared = Number(req.headers.get("content-length") || "0");
-  if (declared > MAX_RAW_BODY) return { ok: false, reason: "too_large" };
+type RawBodyResult =
+  | { ok: true; bytes: Buffer }
+  | { ok: false; reason: "too_large" | "unreadable" };
 
-  let raw: string;
+/** Begrenztes Lesen auch bei Requests ohne Content-Length. */
+export async function readRawBody(req: Request, limit: number): Promise<RawBodyResult> {
+  if (Number(req.headers.get("content-length")) > limit) {
+    return { ok: false, reason: "too_large" };
+  }
+  if (!req.body) return { ok: true, bytes: Buffer.alloc(0) };
+
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let length = 0;
   try {
-    raw = await req.text();
+    for (let chunk = await reader.read(); !chunk.done; chunk = await reader.read()) {
+      length += chunk.value.byteLength;
+      if (length > limit) {
+        void reader.cancel().catch(() => undefined);
+        return { ok: false, reason: "too_large" };
+      }
+      chunks.push(chunk.value);
+    }
+    return { ok: true, bytes: Buffer.concat(chunks, length) };
   } catch {
     return { ok: false, reason: "unreadable" };
+  } finally {
+    reader.releaseLock();
   }
-  if (raw.length > MAX_RAW_BODY) return { ok: false, reason: "too_large" };
+}
 
+export function parseJsonObject(raw: Buffer): Record<string, unknown> | null {
   try {
-    const parsed = JSON.parse(raw);
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-      throw new Error("not an object");
-    }
-    return { ok: true, body: parsed as Record<string, unknown> };
+    const parsed: unknown = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(raw));
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed)
+      ? (parsed as Record<string, unknown>)
+      : null;
   } catch {
-    return { ok: false, reason: "invalid_json" };
+    return null;
   }
+}
+
+export async function readJsonBody(req: Request): Promise<BodyResult> {
+  const raw = await readRawBody(req, MAX_RAW_BODY);
+  if (!raw.ok) return raw;
+
+  const body = parseJsonObject(raw.bytes);
+  return body ? { ok: true, body } : { ok: false, reason: "invalid_json" };
 }
 
 export function asString(value: unknown): string {
@@ -172,6 +200,12 @@ export async function deliverToFormspark(
     return false;
   }
 
+  const proofKey = process.env.RECAPTCHA_SECRET_KEY?.trim();
+  const lead = proofKey && process.env.FORMSPARK_WEBHOOK_SECRET ? notificationLead(payload) : null;
+  const message = proofKey && lead
+    ? { ...payload, notification_proof: notificationProof(lead, proofKey) }
+    : payload;
+
   const res = await fetch(endpoint, {
     method: "POST",
     headers: {
@@ -180,7 +214,7 @@ export async function deliverToFormspark(
       // Formspark verwendet Origin für die Einstellung "Allowed domains".
       Origin: new URL(SITE_ORIGIN).origin,
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(message),
     redirect: "error",
     signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });

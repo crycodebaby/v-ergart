@@ -109,6 +109,10 @@ export default function DatenschutzPage() {
           {" "}und in der{" "}
           <a href="https://formspark.io/legal/subprocessors/" target="_blank" rel="noopener noreferrer">Liste der Unterauftragnehmer von Formspark</a>.
         </p>
+        <p>
+          Für interne E-Mail-Benachrichtigungen über neue Anfragen können wir Brevo als Versanddienst einsetzen. Diese Benachrichtigungen enthalten unsere eigene Empfängeradresse, die Anfrageart und eine kurze Referenz. Ihre Kontaktdaten und der Inhalt Ihrer Anfrage verbleiben im Anfrageposteingang. Weitere Informationen zur Auftragsverarbeitung finden Sie bei{" "}
+          <a href="https://help.brevo.com/hc/en-us/articles/15403782599570-Where-can-I-find-the-Data-Processing-Agreement-DPA" target="_blank" rel="noopener noreferrer">Brevo</a>.
+        </p>
 
         <h3 id="recaptcha" className="scroll-mt-24">Spam-Schutz durch Google reCAPTCHA</h3>
         <p>
