@@ -184,18 +184,28 @@ export function clientKey(req: Request): string {
 // Zustellung
 // ---------------------------------------------------------------------------
 
+export function getFormsparkConfig(): { endpoint: string; origin: string } | null {
+  const endpoint = process.env.FORMSPARK_ENDPOINT?.trim() ?? "";
+  const formId = endpoint.match(FORMSPARK_ENDPOINT_PATTERN)?.[1].toLowerCase();
+  if (!formId || formId === "your_form_id" || formId === "echo") return null;
+
+  try {
+    const origin = new URL(SITE_ORIGIN).origin;
+    return origin === "null" ? null : { endpoint, origin };
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Sendet einen serverseitig geprüften Datensatz an Formspark. Das bereits
  * bei Google eingelöste reCAPTCHA-Token ist kein Teil des Payloads.
  *
  * @returns true bei bestätigter Annahme. Wirft bei Netzwerkfehlern.
  */
-export async function deliverToFormspark(
-  payload: Record<string, unknown>
-): Promise<boolean> {
-  const endpoint = process.env.FORMSPARK_ENDPOINT?.trim() ?? "";
-  const formId = endpoint.match(FORMSPARK_ENDPOINT_PATTERN)?.[1].toLowerCase();
-  if (!formId || formId === "your_form_id" || formId === "echo") {
+export async function deliverToFormspark(payload: Record<string, unknown>): Promise<boolean> {
+  const config = getFormsparkConfig();
+  if (!config) {
     console.error("[leads] formspark_not_configured");
     return false;
   }
@@ -206,13 +216,13 @@ export async function deliverToFormspark(
     ? { ...payload, notification_proof: notificationProof(lead, proofKey) }
     : payload;
 
-  const res = await fetch(endpoint, {
+  const res = await fetch(config.endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
       // Formspark verwendet Origin für die Einstellung "Allowed domains".
-      Origin: new URL(SITE_ORIGIN).origin,
+      Origin: config.origin,
     },
     body: JSON.stringify(message),
     redirect: "error",

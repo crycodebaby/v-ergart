@@ -1,6 +1,7 @@
 import { parseJsonObject, readRawBody } from "@/lib/lead-intake";
 import {
   deliverBrevoNotification,
+  getBrevoNotificationConfig,
   trustedNotificationLead,
   verifyFormsparkSignature,
 } from "@/lib/lead-notification";
@@ -12,10 +13,8 @@ export const dynamic = "force-dynamic";
 const MAX_WEBHOOK_BODY_BYTES = 64 * 1024;
 
 export async function POST(req: Request): Promise<Response> {
-  const webhookSecret = process.env.FORMSPARK_WEBHOOK_SECRET?.trim();
-  const proofKey = process.env.RECAPTCHA_SECRET_KEY?.trim();
-  const apiKey = process.env.BREVO_API_KEY?.trim();
-  if (!webhookSecret || !proofKey || !apiKey) return new Response(null, { status: 503 });
+  const config = getBrevoNotificationConfig();
+  if (!config) return new Response(null, { status: 503 });
 
   if (!req.headers.has("formspark-signature") || !req.headers.has("formspark-timestamp")) {
     return new Response(null, { status: 401 });
@@ -27,14 +26,14 @@ export async function POST(req: Request): Promise<Response> {
 
   const raw = await readRawBody(req, MAX_WEBHOOK_BODY_BYTES);
   if (!raw.ok) return new Response(null, { status: raw.reason === "too_large" ? 413 : 400 });
-  if (!verifyFormsparkSignature(req.headers, raw.bytes, webhookSecret)) {
+  if (!verifyFormsparkSignature(req.headers, raw.bytes, config.webhookSecret)) {
     return new Response(null, { status: 401 });
   }
 
   const payload = parseJsonObject(raw.bytes);
   if (!payload) return new Response(null, { status: 400 });
 
-  const lead = trustedNotificationLead(payload, proofKey);
+  const lead = trustedNotificationLead(payload, config.proofKey);
   if (!lead) {
     // Bestätigt die Webhook-Zustellung, damit fremde Einträge die Warteschlange nicht blockieren.
     console.warn("[lead-notifications] submission_without_website_proof");
@@ -42,7 +41,7 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   try {
-    if (await deliverBrevoNotification(lead, apiKey)) return new Response(null, { status: 204 });
+    if (await deliverBrevoNotification(lead, config.apiKey)) return new Response(null, { status: 204 });
   } catch {
     console.error("[lead-notifications] brevo_unreachable");
   }

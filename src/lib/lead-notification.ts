@@ -11,6 +11,13 @@ const NOTICE = "Eine Nachricht über die Homepage ist eingegangen.";
 
 type NotificationLead = { id: string; kind: "contact" | "fenster"; createdAt: string };
 
+export function getBrevoNotificationConfig() {
+  const webhookSecret = process.env.FORMSPARK_WEBHOOK_SECRET?.trim();
+  const proofKey = process.env.RECAPTCHA_SECRET_KEY?.trim();
+  const apiKey = process.env.BREVO_API_KEY?.trim();
+  return webhookSecret && proofKey && apiKey ? { webhookSecret, proofKey, apiKey } : null;
+}
+
 export function notificationLead(payload: Record<string, unknown>): NotificationLead | null {
   const contactId = payload.contact_id;
   const windowId = payload.lead_id;
