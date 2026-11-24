@@ -1,5 +1,6 @@
 // src/app/datenschutz/page.tsx
 import { ContentPage } from "@/components/ContentPage";
+import { CookieSettingsButton } from "@/components/CookieBanner";
 import Link from "next/link";
 import { generateSEOMetadata } from "@/lib/seo-utils";
 import { PARTNER_LINK_REL, SITE_LINKS } from "@/lib/site-links";
@@ -83,7 +84,7 @@ export default function DatenschutzPage() {
       <section>
         <h2>3. Datenerfassung durch Eingaben</h2>
 
-        <h3>Kontaktformular und E-Mail-Kontakt</h3>
+        <h3 id="kontaktformular" className="scroll-mt-24">Kontaktformular und E-Mail-Kontakt</h3>
         <p>
           Wenn Sie uns per Kontaktformular Anfragen zukommen lassen oder uns per E-Mail schreiben, werden Ihre Angaben aus dem Anfrageformular (z. B. Name, E-Mail-Adresse, Telefonnummer, Nachrichtentext) inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.
         </p>
@@ -91,7 +92,34 @@ export default function DatenschutzPage() {
           <strong>Rechtsgrundlage:</strong> Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO).
         </p>
         <p>
-          <strong>Speicherdauer:</strong> Die von Ihnen eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Aufbewahrungsfristen bleiben unberührt.
+          <strong>Speicherdauer:</strong> Wir bewahren Anfragen so lange auf, wie es für die Bearbeitung, mögliche Rückfragen oder gesetzliche Aufbewahrungspflichten erforderlich ist.
+        </p>
+
+        <h3>Formularversand mit Formspark</h3>
+        <p>
+          Für Annahme, Spamfilterung, Speicherung und E-Mail-Benachrichtigungen zu unseren Websiteformularen setzen wir Formspark als Auftragsverarbeiter ein. Anbieter ist Trampoline Software SRL, Rue de Marsannay-la-Côte 16, 5032 Mazy, Belgien. Unser Server übermittelt Ihre Formularangaben, das Absendedatum, eine Referenz und die Herkunft des Formulars an Formspark. Bei Fensteranfragen gehören je nach Ihrer Eingabe auch Angaben zum Vorhaben, zur Objektart, zur Fensteranzahl, zur Postleitzahl und zum gewünschten Zeitraum dazu.
+        </p>
+        <p>
+          Wenn Sie in die optionale Erfolgsmessung einwilligen, können wir Fensteranfragen zusätzlich mit Kampagneninformationen wie UTM-Parametern und Anzeigen-Klickkennungen verknüpfen und diese zusammen mit der Anfrage übermitteln. Das dient der Auswertung unserer Werbung und beruht auf Art. 6 Abs. 1 lit. a DSGVO. Die Zustimmung zu reCAPTCHA gilt für die Sicherheitsprüfung des Formulars.
+          {" "}<CookieSettingsButton />
+        </p>
+        <p>
+          <strong>Speicherung und Übermittlung:</strong> Formspark speichert Formulareinträge laut Anbieter in Irland und Deutschland bis zu unserer Löschung. Gelöschte Einträge können dort noch 30 Tage wiederhergestellt werden. Für einzelne Dienste setzt Formspark auch Unterauftragnehmer außerhalb des Europäischen Wirtschaftsraums ein. Einzelheiten zu Speicherfristen, Empfängern und Übermittlungsgarantien stehen im{" "}
+          <a href="https://formspark.io/legal/dpa/" target="_blank" rel="noopener noreferrer">Auftragsverarbeitungsvertrag</a>
+          {" "}und in der{" "}
+          <a href="https://formspark.io/legal/subprocessors/" target="_blank" rel="noopener noreferrer">Liste der Unterauftragnehmer von Formspark</a>.
+        </p>
+
+        <h3 id="recaptcha" className="scroll-mt-24">Spam-Schutz durch Google reCAPTCHA</h3>
+        <p>
+          Wir verwenden Google reCAPTCHA v3 zur Erkennung automatisierter Formularanfragen. Das Skript wird erst geladen, wenn Sie die Spam-Prüfung im Formular erlauben und auf den Absende-Button klicken. Google Cloud verarbeitet dabei technische Informationen wie die IP-Adresse, Browser- und Geräteinformationen sowie Signale zur Nutzung der Seite. Der Dienst kann dafür das Cookie <code>_GRECAPTCHA</code> verwenden. Unser Server prüft das erzeugte Sicherheitstoken bei Google und verwendet die Antwort, um zu entscheiden, ob die Anfrage zugestellt werden kann. Die Inhalte Ihrer Formularfelder werden bei dieser Prüfung von uns nicht an Google gesendet.
+        </p>
+        <p>
+          <strong>Rechtsgrundlage:</strong> Ihre Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO und, soweit auf Ihrem Gerät Informationen gespeichert oder ausgelesen werden, § 25 Abs. 1 TDDDG. Die Einwilligung im Formular gilt für die jeweilige Anfrage. Sie können sie vor dem Absenden durch Abwählen der Checkbox oder später mit Wirkung für die Zukunft per E-Mail widerrufen. Ohne reCAPTCHA erreichen Sie uns unter <a href="mailto:info@ergart.de">info@ergart.de</a> oder unter <a href="tel:+4917666825889">0176 668 25 889</a>.
+        </p>
+        <p>
+          Google Cloud verarbeitet diese Daten als Auftragsverarbeiter. Eine Verarbeitung außerhalb des Europäischen Wirtschaftsraums kann stattfinden. Informationen zur Verarbeitung durch Google und zu den Garantien für internationale Übermittlungen finden Sie im{" "}
+          <a href="https://cloud.google.com/terms/data-processing-addendum" target="_blank" rel="noopener noreferrer">Cloud Data Processing Addendum</a>.
         </p>
       </section>
 
@@ -300,7 +328,7 @@ export default function DatenschutzPage() {
       <section>
         <h2>8. Aktualität und Änderung</h2>
         <p>
-          Diese Datenschutzerklärung ist aktuell gültig und hat den Stand September 2026.
+          Diese Datenschutzerklärung ist aktuell gültig und hat den Stand November 2026.
         </p>
         <p>
           Durch die Weiterentwicklung unserer Website und Angebote darüber oder aufgrund geänderter gesetzlicher beziehungsweise behördlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung zu ändern.

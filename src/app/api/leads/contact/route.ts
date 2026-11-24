@@ -17,7 +17,7 @@
  *           -> Validierung       -> 400
  *           -> reCAPTCHA         -> 403 / 503   (fail-closed)
  *           -> Ratenlimit        -> 429
- *           -> Zustellung an Formcarry (OHNE Token) -> 502
+ *           -> Zustellung an Formspark -> 502 bei Fehler
  *           -> { ok: true }
  *
  * Bewusst KEINE lead_id, keine Attribution, kein `generate_lead`: das ist
@@ -32,7 +32,7 @@ import { readRecaptchaPolicy, verifyRecaptchaToken } from "@/lib/recaptcha";
 import {
   asString,
   clientKey,
-  deliverToFormcarry,
+  deliverToFormspark,
   IntakeGuard,
   readJsonBody,
 } from "@/lib/lead-intake";
@@ -160,15 +160,12 @@ async function deliver(
     contact_id: reference,
     created_at: createdAt,
 
-    // Kein "g-recaptcha-response": das Token wurde bereits serverseitig
-    // eingelöst und ist einmalig.
-
-    _subject: `Kontaktanfrage${contact.service ? `: ${contact.service}` : ""} (${reference.slice(0, 8)})`,
+    _email: {
+      subject: `Kontaktanfrage${contact.service ? `: ${contact.service.replace(/\s+/g, " ")}` : ""} (${reference.slice(0, 8)})`,
+    },
   };
 
-  // Referer-Pfad nur für Formcarrys Domain-Prüfung; der echte Seitenkontext
-  // steckt in `source`.
-  return deliverToFormcarry(payload, "/kontakt");
+  return deliverToFormspark(payload);
 }
 
 // ---------------------------------------------------------------------------
@@ -202,13 +199,13 @@ export async function POST(req: Request): Promise<NextResponse<ContactResponse>>
   let settle: ((value: ContactOutcome | null) => void) | null = null;
 
   if (submissionId) {
-    const known = guard.pending(submissionId);
-    if (known) {
+    let known = guard.pending(submissionId);
+    while (known) {
       const settled = await known;
       if (settled) {
         return NextResponse.json({ ok: true, delivered: true, deduplicated: true });
       }
-      guard.forget(submissionId);
+      known = guard.pending(submissionId);
     }
     settle = guard.reserve(submissionId, now);
   }

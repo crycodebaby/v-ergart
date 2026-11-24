@@ -4,9 +4,10 @@
 import { useCallback, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Phone, ShieldCheck, Sparkles } from "lucide-react";
+import { CheckCircle2, Phone, Sparkles } from "lucide-react";
 import { trackEvent, trackLeadForm } from "@/lib/analytics";
-import { useRecaptcha } from "@/hooks/useRecaptcha";
+import { ContactPrivacyNotice } from "@/components/contact/ContactPrivacyNotice";
+import { executeRecaptcha } from "@/lib/recaptcha-client";
 import { getAttributionForLead } from "@/lib/attribution";
 import {
   INTENT_LABELS,
@@ -36,7 +37,7 @@ import {
  * beliebige Hausmeister-Anliegen ab; hier brauchen wir Vorhaben, Anzahl,
  * Objektart, PLZ und Zeitraum, um einen Lead überhaupt qualifizieren und
  * später einem Auftrag zuordnen zu können. Gemeinsam genutzt werden die
- * UI-Bausteine (Button, Feldstil) und der reCAPTCHA-Hook.
+ * UI-Bausteine und die Ausführung von reCAPTCHA.
  *
  * Der Erfolgsweg ist strikt serverbestätigt:
  *   Submit -> POST /api/leads/fenster -> Server liefert lead_id + analytics
@@ -55,7 +56,7 @@ type FormValues = {
   postalCode: string;
   timeframe: Timeframe | "";
   message: string;
-  privacyConsent: boolean;
+  recaptchaConsent: boolean;
   /** Honeypot – muss leer bleiben. */
   website: string;
 };
@@ -92,7 +93,6 @@ export default function FensterAnfrageForm({
 }: {
   sourcePage?: string;
 }) {
-  const { executeRecaptcha } = useRecaptcha();
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle"
   );
@@ -128,7 +128,7 @@ export default function FensterAnfrageForm({
       postalCode: "",
       timeframe: "",
       message: "",
-      privacyConsent: false,
+      recaptchaConsent: false,
       website: "",
     },
     mode: "onTouched",
@@ -161,6 +161,7 @@ export default function FensterAnfrageForm({
 
     // Honeypot: still erfolgreich tun, nichts senden, kein Event.
     if (values.website) {
+      inFlight.current = false;
       setStatus("success");
       return;
     }
@@ -191,7 +192,7 @@ export default function FensterAnfrageForm({
       const recaptchaToken = await executeRecaptcha(FENSTER_RECAPTCHA_ACTION);
       if (!recaptchaToken) {
         setStatus("error");
-        setErrorMsg("Sicherheitscheck fehlgeschlagen. Bitte laden Sie die Seite neu.");
+        setErrorMsg("Die Spam-Prüfung ist gerade nicht verfügbar. Ihre Angaben bleiben im Formular. Bitte versuchen Sie es erneut oder nutzen Sie den direkten Kontakt.");
         return;
       }
 
@@ -208,7 +209,7 @@ export default function FensterAnfrageForm({
           postalCode: values.postalCode.trim(),
           timeframe: values.timeframe,
           message: values.message.trim(),
-          privacyConsent: values.privacyConsent === true,
+          privacyConsent: values.recaptchaConsent === true,
           recaptchaToken,
           submissionId: submissionId.current,
           attribution: getAttributionForLead(sourcePage),
@@ -560,29 +561,12 @@ export default function FensterAnfrageForm({
         {errors.message && <p className={ERROR_CLASS}>{errors.message.message}</p>}
       </div>
 
-      {/* Datenschutz – bewusst OHNE Werbeeinwilligung vermischt */}
-      <div>
-        <label className="flex items-start gap-3 text-sm">
-          <input
-            type="checkbox"
-            {...register("privacyConsent", {
-              required: "Bitte Zustimmung zur Datenverarbeitung geben.",
-            })}
-            className="mt-1 h-4 w-4 shrink-0 rounded border-input bg-background text-brand-text focus:ring-ring"
-          />
-          <span className="text-muted-foreground">
-            Ich akzeptiere die Verarbeitung meiner Angaben zur Beantwortung meiner
-            Anfrage. Weitere Infos in der{" "}
-            <a href="/datenschutz" className="underline">
-              Datenschutzerklärung
-            </a>
-            .
-          </span>
-        </label>
-        {errors.privacyConsent && (
-          <p className={ERROR_CLASS}>{errors.privacyConsent.message}</p>
-        )}
-      </div>
+      <ContactPrivacyNotice
+        consent={register("recaptchaConsent", {
+          required: "Bitte erlauben Sie die Spam-Prüfung oder nutzen Sie den direkten Kontakt.",
+        })}
+        error={errors.recaptchaConsent?.message}
+      />
 
       <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
         <Button
@@ -604,41 +588,6 @@ export default function FensterAnfrageForm({
           {errorMsg}
         </p>
       )}
-
-      {/* reCAPTCHA-Pflichthinweis (Badge ist ausgeblendet) */}
-      <div className="mt-2 flex items-center gap-3 border-t border-border/60 pt-4">
-        <span
-          aria-hidden="true"
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600 ring-1 ring-emerald-500/25 dark:text-emerald-400"
-        >
-          <ShieldCheck size={22} strokeWidth={2} />
-        </span>
-        <div className="leading-tight">
-          <p className="text-sm font-medium text-foreground">
-            Geschützt durch reCAPTCHA
-          </p>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Google{" "}
-            <a
-              href="https://policies.google.com/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 transition-colors hover:text-foreground"
-            >
-              Datenschutz
-            </a>
-            {" · "}
-            <a
-              href="https://policies.google.com/terms"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 transition-colors hover:text-foreground"
-            >
-              Nutzungsbedingungen
-            </a>
-          </p>
-        </div>
-      </div>
     </form>
   );
 }

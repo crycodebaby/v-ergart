@@ -49,7 +49,7 @@ export type RecaptchaPolicy = {
   allowedHostnames: string[];
 };
 
-const SITEVERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
+const SITEVERIFY_URL = "https://www.recaptcha.net/recaptcha/api/siteverify";
 const VERIFY_TIMEOUT_MS = 10_000;
 
 /** Strukturiertes Logging ohne Token und ohne PII. */
@@ -72,12 +72,11 @@ export function evaluateSiteVerify(
     return { ok: false, reason: "unavailable" };
   }
 
-  if (data.success !== true) {
+  const errorCodes = Array.isArray(data["error-codes"]) ? data["error-codes"] : [];
+  if (data.success !== true || errorCodes.length > 0) {
     // error-codes sind technische Kennungen wie `invalid-input-secret` oder
     // `timeout-or-duplicate` – kein Token, keine PII.
-    logReject("failed", {
-      error_codes: Array.isArray(data["error-codes"]) ? data["error-codes"] : [],
-    });
+    logReject("failed", { error_codes: errorCodes });
     return { ok: false, reason: "rejected" };
   }
 

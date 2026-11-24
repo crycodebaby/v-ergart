@@ -7,7 +7,7 @@
  * `/api/leads/fenster` (Verkaufs-Lead mit lead_id und Attribution) und
  * `/api/leads/contact` (allgemeine Kontaktanfrage). Beide brauchen
  * Größenlimit, Honeypot, Ratenlimit, Doppelklick-Schutz und dieselbe
- * Formcarry-Zustellung. Diese Datei hält genau diese Mechanik – nicht die
+ * Formspark-Zustellung. Diese Datei hält genau diese Mechanik – nicht die
  * fachliche Validierung, die bleibt je Route eigen.
  *
  * Bewusst KEINE gemeinsame "Mega-Route": die Datenmodelle der beiden
@@ -18,15 +18,9 @@
 // Konfiguration
 // ---------------------------------------------------------------------------
 
-/**
- * Formcarry-Endpunkt. Stand ursprünglich hartkodiert im Client und ist
- * damit ohnehin öffentlich; als Default beibehalten, damit ohne neue
- * Env-Variable nichts umkippt.
- */
-export const FORMCARRY_ENDPOINT =
-  process.env.FORMCARRY_ENDPOINT || "https://formcarry.com/s/tUPZr1Mwu_1";
+const FORMSPARK_ENDPOINT_PATTERN = /^https:\/\/submit-form\.com\/([a-z0-9_-]+)$/i;
 
-export const SITE_ORIGIN =
+const SITE_ORIGIN =
   process.env.NEXT_PUBLIC_SITE_URL || "https://alexander-ergart.de";
 
 export const UPSTREAM_TIMEOUT_MS = 10_000;
@@ -42,7 +36,8 @@ const RATE_WINDOW_MS = 10 * 60 * 1000;
  * nicht deduplizierte Doppelklicks. Wer sich fünfmal bei der E-Mail
  * vertippt, soll nicht ausgesperrt werden.
  */
-const RATE_MAX = Number(process.env.LEAD_RATE_MAX || "5");
+const configuredRate = Number(process.env.LEAD_RATE_MAX ?? "5");
+const RATE_MAX = Number.isSafeInteger(configuredRate) && configuredRate > 0 ? configuredRate : 5;
 
 // ---------------------------------------------------------------------------
 // Body lesen
@@ -134,11 +129,6 @@ export class IntakeGuard<T> {
     return this.idempotency.get(submissionId)?.promise ?? null;
   }
 
-  /** Gibt eine fehlgeschlagene Reservierung frei, damit ein Retry greift. */
-  forget(submissionId: string): void {
-    this.idempotency.delete(submissionId);
-  }
-
   /**
    * Reserviert die submissionId SYNCHRON und gibt eine `settle`-Funktion
    * zurück. `settle(null)` bedeutet Fehlschlag und gibt die Reservierung frei.
@@ -167,32 +157,39 @@ export function clientKey(req: Request): string {
 // ---------------------------------------------------------------------------
 
 /**
- * Schickt einen fertig gebauten Datensatz an Formcarry.
+ * Sendet einen serverseitig geprüften Datensatz an Formspark. Das bereits
+ * bei Google eingelöste reCAPTCHA-Token ist kein Teil des Payloads.
  *
- * Das reCAPTCHA-Token gehört NICHT in den Payload: es wurde vorher bereits
- * gegen Google eingelöst und ist einmalig. Eine zweite Prüfung desselben
- * Tokens beantwortet Google mit `timeout-or-duplicate`. Die Bot-Prüfung
- * verantwortet ausschließlich diese Anwendung.
- *
- * @returns true bei HTTP 2xx, false sonst. Wirft bei Netzwerkfehlern.
+ * @returns true bei bestätigter Annahme. Wirft bei Netzwerkfehlern.
  */
-export async function deliverToFormcarry(
-  payload: Record<string, unknown>,
-  refererPath: string
+export async function deliverToFormspark(
+  payload: Record<string, unknown>
 ): Promise<boolean> {
-  const res = await fetch(FORMCARRY_ENDPOINT, {
+  const endpoint = process.env.FORMSPARK_ENDPOINT?.trim() ?? "";
+  const formId = endpoint.match(FORMSPARK_ENDPOINT_PATTERN)?.[1].toLowerCase();
+  if (!formId || formId === "your_form_id" || formId === "echo") {
+    console.error("[leads] formspark_not_configured");
+    return false;
+  }
+
+  const res = await fetch(endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      // Formcarry kann Domain-Restriktionen prüfen. Beim serverseitigen
-      // Proxy gibt es keinen Browser-Origin mehr, deshalb explizit setzen.
-      Origin: SITE_ORIGIN,
-      Referer: `${SITE_ORIGIN}${refererPath}`,
+      // Formspark verwendet Origin für die Einstellung "Allowed domains".
+      Origin: new URL(SITE_ORIGIN).origin,
     },
     body: JSON.stringify(payload),
+    redirect: "error",
     signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
 
-  return res.ok;
+  const contentType = res.headers.get("content-type")?.split(";")[0].trim();
+  if (res.status !== 200 || contentType !== "application/json") {
+    console.error("[leads] formspark_rejected", { status: res.status });
+    return false;
+  }
+
+  return true;
 }

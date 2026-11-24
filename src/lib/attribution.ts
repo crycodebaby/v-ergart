@@ -36,14 +36,7 @@
  * `ergart:consent` abgefangen: die bereits im Speicher liegende
  * Attribution wird dann (und nur dann) nachträglich persistiert.
  *
- * OFFENER DATENSCHUTZ-PRÜFPUNKT (bewusst nicht eigenmächtig entschieden):
- * Die Übertragung von gclid/UTM zusammen mit dem Lead an den eigenen Server
- * passiert auch ohne Einwilligung, wenn die Parameter in derselben Sitzung
- * in der URL standen – das ist kein Speichervorgang auf dem Endgerät,
- * sondern die Verarbeitung einer vom Nutzer selbst aufgerufenen URL im
- * Rahmen der Anfragebearbeitung. Ob das so in der Datenschutzerklärung
- * abgedeckt ist, muss juristisch geprüft werden. Diese Datei ändert die
- * Datenschutzerklärung NICHT.
+ * Kampagnendaten werden nur mit Einwilligung zusammen mit dem Lead gesendet.
  */
 
 import {
@@ -242,8 +235,8 @@ export function getAttributionForLead(sourcePage?: string): LeadAttribution {
   hydrate();
   const consent = getConsentState();
   return {
-    first_touch: memory.first_touch,
-    last_touch: memory.last_touch,
+    first_touch: consent === "granted" ? memory.first_touch : undefined,
+    last_touch: consent === "granted" ? memory.last_touch : undefined,
     source_page:
       sourcePage ??
       (typeof window !== "undefined" ? window.location.pathname : undefined),
