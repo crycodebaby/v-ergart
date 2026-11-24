@@ -1,6 +1,5 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { CONTACT_EMAIL_PATTERN, CONTACT_LIMITS } from "@/lib/contact-lead";
-import { CONTACT } from "@/lib/site-links";
 
 const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const HEX_SHA256 = /^[0-9a-f]{64}$/i;
@@ -24,7 +23,10 @@ export function getBrevoNotificationConfig() {
   const webhookSecret = process.env.FORMSPARK_WEBHOOK_SECRET?.trim();
   const proofKey = process.env.RECAPTCHA_SECRET_KEY?.trim();
   const apiKey = process.env.BREVO_API_KEY?.trim();
-  return webhookSecret && proofKey && apiKey ? { webhookSecret, proofKey, apiKey } : null;
+  const recipient = process.env.BREVO_NOTIFICATION_RECIPIENT?.trim();
+  if (!webhookSecret || !proofKey || !apiKey || !recipient) return null;
+  if (recipient.length > CONTACT_LIMITS.email.max || !CONTACT_EMAIL_PATTERN.test(recipient)) return null;
+  return { webhookSecret, proofKey, apiKey, recipient };
 }
 
 export function notificationLead(payload: Record<string, unknown>): NotificationLead | null {
@@ -166,7 +168,7 @@ function notificationBody(topic: string, details: NotificationDetails | null) {
   return { htmlContent, textContent, replyTo };
 }
 
-export async function deliverBrevoNotification(lead: TrustedNotificationLead, apiKey: string): Promise<boolean> {
+export async function deliverBrevoNotification(lead: TrustedNotificationLead, apiKey: string, recipient: string): Promise<boolean> {
   const topic = lead.kind === "fenster" ? "Neue Fensteranfrage" : "Neue Kontaktanfrage";
   const res = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
@@ -177,7 +179,7 @@ export async function deliverBrevoNotification(lead: TrustedNotificationLead, ap
     },
     body: JSON.stringify({
       sender: { name: "Ergart Website", email: "system@alexander-ergart.de" },
-      to: [{ email: CONTACT.email }],
+      to: [{ email: recipient }],
       subject: `Ergart | ${topic} (${lead.id.slice(0, 8)})`,
       ...notificationBody(topic, lead.details),
       headers: { idempotencyKey: lead.id },
