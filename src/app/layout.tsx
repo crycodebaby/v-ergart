@@ -15,7 +15,7 @@
  */
 import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
-import { Roboto, Roboto_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -31,18 +31,21 @@ import { GoogleTagManager } from '@next/third-parties/google';
 import CookieBanner from "@/components/CookieBanner";
 import AttributionTracker from "@/components/AttributionTracker";
 
-const roboto = Roboto({
-  weight: ["400", "700"],
-  subsets: ["latin"],
+const roboto = localFont({
+  src: "./fonts/roboto-latin.woff2",
+  weight: "400 700",
   variable: "--font-roboto",
   display: "swap",
+  adjustFontFallback: "Arial",
 });
 
-const robotoMono = Roboto_Mono({
-  weight: ["400", "700"],
-  subsets: ["latin"],
+const robotoMono = localFont({
+  src: "./fonts/roboto-mono-latin.woff2",
+  weight: "400 700",
   variable: "--font-roboto-mono",
   display: "swap",
+  fallback: ["monospace"],
+  adjustFontFallback: false,
 });
 
 /**
@@ -86,10 +89,6 @@ export default async function RootLayout({
         data-christmas={christmasMode}
       >
         <head>
-          {/* Preconnect für Google Fonts - reduziert TTFB */}
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-          
           {/* Google Consent Mode v2 Default State */}
           <script
             dangerouslySetInnerHTML={{
