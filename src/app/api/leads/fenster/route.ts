@@ -13,7 +13,7 @@
  *           -> Schema-Validierung (Enums gegen fenster-lead.ts)
  *           -> reCAPTCHA
  *           -> lead_id (crypto.randomUUID, ausschließlich hier erzeugt)
- *           -> Zustellung über den bestehenden Formcarry-Endpunkt
+ *           -> Zustellung an Formspark
  *           -> { ok, lead_id, analytics } zurück an den Browser
  *
  * Der Client bekommt die Analytics-Properties fertig vom Server geliefert
@@ -29,7 +29,7 @@ import { readRecaptchaPolicy, verifyRecaptchaToken } from "@/lib/recaptcha";
 import {
   asString,
   clientKey,
-  deliverToFormcarry,
+  deliverToFormspark,
   IntakeGuard,
   readJsonBody,
 } from "@/lib/lead-intake";
@@ -223,17 +223,19 @@ function sanitizeTouch(input: unknown): AttributionTouch | undefined {
 function sanitizeAttribution(input: unknown): LeadAttribution {
   if (!input || typeof input !== "object") return {};
   const src = input as Record<string, unknown>;
-  const consent = asString(src.consent);
+  const sourcePage = asString(src.source_page).split(/[?#]/, 1)[0].slice(0, MAX_ATTR_VALUE);
+  const source_page = sourcePage.startsWith("/") && !sourcePage.startsWith("//")
+    ? sourcePage
+    : undefined;
+  if (src.consent !== "granted") return { source_page };
+
   const storage = asString(src.storage);
   return {
     first_touch: sanitizeTouch(src.first_touch),
     last_touch: sanitizeTouch(src.last_touch),
-    source_page: asString(src.source_page).slice(0, MAX_ATTR_VALUE) || undefined,
+    source_page,
     storage: storage === "local" || storage === "memory" ? storage : undefined,
-    consent:
-      consent === "granted" || consent === "denied" || consent === "unknown"
-        ? consent
-        : undefined,
+    consent: "granted",
   };
 }
 
@@ -306,18 +308,16 @@ async function deliver(
     source: "Fenster Verkaufsseite",
     project: "Alexander Ergart Hausmeister- & Fensterservice",
 
-    // Kein "g-recaptcha-response": das Token wurde oben bereits gegen Google
-    // eingelöst und ist einmalig. Eine zweite Prüfung durch Formcarry würde
-    // mit `timeout-or-duplicate` scheitern und echte Leads verwerfen.
-
     // --- Attribution ---
     ...flat,
 
-    _subject: `Fensteranfrage ${lead.postalCode}, ${WINDOW_COUNT_LABELS[lead.windowCount]} (${leadId.slice(0, 8)})`,
+    _email: {
+      subject: `Fensteranfrage ${lead.postalCode}, ${WINDOW_COUNT_LABELS[lead.windowCount]} (${leadId.slice(0, 8)})`,
+    },
     zusammenfassung: summary,
   };
 
-  return deliverToFormcarry(payload, "/fenster");
+  return deliverToFormspark(payload);
 }
 
 // ---------------------------------------------------------------------------
@@ -359,8 +359,8 @@ export async function POST(req: Request): Promise<NextResponse<FensterLeadRespon
   let settle: ((value: LeadOutcome | null) => void) | null = null;
 
   if (submissionId) {
-    const known = guard.pending(submissionId);
-    if (known) {
+    let known = guard.pending(submissionId);
+    while (known) {
       const settled = await known;
       if (settled) {
         return NextResponse.json({
@@ -370,9 +370,8 @@ export async function POST(req: Request): Promise<NextResponse<FensterLeadRespon
           deduplicated: true,
         });
       }
-      // Der vorherige Versuch ist gescheitert – Reservierung freigeben,
-      // damit derselbe submissionId erneut zugestellt werden darf.
-      guard.forget(submissionId);
+      // Nach einem Fehler kann ein anderer wartender Retry schon reserviert haben.
+      known = guard.pending(submissionId);
     }
     settle = guard.reserve(submissionId, now);
   }
@@ -434,7 +433,7 @@ export async function POST(req: Request): Promise<NextResponse<FensterLeadRespon
   const createdAt = new Date().toISOString();
   const attribution = sanitizeAttribution(body.attribution);
 
-  // 8. Zustellung über den bestehenden Weg.
+  // 8. Zustellung an Formspark.
   let delivered = false;
   try {
     delivered = await deliver(leadId, lead, attribution, createdAt);

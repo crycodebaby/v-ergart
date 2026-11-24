@@ -12,7 +12,7 @@
  * muss in beiden Runtimes importierbar sein.
  *
  * Trennung der Datenklassen (siehe Batch-3-Bericht):
- *   - PII          -> nur im Lead-Datensatz (Formcarry / Posteingang)
+ *   - PII          -> nur im Lead-Datensatz (Formspark / Posteingang)
  *   - Attribution  -> nur im Lead-Datensatz
  *   - Analytics    -> nur die Enum-Codes unten, nie Freitext, nie PII
  */

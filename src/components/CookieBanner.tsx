@@ -5,6 +5,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { CONSENT_EVENT } from "@/lib/attribution";
 
+const OPEN_COOKIE_SETTINGS = "ergart:open-cookie-settings";
+
+export function CookieSettingsButton() {
+  return (
+    <button
+      type="button"
+      className="underline underline-offset-2"
+      onClick={() => window.dispatchEvent(new Event(OPEN_COOKIE_SETTINGS))}
+    >
+      Cookie-Einstellungen öffnen
+    </button>
+  );
+}
+
 export default function CookieBanner() {
   const [show, setShow] = useState(false);
 
@@ -14,6 +28,9 @@ export default function CookieBanner() {
     if (!consent) {
       setShow(true);
     }
+    const open = () => setShow(true);
+    window.addEventListener(OPEN_COOKIE_SETTINGS, open);
+    return () => window.removeEventListener(OPEN_COOKIE_SETTINGS, open);
   }, []);
 
   /**
@@ -49,8 +66,12 @@ export default function CookieBanner() {
   const handleDecline = () => {
     localStorage.setItem("cookie_consent", "denied");
     setShow(false);
-    // Keep default 'denied' state (set in layout.tsx script)
-    // Loescht zusaetzlich eine evtl. frueher persistierte Attribution.
+    window.gtag?.("consent", "update", {
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      analytics_storage: "denied",
+    });
     broadcastConsent("denied");
   };
 
@@ -79,18 +100,24 @@ export default function CookieBanner() {
               <span className="text-xl">🍪</span> Ihre Privatsphäre
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-              Wir nutzen Cookies, um unsere Webseite für Sie optimal zu gestalten.
-              <br />
-              Mit Klick auf &quot;Alle akzeptieren&quot; stimmen Sie unserer{" "}
+              Sie können optional der Messung von Werbung und Formularerfolgen sowie dem Laden des Trustpilot-Widgets zustimmen. Ihre Auswahl können Sie über die{" "}
               <a href="/datenschutz" className="font-medium text-foreground underline decoration-brand-blue/30 hover:decoration-brand-blue transition-all">
                 Datenschutzerklärung
               </a>{" "}
-              zu.
+              ändern.
             </p>
-            <div className="flex flex-col gap-3">
+            <div className="grid gap-3 sm:grid-cols-2">
               <button
+                type="button"
+                onClick={handleDecline}
+                className="rounded-xl border border-border px-3 py-3 text-sm font-medium hover:bg-muted"
+              >
+                Nur notwendige
+              </button>
+              <button
+                type="button"
                 onClick={handleAccept}
-                className="w-full px-4 py-3 rounded-xl bg-brand-blue text-white font-medium shadow-md shadow-brand-blue/20 hover:bg-blue-600 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+                className="rounded-xl border border-border px-3 py-3 text-sm font-medium hover:bg-muted"
                 id="cookie-accept-all"
               >
                 Alle akzeptieren

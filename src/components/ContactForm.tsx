@@ -4,9 +4,10 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Sparkles, ShieldCheck } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { trackEvent, trackLeadForm } from "@/lib/analytics";
-import { useRecaptcha } from "@/hooks/useRecaptcha";
+import { ContactPrivacyNotice } from "@/components/contact/ContactPrivacyNotice";
+import { executeRecaptcha } from "@/lib/recaptcha-client";
 import {
   CONTACT_RECAPTCHA_ACTION,
   type ContactResponse,
@@ -19,7 +20,7 @@ type FormValues = {
   service?: string;
   message: string;
   website?: string; // Honeypot (hidden)
-  consent: boolean;
+  recaptchaConsent: boolean;
 };
 
 const SERVICES = [
@@ -45,7 +46,6 @@ export default function ContactForm({
   source = "Kontaktseite"
 }: ContactFormProps = {}) {
   const [hasStarted, setHasStarted] = useState(false);
-  const { executeRecaptcha } = useRecaptcha();
 
   /**
    * Synchrone Doppel-Absende-Sperre: `status` und das `disabled` am Button
@@ -124,13 +124,11 @@ export default function ContactForm({
       const recaptchaToken = await executeRecaptcha(CONTACT_RECAPTCHA_ACTION);
       if (!recaptchaToken) {
         setStatus("error");
-        setErrorMsg("Sicherheitscheck fehlgeschlagen. Bitte Seite neu laden.");
+        setErrorMsg("Die Spam-Prüfung ist gerade nicht verfügbar. Ihre Angaben bleiben im Formular. Bitte versuchen Sie es erneut oder nutzen Sie den direkten Kontakt.");
         return;
       }
 
-      // Batch 3.2: nicht mehr direkt zu Formcarry, sondern ueber den eigenen
-      // Server. Dort wird das Token verifiziert (fail-closed) und erst danach
-      // zugestellt. Das Token selbst geht NICHT an Formcarry weiter.
+      // Der eigene Server prüft das Token vor der Zustellung an Formspark.
       const res = await fetch("/api/leads/contact", {
         method: "POST",
         headers: {
@@ -143,7 +141,7 @@ export default function ContactForm({
           phone: values.phone ?? "",
           service: values.service ?? "",
           message: values.message,
-          consent: values.consent === true,
+          consent: values.recaptchaConsent === true,
           source: source,
           recaptchaToken,
           submissionId: submissionId.current,
@@ -163,13 +161,14 @@ export default function ContactForm({
       }
 
       setStatus("success");
+      submissionId.current = "";
       reset();
 
       // Primary Conversion Google Ads & Plausible – unveraendert gegenueber
       // Batch 3.1, damit keine bestehende GTM-Conversion ausfaellt.
-      if (typeof window !== "undefined") {
+      if (data.delivered === true && typeof window !== "undefined") {
         window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ 
+        window.dataLayer.push({
           event: "fensterservice_lead_submit_success",
           source: source,
           service: values.service || "Keine Angabe"
@@ -294,27 +293,12 @@ export default function ContactForm({
         )}
       </div>
 
-      {/* Consent */}
-      <label className="flex items-start gap-3 text-sm">
-        <input
-          type="checkbox"
-          {...register("consent", {
-            required: "Bitte Zustimmung zur Datenverarbeitung geben.",
-          })}
-          className="mt-1 h-4 w-4 rounded border-input bg-background text-brand-text focus:ring-ring"
-        />
-        <span className="text-muted-foreground">
-          Ich akzeptiere die Verarbeitung meiner Angaben zur Beantwortung meiner
-          Anfrage. Weitere Infos in der{" "}
-          <a href="/datenschutz" className="underline">
-            Datenschutzerklärung
-          </a>
-          .
-        </span>
-      </label>
-      {errors.consent && (
-        <p className="text-sm text-blue-600 dark:text-blue-400 -mt-2">{errors.consent.message}</p>
-      )}
+      <ContactPrivacyNotice
+        consent={register("recaptchaConsent", {
+          required: "Bitte erlauben Sie die Spam-Prüfung oder nutzen Sie den direkten Kontakt.",
+        })}
+        error={errors.recaptchaConsent?.message}
+      />
 
       <div className="flex items-center gap-3 pt-2">
         <Button
@@ -325,48 +309,13 @@ export default function ContactForm({
           {status === "loading" ? "Wird gesendet…" : "Nachricht senden"}
         </Button>
         {status === "success" && (
-          <span className="text-sm text-emerald-600">
+          <span role="status" className="text-sm text-emerald-600">
             Vielen Dank! Wir melden uns zeitnah.
           </span>
         )}
         {status === "error" && (
-          <span className="text-sm text-blue-600 dark:text-blue-400">{errorMsg}</span>
+          <span role="alert" className="text-sm text-blue-600 dark:text-blue-400">{errorMsg}</span>
         )}
-      </div>
-
-      {/* reCAPTCHA-Pflichthinweis (ersetzt das ausgeblendete Badge) */}
-      <div className="mt-2 flex items-center gap-3 border-t border-border/60 pt-4">
-        <span
-          aria-hidden="true"
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600 ring-1 ring-emerald-500/25 dark:text-emerald-400"
-        >
-          <ShieldCheck size={22} strokeWidth={2} />
-        </span>
-        <div className="leading-tight">
-          <p className="text-sm font-medium text-foreground">
-            Geschützt durch reCAPTCHA
-          </p>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Google{" "}
-            <a
-              href="https://policies.google.com/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 transition-colors hover:text-foreground"
-            >
-              Datenschutz
-            </a>
-            {" · "}
-            <a
-              href="https://policies.google.com/terms"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 transition-colors hover:text-foreground"
-            >
-              Nutzungsbedingungen
-            </a>
-          </p>
-        </div>
       </div>
     </form>
   );
