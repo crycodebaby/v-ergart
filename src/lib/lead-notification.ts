@@ -18,15 +18,22 @@ type NotificationDetails = {
   message: string;
 };
 type TrustedNotificationLead = NotificationLead & { details: NotificationDetails | null };
+type BrevoNotificationDelivery = {
+  apiKey: string;
+  recipient: string;
+  copyRecipient?: string;
+};
 
 export function getBrevoNotificationConfig() {
   const webhookSecret = process.env.FORMSPARK_WEBHOOK_SECRET?.trim();
   const proofKey = process.env.RECAPTCHA_SECRET_KEY?.trim();
   const apiKey = process.env.BREVO_API_KEY?.trim();
   const recipient = process.env.BREVO_NOTIFICATION_RECIPIENT?.trim();
+  const copyRecipient = process.env.BREVO_NOTIFICATION_COPY_RECIPIENT?.trim();
   if (!webhookSecret || !proofKey || !apiKey || !recipient) return null;
   if (recipient.length > CONTACT_LIMITS.email.max || !CONTACT_EMAIL_PATTERN.test(recipient)) return null;
-  return { webhookSecret, proofKey, apiKey, recipient };
+  if (copyRecipient && (copyRecipient.length > CONTACT_LIMITS.email.max || !CONTACT_EMAIL_PATTERN.test(copyRecipient))) return null;
+  return { webhookSecret, proofKey, apiKey, recipient, copyRecipient };
 }
 
 export function notificationLead(payload: Record<string, unknown>): NotificationLead | null {
@@ -168,8 +175,14 @@ function notificationBody(topic: string, details: NotificationDetails | null) {
   return { htmlContent, textContent, replyTo };
 }
 
-export async function deliverBrevoNotification(lead: TrustedNotificationLead, apiKey: string, recipient: string): Promise<boolean> {
+export async function deliverBrevoNotification(
+  lead: TrustedNotificationLead,
+  { apiKey, recipient, copyRecipient }: BrevoNotificationDelivery,
+): Promise<boolean> {
   const topic = lead.kind === "fenster" ? "Neue Fensteranfrage" : "Neue Kontaktanfrage";
+  const bcc = copyRecipient && copyRecipient.toLowerCase() !== recipient.toLowerCase()
+    ? [{ email: copyRecipient }]
+    : undefined;
   const res = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
     headers: {
@@ -180,6 +193,7 @@ export async function deliverBrevoNotification(lead: TrustedNotificationLead, ap
     body: JSON.stringify({
       sender: { name: "Ergart Website", email: "system@alexander-ergart.de" },
       to: [{ email: recipient }],
+      bcc,
       subject: `Ergart | ${topic} (${lead.id.slice(0, 8)})`,
       ...notificationBody(topic, lead.details),
       headers: { idempotencyKey: lead.id },

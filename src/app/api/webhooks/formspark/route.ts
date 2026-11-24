@@ -41,7 +41,7 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   try {
-    if (await deliverBrevoNotification(lead, config.apiKey, config.recipient)) return new Response(null, { status: 204 });
+    if (await deliverBrevoNotification(lead, config)) return new Response(null, { status: 204 });
   } catch {
     console.error("[lead-notifications] brevo_unreachable");
   }
