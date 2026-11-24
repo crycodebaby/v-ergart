@@ -1,4 +1,5 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
+import { CONTACT_EMAIL_PATTERN, CONTACT_LIMITS } from "@/lib/contact-lead";
 import { CONTACT } from "@/lib/site-links";
 
 const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -6,10 +7,18 @@ const HEX_SHA256 = /^[0-9a-f]{64}$/i;
 const ISO_TIMESTAMP = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
 const MAX_WEBHOOK_AGE_MS = 5 * 60 * 1000;
 const BREVO_TIMEOUT_MS = 3_500;
-const FORMSPARK_DASHBOARD = "https://dashboard.formspark.io/";
 const NOTICE = "Eine Nachricht über die Homepage ist eingegangen.";
+const REPLY_HINT = "Klicken Sie in Gmail auf Antworten, um direkt auf diese Anfrage zu antworten.";
 
 type NotificationLead = { id: string; kind: "contact" | "fenster"; createdAt: string };
+type NotificationField = [label: string, value: string];
+type NotificationDetails = {
+  email: string;
+  contact: NotificationField[];
+  request: NotificationField[];
+  message: string;
+};
+type TrustedNotificationLead = NotificationLead & { details: NotificationDetails | null };
 
 export function getBrevoNotificationConfig() {
   const webhookSecret = process.env.FORMSPARK_WEBHOOK_SECRET?.trim();
@@ -53,43 +62,111 @@ function proofForLead(lead: NotificationLead, secret: string): Buffer {
     .digest();
 }
 
-/** Bestätigt den Weg über die Ergart-Formularprüfung zusätzlich zur Webhook-Signatur. */
-export function notificationProof(lead: NotificationLead, secret: string): string {
-  return proofForLead(lead, secret).toString("hex");
-}
-
-export function trustedNotificationLead(payload: Record<string, unknown>, secret: string): NotificationLead | null {
-  const lead = notificationLead(payload);
-  return lead && safeHashMatches(proofForLead(lead, secret), payload.notification_proof) ? lead : null;
-}
-
-function dashboardUrl(): string {
-  try {
-    const url = new URL(process.env.FORMSPARK_DASHBOARD_URL || FORMSPARK_DASHBOARD);
-    if (url.origin === "https://dashboard.formspark.io" && !url.username && !url.password) {
-      return url.href.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
-    }
-  } catch {
-    // Ein fehlerhafter optionaler Link darf den Mailversand nicht aufhalten.
+function notificationDetails(payload: Record<string, unknown>, kind: NotificationLead["kind"]): NotificationDetails {
+  function value(key: string): string {
+    const field = payload[key];
+    return typeof field === "string" ? field : "";
   }
-  return FORMSPARK_DASHBOARD;
+
+  const email = value("email");
+  return {
+    email,
+    contact: [["Name", value("name")], ["E-Mail", email], ["Telefon", value("phone")]],
+    request: kind === "fenster"
+      ? [
+          ["Anliegen", value("vorhaben")],
+          ["Objektart", value("objektart")],
+          ["Fensteranzahl", value("fensteranzahl")],
+          ["Postleitzahl", value("plz")],
+          ["Gewünschter Zeitraum", value("zeitraum")],
+        ]
+      : [["Anliegen", value("service")]],
+    message: value("message"),
+  };
 }
 
-function notificationHtml(): string {
-  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-  <tr><td align="center" style="padding:20px 12px">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;font-family:Arial,sans-serif">
-      <tr><td bgcolor="#F4F8FF" style="padding:26px;background:#F4F8FF;border:1px solid #DCE8F7;border-radius:16px">
-        <p style="margin:0 0 10px;color:#0061C2;font-size:12px;font-weight:bold;letter-spacing:1px">ALEXANDER ERGART</p>
-        <p style="margin:0;color:#17212B;font-size:18px;line-height:1.45">${NOTICE}</p>
-        <p style="margin:18px 0 0"><a href="${dashboardUrl()}" style="display:inline-block;padding:10px 15px;background:#0061C2;border-radius:9px;color:#ffffff;font-size:14px;font-weight:bold;text-decoration:none">Anfragen öffnen</a></p>
+function proofForDetails(lead: NotificationLead, details: NotificationDetails, secret: string): Buffer {
+  return createHmac("sha256", secret)
+    .update("ergart-website-notification-content-v1\n")
+    .update(JSON.stringify([lead.kind, lead.id, lead.createdAt, details]))
+    .digest();
+}
+
+/** Bindet die E-Mail-Daten an die serverseitig geprüfte Anfrage. */
+export function notificationProofs(lead: NotificationLead, payload: Record<string, unknown>, secret: string) {
+  const details = notificationDetails(payload, lead.kind);
+  return {
+    notification_proof: proofForLead(lead, secret).toString("hex"),
+    notification_content_proof: proofForDetails(lead, details, secret).toString("hex"),
+  };
+}
+
+export function trustedNotificationLead(payload: Record<string, unknown>, secret: string): TrustedNotificationLead | null {
+  const lead = notificationLead(payload);
+  if (!lead || !safeHashMatches(proofForLead(lead, secret), payload.notification_proof)) return null;
+
+  // Bereits vor der Umstellung angenommene Anfragen erhalten den kurzen Hinweis.
+  if (payload.notification_content_proof === undefined) return { ...lead, details: null };
+
+  const details = notificationDetails(payload, lead.kind);
+  return safeHashMatches(proofForDetails(lead, details, secret), payload.notification_content_proof)
+    ? { ...lead, details }
+    : null;
+}
+
+function escapeHtml(text: string): string {
+  return text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+}
+
+const SECTION_STYLE = "margin:20px 0 8px;padding-top:16px;border-top:1px solid #dce5ef;font-size:18px;line-height:24px;";
+
+function fieldsHtml(title: string, fields: NotificationField[], titleStyle: string): string {
+  if (fields.length === 0) return "";
+  const items = fields.map(([label, value]) => `
+    <dt style="margin:0;font-weight:bold;">${label}</dt>
+    <dd style="margin:0 0 10px;">${escapeHtml(value)}</dd>`).join("");
+  return `<h2 style="${titleStyle}">${title}</h2><dl style="margin:0;">${items}</dl>`;
+}
+
+function notificationHtml(topic: string, content: string): string {
+  return `<table role="presentation" lang="de" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;margin:0;background-color:#f1f5f9;font-family:Arial,Helvetica,sans-serif;color:#17212b;">
+  <tr><td align="center" style="padding:24px 12px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:580px;background-color:#ffffff;border:1px solid #dce5ef;border-radius:12px;">
+      <tr><td bgcolor="#123153" style="padding:24px;color:#ffffff;background-color:#123153;border-radius:11px 11px 0 0;">
+        <p style="margin:0 0 8px;color:#d7e7fa;font-size:13px;font-weight:bold;line-height:20px;">Alexander Ergart &middot; Hausmeister- &amp; Fensterservice</p>
+        <h1 style="margin:0;color:#ffffff;font-size:24px;line-height:30px;">${topic}</h1>
       </td></tr>
+      <tr><td style="padding:24px;font-size:16px;line-height:24px;overflow-wrap:anywhere;word-wrap:break-word;">${content}</td></tr>
     </table>
   </td></tr>
 </table>`;
 }
 
-export async function deliverBrevoNotification(lead: NotificationLead, apiKey: string): Promise<boolean> {
+function notificationBody(topic: string, details: NotificationDetails | null) {
+  if (!details) return { htmlContent: notificationHtml(topic, `<p>${NOTICE}</p>`), textContent: `${topic}\n\n${NOTICE}` };
+
+  const email = details.email;
+  const replyTo = email.length <= CONTACT_LIMITS.email.max && CONTACT_EMAIL_PATTERN.test(email) ? { email } : undefined;
+  const contact = details.contact.filter(([, value]) => value);
+  const request = details.request.filter(([, value]) => value);
+  const htmlContent = notificationHtml(topic, `
+    ${fieldsHtml("Kontakt", contact, "margin:0 0 8px;font-size:18px;line-height:24px;")}
+    ${fieldsHtml("Zum Vorhaben", request, SECTION_STYLE)}
+    ${details.message ? `<h2 style="${SECTION_STYLE}">Nachricht</h2>
+    <div style="padding:14px 16px;background-color:#f1f5f9;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere;word-wrap:break-word;">${escapeHtml(details.message)}</div>` : ""}
+    ${replyTo ? `<p style="margin:22px 0 0;padding-top:16px;border-top:1px solid #dce5ef;color:#394b5e;font-size:14px;line-height:22px;">Klicken Sie in Gmail auf <strong>Antworten</strong>, um direkt auf diese Anfrage zu antworten.</p>` : ""}`);
+  const textContent = [
+    topic,
+    contact.map(([label, value]) => `${label}: ${value}`).join("\n"),
+    request.map(([label, value]) => `${label}: ${value}`).join("\n"),
+    details.message ? `Nachricht:\n${details.message}` : "",
+    replyTo ? REPLY_HINT : "",
+  ].filter(Boolean).join("\n\n");
+
+  return { htmlContent, textContent, replyTo };
+}
+
+export async function deliverBrevoNotification(lead: TrustedNotificationLead, apiKey: string): Promise<boolean> {
   const topic = lead.kind === "fenster" ? "Neue Fensteranfrage" : "Neue Kontaktanfrage";
   const res = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
@@ -99,10 +176,10 @@ export async function deliverBrevoNotification(lead: NotificationLead, apiKey: s
       Accept: "application/json",
     },
     body: JSON.stringify({
-      sender: { name: "Ergart Portal", email: "system@alexander-ergart.de" },
+      sender: { name: "Ergart Website", email: "system@alexander-ergart.de" },
       to: [{ email: CONTACT.email }],
       subject: `Ergart | ${topic} (${lead.id.slice(0, 8)})`,
-      htmlContent: notificationHtml(),
+      ...notificationBody(topic, lead.details),
       headers: { idempotencyKey: lead.id },
     }),
     redirect: "error",
